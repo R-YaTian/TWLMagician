@@ -886,16 +886,16 @@ class Application(Frame):
              #path.join(self.sd_path, 'roms', 'dsiware'), update=1)
 
         # Set files as read-only
-        twlcfg0 = path.join(self.sd_path, 'shared1', 'TWLCFG0.dat')
-        twlcfg1 = path.join(self.sd_path, 'shared1', 'TWLCFG1.dat')
+        #twlcfg0 = path.join(self.sd_path, 'shared1', 'TWLCFG0.dat')
+        #twlcfg1 = path.join(self.sd_path, 'shared1', 'TWLCFG1.dat')
 
-        if sysname == 'Darwin':
-            Popen([ 'chflags', 'uchg', twlcfg0, twlcfg1 ]).wait()
+        #if sysname == 'Darwin':
+            #Popen([ 'chflags', 'uchg', twlcfg0, twlcfg1 ]).wait()
 
-        elif sysname == 'Linux':
-            Popen([ path.join('Linux', 'fatattr'), '+R', twlcfg0, twlcfg1 ]).wait()
+        #elif sysname == 'Linux':
+            #Popen([ path.join('Linux', 'fatattr'), '+R', twlcfg0, twlcfg1 ]).wait()
 
-        else:
+        #else:
             #chmod(twlcfg0, 292)
             #chmod(twlcfg1, 292)
 
