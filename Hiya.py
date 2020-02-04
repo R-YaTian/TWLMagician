@@ -303,11 +303,8 @@ class Application(Frame):
         try:
             self.log.write('\n下载最新版的HiyaCFW...')
 
-            conn = urlopen('https://api.github.com/repos/RocketRobz/hiyaCFW/releases/latest')
-            latest = jsonify(conn)
-            conn.close()
-
-            urlretrieve(latest['assets'][0]['browser_download_url'], filename)
+            urlretrieve('https://raw.githubusercontent.com/R-YaTian/HiyaCFW-Helper-R/master/'
+                        + filename, filename)
 
             self.log.write('- 解压缩 HiyaCFW 档案...')
 
@@ -734,10 +731,12 @@ class Application(Frame):
         # Delete title.tmd in case it does not get overwritten
         remove(tmd)
 
+        launcher_app = ('00000000.app' if self.launcher_region in ('CHN')
+            else '00000002.app')
         try:
             self.log.write('\n下载 ' + self.launcher_region + ' launcher...')
 
-            urlretrieve('https://raw.githubusercontent.com/mondul/HiyaCFW-Helper/master/'
+            urlretrieve('https://raw.githubusercontent.com/R-YaTian/HiyaCFW-Helper-R/master/'
                 'launchers/' + self.launcher_region, self.launcher_region)
 
             self.log.write('- 解密launcher...')
@@ -745,24 +744,21 @@ class Application(Frame):
             exe = path.join(sysname, '7za')
 
             proc = Popen([ exe, 'x', '-bso0', '-y', '-p' + app, self.launcher_region,
-                '00000002.app' ])
+                launcher_app ])
 
             ret_val = proc.wait()
 
             if ret_val == 0:
-                #self.files.append(self.launcher_region)
-
-                # Hash 00000002.app
                 sha1_hash = sha1()
 
-                with open('00000002.app', 'rb') as f:
+                with open(launcher_app, 'rb') as f:
                     sha1_hash.update(f.read())
 
                 self.log.write('- Patched launcher SHA1:\n  ' +
                     hexlify(sha1_hash.digest()).upper())
 
                 Thread(target=self.install_hiyacfw, args=(path.join(self.sd_path, 'title',
-                    '00030017', app, 'content', '00000002.app'),)).start()
+                    '00030017', app, 'content', launcher_app),)).start()
 
             else:
                 self.log.write('错误: 解压失败')
@@ -775,24 +771,21 @@ class Application(Frame):
             exe = path.join(sysname, '7za')
 
             proc = Popen([ exe, 'x', '-bso0', '-y', '-p' + app, self.launcher_region,
-                '00000002.app' ])
+                launcher_app ])
 
             ret_val = proc.wait()
 
             if ret_val == 0:
-                #self.files.append(self.launcher_region)
-
-                # Hash 00000002.app
                 sha1_hash = sha1()
 
-                with open('00000002.app', 'rb') as f:
+                with open(launcher_app, 'rb') as f:
                     sha1_hash.update(f.read())
 
                 self.log.write('- Patched launcher SHA1:\n  ' +
                     hexlify(sha1_hash.digest()).upper())
 
                 Thread(target=self.install_hiyacfw, args=(path.join(self.sd_path, 'title',
-                    '00030017', app, 'content', '00000002.app'),)).start()
+                    '00030017', app, 'content', launcher_app),)).start()
 
             else:
                 self.log.write('错误: 解压失败')
@@ -806,13 +799,47 @@ class Application(Frame):
     ################################################################################################
     def install_hiyacfw(self, launcher_path):
         self.log.write('\n复制 HiyaCFW 相关文件...')
+        
+        launcher_app = ('00000000.app' if self.launcher_region in ('CHN')
+            else '00000002.app')
 
         copy_tree('for SDNAND SD card', self.sd_path, update=1)
         move('bootloader.nds', path.join(self.sd_path, 'hiya', 'bootloader.nds'))
-        move('00000002.app', launcher_path)
+        move(launcher_app, launcher_path)
 
-        Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean).start()
-
+        if self.launcher_region in ('CHN'):
+            rmtree(self.sd_path + "/title/00030017/484e414a")
+            rmtree(self.sd_path + "/title/00030017/484e4145")
+            rmtree(self.sd_path + "/title/00030017/484e4150")
+            rmtree(self.sd_path + "/title/00030017/484e4155")
+            Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean).start()
+        else:
+            if self.launcher_region in ('USA'):
+                rmtree(self.sd_path + "/title/00030017/484e414a")
+                rmtree(self.sd_path + "/title/00030017/484e4143")
+                rmtree(self.sd_path + "/title/00030017/484e4150")
+                rmtree(self.sd_path + "/title/00030017/484e4155")
+                Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean).start()
+            else:
+                if self.launcher_region in ('EUR'):
+                    rmtree(self.sd_path + "/title/00030017/484e414a")
+                    rmtree(self.sd_path + "/title/00030017/484e4143")
+                    rmtree(self.sd_path + "/title/00030017/484e4145")
+                    rmtree(self.sd_path + "/title/00030017/484e4155")
+                    Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean).start()
+                else:
+                    if self.launcher_region in ('AUS'):
+                        rmtree(self.sd_path + "/title/00030017/484e414a")
+                        rmtree(self.sd_path + "/title/00030017/484e4143")
+                        rmtree(self.sd_path + "/title/00030017/484e4145")
+                        rmtree(self.sd_path + "/title/00030017/484e4150")
+                        Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean).start()
+                    else:
+                        rmtree(self.sd_path + "/title/00030017/484e4155")
+                        rmtree(self.sd_path + "/title/00030017/484e4143")
+                        rmtree(self.sd_path + "/title/00030017/484e4145")
+                        rmtree(self.sd_path + "/title/00030017/484e4150")
+                        Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean).start()
 
     ################################################################################################
     def get_latest_twilight(self):
@@ -821,12 +848,8 @@ class Application(Frame):
         try:
             self.log.write('\n下载最新版的TWiLightMenu++...')
 
-            conn = urlopen('https://api.github.com/repos/RocketRobz/TWiLightMenu/releases/'
-                'latest')
-            latest = jsonify(conn)
-            conn.close()
-
-            urlretrieve(latest['assets'][0]['browser_download_url'], filename)
+            urlretrieve('https://raw.githubusercontent.com/R-YaTian/HiyaCFW-Helper-R/master/'
+                        + filename, filename)
 
             self.log.write('- 解压缩 ' + filename[:-3] + ' 档案...')
 
@@ -882,22 +905,6 @@ class Application(Frame):
         move('_nds'.decode('utf-8'), path.join(self.sd_path, '_nds'))
         move('roms', path.join(self.sd_path, 'roms'))
         copy_tree(path.join('DSi&3DS - SD card users'), self.sd_path, update=1)
-        #copy_tree(path.join('DSi - CFW users', 'DSiWare (' + self.launcher_region + ')'),
-             #path.join(self.sd_path, 'roms', 'dsiware'), update=1)
-
-        # Set files as read-only
-        #twlcfg0 = path.join(self.sd_path, 'shared1', 'TWLCFG0.dat')
-        #twlcfg1 = path.join(self.sd_path, 'shared1', 'TWLCFG1.dat')
-
-        #if sysname == 'Darwin':
-            #Popen([ 'chflags', 'uchg', twlcfg0, twlcfg1 ]).wait()
-
-        #elif sysname == 'Linux':
-            #Popen([ path.join('Linux', 'fatattr'), '+R', twlcfg0, twlcfg1 ]).wait()
-
-        #else:
-            #chmod(twlcfg0, 292)
-            #chmod(twlcfg1, 292)
 
         # Generate Apps
         import os
@@ -1046,7 +1053,8 @@ class Application(Frame):
             '484e4145': 'USA',
             '484e414a': 'JAP',
             '484e4150': 'EUR',
-            '484e4155': 'AUS'
+            '484e4155': 'AUS',
+            '484e4143': 'CHN'
         }
 
         # Autodetect console region
@@ -1089,10 +1097,10 @@ class Application(Frame):
         tmd_size = path.getsize(tmd)
 
         if tmd_size == 520:
-            self.log.write('- 未安装,下载 V1.9...')
+            self.log.write('- 未安装,下载最新版本的unlaunch...')
 
             try:
-                filename = urlretrieve('http://problemkaputt.de/unlau19.zip')[0]
+                filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
 
                 exe = path.join(sysname, '7za')
 
@@ -1299,7 +1307,7 @@ elif sysname == 'Linux':
         root.destroy()
         exit(1)
 
-root.title('HiyaCFW Helper V2.9.9.9R BY天涯')
+root.title('HiyaCFW Helper V2.9.9.9R2 BY天涯')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
