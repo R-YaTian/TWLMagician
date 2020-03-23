@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# HiyaCFW Helper
-# Version 3.6.1
-# Author: mondul <mondul@huyzona.com>
+# HiyaCFW Helper R
+# Version 3.6.0R
+# Author: R-YaTian
+# Original Author: mondul <mondul@huyzona.com>
 
 from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton,
     Label, Toplevel, Scrollbar, Text, StringVar, IntVar, RIGHT, W, X, Y, DISABLED, NORMAL, SUNKEN,
@@ -22,6 +23,8 @@ from subprocess import Popen
 from struct import unpack_from
 from shutil import rmtree, copyfile, copyfileobj
 from distutils.dir_util import copy_tree, _path_created
+from ctypes import windll
+from winreg import OpenKey, QueryValueEx, HKEY_LOCAL_MACHINE
 
 
 ####################################################################################################
@@ -59,7 +62,7 @@ class Application(Frame):
         self.pack()
 
         # First row
-        f1 = LabelFrame(self, text='NAND file with No$GBA footer', padx=10, pady=10)
+        f1 = LabelFrame(self, text='含有No$GBA footer的Nand备份文件', padx=10, pady=10)
 
         # NAND Button
         self.nand_mode = False
@@ -92,7 +95,7 @@ class Application(Frame):
         self.twilight.set(1)
 
         twl_chk = Checkbutton(self.checks_frame,
-            text='Install latest TWiLight Menu++ on custom firmware', variable=self.twilight)
+            text='同时安装最新版本的TWiLightMenu++', variable=self.twilight)
 
         twl_chk.pack(padx=10, anchor=W)
 
@@ -108,15 +111,18 @@ class Application(Frame):
         self.checks_frame.pack(fill=X)
 
         # NAND operation frame
-        self.nand_frame = LabelFrame(f2, text='NAND operation', padx=10, pady=10)
+        self.nand_frame = LabelFrame(f2, text='NAND操作', padx=10, pady=10)
 
         self.nand_operation = IntVar()
-        self.nand_operation.set(0)
+        self.nand_operation.set(2)
 
-        Radiobutton(self.nand_frame, text='Remove No$GBA footer', variable=self.nand_operation,
+        Radiobutton(self.nand_frame, text='安装或卸载最新版本的unlaunch',
+            variable=self.nand_operation, value=2,
+            command=lambda: self.enable_entries(False)).pack(anchor=W)
+        Radiobutton(self.nand_frame, text='移除 No$GBA footer', variable=self.nand_operation,
             value=0, command=lambda: self.enable_entries(False)).pack(anchor=W)
 
-        Radiobutton(self.nand_frame, text='Add No$GBA footer', variable=self.nand_operation,
+        Radiobutton(self.nand_frame, text='添加 No$GBA footer', variable=self.nand_operation,
             value=1, command=lambda: self.enable_entries(True)).pack(anchor=W)
 
         fl = Frame(self.nand_frame)
@@ -146,10 +152,14 @@ class Application(Frame):
         # Third row
         f3 = Frame(self)
 
-        self.start_button = Button(f3, text='Start', width=16, command=self.hiya, state=DISABLED)
+        self.start_button = Button(f3, text='开始', width=13, command=self.hiya, state=DISABLED)
         self.start_button.pack(side='left', padx=(0, 5))
 
-        Button(f3, text='Quit', command=root.destroy, width=16).pack(side='left', padx=(5, 0))
+        self.adv_button = Button(f3, text='高级', command=root.destroy, width=13)
+        self.adv_button.pack(side='left', padx=(0, 0))
+
+        self.exit_button = Button(f3, text='退出', command=root.destroy, width=13)
+        self.exit_button.pack(side='left', padx=(5, 0))
 
         f3.pack(pady=(10, 20))
 
@@ -160,14 +170,39 @@ class Application(Frame):
     ################################################################################################
     def change_mode(self):
         if (self.nand_mode):
+            if windll.shell32.IsUserAnAdmin() == 0:
+                root.withdraw()
+                showerror('Error', 'This script needs to be run with administrator privileges.')
+                root.destroy()
+                exit(1)
+            try:
+                with OpenKey(HKEY_LOCAL_MACHINE,
+                    'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
+
+                    osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
+
+                    if not path.exists(osfmount):
+                        raise WindowsError
+
+            except WindowsError:
+                root.withdraw()
+                showerror('Error', 'This script needs OSFMount to run. Please install it.')
+                root.destroy()
+                exit(1)
             self.nand_frame.pack_forget()
+            self.start_button.pack_forget()
+            self.exit_button.pack_forget()
             self.checks_frame.pack(padx=10, anchor=W)
+            self.start_button.pack(side='left', padx=(0, 5))
+            self.adv_button.pack(side='left', padx=(0, 0))
+            self.exit_button.pack(side='left', padx=(5, 0))
             self.nand_mode = False
 
         else:
             if askokcancel('Warning', ('You are about to enter NAND mode. Do it only if you know '
                 'what you are doing. Proceed?'), icon=WARNING):
                 self.checks_frame.pack_forget()
+                self.adv_button.pack_forget()
                 self.nand_frame.pack(padx=10, pady=(0, 10), fill=X)
                 self.nand_mode = True
 
@@ -470,8 +505,7 @@ class Application(Frame):
     def make_bootloader(self):
         self.log.write('\nGenerating new bootloader...')
 
-        exe = (path.join('for PC', 'bootloader files', 'ndstool.exe') if sysname == 'Windows' else
-            path.join(sysname, 'ndsblc'))
+        exe = (path.join('for PC', 'bootloader files', 'ndstool.exe'))
 
         try:
             proc = Popen([ exe, '-c', 'bootloader.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-t',
@@ -518,8 +552,7 @@ class Application(Frame):
             if ret_val == 0:
                 self.files.append(self.console_id.get() + '.img')
 
-                Thread(target=self.win_extract_nand if (sysname == 'Windows' and _7z is not None)
-                    else self.extract_nand).start()
+                Thread(target=elf.extract_nand).start()
 
             else:
                 self.log.write('ERROR: Decryptor failed')
@@ -529,57 +562,6 @@ class Application(Frame):
             print(e)
             self.log.write('ERROR: Could not execute ' + exe)
             Thread(target=self.clean, args=(True,)).start()
-
-
-    ################################################################################################
-    def win_extract_nand(self):
-        self.log.write('\nExtracting files from NAND...')
-
-        try:
-            proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
-
-            ret_val = proc.wait()
-
-            if ret_val == 0:
-                self.files.append('0.fat')
-
-                proc = Popen([ _7z, 'x', '-bso0', '-y', '-o' + self.sd_path, '0.fat' ])
-
-                ret_val = proc.wait()
-
-                if ret_val == 0:
-                    Thread(target=self.get_launcher).start()
-
-                else:
-                    self.log.write('ERROR: Extractor failed, please update 7-Zip')
-
-                    if path.exists(fatcat):
-                        self.log.write('\nTrying with fatcat...')
-                        Thread(target=self.extract_nand).start()
-
-                    else:
-                        Thread(target=self.clean, args=(True,)).start()
-
-            else:
-                self.log.write('ERROR: Extractor failed')
-
-                if path.exists(fatcat):
-                    self.log.write('\nTrying with fatcat...')
-                    Thread(target=self.extract_nand).start()
-
-                else:
-                    Thread(target=self.clean, args=(True,)).start()
-
-        except OSError as e:
-            print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
-
-            if path.exists(fatcat):
-                self.log.write('\nTrying with fatcat...')
-                Thread(target=self.extract_nand).start()
-
-            else:
-                Thread(target=self.clean, args=(True,)).start()
 
 
     ################################################################################################
@@ -621,11 +603,6 @@ class Application(Frame):
         # Walk through all files in the launcher content folder
         for file in listdir(launcher_folder):
             file = path.join(launcher_folder, file)
-
-            # Set current file as read/write in case we extracted with 7-Zip and unlaunch was
-            # installed in the NAND. Fatcat doesn't keep file attributes
-            if _7z is not None:
-                chmod(file, 438)
 
             # Delete current file
             remove(file)
@@ -948,64 +925,27 @@ class Application(Frame):
 ####################################################################################################
 # Entry point
 
-print('Opening HiyaCFW Helper...')
+print('HiyaCFW Helper启动中...')
 
 sysname = system()
 
-print('Initializing GUI...')
+print('GUI初始化中...')
 
 root = Tk()
 
 fatcat = path.join(sysname, 'fatcat')
 _7za = path.join(sysname, '7za')
-_7z = None
+_7za += '.exe'
+fatcat += '.exe'
+twltool = path.join('for PC', 'twltool.exe')
 
-if sysname == 'Windows':
-    from winreg import OpenKey, QueryValueEx, HKEY_LOCAL_MACHINE, KEY_READ, KEY_WOW64_64KEY
-
-    print('Searching for 7-Zip in the Windows registry...')
-
-    try:
-        with OpenKey(HKEY_LOCAL_MACHINE, 'SOFTWARE\\7-Zip', 0, KEY_READ | KEY_WOW64_64KEY) as hkey:
-            _7z = path.join(QueryValueEx(hkey, 'Path')[0], '7z.exe')
-
-            if not path.exists(_7z):
-                raise WindowsError
-
-            _7za = _7z
-
-    except WindowsError:
-        print('Searching for 7-Zip in the 32-bit Windows registry...')
-
-        try:
-            with OpenKey(HKEY_LOCAL_MACHINE, 'SOFTWARE\\7-Zip') as hkey:
-                _7z = path.join(QueryValueEx(hkey, 'Path')[0], '7z.exe')
-
-                if not path.exists(_7z):
-                    raise WindowsError
-
-                _7za = _7z
-
-        except WindowsError:
-            print('7-Zip not found. Will use fatcat for extraction.')
-            _7z = None
-            _7za += '.exe'
-
-    fatcat += '.exe'
-    twltool = path.join('for PC', 'twltool.exe')
-
-else:   # Linux and MacOS
-    twltool = path.join(sysname, 'twltool')
-
-if _7z is None and not path.exists(fatcat):
+if not path.exists(fatcat):
     root.withdraw()
-    showerror('Error', 'Fatcat not found. Please make sure the ' + sysname +
-        ' folder is at the same location as this script' + ('.' if sysname == 'Windows'
-        else ", or run it again from the terminal:\n\n$ ./HiyaCFW_Helper.py"))
+    showerror('错误', '找不到Fatcat, 请确认此程序位于本工具目录的' + '\'Windows\'' + '文件夹中')
     root.destroy()
     exit(1)
 
-root.title('HiyaCFW Helper v3.6.1')
+root.title('HiyaCFW Helper V3.6.0R')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
