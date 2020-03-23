@@ -12,17 +12,18 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
 from platform import system
-from os import path, remove, chmod, listdir
+from os import path, remove, chmod, listdir, rename
 from sys import exit
 from threading import Thread
 from queue import Queue, Empty
 from hashlib import sha1
-from urllib.request import urlopen
+from urllib.request import urlopen, urlretrieve
 from urllib.error import URLError
-from subprocess import Popen
+from subprocess import Popen, PIPE
 from struct import unpack_from
 from shutil import rmtree, copyfile, copyfileobj
 from distutils.dir_util import copy_tree, _path_created
+from re import search
 from ctypes import windll
 from winreg import OpenKey, QueryValueEx, HKEY_LOCAL_MACHINE
 
@@ -173,20 +174,6 @@ class Application(Frame):
             if windll.shell32.IsUserAnAdmin() == 0:
                 root.withdraw()
                 showerror('Error', 'This script needs to be run with administrator privileges.')
-                root.destroy()
-                exit(1)
-            try:
-                with OpenKey(HKEY_LOCAL_MACHINE,
-                    'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
-
-                    osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
-
-                    if not path.exists(osfmount):
-                        raise WindowsError
-
-            except WindowsError:
-                root.withdraw()
-                showerror('Error', 'This script needs OSFMount to run. Please install it.')
                 root.destroy()
                 exit(1)
             self.nand_frame.pack_forget()
@@ -560,10 +547,12 @@ class Application(Frame):
             print("\n")
 
             if ret_val == 0:
-                self.files.append(self.console_id.get() + '.img')
-
-                Thread(target=self.extract_nand).start()
-
+                if not self.nand_mode:
+                    self.files.append(self.console_id.get() + '.img')
+                if not self.nand_operation.get() == 2:
+                    Thread(target=self.extract_nand).start()
+                else:
+                    Thread(target=self.mount_nand).start()
             else:
                 self.log.write('ERROR: Decryptor failed')
                 Thread(target=self.clean, args=(True,)).start()
@@ -571,6 +560,40 @@ class Application(Frame):
         except OSError as e:
             print(e)
             self.log.write('ERROR: Could not execute ' + exe)
+            Thread(target=self.clean, args=(True,)).start()
+
+
+    ################################################################################################
+    def mount_nand(self):
+        self.log.write('\n挂载解密的NAND镜像中...')
+
+        try:
+            exe = osfmount
+
+            cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
+                '#:', '-o', 'ro,rem' ]
+
+            if self.nand_mode:
+                cmd[-1] = 'rw,rem'
+
+            proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+
+            outs, errs = proc.communicate()
+
+            if proc.returncode == 0:
+                self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
+                self.log.write('- 挂载到驱动器 ' + self.mounted)
+
+            else:
+                self.log.write('错误: 挂载失败')
+                Thread(target=self.clean, args=(True,)).start()
+                return
+
+            Thread(target=self.unlaunch_proc).start()
+
+        except OSError as e:
+            print(e)
+            self.log.write('错误: 无法运行 ' + exe)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -775,6 +798,17 @@ class Application(Frame):
             self.log.write('Done')
             return
 
+        if (self.nand_mode):
+            file = self.console_id.get() + self.suffix + '.bin'
+            try:
+                rename(self.console_id.get() + '.img', file)
+                self.log.write('\nDone!\nModified NAND stored as\n' + file)
+            except:
+                remove(self.console_id.get() + '.img')
+                self.log.write('操作终止')
+            return
+
+
         self.log.write('Done!\nEject your SD card and insert it into your DSi')
 
 
@@ -836,15 +870,15 @@ class Application(Frame):
             '484e4143': 'CHN',
             '484e4145': 'USA',
             '484e414a': 'JAP',
-            #'484e414b': 'KOR',
+            '484e414b': 'KOR',
             '484e4150': 'EUR',
             '484e4155': 'AUS'
         }
-
+        base = self.mounted if self.nand_mode else self.sd_path
         # Autodetect console region
         try:
-            for app in listdir(path.join(self.sd_path, 'title', '00030017')):
-                for file in listdir(path.join(self.sd_path, 'title', '00030017', app, 'content')):
+            for app in listdir(path.join(base, 'title', '00030017')):
+                for file in listdir(path.join(base, 'title', '00030017', app, 'content')):
                     if file.endswith('.app'):
                         try:
                             self.log.write('- Detected ' + REGION_CODES[app.lower()] +
@@ -862,6 +896,153 @@ class Application(Frame):
             self.log.write('ERROR: ' + e.strerror + ': ' + e.filename)
 
         return False
+
+
+    ################################################################################################
+    def unlaunch_proc(self):
+        self.log.write('\n检查unlaunch状态中...')
+
+        app = self.detect_region()
+
+        if not app:
+            Thread(target=self.unmount_nand1).start()
+            return
+
+        tmd = path.join(self.mounted, 'title', '00030017', app, 'content', 'title.tmd')
+
+        tmd_size = path.getsize(tmd)
+
+        if tmd_size == 520:
+            self.log.write('- 未安装,下载中...')
+
+            try:
+                if not path.exists('unlaunch.zip'):
+                    filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
+                else:
+                    filename = 'unlaunch.zip'
+
+                exe = path.join(sysname, '7za')
+
+                proc = Popen([ exe, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
+
+                ret_val = proc.wait()
+
+                if ret_val == 0:
+                    self.files.append(filename)
+                    self.files.append('UNLAUNCH.DSI')
+
+                    self.log.write('- 正在安装unlaunch...')
+
+                    self.suffix = '-unlaunch'
+
+                    with open(tmd, 'ab') as f:
+                        with open('UNLAUNCH.DSI', 'rb') as unl:
+                            f.write(unl.read())
+
+                    # Set files as read-only
+                    for file in listdir(path.join(self.mounted, 'title', '00030017', app,
+                        'content')):
+                        file = path.join(self.mounted, 'title', '00030017', app, 'content', file)
+                        chmod(file, 292)
+
+                else:
+                    self.log.write('错误: 解压失败')
+                    Thread(target=self.unmount_nand1).start()
+                    return
+
+            except IOError as e:
+                print(e)
+                self.log.write('错误: 无法下载unlaunch')
+                Thread(target=self.unmount_nand1).start()
+                return
+
+            except OSError as e:
+                print(e)
+                self.log.write('错误: 无法运行 ' + exe)
+                Thread(target=self.unmount_nand1).start()
+                return
+
+        else:
+            self.log.write('- 已安装,卸载中...')
+
+            self.suffix = '-no-unlaunch'
+
+            # Set files as read-write
+            for file in listdir(path.join(self.mounted, 'title', '00030017', app, 'content')):
+                file = path.join(self.mounted, 'title', '00030017', app, 'content', file)
+                chmod(file, 438)
+
+            with open(tmd, 'r+b') as f:
+                f.truncate(520)
+
+        Thread(target=self.unmount_nand).start()
+
+
+    ################################################################################################
+    def unmount_nand(self):
+        self.log.write('\nUnmounting NAND...')
+
+        try:
+            exe = osfmount
+            proc = Popen([ osfmount, '-D', '-m', self.mounted ])
+
+            ret_val = proc.wait()
+
+            if ret_val == 0:
+                Thread(target=self.encrypt_nand).start()
+
+            else:
+                self.log.write('ERROR: Unmounter failed')
+                Thread(target=self.clean, args=(True,)).start()
+
+        except OSError as e:
+            print(e)
+            self.log.write('ERROR: Could not execute ' + exe)
+            Thread(target=self.clean, args=(True,)).start()
+    def unmount_nand1(self):
+        self.log.write('\nUnmounting NAND...')
+
+        try:
+            exe = osfmount
+            proc = Popen([ osfmount, '-D', '-m', self.mounted ])
+
+            ret_val = proc.wait()
+
+            if ret_val == 0:
+                self.files.append(self.console_id.get() + '.img')
+                Thread(target=self.clean, args=(True,)).start()
+
+            else:
+                self.log.write('ERROR: Unmounter failed')
+                Thread(target=self.clean, args=(True,)).start()
+
+        except OSError as e:
+            print(e)
+            self.log.write('ERROR: Could not execute ' + exe)
+            Thread(target=self.clean, args=(True,)).start()
+
+
+    ################################################################################################
+    def encrypt_nand(self):
+        self.log.write('\nEncrypting back NAND...')
+
+        exe = path.join(sysname, 'twltool')
+
+        try:
+            proc = Popen([ exe, 'nandcrypt', '--in', self.console_id.get() + '.img' ])
+
+            ret_val = proc.wait()
+            print("\n")
+
+            if ret_val == 0:
+                Thread(target=self.clean).start()
+
+            else:
+                self.log.write('ERROR: Encryptor failed')
+
+        except OSError as e:
+            print(e)
+            self.log.write('ERROR: Could not execute ' + exe)
 
 
     ################################################################################################
@@ -955,6 +1136,16 @@ if not path.exists(fatcat):
     root.destroy()
     exit(1)
 
+try:
+    with OpenKey(HKEY_LOCAL_MACHINE,
+        'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
+
+        osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
+
+        if path.exists(osfmount):
+            print('对应版本、体系结构的OSFMount已安装')
+except:
+    pass
 root.title('HiyaCFW Helper V3.6.0R')
 # Disable maximizing
 root.resizable(0, 0)
