@@ -63,7 +63,7 @@ class Application(Frame):
         self.pack()
 
         # First row
-        f1 = LabelFrame(self, text='含有No$GBA footer的Nand备份文件', padx=10, pady=10)
+        f1 = LabelFrame(self, text='含有No$GBA footer的NAND备份文件', padx=10, pady=10)
 
         # NAND Button
         self.nand_mode = False
@@ -100,19 +100,10 @@ class Application(Frame):
 
         twl_chk.pack(padx=10, anchor=W)
 
-        # Clean files check
-        self.clean_downloaded = IntVar()
-        self.clean_downloaded.set(1)
-
-        clean_chk = Checkbutton(self.checks_frame, text='Clean downloaded files after completion',
-            variable=self.clean_downloaded)
-
-        clean_chk.pack(padx=10, anchor=W)
-
         self.checks_frame.pack(fill=X)
 
         # NAND operation frame
-        self.nand_frame = LabelFrame(f2, text='NAND操作', padx=10, pady=10)
+        self.nand_frame = LabelFrame(f2, text='NAND操作选项', padx=10, pady=10)
 
         self.nand_operation = IntVar()
         self.nand_operation.set(2)
@@ -364,8 +355,7 @@ class Application(Frame):
             ret_val = proc.wait()
 
             if ret_val == 0:
-                if self.clean_downloaded.get() == 1:
-                    self.files.append(filename)
+                self.files.append(filename)
                 self.folders.append('for PC')
                 self.folders.append('for SDNAND SD card')
                 # Got to decrypt NAND if bootloader.nds is present
@@ -681,8 +671,8 @@ class Application(Frame):
             ret_val = proc.wait()
 
             if ret_val == 0:
-                if self.clean_downloaded.get() == 1:
-                    self.files.append(self.launcher_region)
+                #if self.clean_downloaded.get() == 1:
+                    #self.files.append(self.launcher_region)
                 self.files.append(launcher_app)
 
                 if launcher_app == '00000000.app':
@@ -755,8 +745,7 @@ class Application(Frame):
             ret_val = proc.wait()
 
             if ret_val == 0:
-                if self.clean_downloaded.get() == 1:
-                    self.files.append(filename)
+                self.files.append(filename)
                 self.folders.append('DSi - CFW users')
                 self.folders.append('_nds')
                 self.folders.append('DSi&3DS - SD card users')
