@@ -171,11 +171,6 @@ class Application(Frame):
     ################################################################################################
     def change_mode(self):
         if (self.nand_mode):
-            if windll.shell32.IsUserAnAdmin() == 0:
-                root.withdraw()
-                showerror('Error', 'This script needs to be run with administrator privileges.')
-                root.destroy()
-                exit(1)
             self.nand_frame.pack_forget()
             self.start_button.pack_forget()
             self.exit_button.pack_forget()
@@ -184,7 +179,6 @@ class Application(Frame):
             self.adv_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
             self.nand_mode = False
-
         else:
             if askokcancel('Warning', ('You are about to enter NAND mode. Do it only if you know '
                 'what you are doing. Proceed?'), icon=WARNING):
@@ -251,11 +245,27 @@ class Application(Frame):
             except ValueError:
                 showerror('Error', 'Bad Console ID')
                 return
+        elif self.nand_operation.get() == 2:
+            if windll.shell32.IsUserAnAdmin() == 0:
+                showerror('错误', '此功能需要以管理员权限运行本工具')
+                return
+            try:
+                with OpenKey(HKEY_LOCAL_MACHINE,
+                    'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
+
+                    osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
+
+                    if not path.exists(osfmount):
+                        raise WindowsError
+
+            except WindowsError:
+                showerror('错误', '对应版本、体系结构的OSFMount未安装')
+                return
 
         dialog = Toplevel(self)
         # Open as dialog (parent disabled)
         dialog.grab_set()
-        dialog.title('Status')
+        dialog.title('状态')
         # Disable maximizing
         dialog.resizable(0, 0)
 
@@ -272,7 +282,7 @@ class Application(Frame):
 
         frame.pack()
 
-        Button(dialog, text='Close', command=dialog.destroy, width=16).pack(pady=10)
+        Button(dialog, text='关闭', command=dialog.destroy, width=16).pack(pady=10)
 
         # Center in window
         dialog.update_idletasks()
