@@ -327,8 +327,11 @@ class Application(Frame):
 
                     # Check we are removing the No$GBA footer
                     if self.nand_mode:
-                        Thread(target=self.remove_footer).start()
-
+                        if self.nand_operation.get() == 2:
+                            Thread(target=self.decrypt_nand).start()
+                        else:
+                            Thread(target=self.remove_footer).start()
+                            pass
                     else:
                         Thread(target=self.get_latest_hiyacfw).start()
 
@@ -542,9 +545,16 @@ class Application(Frame):
     def decrypt_nand(self):
         self.log.write('\nDecrypting NAND...')
 
+        if self.nand_operation.get() == 2:
+            exe = path.join(sysname, 'twltool')
+
         try:
-            proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
-                self.console_id.get() + '.img' ])
+            if self.nand_operation.get() == 2:
+                proc = Popen([ exe, 'nandcrypt', '--in', self.nand_file.get(), '--out',
+                    self.console_id.get() + '.img' ])
+            else:
+                proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
+                    self.console_id.get() + '.img' ])
 
             ret_val = proc.wait()
             print("\n")
@@ -552,7 +562,7 @@ class Application(Frame):
             if ret_val == 0:
                 self.files.append(self.console_id.get() + '.img')
 
-                Thread(target=elf.extract_nand).start()
+                Thread(target=self.extract_nand).start()
 
             else:
                 self.log.write('ERROR: Decryptor failed')
