@@ -1058,19 +1058,19 @@ class Application(Frame):
                 for file in listdir(path.join(base, 'title', '00030017', app, 'content')):
                     if file.endswith('.app'):
                         try:
-                            self.log.write('- Detected ' + REGION_CODES[app.lower()] +
-                                ' console NAND dump')
+                            self.log.write('- 检测到 ' + REGION_CODES[app.lower()] +
+                                ' Launcher')
                             self.launcher_region = REGION_CODES[app.lower()]
                             return app
 
                         except KeyError:
-                            self.log.write('ERROR: Unsupported console region')
+                            self.log.write('错误: 在NAND中找不到受支持的Launcher')
                             return False
 
-            self.log.write('ERROR: Could not detect console region')
+            self.log.write('错误: 无法检测系统区域')
 
         except OSError as e:
-            self.log.write('ERROR: ' + e.strerror + ': ' + e.filename)
+            self.log.write('错误: ' + e.strerror + ': ' + e.filename)
 
         return False
 
@@ -1082,7 +1082,6 @@ class Application(Frame):
         app = self.detect_region()
 
         if not app:
-            self.log.write('错误: 在NAND中找不到受支持的Launcher')
             Thread(target=self.unmount_nand1).start()
             return
 
