@@ -25,7 +25,7 @@ from shutil import rmtree, copyfile, copyfileobj
 from distutils.dir_util import copy_tree, _path_created
 from re import search
 from ctypes import windll
-from winreg import OpenKey, QueryValueEx, HKEY_LOCAL_MACHINE
+from winreg import OpenKey, QueryValueEx, HKEY_LOCAL_MACHINE, KEY_READ, KEY_WOW64_64KEY
 
 
 ####################################################################################################
@@ -61,33 +61,62 @@ class Application(Frame):
         super().__init__(master)
 
         self.pack()
-
-        # First row
-        f1 = LabelFrame(self, text='含有No$GBA footer的NAND备份文件', padx=10, pady=10)
-
-        # NAND Button
+        self.adv_mode = False
         self.nand_mode = False
+ 
+        # First row
+        f1 = Frame(self) 
+
+        self.bak_frame=LabelFrame(f1, text='含有No$GBA footer的NAND备份文件', padx=10, pady=10)
 
         nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAAA'
             'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAMAAAYALAAAAAAQAB'
             'AAAARG0MhJaxU4Y2sECAEgikE1CAFRhGMwSMJwBsU6frIgnR/bv'
             'hTPrWUSDnGw3JGU2xmHrsvyU5xGO8ql6+S0AifPW8kCKpcpEQA7'))
 
-        self.nand_button = Button(f1, image=nand_icon, command=self.change_mode, state=DISABLED)
+        self.nand_button = Button(self.bak_frame, image=nand_icon, command=self.change_mode, state=DISABLED)
         self.nand_button.image = nand_icon
 
         self.nand_button.pack(side='left')
 
         self.nand_file = StringVar()
-        Entry(f1, textvariable=self.nand_file, state='readonly', width=40).pack(side='left')
+        self.nandfile = Entry(self.bak_frame, textvariable=self.nand_file, state='readonly', width=40)
+        self.nandfile.pack(side='left')
 
-        Button(f1, text='...', command=self.choose_nand).pack(side='left')
+        self.chb = Button(self.bak_frame, text='...', command=self.choose_nand)
+        self.chb.pack(side='left')
+
+        self.bak_frame.pack(fill=X)
+
+        self.adv_frame=LabelFrame(f1, text='存储卡根目录', padx=10, pady=10)
+
+        self.sd_path1 = StringVar()
+        self.sdpath = Entry(self.adv_frame, textvariable=self.sd_path1, state='readonly', width=41)
+        self.sdpath.pack(side='left')
+
+        self.chb1 = Button(self.adv_frame, text='浏览', command=self.choose_nand)
+        self.chb1.pack(side='left')
 
         f1.pack(padx=10, pady=10, fill=X)
 
         # Second row
         f2 = Frame(self)
 
+        self.setup_frame = LabelFrame(f2, text='NAND解压选项', padx=10, pady=10)
+
+        self.setup_operation = IntVar()
+        self.setup_operation.set(0)
+
+        self.rb1 = Radiobutton(self.setup_frame, text='Fatcat(默认)', variable=self.setup_operation, value=0)
+        self.rb2 = Radiobutton(self.setup_frame, text='7-Zip', variable=self.setup_operation, value=1)
+        self.rb3 = Radiobutton(self.setup_frame, text='OSFMount2(需要管理员权限)', variable=self.setup_operation, value=2)
+        if osfmount or _7z is not None:
+            self.rb1.pack(anchor=W)
+            if _7z is not None:
+                self.rb2.pack(anchor=W)
+            if osfmount is not None:
+                self.rb3.pack(anchor=W)
+            self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
         # Check boxes
         self.checks_frame = Frame(f2)
 
@@ -96,21 +125,62 @@ class Application(Frame):
         self.twilight.set(1)
 
         twl_chk = Checkbutton(self.checks_frame,
-            text='同时安装最新版本的TWiLightMenu++', variable=self.twilight)
+            text='同时安装最新版本的TWiLightMenu++', variable=self.twilight, command=lambda: self.appgen.set(0) if (self.appgen.get() == 1) else '')
 
         twl_chk.pack(padx=10, anchor=W)
 
+        self.appgen = IntVar()
+        self.appgen.set(0)
+
+        ag_chk = Checkbutton(self.checks_frame, text='使用AppGen', variable=self.appgen,
+            command=lambda: self.twilight.set(1) if (self.twilight.get() == 0) else '')
+
+        ag_chk.pack(padx=10, anchor=W)
+
         self.checks_frame.pack(fill=X)
+
+        self.checks_frame1 = Frame(f2)
+
+        ag1_chk = Checkbutton(self.checks_frame1, text='使用AppGen(需装有HiyaCFW)', variable=self.appgen,
+            command=lambda: self.tds.set(0) if (self.tds.get() == 1) else '')
+
+        ag1_chk.pack(padx=10, anchor=W)
+
+        self.tds = IntVar()
+        self.tds.set(0)
+
+        tds_chk = Checkbutton(self.checks_frame1,
+            text='为3DS安装', variable=self.tds, command=self.change_chk)
+
+        tds_chk.pack(padx=10, anchor=W)
+
+        self.updatemode = IntVar()
+        self.updatemode.set(0)
+
+        um_chk = Checkbutton(self.checks_frame1,
+            text='更新模式', variable=self.updatemode, command=lambda: self.updatehiya.set(0) if (self.updatehiya.get() == 1) else '')
+
+        um_chk.pack(padx=10, anchor=W)
+
+        self.updatehiya = IntVar()
+        self.updatehiya.set(0)
+
+        uh_chk = Checkbutton(self.checks_frame1,
+            text='同时更新HiyaCFW', variable=self.updatehiya, command=self.change_chk1)
+
+        uh_chk.pack(padx=10, anchor=W)
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text='NAND操作选项', padx=10, pady=10)
 
         self.nand_operation = IntVar()
-        self.nand_operation.set(2)
+        self.nand_operation.set(0)
 
-        Radiobutton(self.nand_frame, text='安装或卸载最新版本的unlaunch',
+        rb0 = Radiobutton(self.nand_frame, text='安装或卸载最新版本的unlaunch(需要管理员权限)',
             variable=self.nand_operation, value=2,
-            command=lambda: self.enable_entries(False)).pack(anchor=W)
+            command=lambda: self.enable_entries(False))
+        if osfmount is not None:
+            rb0.pack(anchor=W)
         Radiobutton(self.nand_frame, text='移除 No$GBA footer', variable=self.nand_operation,
             value=0, command=lambda: self.enable_entries(False)).pack(anchor=W)
 
@@ -147,7 +217,9 @@ class Application(Frame):
         self.start_button = Button(f3, text='开始', width=13, command=self.hiya, state=DISABLED)
         self.start_button.pack(side='left', padx=(0, 5))
 
-        self.adv_button = Button(f3, text='高级', command=root.destroy, width=13)
+        self.adv_button = Button(f3, text='高级', command=self.change_mode1, width=13)
+        self.back_button = Button(f3, text='返回', command=self.change_mode, width=13)
+        self.back1_button = Button(f3, text='返回', command=self.change_mode1, width=13)
         self.adv_button.pack(side='left', padx=(0, 0))
 
         self.exit_button = Button(f3, text='退出', command=root.destroy, width=13)
@@ -160,23 +232,82 @@ class Application(Frame):
 
 
     ################################################################################################
+    def change_chk(self):
+        if self.appgen.get() == 1:
+            self.appgen.set(0)
+        if self.updatehiya.get() == 1:
+            self.updatehiya.set(0)
+    def change_chk1(self):
+        if self.tds.get() == 1:
+            self.tds.set(0)
+        if self.updatemode.get() == 0:
+            self.updatemode.set(1)
     def change_mode(self):
         if (self.nand_mode):
             self.nand_frame.pack_forget()
             self.start_button.pack_forget()
+            self.back_button.pack_forget()
             self.exit_button.pack_forget()
-            self.checks_frame.pack(padx=10, anchor=W)
+            if osfmount or _7z is not None: 
+                self.rb1.pack(anchor=W)
+                if _7z is not None:
+                    self.rb2.pack(anchor=W)
+                if osfmount is not None:
+                    self.rb3.pack(anchor=W)
+                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+            self.checks_frame.pack(anchor=W)
             self.start_button.pack(side='left', padx=(0, 5))
             self.adv_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
             self.nand_mode = False
         else:
-            if askokcancel('Warning', ('You are about to enter NAND mode. Do it only if you know '
-                'what you are doing. Proceed?'), icon=WARNING):
+            if askokcancel('警告', ('你正要进入NAND操作模式, 请确认你知道自己在做什么, 继续吗?'), icon=WARNING):
+                if osfmount or _7z is not None:
+                    self.setup_frame.pack_forget()
                 self.checks_frame.pack_forget()
+                self.start_button.pack_forget()
                 self.adv_button.pack_forget()
+                self.exit_button.pack_forget()
                 self.nand_frame.pack(padx=10, pady=(0, 10), fill=X)
+                self.start_button.pack(side='left', padx=(0, 5))
+                self.back_button.pack(side='left', padx=(0, 0))
+                self.exit_button.pack(side='left', padx=(5, 0))
                 self.nand_mode = True
+    def change_mode1(self):
+        if (self.adv_mode):
+            self.adv_frame.pack_forget()
+            self.checks_frame1.pack_forget()
+            self.start_button.pack_forget()
+            self.back1_button.pack_forget()
+            self.exit_button.pack_forget()
+            self.bak_frame.pack(fill=X)
+            if osfmount or _7z is not None: 
+                self.rb1.pack(anchor=W)
+                if _7z is not None:
+                    self.rb2.pack(anchor=W)
+                if osfmount is not None:
+                    self.rb3.pack(anchor=W)
+                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+            self.checks_frame.pack(anchor=W)
+            self.start_button.pack(side='left', padx=(0, 5))
+            self.adv_button.pack(side='left', padx=(0, 0))
+            self.exit_button.pack(side='left', padx=(5, 0))
+            self.adv_mode = False
+        else:
+            if askokcancel('提示', ('高级模式提供了单独安装TWiLightMenu++等功能, 点击"确定"以进入')):
+                self.bak_frame.pack_forget()
+                if osfmount or _7z is not None:
+                    self.setup_frame.pack_forget()
+                self.checks_frame.pack_forget()
+                self.start_button.pack_forget()
+                self.adv_button.pack_forget()
+                self.exit_button.pack_forget()
+                self.adv_frame.pack(fill=X)
+                self.checks_frame1.pack(anchor=W)
+                self.start_button.pack(side='left', padx=(0, 5))
+                self.back1_button.pack(side='left', padx=(0, 0))
+                self.exit_button.pack(side='left', padx=(5, 0))
+                self.adv_mode = True
 
 
     ################################################################################################
@@ -238,20 +369,10 @@ class Application(Frame):
                 return
         elif self.nand_operation.get() == 2:
             if windll.shell32.IsUserAnAdmin() == 0:
+                root.withdraw()
                 showerror('错误', '此功能需要以管理员权限运行本工具')
-                return
-            try:
-                with OpenKey(HKEY_LOCAL_MACHINE,
-                    'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
-
-                    osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
-
-                    if not path.exists(osfmount):
-                        raise WindowsError
-
-            except WindowsError:
-                showerror('错误', '对应版本、体系结构的OSFMount未安装')
-                return
+                root.destroy()
+                exit(1)
 
         dialog = Toplevel(self)
         # Open as dialog (parent disabled)
@@ -550,7 +671,8 @@ class Application(Frame):
                 if not self.nand_mode:
                     self.files.append(self.console_id.get() + '.img')
                 if not self.nand_operation.get() == 2:
-                    Thread(target=self.extract_nand).start()
+                    Thread(target=self.extract_nand1 if (sysname == 'Windows' and _7z is not None)
+                        else self.extract_nand).start()
                 else:
                     Thread(target=self.mount_nand).start()
             else:
@@ -561,6 +683,57 @@ class Application(Frame):
             print(e)
             self.log.write('ERROR: Could not execute ' + exe)
             Thread(target=self.clean, args=(True,)).start()
+
+
+    ################################################################################################
+    def extract_nand1(self):
+        self.log.write('\nExtracting files from NAND...')
+
+        try:
+            proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
+
+            ret_val = proc.wait()
+
+            if ret_val == 0:
+                self.files.append('0.fat')
+
+                proc = Popen([ _7z, 'x', '-bso0', '-y', '-o' + self.sd_path, '0.fat' ])
+
+                ret_val = proc.wait()
+
+                if ret_val == 0:
+                    Thread(target=self.get_launcher).start()
+
+                else:
+                    self.log.write('ERROR: Extractor failed, please update 7-Zip')
+
+                    if path.exists(fatcat):
+                        self.log.write('\nTrying with fatcat...')
+                        Thread(target=self.extract_nand).start()
+
+                    else:
+                        Thread(target=self.clean, args=(True,)).start()
+
+            else:
+                self.log.write('ERROR: Extractor failed')
+
+                if path.exists(fatcat):
+                    self.log.write('\nTrying with fatcat...')
+                    Thread(target=self.extract_nand).start()
+
+                else:
+                    Thread(target=self.clean, args=(True,)).start()
+
+        except OSError as e:
+            print(e)
+            self.log.write('ERROR: Could not execute ' + exe)
+
+            if path.exists(fatcat):
+                self.log.write('\nTrying with fatcat...')
+                Thread(target=self.extract_nand).start()
+
+            else:
+                Thread(target=self.clean, args=(True,)).start()
 
 
     ################################################################################################
@@ -637,7 +810,8 @@ class Application(Frame):
         for file in listdir(launcher_folder):
             file = path.join(launcher_folder, file)
 
-            # Delete current file
+            if _7z is not None:
+                chmod(file, 438)
             remove(file)
 
         # Try to use already downloaded launcher
@@ -962,7 +1136,7 @@ class Application(Frame):
                 return
 
         else:
-            self.log.write('- 已安装,卸载中...')
+            self.log.write('- 已安装, 卸载中...')
 
             self.suffix = '-no-unlaunch'
 
@@ -1126,6 +1300,24 @@ root = Tk()
 fatcat = path.join(sysname, 'fatcat')
 _7za = path.join(sysname, '7za')
 _7za += '.exe'
+_7z = None
+osfmount  = None
+if sysname == 'Windows':
+    try:
+        with OpenKey(HKEY_LOCAL_MACHINE, 'SOFTWARE\\7-Zip', 0, KEY_READ | KEY_WOW64_64KEY) as hkey:
+            _7z = path.join(QueryValueEx(hkey, 'Path')[0], '7z.exe')
+            if not path.exists(_7z):
+                raise WindowsError
+            print('7-Zip已安装')
+    except WindowsError:
+        try:
+            with OpenKey(HKEY_LOCAL_MACHINE, 'SOFTWARE\\7-Zip') as hkey:
+                _7z = path.join(QueryValueEx(hkey, 'Path')[0], '7z.exe')
+                if not path.exists(_7z):
+                    raise WindowsError
+                print('7-Zip已安装')
+        except WindowsError:
+            _7z = None
 fatcat += '.exe'
 twltool = path.join('for PC', 'twltool.exe')
 
@@ -1138,13 +1330,11 @@ if not path.exists(fatcat):
 try:
     with OpenKey(HKEY_LOCAL_MACHINE,
         'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
-
         osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
-
         if path.exists(osfmount):
             print('对应版本、体系结构的OSFMount已安装')
 except:
-    pass
+    osfmount  = None
 root.title('HiyaCFW Helper V3.6.0R')
 # Disable maximizing
 root.resizable(0, 0)
