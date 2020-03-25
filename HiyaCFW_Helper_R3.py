@@ -976,9 +976,9 @@ class Application(Frame):
             try:
                 rename(self.console_id.get() + '.img', file)
                 self.log.write('\nDone!\nModified NAND stored as\n' + file)
-            except:
+            except FileExistsError:
                 remove(self.console_id.get() + '.img')
-                self.log.write('操作终止')
+                self.log.write('目标文件已存在')
             return
 
 
@@ -1220,7 +1220,7 @@ class Application(Frame):
 
     ################################################################################################
     def remove_footer(self):
-        self.log.write('\nRemoving No$GBA footer...')
+        self.log.write('\n正在移除 No$GBA footer...')
 
         file = self.console_id.get() + '-no-footer.bin'
 
@@ -1238,18 +1238,18 @@ class Application(Frame):
                 # Remove footer
                 f.truncate()
 
-            self.log.write('\nDone!\nModified NAND stored as\n' + file +
-                '\nStored footer info in ' + self.console_id.get() + '-info.txt')
+            self.log.write('\n完成!\n修改后的NAND已保存为\n' + file +
+                '\nfooter信息已保存到 ' + self.console_id.get() + '-info.txt')
 
         except IOError as e:
             print(e)
-            self.log.write('ERROR: Could not open the file ' +
+            self.log.write('错误: 无法打开 ' +
                 path.basename(self.nand_file.get()))
 
 
     ################################################################################################
     def add_footer(self, cid, console_id):
-        self.log.write('Adding No$GBA footer...')
+        self.log.write('正在添加 No$GBA footer...')
 
         file = self.console_id.get() + '-footer.bin'
 
@@ -1264,7 +1264,7 @@ class Application(Frame):
 
                 # Check if it already has a footer
                 if bstr == b'DSi eMMC CID/CPU':
-                    self.log.write('ERROR: File already has a No$GBA footer')
+                    self.log.write('错误: 文件中已存在 No$GBA footer')
                     f.close()
                     remove(file)
                     return
@@ -1278,11 +1278,11 @@ class Application(Frame):
                 f.write(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                     b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
 
-            self.log.write('\nDone!\nModified NAND stored as\n' + file)
+            self.log.write('\n完成!\n修改后的NAND已保存为\n' + file)
 
         except IOError as e:
             print(e)
-            self.log.write('ERROR: Could not open the file ' +
+            self.log.write('错误: 无法打开 ' +
                 path.basename(self.nand_file.get()))
 
 
@@ -1298,10 +1298,28 @@ print('GUI初始化中...')
 root = Tk()
 
 fatcat = path.join(sysname, 'fatcat')
+fatcat += '.exe'
 _7za = path.join(sysname, '7za')
 _7za += '.exe'
-_7z = None
+twltool = path.join('for PC', 'twltool.exe')
 osfmount  = None
+_7z = None
+
+if not path.exists(fatcat):
+    root.withdraw()
+    showerror('错误', '找不到Fatcat, 请确认此程序位于本工具目录的"Windows"文件夹中')
+    root.destroy()
+    exit(1)
+
+try:
+    with OpenKey(HKEY_LOCAL_MACHINE,
+        'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
+        osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
+        if path.exists(osfmount):
+            print('对应版本、体系结构的OSFMount已安装')
+except:
+    osfmount  = None
+
 if sysname == 'Windows':
     try:
         with OpenKey(HKEY_LOCAL_MACHINE, 'SOFTWARE\\7-Zip', 0, KEY_READ | KEY_WOW64_64KEY) as hkey:
@@ -1318,23 +1336,7 @@ if sysname == 'Windows':
                 print('7-Zip已安装')
         except WindowsError:
             _7z = None
-fatcat += '.exe'
-twltool = path.join('for PC', 'twltool.exe')
 
-if not path.exists(fatcat):
-    root.withdraw()
-    showerror('错误', '找不到Fatcat, 请确认此程序位于本工具目录的' + '\'Windows\'' + '文件夹中')
-    root.destroy()
-    exit(1)
-
-try:
-    with OpenKey(HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
-        osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
-        if path.exists(osfmount):
-            print('对应版本、体系结构的OSFMount已安装')
-except:
-    osfmount  = None
 root.title('HiyaCFW Helper V3.6.0R')
 # Disable maximizing
 root.resizable(0, 0)
