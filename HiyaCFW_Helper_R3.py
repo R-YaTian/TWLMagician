@@ -969,7 +969,10 @@ class Application(Frame):
 
         if err:
             if (self.nand_mode):
-                remove(self.console_id.get() + '.img')
+                try:
+                    remove(self.console_id.get() + '.img')
+                except:
+                    pass
             self.log.write('操作过程发生错误, 已终止')
             return
 
@@ -982,7 +985,6 @@ class Application(Frame):
                 remove(self.console_id.get() + '.img')
                 self.log.write('目标文件已存在, 未覆盖')
             return
-
 
         self.log.write('Done!\nEject your SD card and insert it into your DSi')
 
@@ -1080,6 +1082,7 @@ class Application(Frame):
         app = self.detect_region()
 
         if not app:
+            self.log.write('错误: 在NAND中找不到受支持的Launcher')
             Thread(target=self.unmount_nand1).start()
             return
 
@@ -1155,7 +1158,7 @@ class Application(Frame):
 
     ################################################################################################
     def unmount_nand(self):
-        self.log.write('\nUnmounting NAND...')
+        self.log.write('\n正在卸载NAND...')
 
         try:
             exe = osfmount
@@ -1167,15 +1170,15 @@ class Application(Frame):
                 Thread(target=self.encrypt_nand).start()
 
             else:
-                self.log.write('ERROR: Unmounter failed')
+                self.log.write('错误: 卸载失败')
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write('错误: 无法运行 ' + exe)
             Thread(target=self.clean, args=(True,)).start()
     def unmount_nand1(self):
-        self.log.write('\nUnmounting NAND...')
+        self.log.write('\n正在卸载NAND...')
 
         try:
             exe = osfmount
@@ -1184,16 +1187,15 @@ class Application(Frame):
             ret_val = proc.wait()
 
             if ret_val == 0:
-                self.files.append(self.console_id.get() + '.img')
                 Thread(target=self.clean, args=(True,)).start()
 
             else:
-                self.log.write('ERROR: Unmounter failed')
+                self.log.write('错误: 卸载失败')
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write('错误: 无法运行 ' + exe)
             Thread(target=self.clean, args=(True,)).start()
 
 
