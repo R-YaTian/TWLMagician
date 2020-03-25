@@ -955,7 +955,7 @@ class Application(Frame):
 
     ################################################################################################
     def clean(self, err=False):
-        self.log.write('\nCleaning...')
+        self.log.write('\n清理中...')
 
         while len(self.folders) > 0:
             rmtree(self.folders.pop(), ignore_errors=True)
@@ -968,17 +968,19 @@ class Application(Frame):
                 pass
 
         if err:
-            self.log.write('Done')
+            if (self.nand_mode):
+                remove(self.console_id.get() + '.img')
+            self.log.write('操作过程发生错误, 已终止')
             return
 
         if (self.nand_mode):
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
-                self.log.write('\nDone!\nModified NAND stored as\n' + file)
+                self.log.write('\n完成!\n修改后的NAND保存为\n' + file)
             except FileExistsError:
                 remove(self.console_id.get() + '.img')
-                self.log.write('目标文件已存在')
+                self.log.write('目标文件已存在, 未覆盖')
             return
 
 
@@ -1197,7 +1199,7 @@ class Application(Frame):
 
     ################################################################################################
     def encrypt_nand(self):
-        self.log.write('\nEncrypting back NAND...')
+        self.log.write('\n正在重加密NAND...')
 
         exe = path.join(sysname, 'twltool')
 
@@ -1211,16 +1213,18 @@ class Application(Frame):
                 Thread(target=self.clean).start()
 
             else:
-                self.log.write('ERROR: Encryptor failed')
+                self.log.write('错误: 加密失败')
+                Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write('错误: 无法运行 ' + exe)
+            Thread(target=self.clean, args=(True,)).start()
 
 
     ################################################################################################
     def remove_footer(self):
-        self.log.write('\n正在移除 No$GBA footer...')
+        self.log.write('\n正在移除No$GBA footer...')
 
         file = self.console_id.get() + '-no-footer.bin'
 
@@ -1249,7 +1253,7 @@ class Application(Frame):
 
     ################################################################################################
     def add_footer(self, cid, console_id):
-        self.log.write('正在添加 No$GBA footer...')
+        self.log.write('正在添加No$GBA footer...')
 
         file = self.console_id.get() + '-footer.bin'
 
