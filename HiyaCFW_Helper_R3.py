@@ -125,50 +125,56 @@ class Application(Frame):
         self.twilight.set(1)
 
         twl_chk = Checkbutton(self.checks_frame,
-            text='同时安装最新版本的TWiLightMenu++', variable=self.twilight, command=lambda: self.appgen.set(0) if (self.appgen.get() == 1) else '')
+            text='同时安装TWiLightMenu++', variable=self.twilight)
 
         twl_chk.pack(padx=10, anchor=W)
 
         self.appgen = IntVar()
         self.appgen.set(0)
 
-        ag_chk = Checkbutton(self.checks_frame, text='使用AppGen', variable=self.appgen,
-            command=lambda: self.twilight.set(1) if (self.twilight.get() == 0) else '')
+        ag_chk = Checkbutton(self.checks_frame, text='使用AppGen', variable=self.appgen)
 
         ag_chk.pack(padx=10, anchor=W)
+
+        self.altdl = IntVar()
+        self.altdl.set(0)
+
+        adl_chk = Checkbutton(self.checks_frame, text='使用备用载点', variable=self.altdl, command=self.usealtdl)
+
+        adl_chk.pack(padx=10, anchor=W)
 
         self.checks_frame.pack(fill=X)
 
         self.checks_frame1 = Frame(f2)
 
-        ag1_chk = Checkbutton(self.checks_frame1, text='使用AppGen(需装有HiyaCFW)', variable=self.appgen,
+        self.ag1_chk = Checkbutton(self.checks_frame1, text='使用AppGen(需装有HiyaCFW)', variable=self.appgen,
             command=lambda: self.tds.set(0) if (self.tds.get() == 1) else '')
 
-        ag1_chk.pack(padx=10, anchor=W)
+        self.ag1_chk.pack(padx=10, anchor=W)
 
         self.tds = IntVar()
         self.tds.set(0)
 
-        tds_chk = Checkbutton(self.checks_frame1,
+        self.tds_chk = Checkbutton(self.checks_frame1,
             text='为3DS安装', variable=self.tds, command=self.change_chk)
 
-        tds_chk.pack(padx=10, anchor=W)
+        self.tds_chk.pack(padx=10, anchor=W)
 
         self.updatemode = IntVar()
         self.updatemode.set(0)
 
-        um_chk = Checkbutton(self.checks_frame1,
+        self.um_chk = Checkbutton(self.checks_frame1,
             text='更新模式', variable=self.updatemode, command=lambda: self.updatehiya.set(0) if (self.updatehiya.get() == 1) else '')
 
-        um_chk.pack(padx=10, anchor=W)
+        self.um_chk.pack(padx=10, anchor=W)
 
         self.updatehiya = IntVar()
         self.updatehiya.set(0)
 
-        uh_chk = Checkbutton(self.checks_frame1,
+        self.uh_chk = Checkbutton(self.checks_frame1,
             text='同时更新HiyaCFW', variable=self.updatehiya, command=self.change_chk1)
 
-        uh_chk.pack(padx=10, anchor=W)
+        self.uh_chk.pack(padx=10, anchor=W)
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text='NAND操作选项', padx=10, pady=10)
@@ -232,7 +238,12 @@ class Application(Frame):
 
 
     ################################################################################################
+    def usealtdl(self):
+        if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但这会给备用载点带来流量负担，确定选择吗？\n(提示: 如果默认载点下载失败，会自动切换备用载点重试，不太需要优先勾选此选项!)'), icon=WARNING):
+            self.altdl.set(0)
     def change_chk(self):
+        self.ag1_chk['state'] = (DISABLED if self.tds.get() == 1 else NORMAL)
+        self.uh_chk['state'] = (DISABLED if self.tds.get() == 1 else NORMAL)
         if self.appgen.get() == 1:
             self.appgen.set(0)
         if self.updatehiya.get() == 1:
@@ -329,15 +340,25 @@ class Application(Frame):
 
     ################################################################################################
     def hiya(self):
-        if not self.nand_mode:
-            showinfo('Info', 'Now you will be asked to choose the SD card path that will be used '
-                'for installing the custom firmware (or an output folder).\n\nIn order to avoid '
-                'boot errors please assure it is empty before continuing.')
-            self.sd_path = askdirectory()
+        if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
+            if windll.shell32.IsUserAnAdmin() == 0:
+                root.withdraw()
+                if self.nand_operation.get()  == 2:
+                    showerror('错误', '此功能需要以管理员权限运行本工具')
+                else:
+                    showerror('错误', '使用OSFMount需要以管理员权限运行本工具')
+                root.destroy()
+                exit(1)
 
-            # Exit if no path was selected
-            if self.sd_path == '':
-                return
+        if not self.nand_mode:
+            if not self.adv_mode:
+                showinfo('提示', '接下来请选择你用来安装自制系统的存储卡路径(或输出路径)\n为了避免 '
+                    '启动错误 请确保目录下无任何文件')
+                self.sd_path = askdirectory()
+
+                # Exit if no path was selected
+                if self.sd_path == '':
+                    return
 
         # If adding a No$GBA footer, check if CID and ConsoleID values are OK
         elif self.nand_operation.get() == 1:
@@ -346,11 +367,11 @@ class Application(Frame):
 
             # Check lengths
             if len(cid) != 32:
-                showerror('Error', 'Bad eMMC CID')
+                showerror('错误', 'Bad eMMC CID')
                 return
 
             elif len(console_id) != 16:
-                showerror('Error', 'Bad Console ID')
+                showerror('错误', 'Bad Console ID')
                 return
 
             # Parse strings to hex
@@ -358,21 +379,15 @@ class Application(Frame):
                 cid = bytearray.fromhex(cid)
 
             except ValueError:
-                showerror('Error', 'Bad eMMC CID')
+                showerror('错误', 'Bad eMMC CID')
                 return
 
             try:
                 console_id = bytearray(reversed(bytearray.fromhex(console_id)))
 
             except ValueError:
-                showerror('Error', 'Bad Console ID')
+                showerror('错误', 'Bad Console ID')
                 return
-        elif self.nand_operation.get() == 2:
-            if windll.shell32.IsUserAnAdmin() == 0:
-                root.withdraw()
-                showerror('错误', '此功能需要以管理员权限运行本工具')
-                root.destroy()
-                exit(1)
 
         dialog = Toplevel(self)
         # Open as dialog (parent disabled)
@@ -406,7 +421,6 @@ class Application(Frame):
         # Check if we'll be adding a No$GBA footer
         if self.nand_mode and self.nand_operation.get() == 1:
             Thread(target=self.add_footer, args=(cid, console_id)).start()
-
         else:
             Thread(target=self.check_nand).start()
 
@@ -901,10 +915,7 @@ class Application(Frame):
         filename = 'TWiLightMenu.7z'
 
         try:
-            if path.isfile(filename):
-                self.log.write('\nPreparing TWiLight Menu++...')
-
-            else:
+            if not path.isfile(filename):
                 self.log.write('\nDownloading latest TWiLight Menu++ release...')
 
                 with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
@@ -986,7 +997,7 @@ class Application(Frame):
                 self.log.write('目标文件已存在, 未覆盖')
             return
 
-        self.log.write('Done!\nEject your SD card and insert it into your DSi')
+        self.log.write('完成!\n弹出你的存储卡并插回到机器中')
 
 
     ################################################################################################
@@ -1051,6 +1062,9 @@ class Application(Frame):
             '484e4150': 'EUR',
             '484e4155': 'AUS'
         }
+        REGION_CODES_DEV = {
+            '484e4145': 'USA-dev',
+        }
         base = self.mounted if self.nand_mode else self.sd_path
         # Autodetect console region
         try:
@@ -1058,9 +1072,19 @@ class Application(Frame):
                 for file in listdir(path.join(base, 'title', '00030017', app, 'content')):
                     if file.endswith('.app'):
                         try:
-                            self.log.write('- 检测到 ' + REGION_CODES[app.lower()] +
-                                ' Launcher')
-                            self.launcher_region = REGION_CODES[app.lower()]
+                            if file.startswith("0000000"):
+                                self.log.write('- 检测到 ' + REGION_CODES[app.lower()] +
+                                     ' Launcher')
+                                if not self.nand_mode:
+                                    self.launcher_region = REGION_CODES[app.lower()]
+                            else:
+                                if self.nand_mode:
+                                    self.log.write('- 检测到 ' + REGION_CODES[app.lower()] +
+                                         '-dev Launcher')
+                                else:
+                                    self.log.write('- 检测到 ' + REGION_CODES_DEV[app.lower()] +
+                                         ' Launcher')
+                                    self.launcher_region = REGION_CODES_DEV[app.lower()]
                             return app
 
                         except KeyError:
@@ -1094,7 +1118,10 @@ class Application(Frame):
 
             try:
                 if not path.exists('unlaunch.zip'):
-                    filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
+                    try:
+                        filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
+                    except:
+                        filename = urlretrieve('http://spblog.tk/somefiles/unlaunch.zip')[0]
                 else:
                     filename = 'unlaunch.zip'
 
@@ -1129,7 +1156,7 @@ class Application(Frame):
 
             except IOError as e:
                 print(e)
-                self.log.write('错误: 无法下载unlaunch')
+                self.log.write('错误: 无法下载 unlaunch')
                 Thread(target=self.unmount_nand1).start()
                 return
 
