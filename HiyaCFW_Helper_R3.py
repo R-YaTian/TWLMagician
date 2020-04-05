@@ -830,28 +830,29 @@ class Application(Frame):
 
         # Try to use already downloaded launcher
         try:
-            if path.isfile(self.launcher_region):
-                self.log.write('\nPreparing ' + self.launcher_region + ' launcher...')
-
-            else:
-                self.log.write('\nDownloading ' + self.launcher_region + ' launcher...')
+            if not path.isfile(self.launcher_region):
+                self.log.write('\n正在下载 ' + self.launcher_region + ' Launcher...')
 
                 with urlopen('https://raw.githubusercontent.com'
-                    '/mondul/HiyaCFW-Helper/master/launchers/' +
+                    '/R-YaTian/HHF-Toolkit/HiyaCFW-Helper-R3/launchers/' +
                     self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                     copyfileobj(src, dst)
 
-            self.log.write('- Decrypting launcher...')
+            self.log.write('- 正在解压Launcher...')
 
             # Set launcher filename according to the region
-            launcher_app = ('00000000.app' if self.launcher_region in ('CHN', 'KOR')
-                else '00000002.app')
+            if self.launcher_region in ('CHN', 'KOR'):
+                launcher_app = '00000000.app'
+            elif self.launcher_region in ('USA-dev'):
+                launcher_app = '7412e50d.app'
+            else:
+                launcher_app = '00000002.app'
 
             # Prepare decryption params
             params = [ _7za, 'x', '-bso0', '-y', '-p' + app.lower(), self.launcher_region,
                 launcher_app ]
 
-            if launcher_app == '00000000.app':
+            if launcher_app == '7412e50d.app':
                 params.append('title.tmd')
 
             proc = Popen(params)
@@ -859,11 +860,9 @@ class Application(Frame):
             ret_val = proc.wait()
 
             if ret_val == 0:
-                #if self.clean_downloaded.get() == 1:
-                    #self.files.append(self.launcher_region)
                 self.files.append(launcher_app)
 
-                if launcher_app == '00000000.app':
+                if launcher_app == '7412e50d.app':
                     self.files.append('title.tmd')
 
                 # Hash launcher app
@@ -872,23 +871,23 @@ class Application(Frame):
                 with open(launcher_app, 'rb') as f:
                     sha1_hash.update(f.read())
 
-                self.log.write('- Patched launcher SHA1:\n  ' +
+                self.log.write('- Patched Launcher SHA1:\n  ' +
                     sha1_hash.digest().hex().upper())
 
                 Thread(target=self.install_hiyacfw, args=(launcher_app, launcher_folder)).start()
 
             else:
-                self.log.write('ERROR: Extractor failed')
+                self.log.write('错误: 解压失败')
                 Thread(target=self.clean, args=(True,)).start()
 
         except IOError as e:
             print(e)
-            self.log.write('ERROR: Could not download ' + self.launcher_region + ' launcher')
+            self.log.write('错误: 无法下载 ' + self.launcher_region + ' Launcher')
             Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write('错误: 无法运行 ' + exe)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -979,7 +978,7 @@ class Application(Frame):
                 pass
 
         if err:
-            if (self.nand_mode):
+            if self.nand_mode:
                 try:
                     remove(self.console_id.get() + '.img')
                 except:
@@ -987,14 +986,14 @@ class Application(Frame):
             self.log.write('操作过程发生错误, 已终止')
             return
 
-        if (self.nand_mode):
+        if self.nand_mode:
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
                 self.log.write('\n完成!\n修改后的NAND保存为\n' + file)
             except FileExistsError:
                 remove(self.console_id.get() + '.img')
-                self.log.write('目标文件已存在, 未覆盖')
+                self.log.write('\n操作终止!\n目标文件已存在于程序运行目录下, 未覆盖')
             return
 
         self.log.write('完成!\n弹出你的存储卡并插回到机器中')
