@@ -630,7 +630,8 @@ class Application(Frame):
     def make_bootloader(self):
         self.log.write('\nGenerating new bootloader...')
 
-        exe = (path.join('for PC', 'bootloader files', 'ndstool.exe'))
+        exe = (path.join('for PC', 'bootloader files', 'ndstool.exe') if sysname == 'Windows' else
+            path.join(sysname, 'ndsblc'))
 
         try:
             proc = Popen([ exe, '-c', 'bootloader.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-t',
@@ -667,16 +668,9 @@ class Application(Frame):
     def decrypt_nand(self):
         self.log.write('\nDecrypting NAND...')
 
-        if self.nand_operation.get() == 2:
-            exe = path.join(sysname, 'twltool')
-
         try:
-            if self.nand_operation.get() == 2:
-                proc = Popen([ exe, 'nandcrypt', '--in', self.nand_file.get(), '--out',
-                    self.console_id.get() + '.img' ])
-            else:
-                proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
-                    self.console_id.get() + '.img' ])
+            proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
+                self.console_id.get() + '.img' ])
 
             ret_val = proc.wait()
             print("\n")
@@ -1228,10 +1222,8 @@ class Application(Frame):
     def encrypt_nand(self):
         self.log.write('\n正在重加密NAND...')
 
-        exe = path.join(sysname, 'twltool')
-
         try:
-            proc = Popen([ exe, 'nandcrypt', '--in', self.console_id.get() + '.img' ])
+            proc = Popen([ twltool, 'nandcrypt', '--in', self.console_id.get() + '.img' ])
 
             ret_val = proc.wait()
             print("\n")
@@ -1329,29 +1321,24 @@ print('GUI初始化中...')
 root = Tk()
 
 fatcat = path.join(sysname, 'fatcat')
-fatcat += '.exe'
 _7za = path.join(sysname, '7za')
-_7za += '.exe'
-twltool = path.join('for PC', 'twltool.exe')
+twltool = path.join(sysname, 'twltool')
 osfmount  = None
 _7z = None
 
-if not path.exists(fatcat):
-    root.withdraw()
-    showerror('错误', '找不到Fatcat, 请确认此程序位于本工具目录的"Windows"文件夹中')
-    root.destroy()
-    exit(1)
-
-try:
-    with OpenKey(HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
-        osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
-        if path.exists(osfmount):
-            print('对应版本、体系结构的OSFMount已安装')
-except:
-    osfmount  = None
-
 if sysname == 'Windows':
+    fatcat += '.exe'
+    _7za += '.exe'
+    twltool += '.exe'
+    try:
+        with OpenKey(HKEY_LOCAL_MACHINE,
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OSFMount_is1') as hkey:
+            osfmount = path.join(QueryValueEx(hkey, 'InstallLocation')[0], 'OSFMount.com')
+            if path.exists(osfmount):
+                print('对应版本、体系结构的OSFMount已安装')
+    except:
+        osfmount  = None
+
     try:
         with OpenKey(HKEY_LOCAL_MACHINE, 'SOFTWARE\\7-Zip', 0, KEY_READ | KEY_WOW64_64KEY) as hkey:
             _7z = path.join(QueryValueEx(hkey, 'Path')[0], '7z.exe')
@@ -1367,6 +1354,12 @@ if sysname == 'Windows':
                 print('7-Zip已安装')
         except WindowsError:
             _7z = None
+
+if not path.exists(fatcat):
+    root.withdraw()
+    showerror('错误', '找不到Fatcat, 请确认此程序位于本工具目录的"' + sysname + '"文件夹中')
+    root.destroy()
+    exit(1)
 
 root.title('HiyaCFW Helper V3.6.0R')
 # Disable maximizing
