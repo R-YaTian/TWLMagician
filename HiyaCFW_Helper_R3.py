@@ -105,18 +105,29 @@ class Application(Frame):
         self.setup_frame = LabelFrame(f2, text='NAND解压选项', padx=10, pady=10)
 
         self.setup_operation = IntVar()
-        self.setup_operation.set(0)
+
+        if fatcat is None:
+            if _7z is not None:
+                self.setup_operation.set(1)
+            elif osfmount is not None:
+                self.setup_operation.set(2)
+        else:
+            self.setup_operation.set(0)
 
         self.rb1 = Radiobutton(self.setup_frame, text='Fatcat(默认)', variable=self.setup_operation, value=0)
         self.rb2 = Radiobutton(self.setup_frame, text='7-Zip', variable=self.setup_operation, value=1)
         self.rb3 = Radiobutton(self.setup_frame, text='OSFMount2(需要管理员权限)', variable=self.setup_operation, value=2)
+
         if osfmount or _7z is not None:
-            self.rb1.pack(anchor=W)
+            if fatcat is not None:
+                self.rb1.pack(anchor=W)
             if _7z is not None:
                 self.rb2.pack(anchor=W)
             if osfmount is not None:
                 self.rb3.pack(anchor=W)
-            self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+            if (fatcat is not None) or (osfmount and _7z is not None):
+                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+
         # Check boxes
         self.checks_frame = Frame(f2)
 
@@ -136,6 +147,13 @@ class Application(Frame):
 
         ag_chk.pack(padx=10, anchor=W)
 
+        self.devkp = IntVar()
+        self.devkp.set(0)
+
+        dkp_chk = Checkbutton(self.checks_frame, text='开启系统设置-数据管理功能', variable=self.devkp, command=self.usedevkp)
+
+        dkp_chk.pack(padx=10, anchor=W)
+
         self.altdl = IntVar()
         self.altdl.set(0)
 
@@ -151,14 +169,6 @@ class Application(Frame):
             command=lambda: self.tds.set(0) if (self.tds.get() == 1) else '')
 
         self.ag1_chk.pack(padx=10, anchor=W)
-
-        self.tds = IntVar()
-        self.tds.set(0)
-
-        self.tds_chk = Checkbutton(self.checks_frame1,
-            text='为3DS安装', variable=self.tds, command=self.change_chk)
-
-        self.tds_chk.pack(padx=10, anchor=W)
 
         self.updatemode = IntVar()
         self.updatemode.set(0)
@@ -239,8 +249,13 @@ class Application(Frame):
 
     ################################################################################################
     def usealtdl(self):
-        if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但这会给备用载点带来流量负担，确定选择吗？\n(提示: 如果默认载点下载失败，会自动切换备用载点重试，不太需要优先勾选此选项!)'), icon=WARNING):
-            self.altdl.set(0)
+        if self.altdl.get() == 1:
+            if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但这会给备用载点带来流量负担，确定选择吗？\n(提示: 如果默认载点下载失败，会自动切换备用载点重试，不太需要优先勾选此选项!)'), icon=WARNING):
+                self.altdl.set(0)
+    def usedevkp(self):
+        if self.devkp.get() == 1:
+            if not askokcancel('提示', ('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果你已经在NAND中开启了此功能，则不需要勾选此选项')):
+                self.devkp.set(0)
     def change_chk(self):
         self.ag1_chk['state'] = (DISABLED if self.tds.get() == 1 else NORMAL)
         self.uh_chk['state'] = (DISABLED if self.tds.get() == 1 else NORMAL)
@@ -1326,6 +1341,11 @@ twltool = path.join(sysname, 'twltool')
 osfmount  = None
 _7z = None
 
+with open('dev.kp', 'wb+') as f:
+    f.seek(0, 0)
+    f.read(0x04)
+    f.write(b'DUMMY')
+
 if sysname == 'Windows':
     fatcat += '.exe'
     _7za += '.exe'
@@ -1356,12 +1376,15 @@ if sysname == 'Windows':
             _7z = None
 
 if not path.exists(fatcat):
-    root.withdraw()
-    showerror('错误', '找不到Fatcat, 请确认此程序位于本工具目录的"' + sysname + '"文件夹中')
-    root.destroy()
-    exit(1)
+    if osfmount or _7z is not None:
+        fatcat = None
+    else:
+        root.withdraw()
+        showerror('错误', '找不到Fatcat, 请确认此程序位于本工具目录的"' + sysname + '"文件夹中')
+        root.destroy()
+        exit(1)
 
-root.title('HiyaCFW Helper V3.6.0R')
+root.title('HiyaCFW Helper V3.6.0R(BY天涯)')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
