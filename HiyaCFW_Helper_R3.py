@@ -1341,10 +1341,10 @@ twltool = path.join(sysname, 'twltool')
 osfmount  = None
 _7z = None
 
-with open('dev.kp', 'wb+') as f:
-    f.seek(0, 0)
-    f.read(0x04)
-    f.write(b'DUMMY')
+#with open('dev.kp', 'wb+') as f:
+    #f.seek(0, 0)
+    #f.read(0x04)
+    #f.write(b'DUMMY')
 
 if sysname == 'Windows':
     fatcat += '.exe'
