@@ -63,6 +63,7 @@ class Application(Frame):
         self.pack()
         self.adv_mode = False
         self.nand_mode = False
+        self.setup_select = False
  
         # First row
         f1 = Frame(self) 
@@ -127,6 +128,7 @@ class Application(Frame):
                 self.rb3.pack(anchor=W)
             if (fatcat is not None) or (osfmount and _7z is not None):
                 self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+                self.setup_select = True
 
         # Check boxes
         self.checks_frame = Frame(f2)
@@ -165,8 +167,7 @@ class Application(Frame):
 
         self.checks_frame1 = Frame(f2)
 
-        self.ag1_chk = Checkbutton(self.checks_frame1, text='使用AppGen(需装有HiyaCFW)', variable=self.appgen,
-            command=lambda: self.tds.set(0) if (self.tds.get() == 1) else '')
+        self.ag1_chk = Checkbutton(self.checks_frame1, text='使用AppGen(需装有HiyaCFW)', variable=self.appgen, state=DISABLED)
 
         self.ag1_chk.pack(padx=10, anchor=W)
 
@@ -174,7 +175,7 @@ class Application(Frame):
         self.updatemode.set(0)
 
         self.um_chk = Checkbutton(self.checks_frame1,
-            text='更新模式', variable=self.updatemode, command=lambda: self.updatehiya.set(0) if (self.updatehiya.get() == 1) else '')
+            text='更新模式', variable=self.updatemode, command=lambda: self.updatehiya.set(0) if (self.updatehiya.get() == 1) else '', state=DISABLED)
 
         self.um_chk.pack(padx=10, anchor=W)
 
@@ -182,7 +183,7 @@ class Application(Frame):
         self.updatehiya.set(0)
 
         self.uh_chk = Checkbutton(self.checks_frame1,
-            text='同时更新HiyaCFW', variable=self.updatehiya, command=self.change_chk1)
+            text='同时更新HiyaCFW', variable=self.updatehiya, command=lambda: self.updatemode.set(1) if (self.updatemode.get() == 0) else '', state=DISABLED)
 
         self.uh_chk.pack(padx=10, anchor=W)
 
@@ -256,31 +257,21 @@ class Application(Frame):
         if self.devkp.get() == 1:
             if not askokcancel('提示', ('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果你已经在NAND中开启了此功能，则不需要勾选此选项')):
                 self.devkp.set(0)
-    def change_chk(self):
-        self.ag1_chk['state'] = (DISABLED if self.tds.get() == 1 else NORMAL)
-        self.uh_chk['state'] = (DISABLED if self.tds.get() == 1 else NORMAL)
-        if self.appgen.get() == 1:
-            self.appgen.set(0)
-        if self.updatehiya.get() == 1:
-            self.updatehiya.set(0)
-    def change_chk1(self):
-        if self.tds.get() == 1:
-            self.tds.set(0)
-        if self.updatemode.get() == 0:
-            self.updatemode.set(1)
     def change_mode(self):
         if (self.nand_mode):
             self.nand_frame.pack_forget()
             self.start_button.pack_forget()
             self.back_button.pack_forget()
             self.exit_button.pack_forget()
-            if osfmount or _7z is not None: 
-                self.rb1.pack(anchor=W)
+            if osfmount or _7z is not None:
+                if fatcat is not None:
+                    self.rb1.pack(anchor=W)
                 if _7z is not None:
                     self.rb2.pack(anchor=W)
                 if osfmount is not None:
                     self.rb3.pack(anchor=W)
-                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+                if (fatcat is not None) or (osfmount and _7z is not None):
+                    self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
             self.checks_frame.pack(anchor=W)
             self.start_button.pack(side='left', padx=(0, 5))
             self.adv_button.pack(side='left', padx=(0, 0))
@@ -288,7 +279,7 @@ class Application(Frame):
             self.nand_mode = False
         else:
             if askokcancel('警告', ('你正要进入NAND操作模式, 请确认你知道自己在做什么, 继续吗?'), icon=WARNING):
-                if osfmount or _7z is not None:
+                if (self.setup_select):
                     self.setup_frame.pack_forget()
                 self.checks_frame.pack_forget()
                 self.start_button.pack_forget()
@@ -301,19 +292,23 @@ class Application(Frame):
                 self.nand_mode = True
     def change_mode1(self):
         if (self.adv_mode):
+            if self.appgen.get() == 1:
+                self.appgen.set(0)
             self.adv_frame.pack_forget()
             self.checks_frame1.pack_forget()
             self.start_button.pack_forget()
             self.back1_button.pack_forget()
             self.exit_button.pack_forget()
             self.bak_frame.pack(fill=X)
-            if osfmount or _7z is not None: 
-                self.rb1.pack(anchor=W)
+            if osfmount or _7z is not None:
+                if fatcat is not None:
+                    self.rb1.pack(anchor=W)
                 if _7z is not None:
                     self.rb2.pack(anchor=W)
                 if osfmount is not None:
                     self.rb3.pack(anchor=W)
-                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+                if (fatcat is not None) or (osfmount and _7z is not None):
+                    self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
             self.checks_frame.pack(anchor=W)
             self.start_button.pack(side='left', padx=(0, 5))
             self.adv_button.pack(side='left', padx=(0, 0))
@@ -321,8 +316,10 @@ class Application(Frame):
             self.adv_mode = False
         else:
             if askokcancel('提示', ('高级模式提供了单独安装TWiLightMenu++等功能, 点击"确定"以进入')):
+                if self.appgen.get() == 1:
+                    self.appgen.set(0)
                 self.bak_frame.pack_forget()
-                if osfmount or _7z is not None:
+                if (self.setup_select):
                     self.setup_frame.pack_forget()
                 self.checks_frame.pack_forget()
                 self.start_button.pack_forget()
@@ -1151,6 +1148,14 @@ class Application(Frame):
                         with open('UNLAUNCH.DSI', 'rb') as unl:
                             f.write(unl.read())
 
+                    dekp = path.join(self.mounted, 'sys', 'dev.kp')
+                    if not path.exists(dekp):
+                        with open(dekp, 'wb+') as f:
+                            f.seek(0,0)
+                            f.read(0x04)
+                            f.write(b'DUMMY')
+                            f.close()
+
                     # Set files as read-only
                     for file in listdir(path.join(self.mounted, 'title', '00030017', app,
                         'content')):
@@ -1186,6 +1191,14 @@ class Application(Frame):
 
             with open(tmd, 'r+b') as f:
                 f.truncate(520)
+
+            dekp = path.join(self.mounted, 'sys', 'dev.kp')
+            if not path.exists(dekp):
+                with open(dekp, 'wb+') as f:
+                    f.seek(0,0)
+                    f.read(0x04)
+                    f.write(b'DUMMY')
+                    f.close()
 
         Thread(target=self.unmount_nand).start()
 
@@ -1340,11 +1353,6 @@ _7za = path.join(sysname, '7za')
 twltool = path.join(sysname, 'twltool')
 osfmount  = None
 _7z = None
-
-#with open('dev.kp', 'wb+') as f:
-    #f.seek(0, 0)
-    #f.read(0x04)
-    #f.write(b'DUMMY')
 
 if sysname == 'Windows':
     fatcat += '.exe'
