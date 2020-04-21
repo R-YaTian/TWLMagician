@@ -91,11 +91,11 @@ class Application(Frame):
 
         self.adv_frame=LabelFrame(f1, text='存储卡根目录', padx=10, pady=10)
 
-        self.sd_path1 = StringVar()
-        self.sdpath = Entry(self.adv_frame, textvariable=self.sd_path1, state='readonly', width=41)
+        self.sdp = StringVar()
+        self.sdpath = Entry(self.adv_frame, textvariable=self.sdp, state='readonly', width=41)
         self.sdpath.pack(side='left')
 
-        self.chb1 = Button(self.adv_frame, text='浏览', command=self.choose_nand)
+        self.chb1 = Button(self.adv_frame, text='浏览', command=self.choose_sdp)
         self.chb1.pack(side='left')
 
         f1.pack(padx=10, pady=10, fill=X)
@@ -186,6 +186,10 @@ class Application(Frame):
             text='同时更新HiyaCFW', variable=self.updatehiya, command=lambda: self.updatemode.set(1) if (self.updatemode.get() == 0) else '', state=DISABLED)
 
         self.uh_chk.pack(padx=10, anchor=W)
+
+        adl1_chk = Checkbutton(self.checks_frame1, text='使用备用载点', variable=self.altdl, command=self.usealtdl)
+
+        adl1_chk.pack(padx=10, anchor=W)
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text='NAND操作选项', padx=10, pady=10)
@@ -294,6 +298,8 @@ class Application(Frame):
         if (self.adv_mode):
             if self.appgen.get() == 1:
                 self.appgen.set(0)
+            if self.sdp.get() != '':
+                self.sdp.set('')
             self.adv_frame.pack_forget()
             self.checks_frame1.pack_forget()
             self.start_button.pack_forget()
@@ -310,6 +316,8 @@ class Application(Frame):
                 if (fatcat is not None) or (osfmount and _7z is not None):
                     self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
             self.checks_frame.pack(anchor=W)
+            self.start_button['state'] = DISABLED
+            self.nand_button['state'] = DISABLED
             self.start_button.pack(side='left', padx=(0, 5))
             self.adv_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
@@ -318,6 +326,8 @@ class Application(Frame):
             if askokcancel('提示', ('高级模式提供了单独安装TWiLightMenu++等功能, 点击"确定"以进入')):
                 if self.appgen.get() == 1:
                     self.appgen.set(0)
+                if self.nand_file.get() != '':
+                    self.nand_file.set('')
                 self.bak_frame.pack_forget()
                 if (self.setup_select):
                     self.setup_frame.pack_forget()
@@ -327,6 +337,7 @@ class Application(Frame):
                 self.exit_button.pack_forget()
                 self.adv_frame.pack(fill=X)
                 self.checks_frame1.pack(anchor=W)
+                self.start_button['state'] = DISABLED
                 self.start_button.pack(side='left', padx=(0, 5))
                 self.back1_button.pack(side='left', padx=(0, 0))
                 self.exit_button.pack(side='left', padx=(5, 0))
@@ -342,10 +353,16 @@ class Application(Frame):
 
 
     ################################################################################################
+    def choose_sdp(self):
+        showinfo('提示', '请选择机器的存储卡根目录')
+        self.sd_path1 = askdirectory()
+        self.sdp.set(self.sd_path1)
+        self.start_button['state'] = (NORMAL if self.sd_path1 != '' else DISABLED)
+        if self.sd_path1 == '':
+            return
     def choose_nand(self):
         name = askopenfilename(filetypes=( ( 'nand.bin', '*.bin' ), ( 'DSi-1.mmc', '*.mmc' ) ))
         self.nand_file.set(name)
-
         self.nand_button['state'] = (NORMAL if name != '' else DISABLED)
         self.start_button['state'] = (NORMAL if name != '' else DISABLED)
 
