@@ -11,7 +11,7 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
     END)
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
-from platform import system,architecture
+from platform import system, architecture
 from os import path, remove, chmod, listdir, rename, environ
 from sys import exit
 from threading import Thread
