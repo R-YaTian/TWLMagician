@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # HiyaCFW Helper R
-# Version 3.6.0R
+# Version 3.6.1R
 # Author: R-YaTian
 # Original Author: mondul <mondul@huyzona.com>
 
@@ -24,10 +24,26 @@ from struct import unpack_from
 from shutil import rmtree, copyfile, copyfileobj
 from distutils.dir_util import copy_tree, _path_created
 from re import search
-from ctypes import windll
-from locale import getdefaultlocale
 from appgen import agen
+from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 import gettext
+import ctypes
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+#Thread-Control
+import inspect
+def _async_raise(tid, exctype):
+    tid = ctypes.c_long(tid)
+    if not inspect.isclass(exctype):
+        exctype = type(exctype)
+    res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(exctype))
+    if res == 0:
+        raise ValueError("Invalid Thread ID")
+    elif res != 1:
+        ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
+        raise SystemError("PyThreadState_SetAsyncExc Failed")
+def stop_thread(thread):
+    _async_raise(thread.ident, SystemExit)
 
 
 ####################################################################################################
@@ -434,7 +450,7 @@ class Application(Frame):
     def hiya(self):
         if not self.adv_mode:
             if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
-                if windll.shell32.IsUserAnAdmin() == 0:
+                if ctypes.windll.shell32.IsUserAnAdmin() == 0:
                     root.withdraw()
                     showerror(_('错误'), _('此功能需要以管理员权限运行本工具'))
                     root.destroy()
@@ -496,14 +512,15 @@ class Application(Frame):
                 showerror(_('错误'), 'Bad Console ID')
                 return
 
-        dialog = Toplevel(self)
+        self.dialog = Toplevel()
         # Open as dialog (parent disabled)
-        dialog.grab_set()
-        dialog.title(_('状态'))
+        self.dialog.grab_set()
+        self.dialog.title(_('状态'))
         # Disable maximizing
-        dialog.resizable(0, 0)
+        self.dialog.resizable(0, 0)
+        self.dialog.protocol("WM_DELETE_WINDOW", self.closethread)
 
-        frame = Frame(dialog, bd=2, relief=SUNKEN)
+        frame = Frame(self.dialog, bd=2, relief=SUNKEN)
 
         scrollbar = Scrollbar(frame)
         scrollbar.pack(side=RIGHT, fill=Y)
@@ -516,13 +533,13 @@ class Application(Frame):
 
         frame.pack()
 
-        Button(dialog, text=_('关闭'), command=dialog.destroy, width=16).pack(pady=10)
+        Button(self.dialog, text=_('关闭'), command=self.closethread, width=16).pack(pady=10)
 
         # Center in window
-        dialog.update_idletasks()
-        width = dialog.winfo_width()
-        height = dialog.winfo_height()
-        dialog.geometry('%dx%d+%d+%d' % (width, height, root.winfo_x() + (root.winfo_width() / 2) -
+        self.dialog.update_idletasks()
+        width = self.dialog.winfo_width()
+        height = self.dialog.winfo_height()
+        self.dialog.geometry('%dx%d+%d+%d' % (width, height, root.winfo_x() + (root.winfo_width() / 2) -
             (width / 2), root.winfo_y() + (root.winfo_height() / 2) - (height / 2)))
 
         # Check if we'll be adding a No$GBA footer
@@ -538,6 +555,17 @@ class Application(Frame):
 
 
     ################################################################################################
+    def closethread(self):
+        print(self.TThread)
+        try:
+            stop_thread(self.TThread)
+        except:
+            pass
+        self.TThread = Thread(target=self.clean, args=(True,))
+        self.TThread.start()
+        #self.closethread1 = True
+        #self.dialog.destroy()
+        #print(_('用户终止操作，自动清理完毕'))
     def check_nand(self):
         self.log.write(_('正在检查NAND文件...'))
 
@@ -567,7 +595,8 @@ class Application(Frame):
                             Thread(target=self.remove_footer).start()
                             #pass
                     else:
-                        Thread(target=self.get_latest_hiyacfw).start()
+                        self.TThread = Thread(target=self.get_latest_hiyacfw)
+                        self.TThread.start()
 
                 else:
                     self.log.write(_('错误: 没有检测到No$GBA footer'))
@@ -614,7 +643,9 @@ class Application(Frame):
                         else self.extract_bios).start()
 
             else:
+                self.files.append(filename)
                 self.log.write(_('错误: 解压失败'))
+                #Thread(target=self.clean, args=(True,)).start()
 
         except (URLError, IOError) as e:
             print(e)
@@ -955,7 +986,7 @@ class Application(Frame):
 
             if self.launcher_region in ('CHN', 'KOR'):
                 launcher_app = '00000000.app'
-            elif self.launcher_region in ('USA-dev'):
+            elif self.launcher_region == 'USA-dev':
                 launcher_app = '7412e50d.app'
             else:
                 launcher_app = '00000002.app'
@@ -1514,9 +1545,14 @@ class Application(Frame):
 # Entry point
 
 root = Tk()
+sysname = system()
 
-lo = getdefaultlocale()
-loc = lo[0]
+if sysname == 'Darwin':
+    if getlocale()[0] is None:
+        setlocale(LC_ALL, 'en_US.UTF-8')
+    loc = getlocale()[0]
+else:
+    loc = getdefaultlocale()[0]
 langs = path.join('i18n', loc, 'LC_MESSAGES', 'lang.mo')
 lange = path.join('i18n', 'en_US', 'LC_MESSAGES', 'lang.mo')
 langc = path.join('i18n', 'zh_CN', 'LC_MESSAGES', 'lang.mo')
@@ -1551,8 +1587,6 @@ else:
     lang.install()
 
 print(_('HiyaCFW Helper启动中...'))
-
-sysname = system()
 
 fatcat = path.join(sysname, 'fatcat')
 _7za = path.join(sysname, '7za')
@@ -1606,7 +1640,7 @@ if not path.exists(fatcat):
 
 print(_('当前为Beta版本\nGUI初始化中...'))
 
-root.title(_('HiyaCFW Helper V3.6.0R(BY天涯)'))
+root.title(_('HiyaCFW Helper V3.6.1R(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
