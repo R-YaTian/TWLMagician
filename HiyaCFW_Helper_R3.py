@@ -31,7 +31,6 @@ import ctypes
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 #Thread-Control
-import inspect
 def _async_raise(tid, exctype):
     tid = ctypes.c_long(tid)
     if not inspect.isclass(exctype):
@@ -54,9 +53,11 @@ class ThreadSafeText(Text):
         Text.__init__(self, master, **options)
         self.queue = Queue()
         self.update_me()
+        self.wlog = open('window.log', 'a')
 
     def write(self, line):
         self.queue.put(line)
+        self.wlog.write(line+'\n')
 
     def update_me(self):
         try:
@@ -544,14 +545,18 @@ class Application(Frame):
 
         # Check if we'll be adding a No$GBA footer
         if self.nand_mode and self.nand_operation.get() == 1:
-            Thread(target=self.add_footer, args=(cid, console_id)).start()
+            self.TThread = Thread(target=self.add_footer, args=(cid, console_id))
+            self.TThread.start()
         elif self.adv_mode:
             if self.updatehiya.get() == 1:
-                Thread(target=self.get_latest_hiyacfw).start()
+                self.TThread = Thread(target=self.get_latest_hiyacfw)
+                self.TThread.start()
             else:
-                Thread(target=self.get_latest_twilight).start()
+                self.TThread = Thread(target=self.get_latest_twilight)
+                self.TThread.start()
         else:
-            Thread(target=self.check_nand).start()
+            self.TThread = Thread(target=self.check_nand)
+            self.TThread.start()
 
 
     ################################################################################################
@@ -561,8 +566,7 @@ class Application(Frame):
             stop_thread(self.TThread)
         except:
             pass
-        self.TThread = Thread(target=self.clean, args=(True,))
-        self.TThread.start()
+        Thread(target=self.clean, args=(True,)).start()
         #self.closethread1 = True
         #self.dialog.destroy()
         #print(_('用户终止操作，自动清理完毕'))
@@ -590,9 +594,11 @@ class Application(Frame):
 
                     if self.nand_mode:
                         if self.nand_operation.get() == 2:
-                            Thread(target=self.decrypt_nand).start()
+                            self.TThread = Thread(target=self.decrypt_nand)
+                            self.TThread.start()
                         else:
-                            Thread(target=self.remove_footer).start()
+                            self.TThread = Thread(target=self.remove_footer)
+                            self.TThread.start()
                             #pass
                     else:
                         self.TThread = Thread(target=self.get_latest_hiyacfw)
@@ -637,10 +643,12 @@ class Application(Frame):
                     self.folders.append('for PC')
                 self.folders.append('for SDNAND SD card')
                 if self.adv_mode and self.updatehiya.get() == 1:
-                    Thread(target=self.update_hiyacfw).start()
+                    self.TThread = Thread(target=self.update_hiyacfw)
+                    self.TThread.start()
                 else:
-                    Thread(target=self.decrypt_nand if path.isfile('bootloader.nds')
-                        else self.extract_bios).start()
+                    self.TThread = Thread(target=self.decrypt_nand if path.isfile('bootloader.nds')
+                        else self.extract_bios)
+                    self.TThread.start()
 
             else:
                 self.files.append(filename)
@@ -687,7 +695,8 @@ class Application(Frame):
                 self.files.append('arm7.bin')
                 self.files.append('arm9.bin')
 
-                Thread(target=self.patch_bios).start()
+                self.TThread = Thread(target=self.patch_bios)
+                self.TThread.start()
 
             else:
                 self.log.write('ERROR: Extractor failed')
@@ -728,7 +737,8 @@ class Application(Frame):
             self.log.write('- Patched arm9.bin SHA1:\n  ' +
                 sha1_hash.digest().hex().upper())
 
-            Thread(target=self.arm9_prepend).start()
+            self.TThread = Thread(target=self.arm9_prepend)
+            self.TThread.start()
 
         except IOError as e:
             print(e)
@@ -765,7 +775,8 @@ class Application(Frame):
             self.log.write('- Prepended arm9.bin SHA1:\n  ' +
                 sha1_hash.digest().hex().upper())
 
-            Thread(target=self.make_bootloader).start()
+            self.TThread = Thread(target=self.make_bootloader)
+            self.TThread.start()
 
         except IOError as e:
             print(e)
@@ -799,7 +810,8 @@ class Application(Frame):
                 self.log.write('- bootloader.nds SHA1:\n  ' +
                     sha1_hash.digest().hex().upper())
 
-                Thread(target=self.decrypt_nand).start()
+                self.TThread = Thread(target=self.decrypt_nand)
+                self.TThread.start()
 
             else:
                 self.log.write('ERROR: Generator failed')
@@ -826,10 +838,12 @@ class Application(Frame):
                 if not self.nand_mode:
                     self.files.append(self.console_id.get() + '.img')
                 if not self.nand_operation.get() == 2:
-                    Thread(target=self.extract_nand1 if (sysname == 'Windows' and self.setup_operation.get() == 1)
-                        else self.extract_nand).start()
+                    self.TThread = Thread(target=self.extract_nand1 if (sysname == 'Windows' and self.setup_operation.get() == 1)
+                        else self.extract_nand)
+                    self.TThread.start()
                 else:
-                    Thread(target=self.mount_nand).start()
+                    self.TThread = Thread(target=self.mount_nand)
+                    self.TThread.start()
             else:
                 self.log.write('ERROR: Decryptor failed')
                 Thread(target=self.clean, args=(True,)).start()
@@ -857,14 +871,16 @@ class Application(Frame):
                 ret_val = proc.wait()
 
                 if ret_val == 0:
-                    Thread(target=self.get_launcher).start()
+                    self.TThread = Thread(target=self.get_launcher)
+                    self.TThread.start()
 
                 else:
                     self.log.write('ERROR: Extractor failed, please update 7-Zip')
 
                     if path.exists(fatcat):
                         self.log.write('\nTrying with fatcat...')
-                        Thread(target=self.extract_nand).start()
+                        self.TThread = Thread(target=self.extract_nand)
+                        self.TThread.start()
 
                     else:
                         Thread(target=self.clean, args=(True,)).start()
@@ -874,7 +890,8 @@ class Application(Frame):
 
                 if path.exists(fatcat):
                     self.log.write('\nTrying with fatcat...')
-                    Thread(target=self.extract_nand).start()
+                    self.TThread = Thread(target=self.extract_nand)
+                    self.TThread.start()
 
                 else:
                     Thread(target=self.clean, args=(True,)).start()
@@ -885,7 +902,8 @@ class Application(Frame):
 
             if path.exists(fatcat):
                 self.log.write('\nTrying with fatcat...')
-                Thread(target=self.extract_nand).start()
+                self.TThread = Thread(target=self.extract_nand)
+                self.TThread.start()
 
             else:
                 Thread(target=self.clean, args=(True,)).start()
@@ -917,7 +935,8 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
                 return
 
-            Thread(target=self.unlaunch_proc).start()
+            self.TThread = Thread(target=self.unlaunch_proc)
+            self.TThread.start()
 
         except OSError as e:
             print(e)
@@ -937,7 +956,8 @@ class Application(Frame):
             ret_val = proc.wait()
 
             if ret_val == 0:
-                Thread(target=self.get_launcher).start()
+                self.TThread = Thread(target=self.get_launcher)
+                self.TThread.start()
 
             else:
                 self.log.write('ERROR: Extractor failed')
@@ -1017,7 +1037,8 @@ class Application(Frame):
                 self.log.write('- Patched Launcher SHA1:\n  ' +
                     sha1_hash.digest().hex().upper())
 
-                Thread(target=self.install_hiyacfw, args=(launcher_app, launcher_folder, app)).start()
+                self.TThread = Thread(target=self.install_hiyacfw, args=(launcher_app, launcher_folder, app))
+                self.TThread.start()
 
             else:
                 self.log.write(_('错误: 解压失败'))
@@ -1063,7 +1084,8 @@ class Application(Frame):
                     f.close()
                 self.log.write(_('"系统设置-数据管理"功能启用成功'))
 
-        Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean).start()
+        self.TThread = Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean)
+        self.TThread.start()
     def update_hiyacfw(self):
         self.log.write(_('\n正在更新HiyaCFW...'))
 
@@ -1072,7 +1094,8 @@ class Application(Frame):
 
         copyfile(path.join('for SDNAND SD card', 'hiya.dsi'), path.join(self.sd_path1, 'hiya.dsi'))
 
-        Thread(target=self.get_latest_twilight).start()
+        self.TThread = Thread(target=self.get_latest_twilight)
+        self.TThread.start()
 
 
     ################################################################################################
@@ -1108,7 +1131,8 @@ class Application(Frame):
                 self.folders.append('roms')
                 if self.adv_mode and self.is_tds:
                     self.folders.append('3DS - CFW users')
-                Thread(target=self.install_twilight, args=(filename[:-3],)).start()
+                self.TThread = Thread(target=self.install_twilight, args=(filename[:-3],))
+                self.TThread.start()
 
             else:
                 self.files.append(filename)
@@ -1312,7 +1336,8 @@ class Application(Frame):
         app = self.detect_region()
 
         if not app:
-            Thread(target=self.unmount_nand1).start()
+            self.TThread = Thread(target=self.unmount_nand1)
+            self.TThread.start()
             return
 
         tmd = path.join(self.mounted, 'title', '00030017', app, 'content', 'title.tmd')
@@ -1368,19 +1393,22 @@ class Application(Frame):
 
                 else:
                     self.log.write(_('错误: 解压失败'))
-                    Thread(target=self.unmount_nand1).start()
+                    self.TThread = Thread(target=self.unmount_nand1)
+                    self.TThread.start()
                     return
 
             except IOError as e:
                 print(e)
                 self.log.write(_('错误: 无法下载 unlaunch'))
-                Thread(target=self.unmount_nand1).start()
+                self.TThread = Thread(target=self.unmount_nand1)
+                self.TThread.start()
                 return
 
             except OSError as e:
                 print(e)
                 self.log.write(_('错误: 无法运行 ') + exe)
-                Thread(target=self.unmount_nand1).start()
+                self.TThread = Thread(target=self.unmount_nand1)
+                self.TThread.start()
                 return
 
         else:
@@ -1404,7 +1432,8 @@ class Application(Frame):
                     f.write(b'DUMMY')
                     f.close()
 
-        Thread(target=self.unmount_nand).start()
+        self.TThread = Thread(target=self.unmount_nand)
+        self.TThread.start()
 
 
     ################################################################################################
@@ -1418,7 +1447,8 @@ class Application(Frame):
             ret_val = proc.wait()
 
             if ret_val == 0:
-                Thread(target=self.encrypt_nand).start()
+                self.TThread = Thread(target=self.encrypt_nand)
+                self.TThread.start()
 
             else:
                 self.log.write(_('错误: 卸载失败'))
