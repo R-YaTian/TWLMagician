@@ -26,14 +26,16 @@ from distutils.dir_util import copy_tree, _path_created
 from re import search
 from appgen import agen
 from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
+from inspect import isclass
 import gettext
 import ctypes
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
+
 #Thread-Control
 def _async_raise(tid, exctype):
     tid = ctypes.c_long(tid)
-    if not inspect.isclass(exctype):
+    if not isclass(exctype):
         exctype = type(exctype)
     res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(exctype))
     if res == 0:
@@ -86,6 +88,7 @@ class Application(Frame):
         self.have_hiya = False
         self.is_tds = False
         self.have_menu = False
+        self.finish = False
 
         # First row
         f1 = Frame(self) 
@@ -272,7 +275,7 @@ class Application(Frame):
     ################################################################################################
     def usealtdl(self):
         if self.altdl.get() == 1:
-            if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但这会给备用载点带来流量负担，确定选择吗？'), icon=WARNING):
+            if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但备用载点服务器马上就要跑路，此功能或许只能使用到3月中旬'), icon=WARNING):
                 self.altdl.set(0)
     def usedevkp(self):
         if self.devkp.get() == 1:
@@ -353,7 +356,9 @@ class Application(Frame):
             self.exit_button.pack(side='left', padx=(5, 0))
             self.adv_mode = False
         else:
+            #if askokcancel(_('提示'), (_('当前测试版本未开放高级模式，我们正在加紧开发中，敬请期待'))):
             if askokcancel(_('提示'), (_('高级模式提供了单独安装TWiLightMenu++等功能, 点击"确定"以进入'))):
+                #return
                 self.have_menu = False
                 self.is_tds = False
                 self.have_hiya = False
@@ -390,6 +395,19 @@ class Application(Frame):
         self.cid_entry['state'] = (NORMAL if status else DISABLED)
         self.console_id_label['state'] = (NORMAL if status else DISABLED)
         self.console_id_entry['state'] = (NORMAL if status else DISABLED)
+    def check_console(self, spath):
+        tmenu = path.join(spath, '_nds', 'TWiLightMenu', 'main.srldr')
+        if path.exists(tmenu):
+            self.have_menu = True
+        tds = path.join(spath, 'Nintendo 3DS')
+        if path.exists(tds):
+            self.is_tds = True
+        else:
+            hiyad = path.join(spath, 'hiya.dsi')
+            hiyab = path.join(spath, 'hiya', 'bootloader.nds')
+            hiyas = path.join(spath, 'sys', 'HWINFO_S.dat')
+            if path.exists(hiyad) or path.exists(hiyab) or path.exists(hiyas):
+                self.have_hiya = True
 
 
     ################################################################################################
@@ -412,18 +430,7 @@ class Application(Frame):
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             return
-        tmenu = path.join(self.sd_path1, '_nds', 'TWiLightMenu', 'main.srldr')
-        if path.exists(tmenu):
-            self.have_menu = True
-        tds = path.join(self.sd_path1, 'Nintendo 3DS')
-        if path.exists(tds):
-            self.is_tds = True
-        else:
-            hiyad = path.join(self.sd_path1, 'hiya.dsi')
-            hiyab = path.join(self.sd_path1, 'hiya', 'bootloader.nds')
-            hiyas = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
-            if path.exists(hiyad) and path.exists(hiyab) and path.exists(hiyas):
-                self.have_hiya = True
+        self.check_console(self.sd_path1)
         if self.is_tds == True:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
@@ -468,18 +475,7 @@ class Application(Frame):
                 # Exit if no path was selected
                 if self.sd_path == '':
                     return
-                tmenu = path.join(self.sd_path, '_nds', 'TWiLightMenu', 'main.srldr')
-                if path.exists(tmenu):
-                    self.have_menu = True
-                tds = path.join(self.sd_path, 'Nintendo 3DS')
-                if path.exists(tds):
-                    self.is_tds = True
-                else:
-                    hiyad = path.join(self.sd_path, 'hiya.dsi')
-                    hiyab = path.join(self.sd_path, 'hiya', 'bootloader.nds')
-                    hiyas = path.join(self.sd_path, 'sys', 'HWINFO_S.dat')
-                    if path.exists(hiyad) or path.exists(hiyab) or path.exists(hiyas):
-                        self.have_hiya = True
+                self.check_console(self.sd_path)
                 if self.is_tds or self.have_hiya:
                     showerror(_('错误'), _('检测到CFW已安装，请转到高级模式，或选择一个空目录以继续'))
                     return
@@ -543,6 +539,7 @@ class Application(Frame):
         self.dialog.geometry('%dx%d+%d+%d' % (width, height, root.winfo_x() + (root.winfo_width() / 2) -
             (width / 2), root.winfo_y() + (root.winfo_height() / 2) - (height / 2)))
 
+        self.finish = False
         # Check if we'll be adding a No$GBA footer
         if self.nand_mode and self.nand_operation.get() == 1:
             self.TThread = Thread(target=self.add_footer, args=(cid, console_id))
@@ -561,15 +558,22 @@ class Application(Frame):
 
     ################################################################################################
     def closethread(self):
-        print(self.TThread)
+        if self.finish == True:
+            self.dialog.destroy()
+            return
         try:
             stop_thread(self.TThread)
+            self.proc.kill()
         except:
             pass
-        Thread(target=self.clean, args=(True,)).start()
-        #self.closethread1 = True
-        #self.dialog.destroy()
-        #print(_('用户终止操作，自动清理完毕'))
+
+        if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
+            self.unmount_nand1()
+        else:
+            self.clean(True,)
+
+        self.dialog.destroy()
+        print(_('\n用户终止操作'))
     def check_nand(self):
         self.log.write(_('正在检查NAND文件...'))
 
@@ -616,6 +620,10 @@ class Application(Frame):
     ################################################################################################
     def get_latest_hiyacfw(self):
         filename = 'HiyaCFW.7z'
+        #filename = 'hiyaCFW.7z'
+        self.files.append(filename)
+        self.folders.append('for PC')
+        self.folders.append('for SDNAND SD card')
 
         try:
             if not path.isfile(filename):
@@ -631,17 +639,13 @@ class Application(Frame):
             self.log.write(_('- 正在解压 HiyaCFW 压缩包...'))
 
             if self.adv_mode and self.updatehiya.get() == 1:
-                proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'for SDNAND SD card' ])
+                self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'for SDNAND SD card' ])
             else:
-                proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'for PC', 'for SDNAND SD card' ])
+                self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'for PC', 'for SDNAND SD card' ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.files.append(filename)
-                if not self.adv_mode:
-                    self.folders.append('for PC')
-                self.folders.append('for SDNAND SD card')
                 if self.adv_mode and self.updatehiya.get() == 1:
                     self.TThread = Thread(target=self.update_hiyacfw)
                     self.TThread.start()
@@ -651,9 +655,8 @@ class Application(Frame):
                     self.TThread.start()
 
             else:
-                self.files.append(filename)
                 self.log.write(_('错误: 解压失败'))
-                #Thread(target=self.clean, args=(True,)).start()
+                Thread(target=self.clean, args=(True,)).start()
 
         except (URLError, IOError) as e:
             print(e)
@@ -666,12 +669,14 @@ class Application(Frame):
 
     ################################################################################################
     def extract_bios(self):
+        self.files.append('arm7.bin')
+        self.files.append('arm9.bin')
         self.log.write('\nExtracting ARM7/ARM9 BIOS from NAND...')
 
         try:
-            proc = Popen([ twltool, 'boot2', '--in', self.nand_file.get() ])
+            self.proc = Popen([ twltool, 'boot2', '--in', self.nand_file.get() ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
                 # Hash arm7.bin
@@ -692,8 +697,6 @@ class Application(Frame):
                 self.log.write('- arm9.bin SHA1:\n  ' +
                     sha1_hash.digest().hex().upper())
 
-                self.files.append('arm7.bin')
-                self.files.append('arm9.bin')
 
                 self.TThread = Thread(target=self.patch_bios)
                 self.TThread.start()
@@ -786,20 +789,20 @@ class Application(Frame):
 
     ################################################################################################
     def make_bootloader(self):
+        #self.files.append('bootloader.nds')
         self.log.write('\nGenerating new bootloader...')
 
         exe = (path.join('for PC', 'bootloader files', 'ndstool.exe') if sysname == 'Windows' else
             path.join(sysname, 'ndsblc'))
 
         try:
-            proc = Popen([ exe, '-c', 'bootloader.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-t',
+            self.proc = Popen([ exe, '-c', 'bootloader.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-t',
                 path.join('for PC', 'bootloader files', 'banner.bin'), '-h',
                 path.join('for PC', 'bootloader files', 'header.bin') ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.files.append('bootloader.nds')
 
                 # Hash bootloader.nds
                 sha1_hash = sha1()
@@ -825,18 +828,18 @@ class Application(Frame):
 
     ################################################################################################
     def decrypt_nand(self):
+        if not self.nand_mode:
+            self.files.append(self.console_id.get() + '.img')
         self.log.write('\nDecrypting NAND...')
 
         try:
-            proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
+            self.proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
                 self.console_id.get() + '.img' ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
             print("\n")
 
             if ret_val == 0:
-                if not self.nand_mode:
-                    self.files.append(self.console_id.get() + '.img')
                 if not self.nand_operation.get() == 2:
                     self.TThread = Thread(target=self.extract_nand1 if (sysname == 'Windows' and self.setup_operation.get() == 1)
                         else self.extract_nand)
@@ -856,26 +859,26 @@ class Application(Frame):
 
     ################################################################################################
     def extract_nand1(self):
+        self.files.append('0.fat')
         self.log.write('\nExtracting files from NAND...')
 
         try:
-            proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
+            self.proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.files.append('0.fat')
 
-                proc = Popen([ _7z, 'x', '-bso0', '-y', '-o' + self.sd_path, '0.fat' ])
+                self.proc = Popen([ _7z, 'x', '-bso0', '-y', '-o' + self.sd_path, '0.fat' ])
 
-                ret_val = proc.wait()
+                ret_val = self.proc.wait()
 
                 if ret_val == 0:
                     self.TThread = Thread(target=self.get_launcher)
                     self.TThread.start()
 
                 else:
-                    self.log.write('ERROR: Extractor failed, please update 7-Zip')
+                    self.log.write(_('错误: 解压失败'))
 
                     if path.exists(fatcat):
                         self.log.write('\nTrying with fatcat...')
@@ -886,7 +889,7 @@ class Application(Frame):
                         Thread(target=self.clean, args=(True,)).start()
 
             else:
-                self.log.write('ERROR: Extractor failed')
+                self.log.write(_('错误: 解压失败'))
 
                 if path.exists(fatcat):
                     self.log.write('\nTrying with fatcat...')
@@ -922,11 +925,11 @@ class Application(Frame):
             if self.nand_mode:
                 cmd[-1] = 'rw,rem'
 
-            proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+            self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 
-            outs, errs = proc.communicate()
+            outs, errs = self.proc.communicate()
 
-            if proc.returncode == 0:
+            if self.proc.returncode == 0:
                 self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
                 self.log.write('- 挂载到驱动器 ' + self.mounted)
 
@@ -950,10 +953,10 @@ class Application(Frame):
 
         try:
             # DSi first partition offset: 0010EE00h
-            proc = Popen([ fatcat, '-O', '1109504', '-x', self.sd_path,
+            self.proc = Popen([ fatcat, '-O', '1109504', '-x', self.sd_path,
                 self.console_id.get() + '.img' ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
                 self.TThread = Thread(target=self.get_launcher)
@@ -1008,8 +1011,11 @@ class Application(Frame):
                 launcher_app = '00000000.app'
             elif self.launcher_region == 'USA-dev':
                 launcher_app = '7412e50d.app'
+                self.files.append('title.tmd')
             else:
                 launcher_app = '00000002.app'
+
+            self.files.append(launcher_app)
 
             # Prepare decryption params
             params = [ _7za, 'x', '-bso0', '-y', '-p' + app.lower(), self.launcher_region,
@@ -1018,15 +1024,11 @@ class Application(Frame):
             if launcher_app == '7412e50d.app':
                 params.append('title.tmd')
 
-            proc = Popen(params)
+            self.proc = Popen(params)
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.files.append(launcher_app)
-
-                if launcher_app == '7412e50d.app':
-                    self.files.append('title.tmd')
 
                 # Hash launcher app
                 sha1_hash = sha1()
@@ -1100,7 +1102,14 @@ class Application(Frame):
 
     ################################################################################################
     def get_latest_twilight(self):
-        filename = 'TWiLightMenu.7z'
+        filename = 'TWiLightMenu-DSi.7z'
+        self.files.append(filename)
+        self.files.append('BOOT.NDS')
+        self.files.append('snemul.cfg')
+        self.folders.append('_nds')
+        self.folders.append('roms')
+        self.folders.append('title')
+        self.folders.append('hiya')
 
         try:
             if not path.isfile(filename):
@@ -1114,28 +1123,17 @@ class Application(Frame):
                         copyfileobj(src, dst)
 
             self.log.write(_('- 正在解压 ') + filename[:-3] + _(' 压缩包...'))
-            if self.adv_mode and self.is_tds:
-                proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'DSi - CFW users',
-                    'DSi&3DS - SD card users', 'roms', '3DS - CFW users' ])
-            else:
-                proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'DSi - CFW users',
-                    'DSi&3DS - SD card users', 'roms' ])
 
-            ret_val = proc.wait()
+            self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'title',
+                'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg'])
+
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.files.append(filename)
-                self.folders.append('DSi - CFW users')
-                self.folders.append('_nds')
-                self.folders.append('DSi&3DS - SD card users')
-                self.folders.append('roms')
-                if self.adv_mode and self.is_tds:
-                    self.folders.append('3DS - CFW users')
                 self.TThread = Thread(target=self.install_twilight, args=(filename[:-3],))
                 self.TThread.start()
 
             else:
-                self.files.append(filename)
                 self.log.write(_('错误: 解压失败'))
                 Thread(target=self.clean, args=(True,)).start()
 
@@ -1154,28 +1152,18 @@ class Application(Frame):
     def install_twilight(self, name):
         self.log.write(_('\n正在复制 ') + name + _(' 相关文件...'))
 
-        remove(path.join('_nds', 'TWiLightMenu', 'akmenu', 'themes', '.DS_Store'))
         if not self.adv_mode:
-            remove(path.join('_nds', 'GBARunner2_arm7dldi_3ds.nds'))
-            rmtree(path.join('_nds', 'TWiLightMenu', 'widescreen'))
-            copy_tree(path.join('DSi - CFW users', 'SDNAND root'), self.sd_path, update=1)
-            copy_tree('_nds', path.join(self.sd_path, '_nds'))
-            copy_tree('DSi&3DS - SD card users', self.sd_path, update=1)
-            copy_tree('roms', path.join(self.sd_path, 'roms'))
-        elif self.is_tds:
-            remove(path.join('_nds', 'GBARunner2_arm7dldi_dsi.nds'))
-            copy_tree('_nds', path.join(self.sd_path1, '_nds'))
-            copy_tree(path.join('DSi&3DS - SD card users', '_nds'), path.join(self.sd_path1, '_nds'), update=1)
-            copy_tree('roms', path.join(self.sd_path1, 'roms'))
-            remove(path.join('3DS - CFW users', 'Games supported with widescreen.txt'))
-            copy_tree('3DS - CFW users', path.join(self.sd_path1, 'cias'))
+            copy_tree('_nds', path.join(self.sd_path, '_nds'), update=1)
+            copy_tree('title', path.join(self.sd_path, 'title'), update=1)
+            copy_tree('hiya', path.join(self.sd_path, 'hiya'), update=1)
+            copy_tree('roms', path.join(self.sd_path, 'roms'), update=1)
+            copyfile('BOOT.NDS', path.join(self.sd_path, 'BOOT.NDS'))
+            copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
-            remove(path.join('_nds', 'GBARunner2_arm7dldi_3ds.nds'))
-            rmtree(path.join('_nds', 'TWiLightMenu', 'widescreen'))
-            copy_tree(path.join('DSi - CFW users', 'SDNAND root'), self.sd_path1, update=1)
-            copy_tree('_nds', path.join(self.sd_path1, '_nds'))
-            copy_tree('DSi&3DS - SD card users', self.sd_path1, update=1)
+            copy_tree('_nds', path.join(self.sd_path1, '_nds'), update=1)
             copy_tree('roms', path.join(self.sd_path1, 'roms'))
+            copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
+            copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
         if self.appgen.get() == 1:
             if not self.adv_mode:
                 agen(path.join(self.sd_path, 'title' , '00030004'), path.join(self.sd_path, 'roms'))
@@ -1196,6 +1184,7 @@ class Application(Frame):
 
     ################################################################################################
     def clean(self, err=False):
+        self.finish = True
         self.log.write(_('\n清理中...'))
 
         while len(self.folders) > 0:
@@ -1213,21 +1202,22 @@ class Application(Frame):
                     remove(self.console_id.get() + '.img')
                 except:
                     pass
-            self.log.write(_('操作过程发生错误, 已终止'))
+            self.log.write(_('操作过程发生错误, 已终止\n'))
             return
 
         if self.nand_mode:
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
-                self.log.write(_('\n完成!\n修改后的NAND已保存为\n') + file)
+                self.log.write(_('\n完成!\n修改后的NAND已保存为') + file)
             except FileExistsError:
                 remove(self.console_id.get() + '.img')
-                self.log.write(_('\n操作终止!\n目标文件已存在于程序运行目录下, 未覆盖'))
+                self.log.write(_('\n操作终止!\n目标文件已存在于程序运行目录下, \n无法覆盖原文件\n'))
             return
-        self.log.write(_('完成!\n弹出你的存储卡并插回到机器中'))
+
+        self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n'))
         if self.adv_mode and self.is_tds:
-            self.log.write(_('对于3DS设备, 你还需要在机器上使用FBI完成Title的安装'))
+            self.log.write(_('对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
 
 
     ################################################################################################
@@ -1331,6 +1321,8 @@ class Application(Frame):
 
     ################################################################################################
     def unlaunch_proc(self):
+        self.files.append('unlaunch.zip')
+        self.files.append('UNLAUNCH.DSI')
         self.log.write(_('\n检查unlaunch状态中...'))
 
         app = self.detect_region()
@@ -1361,13 +1353,11 @@ class Application(Frame):
 
                 exe = path.join(sysname, '7za')
 
-                proc = Popen([ exe, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
+                self.proc = Popen([ exe, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
 
-                ret_val = proc.wait()
+                ret_val = self.proc.wait()
 
                 if ret_val == 0:
-                    self.files.append(filename)
-                    self.files.append('UNLAUNCH.DSI')
 
                     self.log.write(_('- 正在安装unlaunch...'))
 
@@ -1442,9 +1432,9 @@ class Application(Frame):
 
         try:
             exe = osfmount
-            proc = Popen([ osfmount, '-D', '-m', self.mounted ])
+            self.proc = Popen([ osfmount, '-D', '-m', self.mounted ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
                 self.TThread = Thread(target=self.encrypt_nand)
@@ -1463,9 +1453,9 @@ class Application(Frame):
 
         try:
             exe = osfmount
-            proc = Popen([ osfmount, '-D', '-m', self.mounted ])
+            self.proc = Popen([ osfmount, '-D', '-m', self.mounted ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
 
             if ret_val == 0:
                 Thread(target=self.clean, args=(True,)).start()
@@ -1479,15 +1469,19 @@ class Application(Frame):
             self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
 
+        except:
+            pass
+            Thread(target=self.clean, args=(True,)).start()
+
 
     ################################################################################################
     def encrypt_nand(self):
         self.log.write(_('\n正在重加密NAND...'))
 
         try:
-            proc = Popen([ twltool, 'nandcrypt', '--in', self.console_id.get() + '.img' ])
+            self.proc = Popen([ twltool, 'nandcrypt', '--in', self.console_id.get() + '.img' ])
 
-            ret_val = proc.wait()
+            ret_val = self.proc.wait()
             print("\n")
 
             if ret_val == 0:
