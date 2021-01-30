@@ -55,7 +55,7 @@ class ThreadSafeText(Text):
         Text.__init__(self, master, **options)
         self.queue = Queue()
         self.update_me()
-        self.wlog = open('window.log', 'a')
+        self.wlog = open('Window.log', 'a')
 
     def write(self, line):
         self.queue.put(line)
@@ -356,9 +356,7 @@ class Application(Frame):
             self.exit_button.pack(side='left', padx=(5, 0))
             self.adv_mode = False
         else:
-            #if askokcancel(_('提示'), (_('当前测试版本未开放高级模式，我们正在加紧开发中，敬请期待'))):
             if askokcancel(_('提示'), (_('高级模式提供了单独安装TWiLightMenu++等功能, 点击"确定"以进入'))):
-                #return
                 self.have_menu = False
                 self.is_tds = False
                 self.have_hiya = False
@@ -603,7 +601,6 @@ class Application(Frame):
                         else:
                             self.TThread = Thread(target=self.remove_footer)
                             self.TThread.start()
-                            #pass
                     else:
                         self.TThread = Thread(target=self.get_latest_hiyacfw)
                         self.TThread.start()
@@ -671,7 +668,7 @@ class Application(Frame):
     def extract_bios(self):
         self.files.append('arm7.bin')
         self.files.append('arm9.bin')
-        self.log.write('\nExtracting ARM7/ARM9 BIOS from NAND...')
+        self.log.write(_('\n正在从NAND中解压 ARM7/ARM9 BIOS...'))
 
         try:
             self.proc = Popen([ twltool, 'boot2', '--in', self.nand_file.get() ])
@@ -702,12 +699,12 @@ class Application(Frame):
                 self.TThread.start()
 
             else:
-                self.log.write('ERROR: Extractor failed')
+                self.log.write(_('错误: 解压失败'))
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -745,18 +742,18 @@ class Application(Frame):
 
         except IOError as e:
             print(e)
-            self.log.write('ERROR: Could not patch BIOS')
+            self.log.write(_('错误: 无法完成 patch BIOS'))
             Thread(target=self.clean, args=(True,)).start()
 
         except Exception as e:
             print(e)
-            self.log.write('ERROR: Invalid patch header')
+            self.log.write(_('错误: 无效的 patch header'))
             Thread(target=self.clean, args=(True,)).start()
 
 
     ################################################################################################
     def arm9_prepend(self):
-        self.log.write('\nPrepending data to ARM9 BIOS...')
+        self.log.write(_('\n正在预载数据到 ARM9 BIOS...'))
 
         try:
             with open('arm9.bin', 'rb') as f:
@@ -783,14 +780,13 @@ class Application(Frame):
 
         except IOError as e:
             print(e)
-            self.log.write('ERROR: Could not prepend data to ARM9 BIOS')
+            self.log.write(_('错误: 无法预载数据到 ARM9 BIOS'))
             Thread(target=self.clean, args=(True,)).start()
 
 
     ################################################################################################
     def make_bootloader(self):
-        #self.files.append('bootloader.nds')
-        self.log.write('\nGenerating new bootloader...')
+        self.log.write(_('\n正在生成 bootloader...'))
 
         exe = (path.join('for PC', 'bootloader files', 'ndstool.exe') if sysname == 'Windows' else
             path.join(sysname, 'ndsblc'))
@@ -817,12 +813,12 @@ class Application(Frame):
                 self.TThread.start()
 
             else:
-                self.log.write('ERROR: Generator failed')
+                self.log.write(_('错误: 生成失败'))
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -830,7 +826,7 @@ class Application(Frame):
     def decrypt_nand(self):
         if not self.nand_mode:
             self.files.append(self.console_id.get() + '.img')
-        self.log.write('\nDecrypting NAND...')
+        self.log.write(_('\n正在解密 NAND...'))
 
         try:
             self.proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
