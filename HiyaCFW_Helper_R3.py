@@ -55,11 +55,12 @@ class ThreadSafeText(Text):
         Text.__init__(self, master, **options)
         self.queue = Queue()
         self.update_me()
-        self.wlog = open('Window.log', 'a')
 
     def write(self, line):
+        self.wlog = open('Window.log', 'a')
         self.queue.put(line)
         self.wlog.write(line+'\n')
+        self.wlog.close()
 
     def update_me(self):
         try:
@@ -558,6 +559,7 @@ class Application(Frame):
     def closethread(self):
         if self.finish == True:
             self.dialog.destroy()
+            self.finish = False
             return
         try:
             stop_thread(self.TThread)
@@ -836,27 +838,27 @@ class Application(Frame):
             print("\n")
 
             if ret_val == 0:
-                if not self.nand_operation.get() == 2:
+                if self.nand_operation.get() == 2 or self.setup_operation.get() == 2:
+                    self.TThread = Thread(target=self.mount_nand)
+                    self.TThread.start()
+                else:
                     self.TThread = Thread(target=self.extract_nand1 if (sysname == 'Windows' and self.setup_operation.get() == 1)
                         else self.extract_nand)
                     self.TThread.start()
-                else:
-                    self.TThread = Thread(target=self.mount_nand)
-                    self.TThread.start()
             else:
-                self.log.write('ERROR: Decryptor failed')
+                self.log.write(_('错误: 解密失败'))
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
 
 
     ################################################################################################
     def extract_nand1(self):
         self.files.append('0.fat')
-        self.log.write('\nExtracting files from NAND...')
+        self.log.write(_('\n正在从NAND中解压文件...'))
 
         try:
             self.proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
@@ -877,7 +879,7 @@ class Application(Frame):
                     self.log.write(_('错误: 解压失败'))
 
                     if path.exists(fatcat):
-                        self.log.write('\nTrying with fatcat...')
+                        self.log.write(_('\n尝试使用fatcat...'))
                         self.TThread = Thread(target=self.extract_nand)
                         self.TThread.start()
 
@@ -888,7 +890,7 @@ class Application(Frame):
                 self.log.write(_('错误: 解压失败'))
 
                 if path.exists(fatcat):
-                    self.log.write('\nTrying with fatcat...')
+                    self.log.write(_('\n尝试使用fatcat...'))
                     self.TThread = Thread(target=self.extract_nand)
                     self.TThread.start()
 
@@ -897,10 +899,10 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write(_('错误: 无法运行 ') + exe)
 
             if path.exists(fatcat):
-                self.log.write('\nTrying with fatcat...')
+                self.log.write(_('\n尝试使用fatcat...'))
                 self.TThread = Thread(target=self.extract_nand)
                 self.TThread.start()
 
@@ -910,7 +912,7 @@ class Application(Frame):
 
     ################################################################################################
     def mount_nand(self):
-        self.log.write('\n挂载解密的NAND镜像中...')
+        self.log.write(_('\n挂载解密的NAND镜像中...'))
 
         try:
             exe = osfmount
@@ -927,25 +929,29 @@ class Application(Frame):
 
             if self.proc.returncode == 0:
                 self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
-                self.log.write('- 挂载到驱动器 ' + self.mounted)
+                self.log.write(_('- 挂载到驱动器 ') + self.mounted)
 
             else:
-                self.log.write('错误: 挂载失败')
+                self.log.write(_('错误: 挂载失败'))
                 Thread(target=self.clean, args=(True,)).start()
                 return
 
-            self.TThread = Thread(target=self.unlaunch_proc)
-            self.TThread.start()
+            if self.nand_mode:
+                self.TThread = Thread(target=self.unlaunch_proc)
+                self.TThread.start()
+            else:
+                self.TThread = Thread(target=self.extract_nand2)
+                self.TThread.start()
 
         except OSError as e:
             print(e)
-            self.log.write('错误: 无法运行 ' + exe)
+            self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
 
 
     ################################################################################################
     def extract_nand(self):
-        self.log.write('\nExtracting files from NAND...')
+        self.log.write(_('\n正在从NAND中解压文件...'))
 
         try:
             # DSi first partition offset: 0010EE00h
@@ -959,13 +965,28 @@ class Application(Frame):
                 self.TThread.start()
 
             else:
-                self.log.write('ERROR: Extractor failed')
+                self.log.write(_('错误: 解压失败'))
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write('ERROR: Could not execute ' + exe)
+            self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
+
+
+    ################################################################################################
+    def extract_nand2(self):
+        self.log.write(_('\n正在从NAND中复制文件...'))
+        # Reset copied files cache
+        _path_created.clear()
+        try:
+            copy_tree(self.mounted, self.sd_path, preserve_mode=0, update=1)
+            self.TThread = Thread(target=self.unmount_nand)
+            self.TThread.start()
+        except:
+            self.log.write(_('错误: 复制失败'))
+            self.TThread = Thread(target=self.unmount_nand1)
+            self.TThread.start()
 
 
     ################################################################################################
@@ -1098,7 +1119,7 @@ class Application(Frame):
 
     ################################################################################################
     def get_latest_twilight(self):
-        filename = 'TWiLightMenu-DSi.7z'
+        filename = 'TWiLightMenu-DSi.7z' if self.is_tds == False else 'TWiLightMenu-3DS.7z'
         self.files.append(filename)
         self.files.append('BOOT.NDS')
         self.files.append('snemul.cfg')
@@ -1156,6 +1177,9 @@ class Application(Frame):
             copyfile('BOOT.NDS', path.join(self.sd_path, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
+            if self.updatehiya.get() == 1:
+                copy_tree('title', path.join(self.sd_path, 'title'), update=1)
+                copy_tree('hiya', path.join(self.sd_path, 'hiya'), update=1)
             copy_tree('_nds', path.join(self.sd_path1, '_nds'), update=1)
             copy_tree('roms', path.join(self.sd_path1, 'roms'))
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
@@ -1205,7 +1229,7 @@ class Application(Frame):
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
-                self.log.write(_('\n完成!\n修改后的NAND已保存为') + file)
+                self.log.write(_('\n完成!\n修改后的NAND已保存为') + file + '\n')
             except FileExistsError:
                 remove(self.console_id.get() + '.img')
                 self.log.write(_('\n操作终止!\n目标文件已存在于程序运行目录下, \n无法覆盖原文件\n'))
@@ -1433,9 +1457,8 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.TThread = Thread(target=self.encrypt_nand)
+                self.TThread = Thread(target=self.encrypt_nand if self.nand_mode else self.get_launcher)
                 self.TThread.start()
-
             else:
                 self.log.write(_('错误: 卸载失败'))
                 Thread(target=self.clean, args=(True,)).start()
@@ -1512,9 +1535,9 @@ class Application(Frame):
                 f.seek(-64, 2)
                 # Remove footer
                 f.truncate()
-
+            self.finish = True
             self.log.write(_('\n完成!\n修改后的NAND已保存为\n') + file +
-                _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt')
+                _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt\n')
 
         except IOError as e:
             print(e)
@@ -1552,8 +1575,8 @@ class Application(Frame):
                 f.write(console_id)
                 f.write(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                     b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
-
-            self.log.write(_('\n完成!\n修改后的NAND已保存为\n') + file)
+            self.finish = True
+            self.log.write(_('\n完成!\n修改后的NAND已保存为\n') + file + '\n')
 
         except IOError as e:
             print(e)
@@ -1658,7 +1681,7 @@ if not path.exists(fatcat):
         root.destroy()
         exit(1)
 
-print(_('当前为Beta版本\nGUI初始化中...'))
+print(_('GUI初始化中...'))
 
 root.title(_('HiyaCFW Helper V3.6.1R(BY天涯)'))
 # Disable maximizing
