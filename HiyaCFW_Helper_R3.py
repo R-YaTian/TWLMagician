@@ -27,6 +27,7 @@ from re import search
 from appgen import agen
 from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from inspect import isclass
+from datetime import datetime
 import gettext
 import ctypes
 import ssl
@@ -53,13 +54,20 @@ def stop_thread(thread):
 class ThreadSafeText(Text):
     def __init__(self, master, **options):
         Text.__init__(self, master, **options)
+        self.now_time_tmp = None
         self.queue = Queue()
         self.update_me()
 
     def write(self, line):
         self.wlog = open('Window.log', 'a')
+        #self.queue.put(line)
+        now_time = datetime.now().strftime('%F %T')
+        if self.now_time_tmp != now_time or self.now_time_tmp == None:
+            self.queue.put('[' + now_time + ']')
+            self.wlog.write('[' + now_time + ']\n')
         self.queue.put(line)
-        self.wlog.write(line+'\n')
+        self.wlog.write(line + '\n')
+        self.now_time_tmp = now_time
         self.wlog.close()
 
     def update_me(self):
@@ -218,7 +226,7 @@ class Application(Frame):
         self.nand_operation = IntVar()
         self.nand_operation.set(0)
 
-        rb0 = Radiobutton(self.nand_frame, text=_('安装或卸载最新版本的unlaunch(需要管理员权限)'),
+        rb0 = Radiobutton(self.nand_frame, text=_('安装或卸载最新版本的unlaunch'),
             variable=self.nand_operation, value=2,
             command=lambda: self.enable_entries(False))
         if osfmount is not None:
@@ -568,7 +576,8 @@ class Application(Frame):
             pass
 
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
-            self.unmount_nand1()
+            if not self.adv_mode:
+                self.unmount_nand1()
         else:
             self.clean(True,)
 
@@ -608,7 +617,7 @@ class Application(Frame):
                         self.TThread.start()
 
                 else:
-                    self.log.write(_('错误: 没有检测到No$GBA footer'))
+                    self.log.write(_('错误: 没有检测到No$GBA footer\n警告: 若确定Nand已完整dump, 则用于dump的存储卡极有可能是扩容卡或者已出现坏块'))
 
         except IOError as e:
             print(e)
@@ -626,7 +635,7 @@ class Application(Frame):
 
         try:
             if not path.isfile(filename):
-                self.log.write(_('\n正在下载最新版本的HiyaCFW...'))
+                self.log.write(_('正在下载最新版本的hiyaCFW...'))
                 if self.altdl.get() == 1:
                     with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
@@ -635,7 +644,7 @@ class Application(Frame):
                         filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
 
-            self.log.write(_('- 正在解压 HiyaCFW 压缩包...'))
+            self.log.write(_('- 正在解压 hiyaCFW 压缩包...'))
 
             if self.adv_mode and self.updatehiya.get() == 1:
                 self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'for SDNAND SD card' ])
@@ -659,7 +668,7 @@ class Application(Frame):
 
         except (URLError, IOError) as e:
             print(e)
-            self.log.write(_('错误: 无法下载HiyaCFW'))
+            self.log.write(_('错误: 无法下载hiyaCFW'))
 
         except OSError as e:
             print(e)
@@ -670,7 +679,7 @@ class Application(Frame):
     def extract_bios(self):
         self.files.append('arm7.bin')
         self.files.append('arm9.bin')
-        self.log.write(_('\n正在从NAND中解压 ARM7/ARM9 BIOS...'))
+        self.log.write(_('正在从NAND中解压 ARM7/ARM9 BIOS...'))
 
         try:
             self.proc = Popen([ twltool, 'boot2', '--in', self.nand_file.get() ])
@@ -712,7 +721,7 @@ class Application(Frame):
 
     ################################################################################################
     def patch_bios(self):
-        self.log.write('\nPatching ARM7/ARM9 BIOS...')
+        self.log.write('Patching ARM7/ARM9 BIOS...')
 
         try:
             self.patcher(path.join('for PC', 'bootloader files', 'bootloader arm7 patch.ips'),
@@ -755,7 +764,7 @@ class Application(Frame):
 
     ################################################################################################
     def arm9_prepend(self):
-        self.log.write(_('\n正在预载数据到 ARM9 BIOS...'))
+        self.log.write(_('正在预载数据到 ARM9 BIOS...'))
 
         try:
             with open('arm9.bin', 'rb') as f:
@@ -788,7 +797,7 @@ class Application(Frame):
 
     ################################################################################################
     def make_bootloader(self):
-        self.log.write(_('\n正在生成 bootloader...'))
+        self.log.write(_('正在生成 bootloader...'))
 
         exe = (path.join('for PC', 'bootloader files', 'ndstool.exe') if sysname == 'Windows' else
             path.join(sysname, 'ndsblc'))
@@ -828,7 +837,7 @@ class Application(Frame):
     def decrypt_nand(self):
         if not self.nand_mode:
             self.files.append(self.console_id.get() + '.img')
-        self.log.write(_('\n正在解密 NAND...'))
+        self.log.write(_('正在解密 NAND...'))
 
         try:
             self.proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
@@ -858,7 +867,7 @@ class Application(Frame):
     ################################################################################################
     def extract_nand1(self):
         self.files.append('0.fat')
-        self.log.write(_('\n正在从NAND中解压文件...'))
+        self.log.write(_('正在从NAND中解压文件...'))
 
         try:
             self.proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
@@ -879,7 +888,7 @@ class Application(Frame):
                     self.log.write(_('错误: 解压失败'))
 
                     if path.exists(fatcat):
-                        self.log.write(_('\n尝试使用fatcat...'))
+                        self.log.write(_('尝试使用fatcat...'))
                         self.TThread = Thread(target=self.extract_nand)
                         self.TThread.start()
 
@@ -890,7 +899,7 @@ class Application(Frame):
                 self.log.write(_('错误: 解压失败'))
 
                 if path.exists(fatcat):
-                    self.log.write(_('\n尝试使用fatcat...'))
+                    self.log.write(_('尝试使用fatcat...'))
                     self.TThread = Thread(target=self.extract_nand)
                     self.TThread.start()
 
@@ -902,7 +911,7 @@ class Application(Frame):
             self.log.write(_('错误: 无法运行 ') + exe)
 
             if path.exists(fatcat):
-                self.log.write(_('\n尝试使用fatcat...'))
+                self.log.write(_('尝试使用fatcat...'))
                 self.TThread = Thread(target=self.extract_nand)
                 self.TThread.start()
 
@@ -912,7 +921,7 @@ class Application(Frame):
 
     ################################################################################################
     def mount_nand(self):
-        self.log.write(_('\n挂载解密的NAND镜像中...'))
+        self.log.write(_('挂载解密的NAND镜像中...'))
 
         try:
             exe = osfmount
@@ -951,7 +960,7 @@ class Application(Frame):
 
     ################################################################################################
     def extract_nand(self):
-        self.log.write(_('\n正在从NAND中解压文件...'))
+        self.log.write(_('正在从NAND中解压文件...'))
 
         try:
             # DSi first partition offset: 0010EE00h
@@ -976,11 +985,11 @@ class Application(Frame):
 
     ################################################################################################
     def extract_nand2(self):
-        self.log.write(_('\n正在从NAND中复制文件...'))
+        self.log.write(_('正在从NAND中复制文件...'))
         # Reset copied files cache
         _path_created.clear()
         try:
-            copy_tree(self.mounted, self.sd_path, preserve_mode=0, update=1)
+            copy_tree(self.mounted, self.sd_path, preserve_mode=0)
             self.TThread = Thread(target=self.unmount_nand)
             self.TThread.start()
         except:
@@ -1012,7 +1021,7 @@ class Application(Frame):
 
         try:
             if not path.isfile(self.launcher_region):
-                self.log.write(_('\n正在下载 ') + self.launcher_region + ' Launcher...')
+                self.log.write(_('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
                     with urlopen('https://spblog.tk/somefiles/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
@@ -1076,7 +1085,7 @@ class Application(Frame):
 
     ################################################################################################
     def install_hiyacfw(self, launcher_app, launcher_folder, app):
-        self.log.write(_('\n正在复制HiyaCFW相关文件...'))
+        self.log.write(_('正在复制HiyaCFW相关文件...'))
 
         # Reset copied files cache
         _path_created.clear()
@@ -1106,7 +1115,7 @@ class Application(Frame):
         self.TThread = Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean)
         self.TThread.start()
     def update_hiyacfw(self):
-        self.log.write(_('\n正在更新HiyaCFW...'))
+        self.log.write(_('正在更新HiyaCFW...'))
 
         # Reset copied files cache
         _path_created.clear()
@@ -1130,7 +1139,7 @@ class Application(Frame):
 
         try:
             if not path.isfile(filename):
-                self.log.write(_('\n正在下载最新版本的TWiLightMenu++...'))
+                self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
                     with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
@@ -1167,20 +1176,20 @@ class Application(Frame):
 
     ################################################################################################
     def install_twilight(self, name):
-        self.log.write(_('\n正在复制 ') + name + _(' 相关文件...'))
+        self.log.write(_('正在复制 ') + name + _(' 相关文件...'))
 
         if not self.adv_mode:
-            copy_tree('_nds', path.join(self.sd_path, '_nds'), update=1)
-            copy_tree('title', path.join(self.sd_path, 'title'), update=1)
-            copy_tree('hiya', path.join(self.sd_path, 'hiya'), update=1)
-            copy_tree('roms', path.join(self.sd_path, 'roms'), update=1)
+            copy_tree('_nds', path.join(self.sd_path, '_nds'))
+            copy_tree('title', path.join(self.sd_path, 'title'))
+            copy_tree('hiya', path.join(self.sd_path, 'hiya'))
+            copy_tree('roms', path.join(self.sd_path, 'roms'))
             copyfile('BOOT.NDS', path.join(self.sd_path, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
             if self.updatehiya.get() == 1:
-                copy_tree('title', path.join(self.sd_path, 'title'), update=1)
-                copy_tree('hiya', path.join(self.sd_path, 'hiya'), update=1)
-            copy_tree('_nds', path.join(self.sd_path1, '_nds'), update=1)
+                copy_tree('title', path.join(self.sd_path, 'title'))
+                copy_tree('hiya', path.join(self.sd_path, 'hiya'))
+            copy_tree('_nds', path.join(self.sd_path1, '_nds'))
             copy_tree('roms', path.join(self.sd_path1, 'roms'))
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
@@ -1205,7 +1214,7 @@ class Application(Frame):
     ################################################################################################
     def clean(self, err=False):
         self.finish = True
-        self.log.write(_('\n清理中...'))
+        self.log.write(_('清理中...'))
 
         while len(self.folders) > 0:
             rmtree(self.folders.pop(), ignore_errors=True)
@@ -1229,10 +1238,10 @@ class Application(Frame):
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
-                self.log.write(_('\n完成!\n修改后的NAND已保存为') + file + '\n')
+                self.log.write(_('完成!\n修改后的NAND已保存为') + file + '\n')
             except FileExistsError:
                 remove(self.console_id.get() + '.img')
-                self.log.write(_('\n操作终止!\n目标文件已存在于程序运行目录下, \n无法覆盖原文件\n'))
+                self.log.write(_('操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n'))
             return
 
         self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n'))
@@ -1343,7 +1352,7 @@ class Application(Frame):
     def unlaunch_proc(self):
         self.files.append('unlaunch.zip')
         self.files.append('UNLAUNCH.DSI')
-        self.log.write(_('\n检查unlaunch状态中...'))
+        self.log.write(_('检查unlaunch状态中...'))
 
         app = self.detect_region()
 
@@ -1448,7 +1457,7 @@ class Application(Frame):
 
     ################################################################################################
     def unmount_nand(self):
-        self.log.write(_('\n正在卸载NAND...'))
+        self.log.write(_('正在卸载NAND...'))
 
         try:
             exe = osfmount
@@ -1468,7 +1477,7 @@ class Application(Frame):
             self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
     def unmount_nand1(self):
-        self.log.write(_('\n正在卸载NAND...'))
+        self.log.write(_('正在卸载NAND...'))
 
         try:
             exe = osfmount
@@ -1495,7 +1504,7 @@ class Application(Frame):
 
     ################################################################################################
     def encrypt_nand(self):
-        self.log.write(_('\n正在重加密NAND...'))
+        self.log.write(_('正在重加密NAND...'))
 
         try:
             self.proc = Popen([ twltool, 'nandcrypt', '--in', self.console_id.get() + '.img' ])
@@ -1518,7 +1527,7 @@ class Application(Frame):
 
     ################################################################################################
     def remove_footer(self):
-        self.log.write(_('\n正在移除No$GBA footer...'))
+        self.log.write(_('正在移除No$GBA footer...'))
 
         file = self.console_id.get() + '-no-footer.bin'
 
@@ -1536,7 +1545,7 @@ class Application(Frame):
                 # Remove footer
                 f.truncate()
             self.finish = True
-            self.log.write(_('\n完成!\n修改后的NAND已保存为\n') + file +
+            self.log.write(_('完成!\n修改后的NAND已保存为\n') + file +
                 _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt\n')
 
         except IOError as e:
@@ -1576,7 +1585,7 @@ class Application(Frame):
                 f.write(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                     b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
             self.finish = True
-            self.log.write(_('\n完成!\n修改后的NAND已保存为\n') + file + '\n')
+            self.log.write(_('完成!\n修改后的NAND已保存为\n') + file + '\n')
 
         except IOError as e:
             print(e)
