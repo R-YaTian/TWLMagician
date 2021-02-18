@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# HiyaCFW Helper R
+# hiyaCFW Helper R
 # Version 3.6.1R
 # Author: R-YaTian
 # Original Author: mondul <mondul@huyzona.com>
@@ -208,7 +208,7 @@ class Application(Frame):
         self.updatehiya = IntVar()
         self.updatehiya.set(0)
 
-        self.uh_chk = Checkbutton(self.checks_frame1, text=_('更新HiyaCFW'), variable=self.updatehiya, state=DISABLED)
+        self.uh_chk = Checkbutton(self.checks_frame1, text=_('更新hiyaCFW'), variable=self.updatehiya, state=DISABLED)
 
         self.uh_chk.pack(padx=10, anchor=W)
 
@@ -1007,7 +1007,7 @@ class Application(Frame):
             Thread(target=self.clean, args=(True,)).start()
             return
 
-        # Delete contents of the launcher folder as it will be replaced by the one from HiyaCFW
+        # Delete contents of the launcher folder as it will be replaced by the one from hiyaCFW
         launcher_folder = path.join(self.sd_path, 'title', '00030017', app, 'content')
 
         # Walk through all files in the launcher content folder
@@ -1027,7 +1027,7 @@ class Application(Frame):
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://raw.githubusercontent.com'
-                        '/R-YaTian/HHF-Toolkit/HiyaCFW-Helper-R3/launchers/' +
+                        '/R-YaTian/HHF-Toolkit/hiyaCFW-Helper-R3/launchers/' +
                         self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
 
@@ -1085,7 +1085,7 @@ class Application(Frame):
 
     ################################################################################################
     def install_hiyacfw(self, launcher_app, launcher_folder, app):
-        self.log.write(_('正在复制HiyaCFW相关文件...'))
+        self.log.write(_('正在复制hiyaCFW相关文件...'))
 
         # Reset copied files cache
         _path_created.clear()
@@ -1115,7 +1115,7 @@ class Application(Frame):
         self.TThread = Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean)
         self.TThread.start()
     def update_hiyacfw(self):
-        self.log.write(_('正在更新HiyaCFW...'))
+        self.log.write(_('正在更新hiyaCFW...'))
 
         # Reset copied files cache
         _path_created.clear()
@@ -1638,7 +1638,7 @@ else:
     lang = gettext.translation('lang', localedir='i18n', languages=['zh_CN'])
     lang.install()
 
-print(_('HiyaCFW Helper启动中...'))
+print(_('hiyaCFW Helper启动中...'))
 
 fatcat = path.join(sysname, 'fatcat')
 _7za = path.join(sysname, '7za')
@@ -1692,7 +1692,7 @@ if not path.exists(fatcat):
 
 print(_('GUI初始化中...'))
 
-root.title(_('HiyaCFW Helper V3.6.1R(BY天涯)'))
+root.title(_('hiyaCFW Helper V3.6.1R(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
