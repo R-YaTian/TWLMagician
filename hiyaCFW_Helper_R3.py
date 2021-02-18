@@ -1607,18 +1607,6 @@ else:
     loc = getdefaultlocale()[0]
 langs = path.join('i18n', loc, 'LC_MESSAGES', 'lang.mo')
 lange = path.join('i18n', 'en_US', 'LC_MESSAGES', 'lang.mo')
-langc = path.join('i18n', 'zh_CN', 'LC_MESSAGES', 'lang.mo')
-
-if not path.exists(langc):
-    root.withdraw()
-    if loc == 'zh_CN':
-        showerror('错误', '找不到程序默认语言文件')
-    elif loc == 'zh_TW':
-        showerror('錯誤', '找不到程式預設語言檔案')
-    else:
-        showerror('Error', 'The default language file not found')
-    root.destroy()
-    exit(1)
 
 if loc != 'zh_CN':
     if path.exists(langs):
@@ -1626,17 +1614,14 @@ if loc != 'zh_CN':
         lang.install()
     else:
         if loc == 'zh_TW' or loc == 'en_US':
-            lang = gettext.translation('lang', localedir='i18n', languages=['zh_CN'])
-            lang.install()
+            gettext.install('')
         elif path.exists(lange):
             lang = gettext.translation('lang', localedir='i18n', languages=['en_US'])
             lang.install()
         else:
-            lang = gettext.translation('lang', localedir='i18n', languages=['zh_CN'])
-            lang.install()
+            gettext.install('')
 else:
-    lang = gettext.translation('lang', localedir='i18n', languages=['zh_CN'])
-    lang.install()
+    gettext.install('')
 
 print(_('hiyaCFW Helper启动中...'))
 
