@@ -12,7 +12,7 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
 from platform import system, architecture
-from os import path, remove, chmod, listdir, rename, environ
+from os import path, remove, chmod, listdir, rename, environ, mkdir
 from sys import exit
 from threading import Thread
 from queue import Queue, Empty
@@ -408,7 +408,8 @@ class Application(Frame):
         if path.exists(tmenu):
             self.have_menu = True
         tds = path.join(spath, 'Nintendo 3DS')
-        if path.exists(tds):
+        tds1 = path.join(spath, 'boot.firm')
+        if path.exists(tds) or path.exists(tds1):
             self.is_tds = True
         else:
             hiyad = path.join(spath, 'hiya.dsi')
@@ -473,10 +474,10 @@ class Application(Frame):
                     exit(1)
 
         if not self.nand_mode:
+            self.have_hiya = False
+            self.is_tds = False
+            self.have_menu = False
             if not self.adv_mode:
-                self.have_hiya = False
-                self.is_tds = False
-                self.have_menu = False
                 showinfo(_('提示'), _('接下来请选择你用来安装自制系统的存储卡路径(或输出路径)\n为了避免 '
                     '启动错误 请确保目录下无任何文件'))
                 self.sd_path = askdirectory()
@@ -485,8 +486,10 @@ class Application(Frame):
                     return
                 self.check_console(self.sd_path)
                 if self.is_tds or self.have_hiya:
-                    showerror(_('错误'), _('检测到CFW已安装，请转到高级模式，或选择一个空目录以继续'))
+                    showerror(_('错误'), _('目录检测未通过，若CFW已安装，请转到高级模式，或选择一个空目录以继续'))
                     return
+            else:
+                self.check_console(self.sd_path1)
 
         # If adding a No$GBA footer, check if CID and ConsoleID values are OK
         elif self.nand_operation.get() == 1:
@@ -628,8 +631,7 @@ class Application(Frame):
 
     ################################################################################################
     def get_latest_hiyacfw(self):
-        filename = 'HiyaCFW.7z'
-        #filename = 'hiyaCFW.7z'
+        filename = 'hiyaCFW.7z'
         self.files.append(filename)
         self.folders.append('for PC')
         self.folders.append('for SDNAND SD card')
@@ -1130,6 +1132,8 @@ class Application(Frame):
         self.files.append(filename)
         self.files.append('BOOT.NDS')
         self.files.append('snemul.cfg')
+        self.files.append('TWiLight Menu - Game booter.cia')
+        self.files.append('TWiLight Menu.cia')
         self.folders.append('_nds')
         self.folders.append('roms')
         self.folders.append('title')
@@ -1148,8 +1152,12 @@ class Application(Frame):
 
             self.log.write(_('- 正在解压 ') + filename[:-3] + _(' 压缩包...'))
 
-            self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'title',
-                'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg'])
+            if self.is_tds == False:
+                self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'title',
+                    'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg'])
+            else:
+                self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'TWiLight Menu - Game booter.cia',
+                    'TWiLight Menu.cia', 'roms', 'BOOT.NDS', 'snemul.cfg'])
 
             ret_val = self.proc.wait()
 
@@ -1191,6 +1199,13 @@ class Application(Frame):
             copy_tree('roms', path.join(self.sd_path1, 'roms'))
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
+            if self.is_tds == True:
+                cias = path.join(self.sd_path1, 'cias')
+                if not path.exists(cias):
+                    mkdir(cias)
+                copyfile('TWiLight Menu.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu.cia'))
+                copyfile('TWiLight Menu - Game booter.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu - Game booter.cia'))
+
         if self.appgen.get() == 1:
             if not self.adv_mode:
                 agen(path.join(self.sd_path, 'title' , '00030004'), path.join(self.sd_path, 'roms'))
@@ -1242,9 +1257,10 @@ class Application(Frame):
                 self.log.write(_('操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n'))
             return
 
-        self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n'))
         if self.adv_mode and self.is_tds:
-            self.log.write(_('对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
+            self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
+        else:
+            self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n'))
 
 
     ################################################################################################
