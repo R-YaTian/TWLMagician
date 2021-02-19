@@ -415,6 +415,8 @@ class Application(Frame):
             hiyas = path.join(spath, 'sys', 'HWINFO_S.dat')
             if path.exists(hiyad) or path.exists(hiyab) or path.exists(hiyas):
                 self.have_hiya = True
+    def download_file(self, src, dst):
+        copyfileobj(src, dst)
 
 
     ################################################################################################
@@ -1118,7 +1120,7 @@ class Application(Frame):
         self.log.write(_('正在更新hiyaCFW...'))
 
         # Reset copied files cache
-        _path_created.clear()
+        #_path_created.clear()
 
         copyfile(path.join('for SDNAND SD card', 'hiya.dsi'), path.join(self.sd_path1, 'hiya.dsi'))
 
@@ -1141,7 +1143,7 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
+                    with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as self.dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
