@@ -28,6 +28,7 @@ from appgen import agen
 from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from inspect import isclass
 from datetime import datetime
+from time import sleep
 import gettext
 import ctypes
 import ssl
@@ -415,8 +416,6 @@ class Application(Frame):
             hiyas = path.join(spath, 'sys', 'HWINFO_S.dat')
             if path.exists(hiyad) or path.exists(hiyab) or path.exists(hiyas):
                 self.have_hiya = True
-    def download_file(self, src, dst):
-        copyfileobj(src, dst)
 
 
     ################################################################################################
@@ -567,8 +566,10 @@ class Application(Frame):
 
     ################################################################################################
     def closethread(self):
+        self.dialog.destroy()
+        
         if self.finish == True:
-            self.dialog.destroy()
+            #self.dialog.destroy()
             self.finish = False
             return
         try:
@@ -577,14 +578,23 @@ class Application(Frame):
         except:
             pass
 
+        #if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
+         #   if not self.adv_mode:
+          #      self.unmount_nand1()
+        #else:
+            #self.clean(True,)
+        print(_('\n用户终止操作'))
+        Thread(target=self.after_close).start()
+
+        #self.dialog.destroy()
+        #print(_('\n用户终止操作'))
+    def after_close(self):
+        sleep(1)
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
             if not self.adv_mode:
                 self.unmount_nand1()
         else:
             self.clean(True,)
-
-        self.dialog.destroy()
-        print(_('\n用户终止操作'))
     def check_nand(self):
         self.log.write(_('正在检查NAND文件...'))
 
@@ -1119,9 +1129,6 @@ class Application(Frame):
     def update_hiyacfw(self):
         self.log.write(_('正在更新hiyaCFW...'))
 
-        # Reset copied files cache
-        #_path_created.clear()
-
         copyfile(path.join('for SDNAND SD card', 'hiya.dsi'), path.join(self.sd_path1, 'hiya.dsi'))
 
         self.TThread = Thread(target=self.get_latest_twilight)
@@ -1143,7 +1150,7 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as self.dst:
+                    with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
@@ -1224,8 +1231,10 @@ class Application(Frame):
         while len(self.files) > 0:
             try:
                 remove(self.files.pop())
-            except:
-                pass
+            #except:
+            except Exception as e:
+                #pass
+                print(e)
 
         if err:
             if self.nand_mode:
@@ -1233,7 +1242,7 @@ class Application(Frame):
                     remove(self.console_id.get() + '.img')
                 except:
                     pass
-            self.log.write(_('操作过程发生错误, 已终止\n'))
+            self.log.write(_('操作过程发生错误或用户终止操作\n'))
             return
 
         if self.nand_mode:
