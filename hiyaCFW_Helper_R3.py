@@ -567,9 +567,7 @@ class Application(Frame):
     ################################################################################################
     def closethread(self):
         self.dialog.destroy()
-        
         if self.finish == True:
-            #self.dialog.destroy()
             self.finish = False
             return
         try:
@@ -577,17 +575,8 @@ class Application(Frame):
             self.proc.kill()
         except:
             pass
-
-        #if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
-         #   if not self.adv_mode:
-          #      self.unmount_nand1()
-        #else:
-            #self.clean(True,)
         print(_('\n用户终止操作'))
         Thread(target=self.after_close).start()
-
-        #self.dialog.destroy()
-        #print(_('\n用户终止操作'))
     def after_close(self):
         sleep(1)
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
@@ -1231,10 +1220,8 @@ class Application(Frame):
         while len(self.files) > 0:
             try:
                 remove(self.files.pop())
-            #except:
-            except Exception as e:
-                #pass
-                print(e)
+            except:
+                pass
 
         if err:
             if self.nand_mode:
