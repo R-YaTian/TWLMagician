@@ -640,7 +640,7 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的hiyaCFW...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
+                    with urlopen('https://spinblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://github.com/RocketRobz/hiyaCFW/releases/latest/download/' +
@@ -1031,7 +1031,7 @@ class Application(Frame):
             if not path.isfile(self.launcher_region):
                 self.log.write(_('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
-                    with urlopen('https://spblog.tk/somefiles/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
+                    with urlopen('https://spinblog.tk/somefiles/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://raw.githubusercontent.com'
@@ -1148,7 +1148,7 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://spblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
+                    with urlopen('https://spinblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
@@ -1393,7 +1393,7 @@ class Application(Frame):
                         filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
                     except:
                         if loc == 'zh_CN':
-                            filename = urlretrieve('http://spblog.tk/somefiles/unlaunch.zip')[0]
+                            filename = urlretrieve('https://spinblog.tk/somefiles/unlaunch.zip')[0]
                         else:
                             raise IOError
                 else:
