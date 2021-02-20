@@ -285,7 +285,7 @@ class Application(Frame):
     ################################################################################################
     def usealtdl(self):
         if self.altdl.get() == 1:
-            if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但备用载点服务器马上就要跑路，此功能或许只能使用到3月中旬'), icon=WARNING):
+            if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但会对备用载点服务器带来流量负担，点击 确定 以继续'), icon=WARNING):
                 self.altdl.set(0)
     def usedevkp(self):
         if self.devkp.get() == 1:
