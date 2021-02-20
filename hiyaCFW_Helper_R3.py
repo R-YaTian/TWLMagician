@@ -675,7 +675,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + _7za)
 
 
     ################################################################################################
@@ -718,7 +718,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + twltool)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -863,7 +863,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + twltool)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -911,7 +911,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + _7z)
 
             if path.exists(fatcat):
                 self.log.write(_('尝试使用fatcat...'))
@@ -927,8 +927,6 @@ class Application(Frame):
         self.log.write(_('挂载解密的NAND镜像中...'))
 
         try:
-            exe = osfmount
-
             cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
                 '#:', '-o', 'ro,rem' ]
 
@@ -957,7 +955,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + osfmount)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -973,16 +971,23 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.TThread = Thread(target=self.get_launcher)
-                self.TThread.start()
-
+                # DSi photo partition offset: 0CF09A00h
+                self.proc = Popen([ fatcat, '-O', '217094656', '-x', self.sd_path,
+                    self.console_id.get() + '.img' ])
+                ret_val = self.proc.wait()
+                if ret_val == 0:
+                    self.TThread = Thread(target=self.get_launcher)
+                    self.TThread.start()
+                else:
+                    self.log.write(_('错误: 解压相册分区失败'))
+                    Thread(target=self.clean, args=(True,)).start()
             else:
                 self.log.write(_('错误: 解压失败'))
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + fatcat)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -1082,7 +1087,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + _7za)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -1176,7 +1181,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + _7za)
             Thread(target=self.clean, args=(True,)).start()
 
 
@@ -1394,9 +1399,7 @@ class Application(Frame):
                 else:
                     filename = 'unlaunch.zip'
 
-                exe = path.join(sysname, '7za')
-
-                self.proc = Popen([ exe, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
+                self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
 
                 ret_val = self.proc.wait()
 
@@ -1439,7 +1442,7 @@ class Application(Frame):
 
             except OSError as e:
                 print(e)
-                self.log.write(_('错误: 无法运行 ') + exe)
+                self.log.write(_('错误: 无法运行 ') + _7za)
                 self.TThread = Thread(target=self.unmount_nand1)
                 self.TThread.start()
                 return
@@ -1474,7 +1477,6 @@ class Application(Frame):
         self.log.write(_('正在卸载NAND...'))
 
         try:
-            exe = osfmount
             self.proc = Popen([ osfmount, '-D', '-m', self.mounted ])
 
             ret_val = self.proc.wait()
@@ -1488,13 +1490,12 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + osfmount)
             Thread(target=self.clean, args=(True,)).start()
     def unmount_nand1(self):
         self.log.write(_('正在卸载NAND...'))
 
         try:
-            exe = osfmount
             self.proc = Popen([ osfmount, '-D', '-m', self.mounted ])
 
             ret_val = self.proc.wait()
@@ -1508,7 +1509,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + osfmount)
             Thread(target=self.clean, args=(True,)).start()
 
         except:
@@ -1535,7 +1536,7 @@ class Application(Frame):
 
         except OSError as e:
             print(e)
-            self.log.write(_('错误: 无法运行 ') + exe)
+            self.log.write(_('错误: 无法运行 ') + twltool)
             Thread(target=self.clean, args=(True,)).start()
 
 
