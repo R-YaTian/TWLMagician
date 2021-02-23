@@ -934,8 +934,8 @@ class Application(Frame):
                 cmd[-1] = 'rw,rem'
 
             self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-
             outs, errs = self.proc.communicate()
+            print(outs.decode('gbk').strip())
 
             if self.proc.returncode == 0:
                 self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
