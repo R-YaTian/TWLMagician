@@ -285,7 +285,7 @@ class Application(Frame):
     ################################################################################################
     def usealtdl(self):
         if self.altdl.get() == 1:
-            if not askokcancel('警告', ('使用备用载点可能可以提高下载必要文件的速度，但会对备用载点服务器带来流量负担，点击 确定 以继续'), icon=WARNING):
+            if not askokcancel('提升', ('使用备用载点可能可以提高下载必要文件的速度，特此感谢 SpinTouch 提供备用载点服务器，点击"确定"以继续')):
                 self.altdl.set(0)
     def usedevkp(self):
         if self.devkp.get() == 1:
@@ -935,7 +935,7 @@ class Application(Frame):
 
             self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
             outs, errs = self.proc.communicate()
-            print(outs.decode('gbk').strip())
+            print(outs.decode('utf-8').strip()+'\n')
 
             if self.proc.returncode == 0:
                 self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
