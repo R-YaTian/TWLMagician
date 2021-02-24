@@ -13,7 +13,7 @@ from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
 from platform import system, architecture
 from os import path, remove, chmod, listdir, rename, environ, mkdir
-from sys import exit
+from sys import exit, stdout
 from threading import Thread
 from queue import Queue, Empty
 from hashlib import sha1
@@ -31,9 +31,30 @@ from datetime import datetime
 from time import sleep
 import gettext
 import ctypes
+import atexit
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
+#TimeLog-Print
+def clean():
+    clog = open('Console.log', 'a')
+    clog.write('\n')
+    clog.close()
+atexit.register(clean)
+
+ntime_tmp = None
+def printl(*objects, sep=' ', end='\n', file=stdout, flush=False):
+    global ntime_tmp
+    clog = open('Console.log', 'a')
+    ntime = datetime.now().strftime('%F %T')
+    if ntime_tmp != ntime or ntime_tmp == None:
+        print('[' + ntime + ']')
+        clog.write('[' + ntime + ']\n')
+    print(*objects, sep=' ', end='\n', file=stdout, flush=False)
+    clog.write(*objects)
+    clog.write('\n')
+    ntime_tmp = ntime
+    clog.close()
 #Thread-Control
 def _async_raise(tid, exctype):
     tid = ctypes.c_long(tid)
@@ -61,7 +82,6 @@ class ThreadSafeText(Text):
 
     def write(self, line):
         self.wlog = open('Window.log', 'a')
-        #self.queue.put(line)
         now_time = datetime.now().strftime('%F %T')
         if self.now_time_tmp != now_time or self.now_time_tmp == None:
             self.queue.put('[' + now_time + ']')
@@ -578,7 +598,7 @@ class Application(Frame):
             self.proc.kill()
         except:
             pass
-        print(_('\n用户终止操作'))
+        printl(_('用户终止操作'))
         Thread(target=self.after_close).start()
     def after_close(self):
         sleep(1)
@@ -624,7 +644,7 @@ class Application(Frame):
                     self.log.write(_('错误: 没有检测到No$GBA footer\n警告: 若确定Nand已完整dump, 则用于dump的存储卡极有可能是扩容卡或者已出现坏块'))
 
         except IOError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法打开文件 ') +
                 path.basename(self.nand_file.get()))
 
@@ -670,11 +690,11 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except (URLError, IOError) as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法下载hiyaCFW'))
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + _7za)
 
 
@@ -685,6 +705,7 @@ class Application(Frame):
         self.log.write(_('正在从NAND中解压 ARM7/ARM9 BIOS...'))
 
         try:
+            print('[' + datetime.now().strftime('%F %T') + ']')
             self.proc = Popen([ twltool, 'boot2', '--in', self.nand_file.get() ])
 
             ret_val = self.proc.wait()
@@ -717,7 +738,7 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + twltool)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -755,12 +776,12 @@ class Application(Frame):
             self.TThread.start()
 
         except IOError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法完成 patch BIOS'))
             Thread(target=self.clean, args=(True,)).start()
 
         except Exception as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无效的 patch header'))
             Thread(target=self.clean, args=(True,)).start()
 
@@ -793,7 +814,7 @@ class Application(Frame):
             self.TThread.start()
 
         except IOError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法预载数据到 ARM9 BIOS'))
             Thread(target=self.clean, args=(True,)).start()
 
@@ -806,6 +827,7 @@ class Application(Frame):
             path.join(sysname, 'ndsblc'))
 
         try:
+            print('[' + datetime.now().strftime('%F %T') + ']')
             self.proc = Popen([ exe, '-c', 'bootloader.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-t',
                 path.join('for PC', 'bootloader files', 'banner.bin'), '-h',
                 path.join('for PC', 'bootloader files', 'header.bin') ])
@@ -831,7 +853,7 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -843,11 +865,15 @@ class Application(Frame):
         self.log.write(_('正在解密 NAND...'))
 
         try:
+            print('[' + datetime.now().strftime('%F %T') + ']')
             self.proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
                 self.console_id.get() + '.img' ])
 
             ret_val = self.proc.wait()
-            print("\n")
+            if self.setup_operation.get() != 1:
+                print('\n[' + datetime.now().strftime('%F %T') + ']')
+            else:
+                print('\n')
 
             if ret_val == 0:
                 if self.nand_operation.get() == 2 or self.setup_operation.get() == 2:
@@ -862,7 +888,7 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + twltool)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -910,7 +936,7 @@ class Application(Frame):
                     Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + _7z)
 
             if path.exists(fatcat):
@@ -935,7 +961,8 @@ class Application(Frame):
 
             self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
             outs, errs = self.proc.communicate()
-            print(outs.decode('utf-8').strip()+'\n')
+            print(outs.decode('utf-8').strip())
+            print('[' + datetime.now().strftime('%F %T') + ']')
 
             if self.proc.returncode == 0:
                 self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
@@ -954,7 +981,7 @@ class Application(Frame):
                 self.TThread.start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + osfmount)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -986,7 +1013,7 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + fatcat)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -1081,12 +1108,12 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except IOError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法下载 ') + self.launcher_region + ' Launcher')
             Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + _7za)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -1175,12 +1202,12 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except (URLError, IOError) as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法下载TWiLightMenu++'))
             Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + _7za)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -1212,6 +1239,7 @@ class Application(Frame):
                 copyfile('TWiLight Menu - Game booter.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu - Game booter.cia'))
 
         if self.appgen.get() == 1:
+            print('[' + datetime.now().strftime('%F %T') + ']')
             if not self.adv_mode:
                 agen(path.join(self.sd_path, 'title' , '00030004'), path.join(self.sd_path, 'roms'))
             else:
@@ -1434,14 +1462,14 @@ class Application(Frame):
                     return
 
             except IOError as e:
-                print(e)
+                printl(e)
                 self.log.write(_('错误: 无法下载 unlaunch'))
                 self.TThread = Thread(target=self.unmount_nand1)
                 self.TThread.start()
                 return
 
             except OSError as e:
-                print(e)
+                printl(e)
                 self.log.write(_('错误: 无法运行 ') + _7za)
                 self.TThread = Thread(target=self.unmount_nand1)
                 self.TThread.start()
@@ -1489,11 +1517,11 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + osfmount)
             Thread(target=self.clean, args=(True,)).start()
     def unmount_nand1(self):
-        self.log.write(_('正在卸载NAND...'))
+        self.log.write(_('正在强制卸载NAND...'))
 
         try:
             self.proc = Popen([ osfmount, '-D', '-m', self.mounted ])
@@ -1508,7 +1536,7 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + osfmount)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -1522,10 +1550,10 @@ class Application(Frame):
         self.log.write(_('正在重加密NAND...'))
 
         try:
+            print('[' + datetime.now().strftime('%F %T') + ']')
             self.proc = Popen([ twltool, 'nandcrypt', '--in', self.console_id.get() + '.img' ])
 
             ret_val = self.proc.wait()
-            print("\n")
 
             if ret_val == 0:
                 Thread(target=self.clean).start()
@@ -1535,7 +1563,7 @@ class Application(Frame):
                 Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法运行 ') + twltool)
             Thread(target=self.clean, args=(True,)).start()
 
@@ -1564,7 +1592,7 @@ class Application(Frame):
                 _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt\n')
 
         except IOError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法打开 ') +
                 path.basename(self.nand_file.get()))
 
@@ -1603,7 +1631,7 @@ class Application(Frame):
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file + '\n')
 
         except IOError as e:
-            print(e)
+            printl(e)
             self.log.write(_('错误: 无法打开 ') +
                 path.basename(self.nand_file.get()))
 
@@ -1638,7 +1666,7 @@ if loc != 'zh_CN':
 else:
     gettext.install('')
 
-print(_('hiyaCFW Helper启动中...'))
+printl(_('hiyaCFW Helper启动中...'))
 
 fatcat = path.join(sysname, 'fatcat')
 _7za = path.join(sysname, '7za')
@@ -1657,7 +1685,7 @@ if sysname == 'Windows':
     if pybits == '64bit':
         osfmount = path.join(sysname, 'extras', 'OSFMount.com')
         if path.exists(osfmount):
-            print(_('64位版本的OSFMount2模块已加载'))
+            printl(_('64位版本的OSFMount2模块已加载'))
         else:
             osfmount  = None
     else:
@@ -1665,19 +1693,19 @@ if sysname == 'Windows':
             if environ['PROGRAMFILES(X86)']:
                 osfmount = path.join(sysname, 'extras', 'OSFMount.com')
                 if path.exists(osfmount):
-                    print(_('64位版本的OSFMount2模块已加载'))
+                    printl(_('64位版本的OSFMount2模块已加载'))
                 else:
                     osfmount  = None
         except KeyError:
             osfmount = path.join(sysname, 'extras', 'x86', 'OSFMount.com')
             if path.exists(osfmount):
-                print(_('32位版本的OSFMount2模块已加载'))
+                printl(_('32位版本的OSFMount2模块已加载'))
             else:
                 osfmount  = None
 
     _7z = path.join(sysname, '7z.exe')
     if path.exists(_7z):
-        print(_('7-Zip模块已加载'))
+        printl(_('7-Zip模块已加载'))
     else:
          _7z = None
 
@@ -1690,7 +1718,7 @@ if not path.exists(fatcat):
         root.destroy()
         exit(1)
 
-print(_('GUI初始化中...'))
+printl(_('GUI初始化中...'))
 
 root.title(_('hiyaCFW Helper V3.6.1R(BY天涯)'))
 # Disable maximizing
