@@ -305,7 +305,7 @@ class Application(Frame):
     ################################################################################################
     def usealtdl(self):
         if self.altdl.get() == 1:
-            if not askokcancel('提升', ('使用备用载点可能可以提高下载必要文件的速度，特此感谢 SpinTouch 提供备用载点服务器，点击"确定"以继续')):
+            if not askokcancel('提示', ('使用备用载点可能可以提高下载必要文件的速度，特此感谢 SpinTouch 提供备用载点服务器，点击"确定"以继续')):
                 self.altdl.set(0)
     def usedevkp(self):
         if self.devkp.get() == 1:
