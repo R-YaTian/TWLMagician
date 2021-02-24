@@ -29,10 +29,7 @@ from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from inspect import isclass
 from datetime import datetime
 from time import sleep
-import gettext
-import ctypes
-import atexit
-import ssl
+import gettext, ctypes, atexit, ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 #TimeLog-Print
@@ -211,6 +208,13 @@ class Application(Frame):
 
         dkp_chk.pack(padx=10, anchor=W)
 
+        self.photo = IntVar()
+        self.photo.set(0)
+
+        photo_chk = Checkbutton(self.checks_frame, text=_('提取相册分区'), variable=self.photo, command=self.usephoto)
+
+        photo_chk.pack(padx=10, anchor=W)
+
         self.altdl = IntVar()
         self.altdl.set(0)
 
@@ -303,6 +307,10 @@ class Application(Frame):
 
 
     ################################################################################################
+    def usephoto(self):
+        if self.photo.get() == 1:
+            if not askokcancel(_('提示'), (_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达30MB左右)'))):
+                self.photo.set(0)
     def usealtdl(self):
         if self.altdl.get() == 1:
             if not askokcancel('提示', ('使用备用载点可能可以提高下载必要文件的速度，特此感谢 SpinTouch 提供备用载点服务器，点击"确定"以继续')):
@@ -896,10 +904,14 @@ class Application(Frame):
     ################################################################################################
     def extract_nand1(self):
         self.files.append('0.fat')
+        self.files.append('1.fat')
         self.log.write(_('正在从NAND中解压文件...'))
 
         try:
-            self.proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
+            if self.photo.get() == 1:
+                self.proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat', '1.fat' ])
+            else:
+                self.proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat' ])
 
             ret_val = self.proc.wait()
 
@@ -910,9 +922,18 @@ class Application(Frame):
                 ret_val = self.proc.wait()
 
                 if ret_val == 0:
-                    self.TThread = Thread(target=self.get_launcher)
-                    self.TThread.start()
-
+                    if self.photo.get() == 1:
+                        self.proc = Popen([ _7z, 'x', '-bso0', '-y', '-o' + self.sd_path, '1.fat' ])
+                        ret_val = self.proc.wait()
+                        if ret_val == 0:
+                            self.TThread = Thread(target=self.get_launcher)
+                            self.TThread.start()
+                        else:
+                            self.log.write(_('错误: 解压相册分区失败'))
+                            Thread(target=self.clean, args=(True,)).start()
+                    else:
+                        self.TThread = Thread(target=self.get_launcher)
+                        self.TThread.start()
                 else:
                     self.log.write(_('错误: 解压失败'))
 
@@ -998,16 +1019,20 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                # DSi photo partition offset: 0CF09A00h
-                self.proc = Popen([ fatcat, '-O', '217094656', '-x', self.sd_path,
-                    self.console_id.get() + '.img' ])
-                ret_val = self.proc.wait()
-                if ret_val == 0:
+                if self.photo.get() == 1:
+                    # DSi photo partition offset: 0CF09A00h
+                    self.proc = Popen([ fatcat, '-O', '217094656', '-x', self.sd_path,
+                        self.console_id.get() + '.img' ])
+                    ret_val = self.proc.wait()
+                    if ret_val == 0:
+                        self.TThread = Thread(target=self.get_launcher)
+                        self.TThread.start()
+                    else:
+                        self.log.write(_('错误: 解压相册分区失败'))
+                        Thread(target=self.clean, args=(True,)).start()
+                else:
                     self.TThread = Thread(target=self.get_launcher)
                     self.TThread.start()
-                else:
-                    self.log.write(_('错误: 解压相册分区失败'))
-                    Thread(target=self.clean, args=(True,)).start()
             else:
                 self.log.write(_('错误: 解压失败'))
                 Thread(target=self.clean, args=(True,)).start()
@@ -1720,7 +1745,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('hiyaCFW Helper V3.6.1R(BY天涯)'))
+root.title(_('hiyaCFW Helper V3.6.2R(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
