@@ -25,6 +25,7 @@ from shutil import rmtree, copyfile, copyfileobj
 from distutils.dir_util import copy_tree, _path_created
 from re import search
 from appgen import agen
+from tooltip import ToolTip
 from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from inspect import isclass
 from datetime import datetime
@@ -200,6 +201,7 @@ class Application(Frame):
         ag_chk = Checkbutton(self.checks_frame, text=_('使用AppGen'), variable=self.appgen)
 
         ag_chk.pack(padx=10, anchor=W)
+        ToolTip(ag_chk, msg='提取Nand备份中的DSiWare软件并复制到\nroms/dsiware', delay=1)
 
         self.devkp = IntVar()
         self.devkp.set(0)
@@ -309,7 +311,7 @@ class Application(Frame):
     ################################################################################################
     def usephoto(self):
         if self.photo.get() == 1:
-            if not askokcancel(_('提示'), (_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达30MB左右)'))):
+            if not askokcancel(_('提示'), (_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))):
                 self.photo.set(0)
     def usealtdl(self):
         if self.altdl.get() == 1:
@@ -988,7 +990,10 @@ class Application(Frame):
             if self.proc.returncode == 0:
                 self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
                 self.log.write(_('- 挂载到驱动器 ') + self.mounted)
-
+                if self.nand_mode == False and self.photo.get() == 1:
+                    cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
+                        '#:', '-v', '2', '-o', 'ro,rem' ]
+                    self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
             else:
                 self.log.write(_('错误: 挂载失败'))
                 Thread(target=self.clean, args=(True,)).start()
