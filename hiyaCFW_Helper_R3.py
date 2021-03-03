@@ -201,7 +201,7 @@ class Application(Frame):
         ag_chk = Checkbutton(self.checks_frame, text=_('使用AppGen'), variable=self.appgen)
 
         ag_chk.pack(padx=10, anchor=W)
-        ToolTip(ag_chk, msg='提取Nand备份中的DSiWare软件并复制到\nroms/dsiware', delay=1)
+        ToolTip(ag_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
 
         self.devkp = IntVar()
         self.devkp.set(0)
@@ -994,6 +994,16 @@ class Application(Frame):
                     cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
                         '#:', '-v', '2', '-o', 'ro,rem' ]
                     self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+                    outs, errs = self.proc.communicate()
+                    print(outs.decode('utf-8').strip())
+                    print('[' + datetime.now().strftime('%F %T') + ']')
+                    if self.proc.returncode == 0:
+                        self.twlp = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
+                        self.log.write(_('- DSi相册分区挂载到驱动器 ') + self.twlp)
+                    else:
+                        self.log.write(_('错误: 挂载相册分区失败'))
+                        Thread(target=self.clean, args=(True,)).start()
+                        return
             else:
                 self.log.write(_('错误: 挂载失败'))
                 Thread(target=self.clean, args=(True,)).start()
@@ -1055,6 +1065,8 @@ class Application(Frame):
         _path_created.clear()
         try:
             copy_tree(self.mounted, self.sd_path, preserve_mode=0)
+            if self.nand_mode == False and self.photo.get() == 1:
+                copy_tree(self.twlp, self.sd_path, preserve_mode=0)
             self.TThread = Thread(target=self.unmount_nand)
             self.TThread.start()
         except:
@@ -1540,8 +1552,18 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.TThread = Thread(target=self.encrypt_nand if self.nand_mode else self.get_launcher)
-                self.TThread.start()
+                if self.nand_mode == False and self.photo.get() == 1:
+                    self.proc = Popen([ osfmount, '-D', '-m', self.twlp ])
+                    ret_val = self.proc.wait()
+                    if ret_val == 0:
+                        self.TThread = Thread(target=self.encrypt_nand if self.nand_mode else self.get_launcher)
+                        self.TThread.start()
+                    else:
+                        self.log.write(_('错误: 卸载相册分区失败'))
+                        Thread(target=self.clean, args=(True,)).start()
+                else:
+                    self.TThread = Thread(target=self.encrypt_nand if self.nand_mode else self.get_launcher)
+                    self.TThread.start()
             else:
                 self.log.write(_('错误: 卸载失败'))
                 Thread(target=self.clean, args=(True,)).start()
@@ -1559,8 +1581,16 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                Thread(target=self.clean, args=(True,)).start()
-
+                if self.nand_mode == False and self.photo.get() == 1:
+                    self.proc = Popen([ osfmount, '-D', '-m', self.twlp ])
+                    ret_val = self.proc.wait()
+                    if ret_val == 0:
+                        Thread(target=self.clean, args=(True,)).start()
+                    else:
+                        self.log.write(_('错误: 卸载相册分区失败'))
+                        Thread(target=self.clean, args=(True,)).start()
+                else:
+                    Thread(target=self.clean, args=(True,)).start()
             else:
                 self.log.write(_('错误: 卸载失败'))
                 Thread(target=self.clean, args=(True,)).start()
@@ -1571,7 +1601,6 @@ class Application(Frame):
             Thread(target=self.clean, args=(True,)).start()
 
         except:
-            pass
             Thread(target=self.clean, args=(True,)).start()
 
 
