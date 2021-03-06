@@ -30,16 +30,10 @@ from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from inspect import isclass
 from datetime import datetime
 from time import sleep
-import gettext, ctypes, atexit, ssl
+import gettext, ctypes, ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 #TimeLog-Print
-def clean():
-    clog = open('Console.log', 'a')
-    clog.write('\n')
-    clog.close()
-atexit.register(clean)
-
 ntime_tmp = None
 def printl(*objects, sep=' ', end='\n', file=stdout, flush=False):
     global ntime_tmp
@@ -715,7 +709,7 @@ class Application(Frame):
         self.log.write(_('正在从NAND中解压 ARM7/ARM9 BIOS...'))
 
         try:
-            print('[' + datetime.now().strftime('%F %T') + ']')
+            printl(_('调用 twltool(解压 BIOS)'))
             self.proc = Popen([ twltool, 'boot2', '--in', self.nand_file.get() ])
 
             ret_val = self.proc.wait()
@@ -837,7 +831,7 @@ class Application(Frame):
             path.join(sysname, 'ndsblc'))
 
         try:
-            print('[' + datetime.now().strftime('%F %T') + ']')
+            printl(_('调用 ndstool(生成 bootloader)'))
             self.proc = Popen([ exe, '-c', 'bootloader.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-t',
                 path.join('for PC', 'bootloader files', 'banner.bin'), '-h',
                 path.join('for PC', 'bootloader files', 'header.bin') ])
@@ -875,15 +869,15 @@ class Application(Frame):
         self.log.write(_('正在解密 NAND...'))
 
         try:
-            print('[' + datetime.now().strftime('%F %T') + ']')
+            printl(_('调用 twltool(解密 NAND)'))
             self.proc = Popen([ twltool, 'nandcrypt', '--in', self.nand_file.get(), '--out',
                 self.console_id.get() + '.img' ])
 
             ret_val = self.proc.wait()
-            if self.setup_operation.get() != 1:
-                print('\n[' + datetime.now().strftime('%F %T') + ']')
-            else:
-                print('\n')
+            #if self.setup_operation.get() != 1:
+             #   print('\n[' + datetime.now().strftime('%F %T') + ']')
+            #else:
+            print('\n')
 
             if ret_val == 0:
                 if self.nand_operation.get() == 2 or self.setup_operation.get() == 2:
@@ -910,6 +904,7 @@ class Application(Frame):
         self.log.write(_('正在从NAND中解压文件...'))
 
         try:
+            printl(_('调用 7-Zip(解压 NAND)'))
             if self.photo.get() == 1:
                 self.proc = Popen([ _7z, 'x', '-bso0', '-y', self.console_id.get() + '.img', '0.fat', '1.fat' ])
             else:
@@ -1027,6 +1022,7 @@ class Application(Frame):
         self.log.write(_('正在从NAND中解压文件...'))
 
         try:
+            printl(_('调用 fatcat(解压 NAND)'))
             # DSi first partition offset: 0010EE00h
             self.proc = Popen([ fatcat, '-O', '1109504', '-x', self.sd_path,
                 self.console_id.get() + '.img' ])
@@ -1281,7 +1277,7 @@ class Application(Frame):
                 copyfile('TWiLight Menu - Game booter.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu - Game booter.cia'))
 
         if self.appgen.get() == 1:
-            print('[' + datetime.now().strftime('%F %T') + ']')
+            printl(_('调用 appgen'))
             if not self.adv_mode:
                 agen(path.join(self.sd_path, 'title' , '00030004'), path.join(self.sd_path, 'roms'))
             else:
@@ -1725,6 +1721,10 @@ if loc != 'zh_CN':
 else:
     gettext.install('')
 
+if path.isfile('console.log'):
+    clog = open('Console.log', 'a')
+    clog.write('\n')
+    clog.close()
 printl(_('hiyaCFW Helper启动中...'))
 
 fatcat = path.join(sysname, 'fatcat')
