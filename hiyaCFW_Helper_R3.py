@@ -444,6 +444,15 @@ class Application(Frame):
             hiyas = path.join(spath, 'sys', 'HWINFO_S.dat')
             if path.exists(hiyad) or path.exists(hiyab) or path.exists(hiyas):
                 self.have_hiya = True
+    def make_dekp(self, dpath):
+        dekp = path.join(dpath, 'sys', 'dev.kp')
+        if not path.exists(dekp):
+            with open(dekp, 'wb+') as f:
+                f.seek(0,0)
+                f.read(0x04)
+                f.write(b'DUMMY')
+                f.close()
+            self.log.write(_('"系统设置-数据管理"功能启用成功'))
 
 
     ################################################################################################
@@ -596,6 +605,19 @@ class Application(Frame):
 
     ################################################################################################
     def closethread(self):
+        if self.adv_mode:
+            self.sd_path1 = ''
+            self.sdp.set(self.sd_path1)
+            if self.appgen.get() == 1:
+                self.appgen.set(0)
+            if self.devkp.get() == 1:
+                self.devkp.set(0)
+            if self.updatehiya.get() == 1:
+                self.updatehiya.set(0)
+            self.start_button['state'] = DISABLED
+            self.uh_chk['state'] = DISABLED
+            self.dkp1_chk['state'] = DISABLED
+            self.ag1_chk['state'] = DISABLED
         self.dialog.destroy()
         if self.finish == True:
             self.finish = False
@@ -983,7 +1005,6 @@ class Application(Frame):
             self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
             outs, errs = self.proc.communicate()
             print(outs.decode('utf-8').strip())
-           #print('[' + datetime.now().strftime('%F %T') + ']')
 
             if self.proc.returncode == 0:
                 self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
@@ -995,7 +1016,7 @@ class Application(Frame):
                     self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
                     outs, errs = self.proc.communicate()
                     print(outs.decode('utf-8').strip())
-                    #print('[' + datetime.now().strftime('%F %T') + ']')
+
                     if self.proc.returncode == 0:
                         self.twlp = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
                         self.log.write(_('- DSi相册分区挂载到驱动器 ') + self.twlp)
@@ -1180,14 +1201,7 @@ class Application(Frame):
             copyfile(tmd_src, path.join(launcher_folder, 'title.tmd'))
 
         if self.devkp.get() == 1:
-            dekp = path.join(self.sd_path, 'sys', 'dev.kp')
-            if not path.exists(dekp):
-                with open(dekp, 'wb+') as f:
-                    f.seek(0,0)
-                    f.read(0x04)
-                    f.write(b'DUMMY')
-                    f.close()
-                self.log.write(_('"系统设置-数据管理"功能启用成功'))
+            self.make_dekp(self.sd_path)
 
         self.TThread = Thread(target=self.get_latest_twilight if self.twilight.get() == 1 else self.clean)
         self.TThread.start()
@@ -1290,14 +1304,7 @@ class Application(Frame):
             else:
                 agen(path.join(self.sd_path1, 'title' , '00030004'), path.join(self.sd_path1, 'roms'))
         if self.adv_mode and self.devkp.get() == 1:
-            dekp = path.join(self.sd_path1, 'sys', 'dev.kp')
-            if not path.exists(dekp):
-                with open(dekp, 'wb+') as f:
-                    f.seek(0,0)
-                    f.read(0x04)
-                    f.write(b'DUMMY')
-                    f.close()
-                self.log.write(_('"系统设置-数据管理"功能启用成功'))
+            self.make_dekp(self.sd_path1)
 
         Thread(target=self.clean).start()
 
@@ -1486,13 +1493,7 @@ class Application(Frame):
                         with open('UNLAUNCH.DSI', 'rb') as unl:
                             f.write(unl.read())
 
-                    dekp = path.join(self.mounted, 'sys', 'dev.kp')
-                    if not path.exists(dekp):
-                        with open(dekp, 'wb+') as f:
-                            f.seek(0,0)
-                            f.read(0x04)
-                            f.write(b'DUMMY')
-                            f.close()
+                    self.make_dekp(self.mounted)
 
                     # Set files as read-only
                     for file in listdir(path.join(self.mounted, 'title', '00030017', app,
@@ -1533,13 +1534,7 @@ class Application(Frame):
             with open(tmd, 'r+b') as f:
                 f.truncate(520)
 
-            dekp = path.join(self.mounted, 'sys', 'dev.kp')
-            if not path.exists(dekp):
-                with open(dekp, 'wb+') as f:
-                    f.seek(0,0)
-                    f.read(0x04)
-                    f.write(b'DUMMY')
-                    f.close()
+            self.make_dekp(self.mounted)
 
         self.TThread = Thread(target=self.unmount_nand)
         self.TThread.start()
