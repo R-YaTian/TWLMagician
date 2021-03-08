@@ -30,6 +30,7 @@ from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from inspect import isclass
 from datetime import datetime
 from time import sleep
+from binascii import hexlify
 import gettext, ctypes, ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -38,7 +39,10 @@ ntime_tmp = None
 def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
     global ntime_tmp
     clog = open('Console.log', 'a')
-    ntime = datetime.now().strftime('%F %T')
+    try:
+        ntime = datetime.now().strftime('%F %T')
+    except:
+        ntime = datetime.now().strftime('%c')
     if ntime_tmp != ntime or ntime_tmp == None:
         if fixn == False:
             print('[' + ntime + ']')
@@ -77,7 +81,10 @@ class ThreadSafeText(Text):
 
     def write(self, line):
         self.wlog = open('Window.log', 'a')
-        now_time = datetime.now().strftime('%F %T')
+        try:
+            now_time = datetime.now().strftime('%F %T')
+        except:
+            now_time = datetime.now().strftime('%c')
         if self.now_time_tmp != now_time or self.now_time_tmp == None:
             self.queue.put('[' + now_time + ']')
             self.wlog.write('[' + now_time + ']\n')
@@ -650,12 +657,18 @@ class Application(Frame):
                 if bstr == b'DSi eMMC CID/CPU':
                     # Read the CID
                     bstr = f.read(0x10)
-                    self.cid.set(bstr.hex().upper())
+                    try:
+                        self.cid.set(bstr.hex().upper())
+                    except:
+                        self.cid.set(hexlify(bstr).upper().decode('ascii'))
                     self.log.write('- eMMC CID: ' + self.cid.get())
 
                     # Read the console ID
                     bstr = f.read(8)
-                    self.console_id.set(bytearray(reversed(bstr)).hex().upper())
+                    try:
+                        self.console_id.set(bytearray(reversed(bstr)).hex().upper())
+                    except:
+                        self.console_id.set(hexlify(bytearray(reversed(bstr))).upper().decode('ascii'))
                     self.log.write('- Console ID: ' + self.console_id.get())
 
                     if self.nand_mode:
@@ -745,9 +758,12 @@ class Application(Frame):
 
                 with open('arm7.bin', 'rb') as f:
                     sha1_hash.update(f.read())
-
-                self.log.write('- arm7.bin SHA1:\n  ' +
-                    sha1_hash.digest().hex().upper())
+                try:
+                    self.log.write('- arm7.bin SHA1:\n  ' +
+                        sha1_hash.digest().hex().upper())
+                except:
+                    self.log.write('- arm7.bin SHA1:\n  ' +
+                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 # Hash arm9.bin
                 sha1_hash = sha1()
