@@ -637,7 +637,7 @@ class Application(Frame):
         Thread(target=self.after_close).start()
     def after_close(self):
         sleep(1)
-        printl(_('用户终止操作'))
+        printl(_('操作过程发生错误或用户终止操作'))
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
             if not self.adv_mode:
                 self.unmount_nand1()
