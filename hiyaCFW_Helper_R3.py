@@ -770,10 +770,12 @@ class Application(Frame):
 
                 with open('arm9.bin', 'rb') as f:
                     sha1_hash.update(f.read())
-
-                self.log.write('- arm9.bin SHA1:\n  ' +
-                    sha1_hash.digest().hex().upper())
-
+                try:
+                    self.log.write('- arm9.bin SHA1:\n  ' +
+                        sha1_hash.digest().hex().upper())
+                except:
+                    self.log.write('- arm9.bin SHA1:\n  ' +
+                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 self.TThread = Thread(target=self.patch_bios)
                 self.TThread.start()
@@ -804,18 +806,24 @@ class Application(Frame):
 
             with open('arm7.bin', 'rb') as f:
                 sha1_hash.update(f.read())
-
-            self.log.write('- Patched arm7.bin SHA1:\n  ' +
-                sha1_hash.digest().hex().upper())
+            try:
+                self.log.write('- Patched arm7.bin SHA1:\n  ' +
+                    sha1_hash.digest().hex().upper())
+            except:
+                self.log.write('- Patched arm7.bin SHA1:\n  ' +
+                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
             # Hash arm9.bin
             sha1_hash = sha1()
 
             with open('arm9.bin', 'rb') as f:
                 sha1_hash.update(f.read())
-
-            self.log.write('- Patched arm9.bin SHA1:\n  ' +
-                sha1_hash.digest().hex().upper())
+            try:
+                self.log.write('- Patched arm9.bin SHA1:\n  ' +
+                    sha1_hash.digest().hex().upper())
+            except:
+                self.log.write('- Patched arm9.bin SHA1:\n  ' +
+                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
             self.TThread = Thread(target=self.arm9_prepend)
             self.TThread.start()
@@ -851,9 +859,12 @@ class Application(Frame):
 
             with open('arm9.bin', 'rb') as f:
                 sha1_hash.update(f.read())
-
-            self.log.write('- Prepended arm9.bin SHA1:\n  ' +
-                sha1_hash.digest().hex().upper())
+            try:
+                self.log.write('- Prepended arm9.bin SHA1:\n  ' +
+                    sha1_hash.digest().hex().upper())
+            except:
+                self.log.write('- Prepended arm9.bin SHA1:\n  ' +
+                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
             self.TThread = Thread(target=self.make_bootloader)
             self.TThread.start()
@@ -889,9 +900,12 @@ class Application(Frame):
 
                 with open('bootloader.nds', 'rb') as f:
                     sha1_hash.update(f.read())
-
-                self.log.write('- bootloader.nds SHA1:\n  ' +
-                    sha1_hash.digest().hex().upper())
+                try:
+                    self.log.write('- bootloader.nds SHA1:\n  ' +
+                        sha1_hash.digest().hex().upper())
+                except:
+                    self.log.write('- bootloader.nds SHA1:\n  ' +
+                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 self.TThread = Thread(target=self.decrypt_nand)
                 self.TThread.start()
@@ -1175,9 +1189,12 @@ class Application(Frame):
 
                 with open(launcher_app, 'rb') as f:
                     sha1_hash.update(f.read())
-
-                self.log.write('- Patched Launcher SHA1:\n  ' +
-                    sha1_hash.digest().hex().upper())
+                try:
+                    self.log.write('- Patched Launcher SHA1:\n  ' +
+                        sha1_hash.digest().hex().upper())
+                except:
+                    self.log.write('- Patched Launcher SHA1:\n  ' +
+                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 self.TThread = Thread(target=self.install_hiyacfw, args=(launcher_app, launcher_folder, app))
                 self.TThread.start()
@@ -1300,8 +1317,8 @@ class Application(Frame):
             copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
             if self.updatehiya.get() == 1:
-                copy_tree('title', path.join(self.sd_path, 'title'))
-                copy_tree('hiya', path.join(self.sd_path, 'hiya'))
+                copy_tree('title', path.join(self.sd_path1, 'title'))
+                copy_tree('hiya', path.join(self.sd_path1, 'hiya'))
             copy_tree('_nds', path.join(self.sd_path1, '_nds'))
             copy_tree('roms', path.join(self.sd_path1, 'roms'))
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
