@@ -210,23 +210,26 @@ class Application(Frame):
         self.devkp = IntVar()
         self.devkp.set(0)
 
-        dkp_chk = Checkbutton(self.checks_frame, text=_('启用系统设置-数据管理功能'), variable=self.devkp, command=self.usedevkp)
+        dkp_chk = Checkbutton(self.checks_frame, text=_('启用系统设置-数据管理功能'), variable=self.devkp)
 
         dkp_chk.pack(padx=10, anchor=W)
+        ToolTip(dkp_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
         self.photo = IntVar()
         self.photo.set(0)
 
-        photo_chk = Checkbutton(self.checks_frame, text=_('提取相册分区'), variable=self.photo, command=self.usephoto)
+        photo_chk = Checkbutton(self.checks_frame, text=_('提取相册分区'), variable=self.photo)
 
         photo_chk.pack(padx=10, anchor=W)
+        ToolTip(photo_chk, msg=_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
 
         self.altdl = IntVar()
         self.altdl.set(0)
 
-        adl_chk = Checkbutton(self.checks_frame, text='使用备用载点', variable=self.altdl, command=self.usealtdl)
         if loc == 'zh_CN':
+            adl_chk = Checkbutton(self.checks_frame, text='使用备用载点', variable=self.altdl)
             adl_chk.pack(padx=10, anchor=W)
+            ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
 
         self.checks_frame.pack(fill=X)
 
@@ -235,6 +238,7 @@ class Application(Frame):
         self.ag1_chk = Checkbutton(self.checks_frame1, text=_('使用AppGen'), variable=self.appgen, state=DISABLED)
 
         self.ag1_chk.pack(padx=10, anchor=W)
+        ToolTip(self.ag1_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
 
         self.updatehiya = IntVar()
         self.updatehiya.set(0)
@@ -243,13 +247,15 @@ class Application(Frame):
 
         self.uh_chk.pack(padx=10, anchor=W)
 
-        self.dkp1_chk = Checkbutton(self.checks_frame1, text=_('启用系统设置-数据管理功能'), variable=self.devkp, command=self.usedevkp, state=DISABLED)
+        self.dkp1_chk = Checkbutton(self.checks_frame1, text=_('启用系统设置-数据管理功能'), variable=self.devkp, state=DISABLED)
 
         self.dkp1_chk.pack(padx=10, anchor=W)
+        ToolTip(self.dkp1_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
-        adl1_chk = Checkbutton(self.checks_frame1, text='使用备用载点', variable=self.altdl, command=self.usealtdl)
         if loc == 'zh_CN':
+            adl1_chk = Checkbutton(self.checks_frame1, text='使用备用载点', variable=self.altdl)
             adl1_chk.pack(padx=10, anchor=W)
+            ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padx=10, pady=10)
@@ -302,6 +308,7 @@ class Application(Frame):
         self.back_button = Button(f3, text=_('返回'), command=self.change_mode, width=13)
         self.back1_button = Button(f3, text=_('返回'), command=self.change_mode1, width=13)
         self.adv_button.pack(side='left', padx=(0, 0))
+        ToolTip(self.adv_button, msg=_('高级模式提供了单独安装TWiLightMenu++等功能'))
 
         self.exit_button = Button(f3, text=_('退出'), command=root.destroy, width=13)
         self.exit_button.pack(side='left', padx=(5, 0))
@@ -313,18 +320,6 @@ class Application(Frame):
 
 
     ################################################################################################
-    def usephoto(self):
-        if self.photo.get() == 1:
-            if not askokcancel(_('提示'), (_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))):
-                self.photo.set(0)
-    def usealtdl(self):
-        if self.altdl.get() == 1:
-            if not askokcancel('提示', ('使用备用载点可能可以提高下载必要文件的速度，特此感谢 SpinTouch 提供备用载点服务器，点击"确定"以继续')):
-                self.altdl.set(0)
-    def usedevkp(self):
-        if self.devkp.get() == 1:
-            if not askokcancel(_('提示'), (_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果你已经在NAND中开启了此功能，则不需要勾选此选项'))):
-                self.devkp.set(0)
     def change_mode(self):
         if (self.nand_mode):
             self.nand_operation.set(0)
@@ -400,35 +395,34 @@ class Application(Frame):
             self.exit_button.pack(side='left', padx=(5, 0))
             self.adv_mode = False
         else:
-            if askokcancel(_('提示'), (_('高级模式提供了单独安装TWiLightMenu++等功能, 点击"确定"以进入'))):
-                self.have_menu = False
-                self.is_tds = False
-                self.have_hiya = False
-                if self.appgen.get() == 1:
-                    self.appgen.set(0)
-                if self.devkp.get() == 1:
-                    self.devkp.set(0)
-                if self.updatehiya.get() == 1:
-                    self.updatehiya.set(0)
-                if self.nand_file.get() != '':
-                    self.nand_file.set('')
-                self.bak_frame.pack_forget()
-                if (self.setup_select):
-                    self.setup_frame.pack_forget()
-                self.checks_frame.pack_forget()
-                self.start_button.pack_forget()
-                self.adv_button.pack_forget()
-                self.exit_button.pack_forget()
-                self.adv_frame.pack(fill=X)
-                self.checks_frame1.pack(anchor=W)
-                self.uh_chk['state'] = DISABLED
-                self.dkp1_chk['state'] = DISABLED
-                self.ag1_chk['state'] = DISABLED
-                self.start_button['state'] = DISABLED
-                self.start_button.pack(side='left', padx=(0, 5))
-                self.back1_button.pack(side='left', padx=(0, 0))
-                self.exit_button.pack(side='left', padx=(5, 0))
-                self.adv_mode = True
+            self.have_menu = False
+            self.is_tds = False
+            self.have_hiya = False
+            if self.appgen.get() == 1:
+                self.appgen.set(0)
+            if self.devkp.get() == 1:
+                self.devkp.set(0)
+            if self.updatehiya.get() == 1:
+                self.updatehiya.set(0)
+            if self.nand_file.get() != '':
+                self.nand_file.set('')
+            self.bak_frame.pack_forget()
+            if (self.setup_select):
+                self.setup_frame.pack_forget()
+            self.checks_frame.pack_forget()
+            self.start_button.pack_forget()
+            self.adv_button.pack_forget()
+            self.exit_button.pack_forget()
+            self.adv_frame.pack(fill=X)
+            self.checks_frame1.pack(anchor=W)
+            self.uh_chk['state'] = DISABLED
+            self.dkp1_chk['state'] = DISABLED
+            self.ag1_chk['state'] = DISABLED
+            self.start_button['state'] = DISABLED
+            self.start_button.pack(side='left', padx=(0, 5))
+            self.back1_button.pack(side='left', padx=(0, 0))
+            self.exit_button.pack(side='left', padx=(5, 0))
+            self.adv_mode = True
 
 
     ################################################################################################
