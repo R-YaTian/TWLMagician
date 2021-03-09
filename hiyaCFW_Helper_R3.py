@@ -11,7 +11,6 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
     END)
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
-from platform import system, architecture
 from os import path, remove, chmod, listdir, rename, environ, mkdir
 from sys import exit, stdout
 from threading import Thread
@@ -31,7 +30,7 @@ from inspect import isclass
 from datetime import datetime
 from time import sleep
 from binascii import hexlify
-import gettext, ctypes, ssl
+import gettext, ctypes, ssl, platform
 ssl._create_default_https_context = ssl._create_unverified_context
 
 #TimeLog-Print
@@ -174,7 +173,7 @@ class Application(Frame):
 
         self.rb1 = Radiobutton(self.setup_frame, text=_('Fatcat(默认)'), variable=self.setup_operation, value=0)
         self.rb2 = Radiobutton(self.setup_frame, text='7-Zip', variable=self.setup_operation, value=1)
-        self.rb3 = Radiobutton(self.setup_frame, text=_('OSFMount2(需要管理员权限)'), variable=self.setup_operation, value=2)
+        self.rb3 = Radiobutton(self.setup_frame, text=_('OSFMount(需要管理员权限)'), variable=self.setup_operation, value=2)
 
         if osfmount or _7z is not None:
             if fatcat is not None:
@@ -1728,7 +1727,7 @@ class Application(Frame):
 # Entry point
 
 root = Tk()
-sysname = system()
+sysname = platform.system()
 
 if sysname == 'Darwin':
     if getlocale()[0] is None:
@@ -1771,27 +1770,31 @@ if sysname == 'Windows':
     _7za += '.exe'
     twltool += '.exe'
 
-    pye = architecture()
-    pybits = pye[0]
+    pybits = platform.architecture()[0]
+    winver = platform.win32_ver()[0]
+    if winver == 'Vista' or winver == 'XP' or winver == '2003Server':
+        osfpath = 'elder'
+    else:
+        osfpath = 'extras'
 
     if pybits == '64bit':
-        osfmount = path.join(sysname, 'extras', 'OSFMount.com')
+        osfmount = path.join(sysname, osfpath, 'OSFMount.com')
         if path.exists(osfmount):
-            printl(_('64位版本的OSFMount2模块已加载'))
+            printl(_('64位版本的OSFMount模块已加载'))
         else:
             osfmount  = None
     else:
         try:
             if environ['PROGRAMFILES(X86)']:
-                osfmount = path.join(sysname, 'extras', 'OSFMount.com')
+                osfmount = path.join(sysname, osfpath, 'OSFMount.com')
                 if path.exists(osfmount):
-                    printl(_('64位版本的OSFMount2模块已加载'))
+                    printl(_('64位版本的OSFMount模块已加载'))
                 else:
                     osfmount  = None
         except KeyError:
-            osfmount = path.join(sysname, 'extras', 'x86', 'OSFMount.com')
+            osfmount = path.join(sysname, osfpath, 'x86', 'OSFMount.com')
             if path.exists(osfmount):
-                printl(_('32位版本的OSFMount2模块已加载'))
+                printl(_('32位版本的OSFMount模块已加载'))
             else:
                 osfmount  = None
 
