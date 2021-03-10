@@ -30,7 +30,7 @@ from inspect import isclass
 from datetime import datetime
 from time import sleep
 from binascii import hexlify
-import gettext, ctypes, ssl, platform
+import gettext, ctypes, platform, ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 #TimeLog-Print
@@ -1491,10 +1491,11 @@ class Application(Frame):
         tmd_size = path.getsize(tmd)
 
         if tmd_size == 520:
-            self.log.write(_('- 未安装,下载中...'))
+            self.log.write(_('- 未安装...'))
 
             try:
                 if not path.exists('unlaunch.zip'):
+                    self.log.write(_('正在下载最新版本的unlaunch...'))
                     try:
                         filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
                     except:
