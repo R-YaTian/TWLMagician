@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # hiyaCFW Helper R
-# Version 3.6.1R
+# Version 3.6.3R
 # Author: R-YaTian
 # Original Author: mondul <mondul@huyzona.com>
 
@@ -1815,7 +1815,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('hiyaCFW Helper V3.6.2R(BY天涯)'))
+root.title(_('hiyaCFW Helper V3.6.3R(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
