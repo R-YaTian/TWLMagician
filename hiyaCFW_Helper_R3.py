@@ -1444,7 +1444,7 @@ class Application(Frame):
         try:
             for app in listdir(path.join(base, 'title', '00030017')):
                 for file in listdir(path.join(base, 'title', '00030017', app, 'content')):
-                    if file.endswith('.app'):
+                    if file.lower().endswith('.app'):
                         try:
                             if file.startswith("0000000"):
                                 self.log.write(_('- 检测到 ') + REGION_CODES[app.lower()] +
@@ -1736,15 +1736,27 @@ if sysname == 'Darwin':
     loc = getlocale()[0]
 else:
     loc = getdefaultlocale()[0]
-langs = path.join('i18n', loc, 'LC_MESSAGES', 'lang.mo')
+LANG_ZH_CODES = {
+    'zh_sg': 'zh_hans',
+    'zh_my': 'zh_hans',
+    'zh_cn': 'zh_hans',
+    'zh_hk': 'zh_hant',
+    'zh_mo': 'zh_hant',
+    'zh_tw': 'zh_hant'
+}
+try:
+    loca = LANG_ZH_CODES[loc.lower()]
+except:
+    loca = loc
+langs = path.join('i18n', loca, 'LC_MESSAGES', 'lang.mo')
 lange = path.join('i18n', 'en_US', 'LC_MESSAGES', 'lang.mo')
 
-if loc != 'zh_CN':
+if loca != 'zh_hans':
     if path.exists(langs):
-        lang = gettext.translation('lang', localedir='i18n', languages=[loc])
+        lang = gettext.translation('lang', localedir='i18n', languages=[loca])
         lang.install()
     else:
-        if loc == 'zh_TW' or loc == 'en_US':
+        if loca == 'zh_hant' or loca == 'en_US':
             gettext.install('')
         elif path.exists(lange):
             lang = gettext.translation('lang', localedir='i18n', languages=['en_US'])
