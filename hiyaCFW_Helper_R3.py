@@ -1608,21 +1608,17 @@ class Application(Frame):
 
             ret_val = self.proc.wait()
 
-            if ret_val == 0:
-                if self.nand_mode == False and self.photo.get() == 1:
-                    printl(_('调用 osfmount(强制卸载 twlp)'))
-                    self.proc = Popen([ osfmount, '-D', '-m', self.twlp ])
-                    ret_val = self.proc.wait()
-                    if ret_val == 0:
-                        Thread(target=self.clean, args=(True,)).start()
-                    else:
-                        self.log.write(_('错误: 卸载相册分区失败或尚未挂载'))
-                        Thread(target=self.clean, args=(True,)).start()
-                else:
-                    Thread(target=self.clean, args=(True,)).start()
-            else:
+            if ret_val != 0:
                 self.log.write(_('错误: 卸载失败或尚未挂载'))
-                Thread(target=self.clean, args=(True,)).start()
+
+            if self.nand_mode == False and self.photo.get() == 1:
+                printl(_('调用 osfmount(强制卸载 twlp)'))
+                self.proc = Popen([ osfmount, '-D', '-m', self.twlp ])
+                ret_val = self.proc.wait()
+                if ret_val != 0:
+                    self.log.write(_('错误: 卸载相册分区失败或尚未挂载'))
+
+            Thread(target=self.clean, args=(True,)).start()
 
         except OSError as e:
             printl(str(e))
