@@ -1,0 +1,517 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: V3.6.3R\n"
+"POT-Creation-Date: 2021-03-10 13:18+0800\n"
+"Last-Translator: R-YaTian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp936\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: hiyaCFW_Helper_R3.py:127
+msgid "含有No$GBA footer的NAND备份文件"
+msgstr "NAND file with No$GBA footer"
+
+#: hiyaCFW_Helper_R3.py:148
+msgid "存储卡根目录"
+msgstr "The root of SD card"
+
+#: hiyaCFW_Helper_R3.py:162
+msgid "NAND解压选项"
+msgstr "NAND extractor"
+
+#: hiyaCFW_Helper_R3.py:174
+msgid "Fatcat(默认)"
+msgstr "fatcat"
+
+#: hiyaCFW_Helper_R3.py:176
+msgid "OSFMount(需要管理员权限)"
+msgstr "OSFMount (need administrator privileges)"
+
+#: hiyaCFW_Helper_R3.py:197
+msgid "同时安装TWiLightMenu++"
+msgstr "Install latest TWiLightMenu++ on custom firmware"
+
+#: hiyaCFW_Helper_R3.py:204 hiyaCFW_Helper_R3.py:237
+msgid "使用AppGen"
+msgstr "Use AppGen"
+
+#: hiyaCFW_Helper_R3.py:207 hiyaCFW_Helper_R3.py:240
+msgid "提取Nand备份中的DSiWare软件并复制到\nroms/dsiware"
+msgstr "Export DSiWare from NAND and copy to roms/dsiware"
+
+#: hiyaCFW_Helper_R3.py:212 hiyaCFW_Helper_R3.py:249
+msgid "启用系统设置-数据管理功能"
+msgstr "Enable Data Management on System Settings"
+
+#: hiyaCFW_Helper_R3.py:215 hiyaCFW_Helper_R3.py:252
+msgid "勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项"
+msgstr "Enable Data Management option on hiyaCFW's System Settings without connecting to DSi Shop"
+
+#: hiyaCFW_Helper_R3.py:220
+msgid "提取相册分区"
+msgstr "Extract photo partition from NAND"
+
+#: hiyaCFW_Helper_R3.py:223
+msgid "提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)"
+msgstr "Extract photo partition from NAND backup, then the photos from the console will be seen in hiyaCFW (Occupies some storage space, up to 32MB)"
+
+#: hiyaCFW_Helper_R3.py:245
+msgid "更新hiyaCFW"
+msgstr "Update hiyaCFW"
+
+#: hiyaCFW_Helper_R3.py:260
+msgid "NAND操作选项"
+msgstr "NAND operation"
+
+#: hiyaCFW_Helper_R3.py:265
+msgid "安装或卸载最新版本的unlaunch"
+msgstr "Uninstall unlaunch or install latest"
+
+#: hiyaCFW_Helper_R3.py:270
+msgid "移除 No$GBA footer"
+msgstr "Remove No$GBA footer"
+
+#: hiyaCFW_Helper_R3.py:273
+msgid "添加 No$GBA footer"
+msgstr "Add No$GBA footer"
+
+#: hiyaCFW_Helper_R3.py:303
+msgid "开始"
+msgstr "Start"
+
+#: hiyaCFW_Helper_R3.py:306
+msgid "高级"
+msgstr "Advanced"
+
+#: hiyaCFW_Helper_R3.py:307 hiyaCFW_Helper_R3.py:308
+msgid "返回"
+msgstr "Back"
+
+#: hiyaCFW_Helper_R3.py:310
+msgid "高级模式提供了单独安装TWiLightMenu++等功能"
+msgstr "Advanced mode provides 'Only install TWiLightMenu++' feature and more"
+
+#: hiyaCFW_Helper_R3.py:312
+msgid "退出"
+msgstr "Exit"
+
+#: hiyaCFW_Helper_R3.py:345
+msgid "你正要进入NAND操作模式, 请确认你知道自己在做什么, 继续吗?"
+msgstr "You are about to enter NAND mode. Do it only if you know what you are doing. Proceed?"
+
+#: hiyaCFW_Helper_R3.py:345
+msgid "警告"
+msgstr "Warning"
+
+#: hiyaCFW_Helper_R3.py:455
+msgid "\"系统设置-数据管理\"功能启用成功"
+msgstr "Succeeded in enabling 'Data Management' on System Settings"
+
+#: hiyaCFW_Helper_R3.py:463
+msgid "请选择机器的存储卡根目录"
+msgstr "Please choose your console's SD card path"
+
+#: hiyaCFW_Helper_R3.py:463 hiyaCFW_Helper_R3.py:517
+msgid "提示"
+msgstr "Info"
+
+#: hiyaCFW_Helper_R3.py:508
+msgid "此功能需要以管理员权限运行本工具"
+msgstr "In order to use this feature, 'hiyaCFW HelperR' needs to be run with administrator privileges."
+
+#: hiyaCFW_Helper_R3.py:508 hiyaCFW_Helper_R3.py:525 hiyaCFW_Helper_R3.py:537
+#: hiyaCFW_Helper_R3.py:541 hiyaCFW_Helper_R3.py:549 hiyaCFW_Helper_R3.py:556
+#: hiyaCFW_Helper_R3.py:1813
+msgid "错误"
+msgstr "ERROR"
+
+#: hiyaCFW_Helper_R3.py:517
+msgid "接下来请选择你用来安装自制系统的存储卡路径(或输出路径)\n为了避免 启动错误 请确保目录下无任何文件"
+msgstr "Now you will be asked to choose the SD card path that will be used "
+"for installing the custom firmware (or an output folder).\n\nIn order to avoid "
+"boot errors please assure it is empty before continuing."
+
+#: hiyaCFW_Helper_R3.py:525
+msgid "目录检测未通过，若CFW已安装，请转到高级模式，或选择一个空目录以继续"
+msgstr "Failed on 'Path check'. If hiyaCFW is already installed on this SD card, please use 'Advanced mode' or choose a empty folder"
+
+#: hiyaCFW_Helper_R3.py:562
+msgid "状态"
+msgstr "Status"
+
+#: hiyaCFW_Helper_R3.py:580
+msgid "关闭"
+msgstr "Close"
+
+#: hiyaCFW_Helper_R3.py:633
+msgid "操作过程发生错误或用户终止操作"
+msgstr "An error was encountered or terminate by user"
+
+#: hiyaCFW_Helper_R3.py:640
+msgid "正在检查NAND文件..."
+msgstr "Checking NAND file..."
+
+#: hiyaCFW_Helper_R3.py:679
+msgid "错误: 没有检测到No$GBA footer\n警告: 若确定Nand已完整dump, 则用于dump的存储卡极有可能是扩容卡或者已出现坏块"
+msgstr "ERROR: No$GBA footer not found\nWarning: If 'NAND dump' progress was certainly done, you should check your SD "
+"card for errors using H2testw (Windows), F3 (Linux), or F3X (macOS)."
+
+#: hiyaCFW_Helper_R3.py:683
+msgid "错误: 无法打开文件 "
+msgstr "ERROR: Could not open the file "
+
+#: hiyaCFW_Helper_R3.py:696
+msgid "正在下载最新版本的hiyaCFW..."
+msgstr "Downloading latest hiyaCFW release..."
+
+#: hiyaCFW_Helper_R3.py:705
+msgid "- 正在解压 hiyaCFW 压缩包..."
+msgstr "- Extracting hiyaCFW archive..."
+
+#: hiyaCFW_Helper_R3.py:724 hiyaCFW_Helper_R3.py:777 hiyaCFW_Helper_R3.py:982
+#: hiyaCFW_Helper_R3.py:993 hiyaCFW_Helper_R3.py:1096
+#: hiyaCFW_Helper_R3.py:1196 hiyaCFW_Helper_R3.py:1283
+#: hiyaCFW_Helper_R3.py:1532
+msgid "错误: 解压失败"
+msgstr "ERROR: Extractor failed"
+
+#: hiyaCFW_Helper_R3.py:729
+msgid "错误: 无法下载hiyaCFW"
+msgstr "ERROR: Could not get hiyaCFW"
+
+#: hiyaCFW_Helper_R3.py:733 hiyaCFW_Helper_R3.py:782 hiyaCFW_Helper_R3.py:912
+#: hiyaCFW_Helper_R3.py:943 hiyaCFW_Helper_R3.py:1005
+#: hiyaCFW_Helper_R3.py:1064 hiyaCFW_Helper_R3.py:1101
+#: hiyaCFW_Helper_R3.py:1206 hiyaCFW_Helper_R3.py:1293
+#: hiyaCFW_Helper_R3.py:1546 hiyaCFW_Helper_R3.py:1600
+#: hiyaCFW_Helper_R3.py:1629 hiyaCFW_Helper_R3.py:1655
+msgid "错误: 无法运行 "
+msgstr "ERROR: Could not execute "
+
+#: hiyaCFW_Helper_R3.py:740
+msgid "正在从NAND中解压 ARM7/ARM9 BIOS..."
+msgstr "Extracting ARM7/ARM9 BIOS from NAND..."
+
+#: hiyaCFW_Helper_R3.py:743
+msgid "调用 twltool(解压 BIOS)"
+msgstr "Execute twltool (Extract BIOS)"
+
+#: hiyaCFW_Helper_R3.py:826
+msgid "错误: 无法完成 patch BIOS"
+msgstr "ERROR: Could not patch BIOS"
+
+#: hiyaCFW_Helper_R3.py:831
+msgid "错误: 无效的 patch header"
+msgstr "ERROR: Invalid patch header"
+
+#: hiyaCFW_Helper_R3.py:837
+msgid "正在预载数据到 ARM9 BIOS..."
+msgstr "Prepending data to ARM9 BIOS..."
+
+#: hiyaCFW_Helper_R3.py:867
+msgid "错误: 无法预载数据到 ARM9 BIOS"
+msgstr "ERROR: Could not prepend data to ARM9 BIOS"
+
+#: hiyaCFW_Helper_R3.py:873
+msgid "正在生成 bootloader..."
+msgstr "Generating bootloader..."
+
+#: hiyaCFW_Helper_R3.py:880
+msgid "调用 ndstool(生成 bootloader)"
+msgstr "Execute ndstool (Make bootloader)"
+
+#: hiyaCFW_Helper_R3.py:882
+msgid "调用 ndsblc(生成 bootloader)"
+msgstr "Execute ndsblc (Make bootloader)"
+
+#: hiyaCFW_Helper_R3.py:907
+msgid "错误: 生成失败"
+msgstr "ERROR: Generator failed"
+
+#: hiyaCFW_Helper_R3.py:920
+msgid "正在解密 NAND..."
+msgstr "Decrypting NAND..."
+
+#: hiyaCFW_Helper_R3.py:923
+msgid "调用 twltool(解密 NAND)"
+msgstr "Execute twltool (Decrypt NAND)"
+
+#: hiyaCFW_Helper_R3.py:938
+msgid "错误: 解密失败"
+msgstr "ERROR: Decryptor failed"
+
+#: hiyaCFW_Helper_R3.py:951 hiyaCFW_Helper_R3.py:1070
+msgid "正在从NAND中解压文件..."
+msgstr "Extracting files from NAND..."
+
+#: hiyaCFW_Helper_R3.py:954
+msgid "调用 7-Zip(解压 NAND)"
+msgstr "Execute 7-Zip (Extract NAND)"
+
+#: hiyaCFW_Helper_R3.py:976 hiyaCFW_Helper_R3.py:1090
+msgid "错误: 解压相册分区失败"
+msgstr "ERROR: Failed to extract photo partition"
+
+#: hiyaCFW_Helper_R3.py:985 hiyaCFW_Helper_R3.py:996 hiyaCFW_Helper_R3.py:1008
+msgid "尝试使用fatcat..."
+msgstr "Trying with fatcat..."
+
+#: hiyaCFW_Helper_R3.py:1018
+msgid "挂载解密的NAND镜像中..."
+msgstr "Mounting decrypted NAND..."
+
+#: hiyaCFW_Helper_R3.py:1021
+msgid "调用 osfmount(挂载 twln)"
+msgstr "Execute osfmount (Mount twln)"
+
+#: hiyaCFW_Helper_R3.py:1034
+msgid "- 挂载到驱动器 "
+msgstr "- Mounted on drive "
+
+#: hiyaCFW_Helper_R3.py:1036
+msgid "调用 osfmount(挂载 twlp)"
+msgstr "Execute osfmount (Mount twlp)"
+
+#: hiyaCFW_Helper_R3.py:1045
+msgid "- DSi相册分区挂载到驱动器 "
+msgstr "- DSi's photo partition mounted on drive "
+
+#: hiyaCFW_Helper_R3.py:1047
+msgid "错误: 挂载相册分区失败"
+msgstr "ERROR: Failed to mount photo partition"
+
+#: hiyaCFW_Helper_R3.py:1051
+msgid "错误: 挂载失败"
+msgstr "ERROR: Mounter failed"
+
+#: hiyaCFW_Helper_R3.py:1073
+msgid "调用 fatcat(解压 NAND)"
+msgstr "Execute fatcat (Extract NAND)"
+
+#: hiyaCFW_Helper_R3.py:1107
+msgid "正在从NAND中复制文件..."
+msgstr "Copying files from NAND..."
+
+#: hiyaCFW_Helper_R3.py:1117
+msgid "错误: 复制失败"
+msgstr "ERROR: Failed to copy files"
+
+#: hiyaCFW_Helper_R3.py:1145
+msgid "正在下载 "
+msgstr "Downloading "
+
+#: hiyaCFW_Helper_R3.py:1155
+msgid "- 正在解压Launcher..."
+msgstr "- Decrypting Launcher..."
+
+#: hiyaCFW_Helper_R3.py:1201
+msgid "错误: 无法下载 "
+msgstr "ERROR: Could not download "
+
+#: hiyaCFW_Helper_R3.py:1212
+msgid "正在复制hiyaCFW相关文件..."
+msgstr "Copying hiyaCFW files..."
+
+#: hiyaCFW_Helper_R3.py:1235
+msgid "正在更新hiyaCFW..."
+msgstr "Updating hiyaCFW..."
+
+#: hiyaCFW_Helper_R3.py:1258
+msgid "正在下载最新版本的TWiLightMenu++..."
+msgstr "Downloading latest TWiLightMenu++ release..."
+
+#: hiyaCFW_Helper_R3.py:1267
+msgid " 压缩包..."
+msgstr " archive..."
+
+#: hiyaCFW_Helper_R3.py:1267
+msgid "- 正在解压 "
+msgstr "- Extracting "
+
+#: hiyaCFW_Helper_R3.py:1288
+msgid "错误: 无法下载TWiLightMenu++"
+msgstr "ERROR: Could not get TWiLightMenu++"
+
+#: hiyaCFW_Helper_R3.py:1299
+msgid " 相关文件..."
+msgstr " files..."
+
+#: hiyaCFW_Helper_R3.py:1299
+msgid "正在复制 "
+msgstr "Copying "
+
+#: hiyaCFW_Helper_R3.py:1327
+msgid "调用 appgen"
+msgstr "Execute appgen"
+
+#: hiyaCFW_Helper_R3.py:1341
+msgid "清理中..."
+msgstr "Cleaning..."
+
+#: hiyaCFW_Helper_R3.py:1358
+msgid "操作过程发生错误或用户终止操作\n"
+msgstr "An error was encountered or terminate by user\n"
+
+#: hiyaCFW_Helper_R3.py:1365
+msgid "完成!\n修改后的NAND已保存为"
+msgstr "Done!\nModified NAND stored as"
+
+#: hiyaCFW_Helper_R3.py:1368
+msgid "操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n"
+msgstr "ERROR: The destination file already exists\n"
+
+#: hiyaCFW_Helper_R3.py:1372
+msgid "完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n"
+msgstr "Done!\nEject your SD card and insert it into your console.\nFor 3DS console, you should use FBI to install titles\n"
+
+#: hiyaCFW_Helper_R3.py:1374
+msgid "完成!\n弹出你的存储卡并插回到机器中\n"
+msgstr "Done!\nEject your SD card and insert it into your DSi\n"
+
+#: hiyaCFW_Helper_R3.py:1450 hiyaCFW_Helper_R3.py:1456
+#: hiyaCFW_Helper_R3.py:1459
+msgid "- 检测到 "
+msgstr "- Detected "
+
+#: hiyaCFW_Helper_R3.py:1465
+msgid "错误: 在NAND中找不到受支持的Launcher"
+msgstr "ERROR: Could not find supported Launcher on NAND"
+
+#: hiyaCFW_Helper_R3.py:1468
+msgid "错误: 无法检测系统区域"
+msgstr "ERROR: Could not detect console region"
+
+#: hiyaCFW_Helper_R3.py:1471
+msgid "错误: "
+msgstr "ERROR: "
+
+#: hiyaCFW_Helper_R3.py:1480
+msgid "检查unlaunch状态中..."
+msgstr "Checking unlaunch status..."
+
+#: hiyaCFW_Helper_R3.py:1494
+msgid "- 未安装..."
+msgstr "- Not installed..."
+
+#: hiyaCFW_Helper_R3.py:1498
+msgid "正在下载最新版本的unlaunch..."
+msgstr "Downloading latest unlaunch..."
+
+#: hiyaCFW_Helper_R3.py:1515
+msgid "- 正在安装unlaunch..."
+msgstr "- Installing unlaunch..."
+
+#: hiyaCFW_Helper_R3.py:1539
+msgid "错误: 无法下载 unlaunch"
+msgstr "ERROR: Could not get unlaunch"
+
+#: hiyaCFW_Helper_R3.py:1552
+msgid "- 已安装, 卸载中..."
+msgstr "- Installed. Uninstalling..."
+
+#: hiyaCFW_Helper_R3.py:1572
+msgid "正在卸载NAND..."
+msgstr "Unmounting NAND..."
+
+#: hiyaCFW_Helper_R3.py:1575
+msgid "调用 osfmount(卸载 twln)"
+msgstr "Execute osfmount (Unmount twln)"
+
+#: hiyaCFW_Helper_R3.py:1582
+msgid "调用 osfmount(卸载 twlp)"
+msgstr "Execute osfmount (Unmount twlp)"
+
+#: hiyaCFW_Helper_R3.py:1589
+msgid "错误: 卸载相册分区失败"
+msgstr "ERROR: Failed to unmount photo partition"
+
+#: hiyaCFW_Helper_R3.py:1595
+msgid "错误: 卸载失败"
+msgstr "ERROR: Unmounter failed"
+
+#: hiyaCFW_Helper_R3.py:1603
+msgid "正在强制卸载NAND..."
+msgstr "Unmounting NAND (force)..."
+
+#: hiyaCFW_Helper_R3.py:1606
+msgid "调用 osfmount(强制卸载 twln)"
+msgstr "Execute osfmount (Force to unmount twln)"
+
+#: hiyaCFW_Helper_R3.py:1613
+msgid "调用 osfmount(强制卸载 twlp)"
+msgstr "Execute osfmount (Force to unmount twlp)"
+
+#: hiyaCFW_Helper_R3.py:1619
+msgid "错误: 卸载相册分区失败或尚未挂载"
+msgstr "ERROR: Failed to unmount photo partition or not mount yet"
+
+#: hiyaCFW_Helper_R3.py:1624
+msgid "错误: 卸载失败或尚未挂载"
+msgstr "ERROR: Unmounter failed or not mount yet"
+
+#: hiyaCFW_Helper_R3.py:1638
+msgid "正在重加密NAND..."
+msgstr "Encrypting back NAND..."
+
+#: hiyaCFW_Helper_R3.py:1641
+msgid "调用 twltool(重加密 NAND)"
+msgstr "Execute twltool (Encrypt back NAND)"
+
+#: hiyaCFW_Helper_R3.py:1650
+msgid "错误: 加密失败"
+msgstr "ERROR: Encryptor failed"
+
+#: hiyaCFW_Helper_R3.py:1661
+msgid "正在移除No$GBA footer..."
+msgstr "Removing No$GBA footer..."
+
+#: hiyaCFW_Helper_R3.py:1679 hiyaCFW_Helper_R3.py:1719
+msgid "完成!\n修改后的NAND已保存为\n"
+msgstr "Done!\nModified NAND stored as\n"
+
+#: hiyaCFW_Helper_R3.py:1680
+msgid "\nfooter信息已保存到 "
+msgstr "\nStored footer info in "
+
+#: hiyaCFW_Helper_R3.py:1684 hiyaCFW_Helper_R3.py:1723
+msgid "错误: 无法打开 "
+msgstr "ERROR: Could not open the file "
+
+#: hiyaCFW_Helper_R3.py:1690
+msgid "正在添加No$GBA footer..."
+msgstr "Adding No$GBA footer..."
+
+#: hiyaCFW_Helper_R3.py:1705
+msgid "错误: 文件中已存在 No$GBA footer"
+msgstr "ERROR: File already has a No$GBA footer"
+
+#: hiyaCFW_Helper_R3.py:1761
+msgid "hiyaCFW Helper启动中..."
+msgstr "Opening hiyaCFW Helper..."
+
+#: hiyaCFW_Helper_R3.py:1784 hiyaCFW_Helper_R3.py:1792
+msgid "64位版本的OSFMount模块已加载"
+msgstr "OSFMount (64-bit) found"
+
+#: hiyaCFW_Helper_R3.py:1798
+msgid "32位版本的OSFMount模块已加载"
+msgstr "OSFMount (32-bit) found"
+
+#: hiyaCFW_Helper_R3.py:1804
+msgid "7-Zip模块已加载"
+msgstr "7-Zip found"
+
+#: hiyaCFW_Helper_R3.py:1813
+msgid "找不到Fatcat, 请确认此程序位于本工具目录的\"{}\"文件夹中"
+msgstr "Fatcat not found. Please make sure 'fatcat' is at the '{}' folder"
+
+#: hiyaCFW_Helper_R3.py:1817
+msgid "GUI初始化中..."
+msgstr "Initializing GUI..."
+
+#: hiyaCFW_Helper_R3.py:1819
+msgid "hiyaCFW Helper V3.6.3R(BY天涯)"
+msgstr "hiyaCFW Helper V3.6.3R"
+
