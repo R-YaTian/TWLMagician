@@ -126,11 +126,6 @@ class Application(Frame):
 
         self.bak_frame=LabelFrame(f1, text=_('含有No$GBA footer的NAND备份文件'), padx=10, pady=10)
 
-        nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAAA'
-            'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAMAAAYALAAAAAAQAB'
-            'AAAARG0MhJaxU4Y2sECAEgikE1CAFRhGMwSMJwBsU6frIgnR/bv'
-            'hTPrWUSDnGw3JGU2xmHrsvyU5xGO8ql6+S0AifPW8kCKpcpEQA7'))
-
         self.nand_button = Button(self.bak_frame, image=nand_icon, command=self.change_mode, state=DISABLED)
         self.nand_button.image = nand_icon
 
@@ -556,7 +551,11 @@ class Application(Frame):
                 showerror(_('错误'), 'Bad Console ID')
                 return
 
-        self.dialog = Toplevel()
+        if sysname == 'Linux':
+            self.dialog = Toplevel(class_ = 'Helper')
+            self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, nand_icon)
+        else:
+            self.dialog = Toplevel()
         # Open as dialog (parent disabled)
         self.dialog.grab_set()
         self.dialog.title(_('状态'))
@@ -1723,8 +1722,8 @@ class Application(Frame):
 ####################################################################################################
 # Entry point
 
-root = Tk()
 sysname = platform.system()
+root = Tk(className="Helper") if sysname == 'Linux' else Tk()
 
 if sysname == 'Darwin':
     if getlocale()[0] is None:
@@ -1829,5 +1828,11 @@ root.title(_('hiyaCFW Helper V3.6.3R(BY天涯)'))
 root.resizable(0, 0)
 # Center in window
 root.eval('tk::PlaceWindow %s center' % root.winfo_toplevel())
+nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAAA'
+            'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAMAAAYALAAAAAAQAB'
+            'AAAARG0MhJaxU4Y2sECAEgikE1CAFRhGMwSMJwBsU6frIgnR/bv'
+            'hTPrWUSDnGw3JGU2xmHrsvyU5xGO8ql6+S0AifPW8kCKpcpEQA7'))
+if sysname == 'Linux':
+    root.tk.call('wm', 'iconphoto', root._w, nand_icon)
 app = Application(master=root)
 app.mainloop()
