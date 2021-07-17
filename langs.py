@@ -12,7 +12,7 @@ LANG_CODES = {
     'zh_tw': 'zh_hant'
 }
 
-def lang_init(default_lang = 'en_US'):
+def lang_init(default_lang = 'en_US', lang_dir = 'langs', file_name = 'lang'):
     if system() == 'Darwin':
         if getlocale()[0] is None:
             setlocale(LC_ALL, 'en_US.UTF-8')
@@ -25,19 +25,20 @@ def lang_init(default_lang = 'en_US'):
     except:
         loca = loc
 
-    langsys = path.join('i18n', loca, 'LC_MESSAGES', 'lang.mo')
-    lange = path.join('i18n', 'en_US', 'LC_MESSAGES', 'lang.mo')
+    langsys = path.join(lang_dir, loca, 'LC_MESSAGES', file_name + '.mo')
+    lange = path.join(lang_dir, 'en_US', 'LC_MESSAGES', file_name + '.mo')
 
     if loca != default_lang:
         if path.exists(langsys):
-            lang = gettext.translation('lang', localedir='i18n', languages=[loca])
+            lang = gettext.translation(file_name, localedir=lang_dir, languages=[loca])
             lang.install()
         else:
             if path.exists(lange):
-                lang = gettext.translation('lang', localedir='i18n', languages=['en_US'])
+                lang = gettext.translation(file_name, localedir=lang_dir, languages=['en_US'])
                 lang.install()
             else:
                 gettext.install('')
     else:
         gettext.install('')
+
     return loca

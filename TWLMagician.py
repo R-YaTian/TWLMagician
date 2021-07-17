@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.0.2
+# Version 0.0.3
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1725,7 +1725,7 @@ class Application(Frame):
 sysname = platform.system()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
-loc = lang_init('zh_hans')
+loc = lang_init('zh_hans', 'i18n')
 
 if path.isfile('console.log'):
     clog = open('Console.log', 'a')
@@ -1789,7 +1789,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('TWLMagician V0.0.2(BY天涯)'))
+root.title(_('TWLMagician V0.0.3(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
