@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.0.1
+# Version 0.0.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -552,7 +552,7 @@ class Application(Frame):
                 return
 
         if sysname == 'Linux':
-            self.dialog = Toplevel(class_ = 'Helper')
+            self.dialog = Toplevel(class_ = 'Magician')
             self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, nand_icon)
         else:
             self.dialog = Toplevel()
@@ -1147,7 +1147,7 @@ class Application(Frame):
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://raw.githubusercontent.com'
-                        '/R-YaTian/HHF-Toolkit/hiyaCFW-Helper-R3/launchers/' +
+                        '/R-YaTian/TWLMagician/main/launchers/' +
                         self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
 
@@ -1723,7 +1723,7 @@ class Application(Frame):
 # Entry point
 
 sysname = platform.system()
-root = Tk(className="Helper") if sysname == 'Linux' else Tk()
+root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
 loc = lang_init('zh_hans')
 
@@ -1731,7 +1731,7 @@ if path.isfile('console.log'):
     clog = open('Console.log', 'a')
     clog.write('\n')
     clog.close()
-printl(_('hiyaCFW Helper启动中...'))
+printl(_('TWLMagician启动中...'))
 
 fatcat = path.join(sysname, 'fatcat')
 _7za = path.join(sysname, '7za')
@@ -1789,7 +1789,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('hiyaCFW Helper V3.6.3R(BY天涯)'))
+root.title(_('TWLMagician V0.0.2(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
