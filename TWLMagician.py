@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# hiyaCFW Helper R
-# Version 3.6.3R
+# TWLMagician
+# Version 0.0.0
 # Author: R-YaTian
-# Original Author: mondul <mondul@huyzona.com>
+# Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
 from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton,
     Label, Toplevel, Scrollbar, Text, StringVar, IntVar, RIGHT, W, X, Y, DISABLED, NORMAL, SUNKEN,
@@ -1430,7 +1430,7 @@ class Application(Frame):
         REGION_CODES = {
             '484e4143': 'CHN',
             '484e4145': 'USA',
-            '484e414a': 'JAP',
+            '484e414a': 'JPN',
             '484e414b': 'KOR',
             '484e4150': 'EUR',
             '484e4155': 'AUS'
