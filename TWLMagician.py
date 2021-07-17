@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.0.0
+# Version 0.0.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -25,12 +25,12 @@ from distutils.dir_util import copy_tree, _path_created
 from re import search
 from appgen import agen
 from tooltip import ToolTip
-from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from inspect import isclass
 from datetime import datetime
 from time import sleep
 from binascii import hexlify
-import gettext, ctypes, platform, ssl
+from langs import lang_init
+import ctypes, platform, ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 #TimeLog-Print
@@ -220,7 +220,7 @@ class Application(Frame):
         self.altdl = IntVar()
         self.altdl.set(0)
 
-        if loc == 'zh_CN':
+        if loc == 'zh_hans':
             adl_chk = Checkbutton(self.checks_frame, text='使用备用载点', variable=self.altdl)
             adl_chk.pack(padx=10, anchor=W)
             ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
@@ -246,7 +246,7 @@ class Application(Frame):
         self.dkp1_chk.pack(padx=10, anchor=W)
         ToolTip(self.dkp1_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
-        if loc == 'zh_CN':
+        if loc == 'zh_hans':
             adl1_chk = Checkbutton(self.checks_frame1, text='使用备用载点', variable=self.altdl)
             adl1_chk.pack(padx=10, anchor=W)
             ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
@@ -1498,7 +1498,7 @@ class Application(Frame):
                     try:
                         filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
                     except:
-                        if loc == 'zh_CN':
+                        if loc == 'zh_hans':
                             filename = urlretrieve('https://spinblog.tk/somefiles/unlaunch.zip')[0]
                         else:
                             raise IOError
@@ -1725,41 +1725,7 @@ class Application(Frame):
 sysname = platform.system()
 root = Tk(className="Helper") if sysname == 'Linux' else Tk()
 
-if sysname == 'Darwin':
-    if getlocale()[0] is None:
-        setlocale(LC_ALL, 'en_US.UTF-8')
-    loc = getlocale()[0]
-else:
-    loc = getdefaultlocale()[0]
-LANG_ZH_CODES = {
-    'zh_sg': 'zh_hans',
-    'zh_my': 'zh_hans',
-    'zh_cn': 'zh_hans',
-    'zh_hk': 'zh_hant',
-    'zh_mo': 'zh_hant',
-    'zh_tw': 'zh_hant'
-}
-try:
-    loca = LANG_ZH_CODES[loc.lower()]
-except:
-    loca = loc
-langs = path.join('i18n', loca, 'LC_MESSAGES', 'lang.mo')
-lange = path.join('i18n', 'en_US', 'LC_MESSAGES', 'lang.mo')
-
-if loca != 'zh_hans':
-    if path.exists(langs):
-        lang = gettext.translation('lang', localedir='i18n', languages=[loca])
-        lang.install()
-    else:
-        if loca == 'zh_hant' or loca == 'en_US':
-            gettext.install('')
-        elif path.exists(lange):
-            lang = gettext.translation('lang', localedir='i18n', languages=['en_US'])
-            lang.install()
-        else:
-            gettext.install('')
-else:
-    gettext.install('')
+loc = lang_init('zh_hans')
 
 if path.isfile('console.log'):
     clog = open('Console.log', 'a')
