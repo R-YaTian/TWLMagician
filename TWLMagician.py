@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.0.4
+# Version 0.0.5
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -220,7 +220,7 @@ class Application(Frame):
         self.altdl = IntVar()
         self.altdl.set(0)
 
-        if loc == 'zh_hans':
+        if loc == 'zh_CN':
             adl_chk = Checkbutton(self.checks_frame, text='使用备用载点', variable=self.altdl)
             adl_chk.pack(padx=10, anchor=W)
             ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
@@ -246,7 +246,7 @@ class Application(Frame):
         self.dkp1_chk.pack(padx=10, anchor=W)
         ToolTip(self.dkp1_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
-        if loc == 'zh_hans':
+        if loc == 'zh_CN':
             adl1_chk = Checkbutton(self.checks_frame1, text='使用备用载点', variable=self.altdl)
             adl1_chk.pack(padx=10, anchor=W)
             ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
@@ -1498,7 +1498,7 @@ class Application(Frame):
                     try:
                         filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
                     except:
-                        if loc == 'zh_hans':
+                        if loc == 'zh_CN':
                             filename = urlretrieve('https://spinblog.tk/somefiles/unlaunch.zip')[0]
                         else:
                             raise IOError
@@ -1789,7 +1789,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('TWLMagician V0.0.4(BY天涯)'))
+root.title(_('TWLMagician V0.0.5(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window

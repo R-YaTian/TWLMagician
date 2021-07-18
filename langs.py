@@ -43,4 +43,4 @@ def lang_init(default_lang = 'en', lang_dir = 'langs', file_name = 'lang'):
     else:
         gettext.install('')
 
-    return loca
+    return loc
