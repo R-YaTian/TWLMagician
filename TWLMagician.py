@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.0.3
+# Version 0.0.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1789,7 +1789,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('TWLMagician V0.0.3(BY天涯)'))
+root.title(_('TWLMagician V0.0.4(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
