@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.0.5
+# Version 0.0.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -223,7 +223,7 @@ class Application(Frame):
         if loc == 'zh_CN':
             adl_chk = Checkbutton(self.checks_frame, text='使用备用载点', variable=self.altdl)
             adl_chk.pack(padx=10, anchor=W)
-            ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
+            ToolTip(adl_chk, msg='使用备用载点(gitee服务器)可能可以提高下载必要文件的速度')
 
         self.checks_frame.pack(fill=X)
 
@@ -249,7 +249,7 @@ class Application(Frame):
         if loc == 'zh_CN':
             adl1_chk = Checkbutton(self.checks_frame1, text='使用备用载点', variable=self.altdl)
             adl1_chk.pack(padx=10, anchor=W)
-            ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度，特此\n感谢"SpinTouch"提供备用载点服务器')
+            ToolTip(adl1_chk, msg='使用备用载点(gitee服务器)可能可以提高下载必要文件的速度')
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padx=10, pady=10)
@@ -694,7 +694,7 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的hiyaCFW...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://spinblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://github.com/RocketRobz/hiyaCFW/releases/latest/download/' +
@@ -1143,7 +1143,7 @@ class Application(Frame):
             if not path.isfile(self.launcher_region):
                 self.log.write(_('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
-                    with urlopen('https://spinblog.tk/somefiles/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://raw.githubusercontent.com'
@@ -1256,7 +1256,13 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://spinblog.tk/somefiles/' + filename) as src, open(filename, 'wb') as dst:
+                    idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
+                        copyfileobj(src0, dst0)
+                    with open('Temp.fid', 'r') as ftmp:
+                        fileid = ftmp.read()
+                    remove('Temp.fid')
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
@@ -1281,6 +1287,7 @@ class Application(Frame):
             else:
                 self.log.write(_('错误: 解压失败'))
                 Thread(target=self.clean, args=(True,)).start()
+
 
         except (URLError, IOError) as e:
             printl(str(e))
@@ -1499,7 +1506,7 @@ class Application(Frame):
                         filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
                     except:
                         if loc == 'zh_CN':
-                            filename = urlretrieve('https://spinblog.tk/somefiles/unlaunch.zip')[0]
+                            filename = urlretrieve('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip')[0]
                         else:
                             raise IOError
                 else:
@@ -1789,7 +1796,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('TWLMagician V0.0.5(BY天涯)'))
+root.title(_('TWLMagician V0.0.7(BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
