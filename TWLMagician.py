@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.0.7
+# Version 0.1.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -686,7 +686,6 @@ class Application(Frame):
     ################################################################################################
     def get_latest_hiyacfw(self):
         filename = 'hiyaCFW.7z'
-        self.files.append(filename)
         self.folders.append('for PC')
         self.folders.append('for SDNAND SD card')
 
@@ -1208,6 +1207,7 @@ class Application(Frame):
 
     ################################################################################################
     def install_hiyacfw(self, launcher_app, launcher_folder, app):
+        self.check_serial(self.sd_path)
         self.log.write(_('正在复制hiyaCFW相关文件...'))
 
         # Reset copied files cache
@@ -1237,6 +1237,13 @@ class Application(Frame):
 
         self.TThread = Thread(target=self.get_latest_twilight)
         self.TThread.start()
+    def check_serial(self, infopath):
+        hwinfo = path.join(infopath, 'sys', 'HWINFO_S.dat')
+        if path.exists(hwinfo):
+            with open(hwinfo, 'rb') as infotmp:
+                infotmp.seek(0x91,0)
+                strtmp = infotmp.read(0xC).decode('ascii')
+                self.log.write(_('机器序列号: ') + strtmp)
 
 
     ################################################################################################
@@ -1247,6 +1254,7 @@ class Application(Frame):
         self.files.append('snemul.cfg')
         self.files.append('TWiLight Menu - Game booter.cia')
         self.files.append('TWiLight Menu.cia')
+        self.files.append('version.txt')
         self.folders.append('_nds')
         self.folders.append('roms')
         self.folders.append('title')
@@ -1273,10 +1281,10 @@ class Application(Frame):
 
             if self.is_tds == False:
                 self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'title',
-                    'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg'])
+                    'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg', 'version.txt'])
             else:
                 self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, '_nds', 'TWiLight Menu - Game booter.cia',
-                    'TWiLight Menu.cia', 'roms', 'BOOT.NDS', 'snemul.cfg'])
+                    'TWiLight Menu.cia', 'roms', 'BOOT.NDS', 'snemul.cfg', 'version.txt'])
 
             ret_val = self.proc.wait()
 
@@ -1287,7 +1295,6 @@ class Application(Frame):
             else:
                 self.log.write(_('错误: 解压失败'))
                 Thread(target=self.clean, args=(True,)).start()
-
 
         except (URLError, IOError) as e:
             printl(str(e))
@@ -1329,6 +1336,12 @@ class Application(Frame):
                 copyfile('TWiLight Menu.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu.cia'))
                 copyfile('TWiLight Menu - Game booter.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu - Game booter.cia'))
 
+        with open('version.txt', 'r') as ver:
+            tmpstr = ver.readline()
+            tmpstr1 = ver.readline()
+            tmpstr1 = tmpstr1.replace('\n','')
+            self.log.write(_('版本信息:\n') + tmpstr + tmpstr1)
+
         if self.appgen.get() == 1:
             printl(_('调用 appgen'))
             if not self.adv_mode:
@@ -1337,6 +1350,8 @@ class Application(Frame):
                 agen(path.join(self.sd_path1, 'title' , '00030004'), path.join(self.sd_path1, 'roms'))
         if self.adv_mode and self.devkp.get() == 1:
             self.make_dekp(self.sd_path1)
+        if self.adv_mode and self.have_hiya == True:
+            self.check_serial(self.sd_path1)
 
         Thread(target=self.clean).start()
 
@@ -1481,7 +1496,7 @@ class Application(Frame):
 
     ################################################################################################
     def unlaunch_proc(self):
-        self.files.append('unlaunch.zip')
+        filename = 'unlaunch.zip'
         self.files.append('UNLAUNCH.DSI')
         self.log.write(_('检查unlaunch状态中...'))
 
@@ -1503,14 +1518,14 @@ class Application(Frame):
                 if not path.exists('unlaunch.zip'):
                     self.log.write(_('正在下载最新版本的unlaunch...'))
                     try:
-                        filename = urlretrieve('http://problemkaputt.de/unlaunch.zip')[0]
+                        with urlopen('http://problemkaputt.de/unlaunch.zip') as src, open(filename, 'wb') as dst:
+                            copyfileobj(src, dst)
                     except:
                         if loc == 'zh_CN':
-                            filename = urlretrieve('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip')[0]
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip') as src, open(filename, 'wb') as dst:
+                                copyfileobj(src, dst)
                         else:
                             raise IOError
-                else:
-                    filename = 'unlaunch.zip'
 
                 self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
 
@@ -1526,6 +1541,7 @@ class Application(Frame):
                         with open('UNLAUNCH.DSI', 'rb') as unl:
                             f.write(unl.read())
 
+                    self.check_serial(self.mounted)
                     self.make_dekp(self.mounted)
 
                     # Set files as read-only
@@ -1567,6 +1583,7 @@ class Application(Frame):
             with open(tmd, 'r+b') as f:
                 f.truncate(520)
 
+            self.check_serial(self.mounted)
             self.make_dekp(self.mounted)
 
         self.TThread = Thread(target=self.unmount_nand)
@@ -1796,7 +1813,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title(_('TWLMagician V0.0.7(BY天涯)'))
+root.title(_('TWLMagician Beta1 (BY天涯)'))
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
