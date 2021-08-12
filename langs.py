@@ -6,6 +6,7 @@ from platform import system
 from os import path, remove
 from locale import getlocale, getdefaultlocale, setlocale, LC_ALL
 from email.parser import HeaderParser
+from copy import copy
 
 LANG_CODES = {
     'en_us': 'en',
@@ -32,20 +33,20 @@ def lang_init(default_lang = 'en', lang_dir = 'langs', file_name = 'lang'):
     except:
         loca = loc
 
-    langsys = path.join(lang_dir, loca, 'LC_MESSAGES', file_name + '.po')
-    lange = path.join(lang_dir, 'en', 'LC_MESSAGES', file_name + '.po')
+    langsys = path.join(lang_dir, loca, file_name + '.po')
+    lange = path.join(lang_dir, 'en', file_name + '.po')
 
     if loca != default_lang:
         if path.exists(langsys):
-            lfile = path.join(lang_dir, loca, 'LC_MESSAGES', file_name + '.mo')
+            lfile = path.join(lang_dir, loca, file_name + '.mo')
             make(langsys, lfile)
-            lang = gettext.translation(file_name, localedir=lang_dir, languages=[loca])
+            lang = translation(file_name, localedir=lang_dir, languages=loca)
             lang.install()
         else:
             if path.exists(lange):
-                lfile = path.join(lang_dir, 'en', 'LC_MESSAGES', file_name + '.mo')
+                lfile = path.join(lang_dir, 'en', file_name + '.mo')
                 make(lange, lfile)
-                lang = gettext.translation(file_name, localedir=lang_dir, languages=['en'])
+                lang = translation(file_name, localedir=lang_dir, languages='en')
                 lang.install()
             else:
                 gettext.install('')
@@ -55,6 +56,31 @@ def lang_init(default_lang = 'en', lang_dir = 'langs', file_name = 'lang'):
     if lfile is not None:
         remove(lfile)
     return loc
+
+#-----------------------------------------------------------------------------
+# gettext.translation
+# Modify by R-YaTian
+
+_translations = {}
+
+def translation(domain, localedir, languages,
+                class_=None, fallback=False):
+    if class_ is None:
+        class_ = gettext.GNUTranslations
+    mofile = path.join(localedir, languages, '%s.mo' % domain)
+    if not path.exists(mofile):
+        if fallback:
+            return gettext.NullTranslations()
+        from errno import ENOENT
+        raise FileNotFoundError(ENOENT,
+                                'No translation file found for domain', domain)
+    key = (class_, path.abspath(mofile))
+    t = _translations.get(key)
+    if t is None:
+        with open(mofile, 'rb') as fp:
+            t = _translations.setdefault(key, class_(fp))
+    t = copy(t)
+    return t
 
 #-----------------------------------------------------------------------------
 # msgfmt
@@ -126,7 +152,7 @@ def make(filename, outfile):
     else:
         infile = filename + '.po'
     if outfile is None:
-        outfile = os.path.splitext(infile)[0] + '.mo'
+        outfile = path.splitext(infile)[0] + '.mo'
 
     try:
         with open(infile, 'rb') as f:

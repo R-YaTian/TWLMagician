@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: V3.6.3R\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2021-03-10 13:18+0800\n"
 "Last-Translator: R-YaTian\n"
 "MIME-Version: 1.0\n"
@@ -10,173 +10,173 @@ msgstr ""
 
 
 #: hiyaCFW_Helper_R3.py:127
-msgid "å«æœ‰No$GBA footerçš„NANDå¤‡ä»½æ–‡ä»¶"
-msgstr "å…§å»º No$GBA footer çš„ NAND å‚™ä»½æª”æ¡ˆ"
+msgid "º¬ÓĞNo$GBA footerµÄNAND±¸·İÎÄ¼ş"
+msgstr "ƒÈ½¨ No$GBA footer µÄ NAND ‚ä·İ™n°¸"
 
 #: hiyaCFW_Helper_R3.py:148
-msgid "å­˜å‚¨å¡æ ¹ç›®å½•"
-msgstr "SD å¡çš„æ ¹ç›®éŒ„"
+msgid "´æ´¢¿¨¸ùÄ¿Â¼"
+msgstr "SD ¿¨µÄ¸ùÄ¿ä›"
 
 #: hiyaCFW_Helper_R3.py:162
-msgid "NANDè§£å‹é€‰é¡¹"
-msgstr "NAND è§£å£“é¸å–®"
+msgid "NAND½âÑ¹Ñ¡Ïî"
+msgstr "NAND ½â‰ºßx†Î"
 
 #: hiyaCFW_Helper_R3.py:174
-msgid "Fatcat(é»˜è®¤)"
+msgid "Fatcat(Ä¬ÈÏ)"
 msgstr "fatcat"
 
 #: hiyaCFW_Helper_R3.py:176
-msgid "OSFMount(éœ€è¦ç®¡ç†å‘˜æƒé™)"
-msgstr "OSFMount (éœ€ç®¡ç†å“¡æˆæ¬Š)"
+msgid "OSFMount(ĞèÒª¹ÜÀíÔ±È¨ÏŞ)"
+msgstr "OSFMount (Ğè¹ÜÀí†TÊÚ™à)"
 
 #: hiyaCFW_Helper_R3.py:197
-msgid "åŒæ—¶å®‰è£…TWiLightMenu++"
-msgstr "å®‰è£æœ€æ–°ç‰ˆçš„ TWiLightMenu++"
+msgid "Í¬Ê±°²×°TWiLightMenu++"
+msgstr "°²Ñb×îĞÂ°æµÄ TWiLightMenu++"
 
 #: hiyaCFW_Helper_R3.py:204 hiyaCFW_Helper_R3.py:237
-msgid "ä½¿ç”¨AppGen"
-msgstr "ä½¿ç”¨ AppGen"
+msgid "Ê¹ÓÃAppGen"
+msgstr "Ê¹ÓÃ AppGen"
 
 #: hiyaCFW_Helper_R3.py:207 hiyaCFW_Helper_R3.py:240
-msgid "æå–Nandå¤‡ä»½ä¸­çš„DSiWareè½¯ä»¶å¹¶å¤åˆ¶åˆ°\nroms/dsiware"
-msgstr "åŒ¯å‡º Nand å‚™ä»½æª”æ¡ˆå…§çš„ DSiWare ä¸¦è¤‡è£½åˆ°\nroms/dsiware"
+msgid "ÌáÈ¡Nand±¸·İÖĞµÄDSiWareÈí¼ş²¢¸´ÖÆµ½\nroms/dsiware"
+msgstr "…R³ö Nand ‚ä·İ™n°¸ƒÈµÄ DSiWare KÑ}Ñuµ½\nroms/dsiware"
 
 #: hiyaCFW_Helper_R3.py:212 hiyaCFW_Helper_R3.py:249
-msgid "å¯ç”¨ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†åŠŸèƒ½"
-msgstr "å•Ÿç”¨ç³»çµ±è¨­å®šå…§çš„è³‡æ–™ç®¡ç†"
+msgid "ÆôÓÃÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí¹¦ÄÜ"
+msgstr "†¢ÓÃÏµ½yÔO¶¨ƒÈµÄÙYÁÏ¹ÜÀí"
 
 #: hiyaCFW_Helper_R3.py:215 hiyaCFW_Helper_R3.py:252
-msgid "å‹¾é€‰æ­¤é€‰é¡¹å°†ä¼šåœ¨CFWä¸­å¼€å¯ç³»ç»Ÿè®¾ç½®ä¸­çš„æ•°æ®ç®¡ç†åŠŸèƒ½ï¼Œå¦‚æœå·²ç»åœ¨NANDä¸­å¼€å¯äº†æ­¤åŠŸèƒ½ï¼Œåˆ™ä¸éœ€è¦å‹¾é€‰æ­¤é€‰é¡¹"
-msgstr "å•Ÿç”¨ hiyaCFW ç³»çµ±è¨­å®šå…§çš„è³‡æ–™ç®¡ç†"
+msgid "¹´Ñ¡´ËÑ¡Ïî½«»áÔÚCFWÖĞ¿ªÆôÏµÍ³ÉèÖÃÖĞµÄÊı¾İ¹ÜÀí¹¦ÄÜ£¬Èç¹ûÒÑ¾­ÔÚNANDÖĞ¿ªÆôÁË´Ë¹¦ÄÜ£¬Ôò²»ĞèÒª¹´Ñ¡´ËÑ¡Ïî"
+msgstr "†¢ÓÃ hiyaCFW Ïµ½yÔO¶¨ƒÈµÄÙYÁÏ¹ÜÀí"
 
 #: hiyaCFW_Helper_R3.py:220
-msgid "æå–ç›¸å†Œåˆ†åŒº"
-msgstr "åŒ¯å‡ºç›¸ç‰‡åˆ†å€"
+msgid "ÌáÈ¡Ïà²á·ÖÇø"
+msgstr "…R³öÏàÆ¬·Ö…^"
 
 #: hiyaCFW_Helper_R3.py:223
-msgid "æå–Nandå¤‡ä»½ä¸­çš„ç›¸å†Œåˆ†åŒºæ–‡ä»¶åˆ°å­˜å‚¨å¡ä¸­ï¼Œæ­¤æ“ä½œä¼šå ç”¨ä¸€å®šçš„å­˜å‚¨å¡ç©ºé—´(å–å†³äºç›¸ç‰‡æ•°é‡ï¼Œæœ€å¤šå¯è¾¾32MBå·¦å³)"
-msgstr "åŒ¯å‡º Nand å‚™ä»½æª”æ¡ˆå…§çš„ç›¸ç‰‡åˆ†å€"
+msgid "ÌáÈ¡Nand±¸·İÖĞµÄÏà²á·ÖÇøÎÄ¼şµ½´æ´¢¿¨ÖĞ£¬´Ë²Ù×÷»áÕ¼ÓÃÒ»¶¨µÄ´æ´¢¿¨¿Õ¼ä(È¡¾öÓÚÏàÆ¬ÊıÁ¿£¬×î¶à¿É´ï32MB×óÓÒ)"
+msgstr "…R³ö Nand ‚ä·İ™n°¸ƒÈµÄÏàÆ¬·Ö…^"
 
 #: hiyaCFW_Helper_R3.py:245
-msgid "æ›´æ–°hiyaCFW"
-msgstr "æ›´æ–° hiyaCFW"
+msgid "¸üĞÂhiyaCFW"
+msgstr "¸üĞÂ hiyaCFW"
 
 #: hiyaCFW_Helper_R3.py:260
-msgid "NANDæ“ä½œé€‰é¡¹"
-msgstr "NAND ä½œæ¥­é¸å–®"
+msgid "NAND²Ù×÷Ñ¡Ïî"
+msgstr "NAND ×÷˜Ißx†Î"
 
 #: hiyaCFW_Helper_R3.py:265
-msgid "å®‰è£…æˆ–å¸è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch"
-msgstr "å®‰è£æˆ–ç§»é™¤æœ€æ–°ç‰ˆçš„ unlaunch"
+msgid "°²×°»òĞ¶ÔØ×îĞÂ°æ±¾µÄunlaunch"
+msgstr "°²Ñb»òÒÆ³ı×îĞÂ°æµÄ unlaunch"
 
 #: hiyaCFW_Helper_R3.py:270
-msgid "ç§»é™¤ No$GBA footer"
-msgstr "ç§»é™¤ No$GBA footer"
+msgid "ÒÆ³ı No$GBA footer"
+msgstr "ÒÆ³ı No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:273
-msgid "æ·»åŠ  No$GBA footer"
-msgstr "æ·»åŠ  No$GBA footer"
+msgid "Ìí¼Ó No$GBA footer"
+msgstr "Ìí¼Ó No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:303
-msgid "å¼€å§‹"
-msgstr "é–‹å§‹"
+msgid "¿ªÊ¼"
+msgstr "é_Ê¼"
 
 #: hiyaCFW_Helper_R3.py:306
-msgid "é«˜çº§"
-msgstr "é€²éš"
+msgid "¸ß¼¶"
+msgstr "ßMëA"
 
 #: hiyaCFW_Helper_R3.py:307 hiyaCFW_Helper_R3.py:308
-msgid "è¿”å›"
-msgstr "è¿”å›"
+msgid "·µ»Ø"
+msgstr "·µ»Ø"
 
 #: hiyaCFW_Helper_R3.py:310
-msgid "é«˜çº§æ¨¡å¼æä¾›äº†å•ç‹¬å®‰è£…TWiLightMenu++ç­‰åŠŸèƒ½"
-msgstr "é€²éšæ¨¡å¼æä¾›äº† 'åªå®‰è£ TWiLightMenu++' å’Œæ›´å¤šåŠŸèƒ½"
+msgid "¸ß¼¶Ä£Ê½Ìá¹©ÁËµ¥¶À°²×°TWiLightMenu++µÈ¹¦ÄÜ"
+msgstr "ßMëAÄ£Ê½Ìá¹©ÁË 'Ö»°²Ñb TWiLightMenu++' ºÍ¸ü¶à¹¦ÄÜ"
 
 #: hiyaCFW_Helper_R3.py:312
-msgid "é€€å‡º"
-msgstr "çµæŸ"
+msgid "ÍË³ö"
+msgstr "½YÊø"
 
 #: hiyaCFW_Helper_R3.py:345
-msgid "ä½ æ­£è¦è¿›å…¥NANDæ“ä½œæ¨¡å¼, è¯·ç¡®è®¤ä½ çŸ¥é“è‡ªå·±åœ¨åšä»€ä¹ˆ, ç»§ç»­å—?"
-msgstr "ä½ æ­£è¦é€²å…¥ NAND ä½œæ¥­æ¨¡å¼, è«‹ç¢ºèªä½ çŸ¥é“è‡ªå·±åœ¨åšä»€éº¼, æ˜¯å¦ç¹¼çºŒ?"
+msgid "ÄãÕıÒª½øÈëNAND²Ù×÷Ä£Ê½, ÇëÈ·ÈÏÄãÖªµÀ×Ô¼ºÔÚ×öÊ²Ã´, ¼ÌĞøÂğ?"
+msgstr "ÄãÕıÒªßMÈë NAND ×÷˜IÄ£Ê½, Õˆ´_ÕJÄãÖªµÀ×Ô¼ºÔÚ×öÊ²üN, ÊÇ·ñÀ^Àm?"
 
 #: hiyaCFW_Helper_R3.py:345
-msgid "è­¦å‘Š"
-msgstr "è­¦å‘Š"
+msgid "¾¯¸æ"
+msgstr "¾¯¸æ"
 
 #: hiyaCFW_Helper_R3.py:455
-msgid "\"ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†\"åŠŸèƒ½å¯ç”¨æˆåŠŸ"
-msgstr "å•Ÿç”¨ç³»çµ±è¨­å®šå…§çš„è³‡æ–™ç®¡ç†æˆåŠŸ"
+msgid "\"ÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí\"¹¦ÄÜÆôÓÃ³É¹¦"
+msgstr "†¢ÓÃÏµ½yÔO¶¨ƒÈµÄÙYÁÏ¹ÜÀí³É¹¦"
 
 #: hiyaCFW_Helper_R3.py:463
-msgid "è¯·é€‰æ‹©æœºå™¨çš„å­˜å‚¨å¡æ ¹ç›®å½•"
-msgstr "è«‹é¸æ“‡æ©Ÿå™¨çš„ SD å¡çš„æ ¹ç›®éŒ„"
+msgid "ÇëÑ¡Ôñ»úÆ÷µÄ´æ´¢¿¨¸ùÄ¿Â¼"
+msgstr "Õˆßx“ñ™CÆ÷µÄ SD ¿¨µÄ¸ùÄ¿ä›"
 
 #: hiyaCFW_Helper_R3.py:463 hiyaCFW_Helper_R3.py:517
-msgid "æç¤º"
-msgstr "æç¤º"
+msgid "ÌáÊ¾"
+msgstr "ÌáÊ¾"
 
 #: hiyaCFW_Helper_R3.py:508
-msgid "æ­¤åŠŸèƒ½éœ€è¦ä»¥ç®¡ç†å‘˜æƒé™è¿è¡Œæœ¬å·¥å…·"
-msgstr "é€™å€‹åŠŸèƒ½éœ€ä½¿ç”¨ç®¡ç†å“¡æˆæ¬ŠåŸ·è¡Œç¨‹å¼"
+msgid "´Ë¹¦ÄÜĞèÒªÒÔ¹ÜÀíÔ±È¨ÏŞÔËĞĞ±¾¹¤¾ß"
+msgstr "ß@‚€¹¦ÄÜĞèÊ¹ÓÃ¹ÜÀí†TÊÚ™àˆÌĞĞ³ÌÊ½"
 
 #: hiyaCFW_Helper_R3.py:508 hiyaCFW_Helper_R3.py:525 hiyaCFW_Helper_R3.py:537
 #: hiyaCFW_Helper_R3.py:541 hiyaCFW_Helper_R3.py:549 hiyaCFW_Helper_R3.py:556
 #: hiyaCFW_Helper_R3.py:1813
-msgid "é”™è¯¯"
-msgstr "éŒ¯èª¤"
+msgid "´íÎó"
+msgstr "åeÕ`"
 
 #: hiyaCFW_Helper_R3.py:517
-msgid "æ¥ä¸‹æ¥è¯·é€‰æ‹©ä½ ç”¨æ¥å®‰è£…è‡ªåˆ¶ç³»ç»Ÿçš„å­˜å‚¨å¡è·¯å¾„(æˆ–è¾“å‡ºè·¯å¾„)\nä¸ºäº†é¿å… å¯åŠ¨é”™è¯¯ è¯·ç¡®ä¿ç›®å½•ä¸‹æ— ä»»ä½•æ–‡ä»¶"
-msgstr "æ¥ä¸‹ä¾†è«‹é¸æ“‡ SD å¡çš„æ ¹ç›®éŒ„, æ ¹ç›®éŒ„ä¸‹æœ€å¥½ä¸è¦æœ‰ä»»ä½•æª”æ¡ˆ"
+msgid "½ÓÏÂÀ´ÇëÑ¡ÔñÄãÓÃÀ´°²×°×ÔÖÆÏµÍ³µÄ´æ´¢¿¨Â·¾¶(»òÊä³öÂ·¾¶)\nÎªÁË±ÜÃâ Æô¶¯´íÎó ÇëÈ·±£Ä¿Â¼ÏÂÎŞÈÎºÎÎÄ¼ş"
+msgstr "½ÓÏÂíÕˆßx“ñ SD ¿¨µÄ¸ùÄ¿ä›, ¸ùÄ¿ä›ÏÂ×îºÃ²»ÒªÓĞÈÎºÎ™n°¸"
 
 #: hiyaCFW_Helper_R3.py:525
-msgid "ç›®å½•æ£€æµ‹æœªé€šè¿‡ï¼Œè‹¥CFWå·²å®‰è£…ï¼Œè¯·è½¬åˆ°é«˜çº§æ¨¡å¼ï¼Œæˆ–é€‰æ‹©ä¸€ä¸ªç©ºç›®å½•ä»¥ç»§ç»­"
-msgstr "è³‡æ–™å¤¾æª¢æ¸¬å¤±æ•—, å¦‚æœ hiyaCFW å·²å®‰è£, è«‹ä½¿ç”¨é€²éšæ¨¡å¼æˆ–é¸æ“‡ä¸€å€‹ç©ºè³‡æ–™å¤¾"
+msgid "Ä¿Â¼¼ì²âÎ´Í¨¹ı£¬ÈôCFWÒÑ°²×°£¬Çë×ªµ½¸ß¼¶Ä£Ê½£¬»òÑ¡ÔñÒ»¸ö¿ÕÄ¿Â¼ÒÔ¼ÌĞø"
+msgstr "ÙYÁÏŠA™zœyÊ§”¡, Èç¹û hiyaCFW ÒÑ°²Ñb, ÕˆÊ¹ÓÃßMëAÄ£Ê½»òßx“ñÒ»‚€¿ÕÙYÁÏŠA"
 
 #: hiyaCFW_Helper_R3.py:562
-msgid "çŠ¶æ€"
-msgstr "ç‹€æ…‹"
+msgid "×´Ì¬"
+msgstr " î‘B"
 
 #: hiyaCFW_Helper_R3.py:580
-msgid "å…³é—­"
-msgstr "é—œé–‰"
+msgid "¹Ø±Õ"
+msgstr "êPé]"
 
 #: hiyaCFW_Helper_R3.py:633
-msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ"
-msgstr "ä½œæ¥­éç¨‹ç™¼ç”ŸéŒ¯èª¤æˆ–ä½¿ç”¨è€…çµ‚æ­¢ä½œæ¥­"
+msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷"
+msgstr "×÷˜Iß^³Ì°lÉúåeÕ`»òÊ¹ÓÃÕß½KÖ¹×÷˜I"
 
 #: hiyaCFW_Helper_R3.py:640
-msgid "æ­£åœ¨æ£€æŸ¥NANDæ–‡ä»¶..."
-msgstr "æ­£åœ¨æª¢æŸ¥ NAND æª”æ¡ˆ..."
+msgid "ÕıÔÚ¼ì²éNANDÎÄ¼ş..."
+msgstr "ÕıÔÚ™z²é NAND ™n°¸..."
 
 #: hiyaCFW_Helper_R3.py:679
-msgid "é”™è¯¯: æ²¡æœ‰æ£€æµ‹åˆ°No$GBA footer\nè­¦å‘Š: è‹¥ç¡®å®šNandå·²å®Œæ•´dump, åˆ™ç”¨äºdumpçš„å­˜å‚¨å¡ææœ‰å¯èƒ½æ˜¯æ‰©å®¹å¡æˆ–è€…å·²å‡ºç°åå—"
-msgstr "éŒ¯èª¤: æ‰¾ä¸åˆ° No$GBA footer"
+msgid "´íÎó: Ã»ÓĞ¼ì²âµ½No$GBA footer\n¾¯¸æ: ÈôÈ·¶¨NandÒÑÍêÕûdump, ÔòÓÃÓÚdumpµÄ´æ´¢¿¨¼«ÓĞ¿ÉÄÜÊÇÀ©Èİ¿¨»òÕßÒÑ³öÏÖ»µ¿é"
+msgstr "åeÕ`: ÕÒ²»µ½ No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:683
-msgid "é”™è¯¯: æ— æ³•æ‰“å¼€æ–‡ä»¶ "
-msgstr "éŒ¯èª¤: ç„¡æ³•æ‰“é–‹æª”æ¡ˆ "
+msgid "´íÎó: ÎŞ·¨´ò¿ªÎÄ¼ş "
+msgstr "åeÕ`: Ÿo·¨´òé_™n°¸ "
 
 #: hiyaCFW_Helper_R3.py:696
-msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„hiyaCFW..."
-msgstr "æ­£åœ¨ä¸‹è¼‰æœ€æ–°ç‰ˆçš„ hiyaCFW..."
+msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄhiyaCFW..."
+msgstr "ÕıÔÚÏÂİd×îĞÂ°æµÄ hiyaCFW..."
 
 #: hiyaCFW_Helper_R3.py:705
-msgid "- æ­£åœ¨è§£å‹ hiyaCFW å‹ç¼©åŒ…..."
-msgstr "- æ­£åœ¨è§£å£“ hiyaCFW å£“ç¸®æª”..."
+msgid "- ÕıÔÚ½âÑ¹ hiyaCFW Ñ¹Ëõ°ü..."
+msgstr "- ÕıÔÚ½â‰º hiyaCFW ‰º¿s™n..."
 
 #: hiyaCFW_Helper_R3.py:724 hiyaCFW_Helper_R3.py:777 hiyaCFW_Helper_R3.py:982
 #: hiyaCFW_Helper_R3.py:993 hiyaCFW_Helper_R3.py:1096
 #: hiyaCFW_Helper_R3.py:1196 hiyaCFW_Helper_R3.py:1283
 #: hiyaCFW_Helper_R3.py:1532
-msgid "é”™è¯¯: è§£å‹å¤±è´¥"
-msgstr "éŒ¯èª¤: è§£å£“å¤±æ•—"
+msgid "´íÎó: ½âÑ¹Ê§°Ü"
+msgstr "åeÕ`: ½â‰ºÊ§”¡"
 
 #: hiyaCFW_Helper_R3.py:729
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½hiyaCFW"
-msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ hiyaCFW"
+msgid "´íÎó: ÎŞ·¨ÏÂÔØhiyaCFW"
+msgstr "åeÕ`: Ÿo·¨ÏÂİd hiyaCFW"
 
 #: hiyaCFW_Helper_R3.py:733 hiyaCFW_Helper_R3.py:782 hiyaCFW_Helper_R3.py:912
 #: hiyaCFW_Helper_R3.py:943 hiyaCFW_Helper_R3.py:1005
@@ -184,331 +184,332 @@ msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ hiyaCFW"
 #: hiyaCFW_Helper_R3.py:1206 hiyaCFW_Helper_R3.py:1293
 #: hiyaCFW_Helper_R3.py:1546 hiyaCFW_Helper_R3.py:1600
 #: hiyaCFW_Helper_R3.py:1629 hiyaCFW_Helper_R3.py:1655
-msgid "é”™è¯¯: æ— æ³•è¿è¡Œ "
-msgstr "éŒ¯èª¤: ç„¡æ³•åŸ·è¡Œ "
+msgid "´íÎó: ÎŞ·¨ÔËĞĞ "
+msgstr "åeÕ`: Ÿo·¨ˆÌĞĞ "
 
 #: hiyaCFW_Helper_R3.py:740
-msgid "æ­£åœ¨ä»NANDä¸­è§£å‹ ARM7/ARM9 BIOS..."
-msgstr "æ­£åœ¨è§£å£“ NAND å†…çš„ ARM7/ARM9 BIOS..."
+msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ ARM7/ARM9 BIOS..."
+msgstr "ÕıÔÚ½â‰º NAND ÄÚµÄ ARM7/ARM9 BIOS..."
 
 #: hiyaCFW_Helper_R3.py:743
-msgid "è°ƒç”¨ twltool(è§£å‹ BIOS)"
-msgstr "åŸ·è¡Œ twltool (è§£å£“ BIOS)"
+msgid "µ÷ÓÃ twltool(½âÑ¹ BIOS)"
+msgstr "ˆÌĞĞ twltool (½â‰º BIOS)"
 
 #: hiyaCFW_Helper_R3.py:826
-msgid "é”™è¯¯: æ— æ³•å®Œæˆ patch BIOS"
-msgstr "éŒ¯èª¤: ç„¡æ³•å®Œæˆ patch BIOS"
+msgid "´íÎó: ÎŞ·¨Íê³É patch BIOS"
+msgstr "åeÕ`: Ÿo·¨Íê³É patch BIOS"
 
 #: hiyaCFW_Helper_R3.py:831
-msgid "é”™è¯¯: æ— æ•ˆçš„ patch header"
-msgstr "éŒ¯èª¤: ç„¡æ•ˆçš„ patch header"
+msgid "´íÎó: ÎŞĞ§µÄ patch header"
+msgstr "åeÕ`: ŸoĞ§µÄ patch header"
 
 #: hiyaCFW_Helper_R3.py:837
-msgid "æ­£åœ¨é¢„è½½æ•°æ®åˆ° ARM9 BIOS..."
-msgstr "æ­£åœ¨é è¼‰å…¥è³‡æ–™åˆ° ARM9 BIOS..."
+msgid "ÕıÔÚÔ¤ÔØÊı¾İµ½ ARM9 BIOS..."
+msgstr "ÕıÔÚîAİdÈëÙYÁÏµ½ ARM9 BIOS..."
 
 #: hiyaCFW_Helper_R3.py:867
-msgid "é”™è¯¯: æ— æ³•é¢„è½½æ•°æ®åˆ° ARM9 BIOS"
-msgstr "éŒ¯èª¤: ç„¡æ³•é è¼‰å…¥è³‡æ–™ ARM9 BIOS"
+msgid "´íÎó: ÎŞ·¨Ô¤ÔØÊı¾İµ½ ARM9 BIOS"
+msgstr "åeÕ`: Ÿo·¨îAİdÈëÙYÁÏ ARM9 BIOS"
 
 #: hiyaCFW_Helper_R3.py:873
-msgid "æ­£åœ¨ç”Ÿæˆ bootloader..."
-msgstr "æ­£åœ¨ç”Ÿæˆ bootloader..."
+msgid "ÕıÔÚÉú³É bootloader..."
+msgstr "ÕıÔÚÉú³É bootloader..."
 
 #: hiyaCFW_Helper_R3.py:880
-msgid "è°ƒç”¨ ndstool(ç”Ÿæˆ bootloader)"
-msgstr "åŸ·è¡Œ ndstool (ç”Ÿæˆ bootloader)"
+msgid "µ÷ÓÃ ndstool(Éú³É bootloader)"
+msgstr "ˆÌĞĞ ndstool (Éú³É bootloader)"
 
 #: hiyaCFW_Helper_R3.py:882
-msgid "è°ƒç”¨ ndsblc(ç”Ÿæˆ bootloader)"
-msgstr "åŸ·è¡Œ ndsblc (ç”Ÿæˆ bootloader)"
+msgid "µ÷ÓÃ ndsblc(Éú³É bootloader)"
+msgstr "ˆÌĞĞ ndsblc (Éú³É bootloader)"
 
 #: hiyaCFW_Helper_R3.py:907
-msgid "é”™è¯¯: ç”Ÿæˆå¤±è´¥"
-msgstr "éŒ¯èª¤: ç”Ÿæˆå¤±æ•—"
+msgid "´íÎó: Éú³ÉÊ§°Ü"
+msgstr "åeÕ`: Éú³ÉÊ§”¡"
 
 #: hiyaCFW_Helper_R3.py:920
-msgid "æ­£åœ¨è§£å¯† NAND..."
-msgstr "æ­£åœ¨è§£å¯† NAND..."
+msgid "ÕıÔÚ½âÃÜ NAND..."
+msgstr "ÕıÔÚ½âÃÜ NAND..."
 
 #: hiyaCFW_Helper_R3.py:923
-msgid "è°ƒç”¨ twltool(è§£å¯† NAND)"
-msgstr "åŸ·è¡Œ twltool (è§£å¯† NAND)"
+msgid "µ÷ÓÃ twltool(½âÃÜ NAND)"
+msgstr "ˆÌĞĞ twltool (½âÃÜ NAND)"
 
 #: hiyaCFW_Helper_R3.py:938
-msgid "é”™è¯¯: è§£å¯†å¤±è´¥"
-msgstr "éŒ¯èª¤: è§£å¯†å¤±æ•—"
+msgid "´íÎó: ½âÃÜÊ§°Ü"
+msgstr "åeÕ`: ½âÃÜÊ§”¡"
 
 #: hiyaCFW_Helper_R3.py:951 hiyaCFW_Helper_R3.py:1070
-msgid "æ­£åœ¨ä»NANDä¸­è§£å‹æ–‡ä»¶..."
-msgstr "æ­£åœ¨å¾ NAND è§£å£“æª”æ¡ˆ..."
+msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ÎÄ¼ş..."
+msgstr "ÕıÔÚÄ NAND ½â‰º™n°¸..."
 
 #: hiyaCFW_Helper_R3.py:954
-msgid "è°ƒç”¨ 7-Zip(è§£å‹ NAND)"
-msgstr "åŸ·è¡Œ 7-Zip (è§£å£“ NAND)"
+msgid "µ÷ÓÃ 7-Zip(½âÑ¹ NAND)"
+msgstr "ˆÌĞĞ 7-Zip (½â‰º NAND)"
 
 #: hiyaCFW_Helper_R3.py:976 hiyaCFW_Helper_R3.py:1090
-msgid "é”™è¯¯: è§£å‹ç›¸å†Œåˆ†åŒºå¤±è´¥"
-msgstr "éŒ¯èª¤: è§£å£“ç›¸ç‰‡åˆ†å€å¤±æ•—"
+msgid "´íÎó: ½âÑ¹Ïà²á·ÖÇøÊ§°Ü"
+msgstr "åeÕ`: ½â‰ºÏàÆ¬·Ö…^Ê§”¡"
 
 #: hiyaCFW_Helper_R3.py:985 hiyaCFW_Helper_R3.py:996 hiyaCFW_Helper_R3.py:1008
-msgid "å°è¯•ä½¿ç”¨fatcat..."
-msgstr "å˜—è©¦ä½¿ç”¨ fatcat..."
+msgid "³¢ÊÔÊ¹ÓÃfatcat..."
+msgstr "‡LÔ‡Ê¹ÓÃ fatcat..."
 
 #: hiyaCFW_Helper_R3.py:1018
-msgid "æŒ‚è½½è§£å¯†çš„NANDé•œåƒä¸­..."
-msgstr "æ­£åœ¨æ›è¼‰è§£å¯†çš„ NAND æª”æ¡ˆ..."
+msgid "¹ÒÔØ½âÃÜµÄNAND¾µÏñÖĞ..."
+msgstr "ÕıÔÚ’ìİd½âÃÜµÄ NAND ™n°¸..."
 
 #: hiyaCFW_Helper_R3.py:1021
-msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twln)"
-msgstr "åŸ·è¡Œ osfmount (æ›è¼‰ twln)"
+msgid "µ÷ÓÃ osfmount(¹ÒÔØ twln)"
+msgstr "ˆÌĞĞ osfmount (’ìİd twln)"
 
 #: hiyaCFW_Helper_R3.py:1034
-msgid "- æŒ‚è½½åˆ°é©±åŠ¨å™¨ "
-msgstr "- æ›è¼‰åˆ°ç£ç¢Ÿ "
+msgid "- ¹ÒÔØµ½Çı¶¯Æ÷ "
+msgstr "- ’ìİdµ½´Åµú "
 
 #: hiyaCFW_Helper_R3.py:1036
-msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twlp)"
-msgstr "åŸ·è¡Œ osfmount (æ›è¼‰ twlp)"
+msgid "µ÷ÓÃ osfmount(¹ÒÔØ twlp)"
+msgstr "ˆÌĞĞ osfmount (’ìİd twlp)"
 
 #: hiyaCFW_Helper_R3.py:1045
-msgid "- DSiç›¸å†Œåˆ†åŒºæŒ‚è½½åˆ°é©±åŠ¨å™¨ "
-msgstr "- ç›¸ç‰‡åˆ†å€æ›è¼‰åˆ°ç£ç¢Ÿ "
+msgid "- DSiÏà²á·ÖÇø¹ÒÔØµ½Çı¶¯Æ÷ "
+msgstr "- ÏàÆ¬·Ö…^’ìİdµ½´Åµú "
 
 #: hiyaCFW_Helper_R3.py:1047
-msgid "é”™è¯¯: æŒ‚è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
-msgstr "éŒ¯èª¤: æ›è¼‰ç›¸ç‰‡åˆ†å€å¤±æ•—"
+msgid "´íÎó: ¹ÒÔØÏà²á·ÖÇøÊ§°Ü"
+msgstr "åeÕ`: ’ìİdÏàÆ¬·Ö…^Ê§”¡"
 
 #: hiyaCFW_Helper_R3.py:1051
-msgid "é”™è¯¯: æŒ‚è½½å¤±è´¥"
-msgstr "éŒ¯èª¤: æ›è¼‰å¤±æ•—"
+msgid "´íÎó: ¹ÒÔØÊ§°Ü"
+msgstr "åeÕ`: ’ìİdÊ§”¡"
 
 #: hiyaCFW_Helper_R3.py:1073
-msgid "è°ƒç”¨ fatcat(è§£å‹ NAND)"
-msgstr "åŸ·è¡Œ fatcat (è§£å£“ NAND)"
+msgid "µ÷ÓÃ fatcat(½âÑ¹ NAND)"
+msgstr "ˆÌĞĞ fatcat (½â‰º NAND)"
 
 #: hiyaCFW_Helper_R3.py:1107
-msgid "æ­£åœ¨ä»NANDä¸­å¤åˆ¶æ–‡ä»¶..."
-msgstr "æ­£åœ¨å¾ NAND è¤‡è£½æª”æ¡ˆ..."
+msgid "ÕıÔÚ´ÓNANDÖĞ¸´ÖÆÎÄ¼ş..."
+msgstr "ÕıÔÚÄ NAND Ñ}Ñu™n°¸..."
 
 #: hiyaCFW_Helper_R3.py:1117
-msgid "é”™è¯¯: å¤åˆ¶å¤±è´¥"
-msgstr "éŒ¯èª¤: è¤‡è£½å¤±æ•—"
+msgid "´íÎó: ¸´ÖÆÊ§°Ü"
+msgstr "åeÕ`: Ñ}ÑuÊ§”¡"
 
 #: hiyaCFW_Helper_R3.py:1145
-msgid "æ­£åœ¨ä¸‹è½½ "
-msgstr "æ­£åœ¨ä¸‹è¼‰ "
+msgid "ÕıÔÚÏÂÔØ "
+msgstr "ÕıÔÚÏÂİd "
 
 #: hiyaCFW_Helper_R3.py:1155
-msgid "- æ­£åœ¨è§£å‹Launcher..."
-msgstr "- æ­£åœ¨è§£å£“ Launcher..."
+msgid "- ÕıÔÚ½âÑ¹Launcher..."
+msgstr "- ÕıÔÚ½â‰º Launcher..."
 
 #: hiyaCFW_Helper_R3.py:1201
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ "
-msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ "
+msgid "´íÎó: ÎŞ·¨ÏÂÔØ "
+msgstr "åeÕ`: Ÿo·¨ÏÂİd "
 
 #: hiyaCFW_Helper_R3.py:1212
-msgid "æ­£åœ¨å¤åˆ¶hiyaCFWç›¸å…³æ–‡ä»¶..."
-msgstr "æ­£åœ¨è¤‡è£½ hiyaCFW æª”æ¡ˆ..."
+msgid "ÕıÔÚ¸´ÖÆhiyaCFWÏà¹ØÎÄ¼ş..."
+msgstr "ÕıÔÚÑ}Ñu hiyaCFW ™n°¸..."
 
 #: hiyaCFW_Helper_R3.py:1235
-msgid "æ­£åœ¨æ›´æ–°hiyaCFW..."
-msgstr "æ­£åœ¨æ›´æ–° hiyaCFW..."
+msgid "ÕıÔÚ¸üĞÂhiyaCFW..."
+msgstr "ÕıÔÚ¸üĞÂ hiyaCFW..."
 
 #: hiyaCFW_Helper_R3.py:1258
-msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„TWiLightMenu++..."
-msgstr "æ­£åœ¨ä¸‹è¼‰æœ€æ–°ç‰ˆçš„ TWiLightMenu++..."
+msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄTWiLightMenu++..."
+msgstr "ÕıÔÚÏÂİd×îĞÂ°æµÄ TWiLightMenu++..."
 
 #: hiyaCFW_Helper_R3.py:1267
-msgid " å‹ç¼©åŒ…..."
-msgstr " å£“ç¸®æª”..."
+msgid " Ñ¹Ëõ°ü..."
+msgstr " ‰º¿s™n..."
 
 #: hiyaCFW_Helper_R3.py:1267
-msgid "- æ­£åœ¨è§£å‹ "
-msgstr "- æ­£åœ¨è§£å£“ "
+msgid "- ÕıÔÚ½âÑ¹ "
+msgstr "- ÕıÔÚ½â‰º "
 
 #: hiyaCFW_Helper_R3.py:1288
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½TWiLightMenu++"
-msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ TWiLightMenu++"
+msgid "´íÎó: ÎŞ·¨ÏÂÔØTWiLightMenu++"
+msgstr "åeÕ`: Ÿo·¨ÏÂİd TWiLightMenu++"
 
 #: hiyaCFW_Helper_R3.py:1299
-msgid " ç›¸å…³æ–‡ä»¶..."
-msgstr " æª”æ¡ˆ..."
+msgid " Ïà¹ØÎÄ¼ş..."
+msgstr " ™n°¸..."
 
 #: hiyaCFW_Helper_R3.py:1299
-msgid "æ­£åœ¨å¤åˆ¶ "
-msgstr "æ­£åœ¨è¤‡è£½ "
+msgid "ÕıÔÚ¸´ÖÆ "
+msgstr "ÕıÔÚÑ}Ñu "
 
 #: hiyaCFW_Helper_R3.py:1327
-msgid "è°ƒç”¨ appgen"
-msgstr "åŸ·è¡Œ appgen"
+msgid "µ÷ÓÃ appgen"
+msgstr "ˆÌĞĞ appgen"
 
 #: hiyaCFW_Helper_R3.py:1341
-msgid "æ¸…ç†ä¸­..."
-msgstr "æ­£åœ¨æ¸…æ´—..."
+msgid "ÇåÀíÖĞ..."
+msgstr "ÕıÔÚÇåÏ´..."
 
 #: hiyaCFW_Helper_R3.py:1358
-msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ\n"
-msgstr "ä½œæ¥­éç¨‹ç™¼ç”ŸéŒ¯èª¤æˆ–ä½¿ç”¨è€…çµ‚æ­¢ä½œæ¥­\n"
+msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷\n"
+msgstr "×÷˜Iß^³Ì°lÉúåeÕ`»òÊ¹ÓÃÕß½KÖ¹×÷˜I\n"
 
 #: hiyaCFW_Helper_R3.py:1365
-msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º"
-msgstr "å®Œæˆ!\nä¿®æ”¹å¾Œçš„ NAND å„²å­˜ç‚º"
+msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª"
+msgstr "Íê³É!\nĞŞ¸ÄááµÄ NAND ƒ¦´æé"
 
 #: hiyaCFW_Helper_R3.py:1368
-msgid "æ“ä½œç»ˆæ­¢!\nç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨äºç¨‹åºè¿è¡Œç›®å½•ä¸‹, æ— æ³•è¦†ç›–åŸæ–‡ä»¶\n"
-msgstr "éŒ¯èª¤: ç›®æ¨™æª”æ¡ˆå·²å­˜åœ¨\n"
+msgid "²Ù×÷ÖÕÖ¹!\nÄ¿±êÎÄ¼şÒÑ´æÔÚÓÚ³ÌĞòÔËĞĞÄ¿Â¼ÏÂ, ÎŞ·¨¸²¸ÇÔ­ÎÄ¼ş\n"
+msgstr "åeÕ`: Ä¿˜Ë™n°¸ÒÑ´æÔÚ\n"
 
 #: hiyaCFW_Helper_R3.py:1372
-msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\nå¯¹äº3DSè®¾å¤‡, ä½ è¿˜éœ€è¦åœ¨æœºå™¨ä¸Šä½¿ç”¨FBIå®ŒæˆTitleçš„å®‰è£…\n"
-msgstr "å®Œæˆ!\nå½ˆå‡º SD å¡ä¸¦å°‡å…¶æ’å…¥æ©Ÿå™¨\n3DS æ©Ÿå™¨é‚„éœ€ä½¿ç”¨ FBI å®‰è£ Title\n"
+msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n¶ÔÓÚ3DSÉè±¸, Äã»¹ĞèÒªÔÚ»úÆ÷ÉÏÊ¹ÓÃFBIÍê³ÉTitleµÄ°²×°\n"
+msgstr "Íê³É!\n—³ö SD ¿¨KŒ¢Æä²åÈë™CÆ÷\n3DS ™CÆ÷ß€ĞèÊ¹ÓÃ FBI °²Ñb Title\n"
 
 #: hiyaCFW_Helper_R3.py:1374
-msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\n"
-msgstr "å®Œæˆ!\nå½ˆå‡º SD å¡ä¸¦å°‡å…¶æ’å…¥ DSi\n"
+msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n"
+msgstr "Íê³É!\n—³ö SD ¿¨KŒ¢Æä²åÈë DSi\n"
 
 #: hiyaCFW_Helper_R3.py:1450 hiyaCFW_Helper_R3.py:1456
 #: hiyaCFW_Helper_R3.py:1459
-msgid "- æ£€æµ‹åˆ° "
-msgstr "- æª¢æ¸¬åˆ° "
+msgid "- ¼ì²âµ½ "
+msgstr "- ™zœyµ½ "
 
 #: hiyaCFW_Helper_R3.py:1465
-msgid "é”™è¯¯: åœ¨NANDä¸­æ‰¾ä¸åˆ°å—æ”¯æŒçš„Launcher"
-msgstr "éŒ¯èª¤: åœ¨ NAND ä¸­æ‰¾ä¸åˆ°å—æ”¯æŒçš„ Launcher"
+msgid "´íÎó: ÔÚNANDÖĞÕÒ²»µ½ÊÜÖ§³ÖµÄLauncher"
+msgstr "åeÕ`: ÔÚ NAND ÖĞÕÒ²»µ½ÊÜÖ§³ÖµÄ Launcher"
 
 #: hiyaCFW_Helper_R3.py:1468
-msgid "é”™è¯¯: æ— æ³•æ£€æµ‹ç³»ç»ŸåŒºåŸŸ"
-msgstr "éŒ¯èª¤: ç„¡æ³•æª¢æ¸¬æ©Ÿå™¨å€åŸŸ"
+msgid "´íÎó: ÎŞ·¨¼ì²âÏµÍ³ÇøÓò"
+msgstr "åeÕ`: Ÿo·¨™zœy™CÆ÷…^Óò"
 
 #: hiyaCFW_Helper_R3.py:1471
-msgid "é”™è¯¯: "
-msgstr "éŒ¯èª¤: "
+msgid "´íÎó: "
+msgstr "åeÕ`: "
 
 #: hiyaCFW_Helper_R3.py:1480
-msgid "æ£€æŸ¥unlaunchçŠ¶æ€ä¸­..."
-msgstr "æ­£åœ¨æª¢æŸ¥ unlaunch ç‹€æ…‹..."
+msgid "¼ì²éunlaunch×´Ì¬ÖĞ..."
+msgstr "ÕıÔÚ™z²é unlaunch  î‘B..."
 
 #: hiyaCFW_Helper_R3.py:1494
-msgid "- æœªå®‰è£…..."
-msgstr "- å°šæœªå®‰è£..."
+msgid "- Î´°²×°..."
+msgstr "- ÉĞÎ´°²Ñb..."
 
 #: hiyaCFW_Helper_R3.py:1498
-msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch..."
-msgstr "æ­£åœ¨ä¸‹è¼‰æœ€æ–°ç‰ˆçš„ unlaunch..."
+msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄunlaunch..."
+msgstr "ÕıÔÚÏÂİd×îĞÂ°æµÄ unlaunch..."
 
 #: hiyaCFW_Helper_R3.py:1515
-msgid "- æ­£åœ¨å®‰è£…unlaunch..."
-msgstr "- æ­£åœ¨å®‰è£ unlaunch..."
+msgid "- ÕıÔÚ°²×°unlaunch..."
+msgstr "- ÕıÔÚ°²Ñb unlaunch..."
 
 #: hiyaCFW_Helper_R3.py:1539
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ unlaunch"
-msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ unlaunch"
+msgid "´íÎó: ÎŞ·¨ÏÂÔØ unlaunch"
+msgstr "åeÕ`: Ÿo·¨ÏÂİd unlaunch"
 
 #: hiyaCFW_Helper_R3.py:1552
-msgid "- å·²å®‰è£…, å¸è½½ä¸­..."
-msgstr "- å·²å®‰è£, æ­£åœ¨ç§»é™¤..."
+msgid "- ÒÑ°²×°, Ğ¶ÔØÖĞ..."
+msgstr "- ÒÑ°²Ñb, ÕıÔÚÒÆ³ı..."
 
 #: hiyaCFW_Helper_R3.py:1572
-msgid "æ­£åœ¨å¸è½½NAND..."
-msgstr "æ­£åœ¨å¸ä¸‹ NAND..."
+msgid "ÕıÔÚĞ¶ÔØNAND..."
+msgstr "ÕıÔÚĞ¶ÏÂ NAND..."
 
 #: hiyaCFW_Helper_R3.py:1575
-msgid "è°ƒç”¨ osfmount(å¸è½½ twln)"
-msgstr "åŸ·è¡Œ osfmount (å¸ä¸‹ twln)"
+msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twln)"
+msgstr "ˆÌĞĞ osfmount (Ğ¶ÏÂ twln)"
 
 #: hiyaCFW_Helper_R3.py:1582
-msgid "è°ƒç”¨ osfmount(å¸è½½ twlp)"
-msgstr "åŸ·è¡Œ osfmount (å¸ä¸‹ twlp)"
+msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twlp)"
+msgstr "ˆÌĞĞ osfmount (Ğ¶ÏÂ twlp)"
 
 #: hiyaCFW_Helper_R3.py:1589
-msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
-msgstr "éŒ¯èª¤: ç„¡æ³•å¸ä¸‹ç›¸ç‰‡åˆ†å€"
+msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü"
+msgstr "åeÕ`: Ÿo·¨Ğ¶ÏÂÏàÆ¬·Ö…^"
 
 #: hiyaCFW_Helper_R3.py:1595
-msgid "é”™è¯¯: å¸è½½å¤±è´¥"
-msgstr "éŒ¯èª¤: ç„¡æ³•å¸ä¸‹"
+msgid "´íÎó: Ğ¶ÔØÊ§°Ü"
+msgstr "åeÕ`: Ÿo·¨Ğ¶ÏÂ"
 
 #: hiyaCFW_Helper_R3.py:1603
-msgid "æ­£åœ¨å¼ºåˆ¶å¸è½½NAND..."
-msgstr "æ­£åœ¨å¼·åˆ¶å¸ä¸‹ NAND..."
+msgid "ÕıÔÚÇ¿ÖÆĞ¶ÔØNAND..."
+msgstr "ÕıÔÚŠÖÆĞ¶ÏÂ NAND..."
 
 #: hiyaCFW_Helper_R3.py:1606
-msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twln)"
-msgstr "åŸ·è¡Œ osfmount (å¼·åˆ¶å¸ä¸‹ twln)"
+msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twln)"
+msgstr "ˆÌĞĞ osfmount (ŠÖÆĞ¶ÏÂ twln)"
 
 #: hiyaCFW_Helper_R3.py:1613
-msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twlp)"
-msgstr "åŸ·è¡Œ osfmount (å¼·åˆ¶å¸ä¸‹ twlp)"
+msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twlp)"
+msgstr "ˆÌĞĞ osfmount (ŠÖÆĞ¶ÏÂ twlp)"
 
 #: hiyaCFW_Helper_R3.py:1619
-msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥æˆ–å°šæœªæŒ‚è½½"
-msgstr "éŒ¯èª¤: ç„¡æ³•å¸ä¸‹ç›¸ç‰‡åˆ†å€æˆ–å°šæœªæ›è¼‰"
+msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü»òÉĞÎ´¹ÒÔØ"
+msgstr "åeÕ`: Ÿo·¨Ğ¶ÏÂÏàÆ¬·Ö…^»òÉĞÎ´’ìİd"
 
 #: hiyaCFW_Helper_R3.py:1624
-msgid "é”™è¯¯: å¸è½½å¤±è´¥æˆ–å°šæœªæŒ‚è½½"
-msgstr "éŒ¯èª¤: ç„¡æ³•å¸ä¸‹æˆ–å°šæœªæ›è¼‰"
+msgid "´íÎó: Ğ¶ÔØÊ§°Ü»òÉĞÎ´¹ÒÔØ"
+msgstr "åeÕ`: Ÿo·¨Ğ¶ÏÂ»òÉĞÎ´’ìİd"
 
 #: hiyaCFW_Helper_R3.py:1638
-msgid "æ­£åœ¨é‡åŠ å¯†NAND..."
-msgstr "æ­£åœ¨é‡æ–°åŠ å¯† NAND..."
+msgid "ÕıÔÚÖØ¼ÓÃÜNAND..."
+msgstr "ÕıÔÚÖØĞÂ¼ÓÃÜ NAND..."
 
 #: hiyaCFW_Helper_R3.py:1641
-msgid "è°ƒç”¨ twltool(é‡åŠ å¯† NAND)"
-msgstr "åŸ·è¡Œ twltool (é‡æ–°åŠ å¯† NAND)"
+msgid "µ÷ÓÃ twltool(ÖØ¼ÓÃÜ NAND)"
+msgstr "ˆÌĞĞ twltool (ÖØĞÂ¼ÓÃÜ NAND)"
 
 #: hiyaCFW_Helper_R3.py:1650
-msgid "é”™è¯¯: åŠ å¯†å¤±è´¥"
-msgstr "éŒ¯èª¤: åŠ å¯†å¤±æ•—"
+msgid "´íÎó: ¼ÓÃÜÊ§°Ü"
+msgstr "åeÕ`: ¼ÓÃÜÊ§”¡"
 
 #: hiyaCFW_Helper_R3.py:1661
-msgid "æ­£åœ¨ç§»é™¤No$GBA footer..."
-msgstr "æ­£åœ¨ç§»é™¤ No$GBA footer..."
+msgid "ÕıÔÚÒÆ³ıNo$GBA footer..."
+msgstr "ÕıÔÚÒÆ³ı No$GBA footer..."
 
 #: hiyaCFW_Helper_R3.py:1679 hiyaCFW_Helper_R3.py:1719
-msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º\n"
-msgstr "å®Œæˆ!\nä¿®æ”¹å¾Œçš„ NAND å„²å­˜ç‚º\n"
+msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª\n"
+msgstr "Íê³É!\nĞŞ¸ÄááµÄ NAND ƒ¦´æé\n"
 
 #: hiyaCFW_Helper_R3.py:1680
-msgid "\nfooterä¿¡æ¯å·²ä¿å­˜åˆ° "
-msgstr "\nfooter å„²å­˜åˆ° "
+msgid "\nfooterĞÅÏ¢ÒÑ±£´æµ½ "
+msgstr "\nfooter ƒ¦´æµ½ "
 
 #: hiyaCFW_Helper_R3.py:1684 hiyaCFW_Helper_R3.py:1723
-msgid "é”™è¯¯: æ— æ³•æ‰“å¼€ "
-msgstr "éŒ¯èª¤: ç„¡æ³•æ‰“é–‹ "
+msgid "´íÎó: ÎŞ·¨´ò¿ª "
+msgstr "åeÕ`: Ÿo·¨´òé_ "
 
 #: hiyaCFW_Helper_R3.py:1690
-msgid "æ­£åœ¨æ·»åŠ No$GBA footer..."
-msgstr "æ­£åœ¨æ·»åŠ  No$GBA footer..."
+msgid "ÕıÔÚÌí¼ÓNo$GBA footer..."
+msgstr "ÕıÔÚÌí¼Ó No$GBA footer..."
 
 #: hiyaCFW_Helper_R3.py:1705
-msgid "é”™è¯¯: æ–‡ä»¶ä¸­å·²å­˜åœ¨ No$GBA footer"
-msgstr "éŒ¯èª¤: æª”æ¡ˆä¸­å·²å­˜åœ¨ No$GBA footer"
-
-#: hiyaCFW_Helper_R3.py:1761
-msgid "hiyaCFW Helperå¯åŠ¨ä¸­..."
-msgstr "æ­£åœ¨å•Ÿå‹• hiyaCFW Helper..."
+msgid "´íÎó: ÎÄ¼şÖĞÒÑ´æÔÚ No$GBA footer"
+msgstr "åeÕ`: ™n°¸ÖĞÒÑ´æÔÚ No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:1784 hiyaCFW_Helper_R3.py:1792
-msgid "64ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
-msgstr "OSFMount (64 ä½å…ƒ) å·²è£è¼‰"
+msgid "64Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
+msgstr "OSFMount (64 Î»Ôª) ÒÑÑbİd"
 
 #: hiyaCFW_Helper_R3.py:1798
-msgid "32ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
-msgstr "OSFMount (32 ä½å…ƒ) å·²è£è¼‰"
+msgid "32Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
+msgstr "OSFMount (32 Î»Ôª) ÒÑÑbİd"
 
 #: hiyaCFW_Helper_R3.py:1804
-msgid "7-Zipæ¨¡å—å·²åŠ è½½"
-msgstr "7-Zip å·²è£è¼‰"
+msgid "7-ZipÄ£¿éÒÑ¼ÓÔØ"
+msgstr "7-Zip ÒÑÑbİd"
 
 #: hiyaCFW_Helper_R3.py:1813
-msgid "æ‰¾ä¸åˆ°Fatcat, è¯·ç¡®è®¤æ­¤ç¨‹åºä½äºæœ¬å·¥å…·ç›®å½•çš„\"{}\"æ–‡ä»¶å¤¹ä¸­"
-msgstr "æ‰¾ä¸åˆ° fatcat, è«‹ç¢ºèª 'fatcat' å„²å­˜åœ¨ '{}' è³‡æ–™å¤¾"
+msgid "ÕÒ²»µ½Fatcat, ÇëÈ·ÈÏ´Ë³ÌĞòÎ»ÓÚ±¾¹¤¾ßÄ¿Â¼µÄ\"{}\"ÎÄ¼ş¼ĞÖĞ"
+msgstr "ÕÒ²»µ½ fatcat, Õˆ´_ÕJ 'fatcat' ƒ¦´æÔÚ '{}' ÙYÁÏŠA"
 
 #: hiyaCFW_Helper_R3.py:1817
-msgid "GUIåˆå§‹åŒ–ä¸­..."
-msgstr "åˆå§‹åŒ– GUI..."
+msgid "GUI³õÊ¼»¯ÖĞ..."
+msgstr "³õÊ¼»¯ GUI..."
 
-#: hiyaCFW_Helper_R3.py:1819
-msgid "hiyaCFW Helper V3.6.3R(BYå¤©æ¶¯)"
-msgstr "hiyaCFW Helper V3.6.3R"
+msgid "TWLMagicianÆô¶¯ÖĞ..."
+msgstr "ÕıÔÚ†¢„Ó TWLMagician..."
+
+msgid "°æ±¾ĞÅÏ¢:\n"
+msgstr "°æ±¾ÙYÓ:\n"
+
+msgid "»úÆ÷ĞòÁĞºÅ: "
+msgstr "™CÆ÷´®Ì–: "
 
