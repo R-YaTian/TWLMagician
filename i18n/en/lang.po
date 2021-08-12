@@ -10,175 +10,175 @@ msgstr ""
 
 
 #: hiyaCFW_Helper_R3.py:127
-msgid "º¬ÓĞNo$GBA footerµÄNAND±¸·İÎÄ¼ş"
+msgid "å«æœ‰No$GBA footerçš„NANDå¤‡ä»½æ–‡ä»¶"
 msgstr "NAND file with No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:148
-msgid "´æ´¢¿¨¸ùÄ¿Â¼"
+msgid "å­˜å‚¨å¡æ ¹ç›®å½•"
 msgstr "The root of SD card"
 
 #: hiyaCFW_Helper_R3.py:162
-msgid "NAND½âÑ¹Ñ¡Ïî"
+msgid "NANDè§£å‹é€‰é¡¹"
 msgstr "NAND extractor"
 
 #: hiyaCFW_Helper_R3.py:174
-msgid "Fatcat(Ä¬ÈÏ)"
+msgid "Fatcat(é»˜è®¤)"
 msgstr "fatcat"
 
 #: hiyaCFW_Helper_R3.py:176
-msgid "OSFMount(ĞèÒª¹ÜÀíÔ±È¨ÏŞ)"
+msgid "OSFMount(éœ€è¦ç®¡ç†å‘˜æƒé™)"
 msgstr "OSFMount (need administrator privileges)"
 
 #: hiyaCFW_Helper_R3.py:197
-msgid "Í¬Ê±°²×°TWiLightMenu++"
+msgid "åŒæ—¶å®‰è£…TWiLightMenu++"
 msgstr "Install latest TWiLightMenu++ on custom firmware"
 
 #: hiyaCFW_Helper_R3.py:204 hiyaCFW_Helper_R3.py:237
-msgid "Ê¹ÓÃAppGen"
+msgid "ä½¿ç”¨AppGen"
 msgstr "Use AppGen"
 
 #: hiyaCFW_Helper_R3.py:207 hiyaCFW_Helper_R3.py:240
-msgid "ÌáÈ¡Nand±¸·İÖĞµÄDSiWareÈí¼ş²¢¸´ÖÆµ½\nroms/dsiware"
+msgid "æå–Nandå¤‡ä»½ä¸­çš„DSiWareè½¯ä»¶å¹¶å¤åˆ¶åˆ°\nroms/dsiware"
 msgstr "Export DSiWare from NAND and copy to roms/dsiware"
 
 #: hiyaCFW_Helper_R3.py:212 hiyaCFW_Helper_R3.py:249
-msgid "ÆôÓÃÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí¹¦ÄÜ"
+msgid "å¯ç”¨ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†åŠŸèƒ½"
 msgstr "Enable Data Management on System Settings"
 
 #: hiyaCFW_Helper_R3.py:215 hiyaCFW_Helper_R3.py:252
-msgid "¹´Ñ¡´ËÑ¡Ïî½«»áÔÚCFWÖĞ¿ªÆôÏµÍ³ÉèÖÃÖĞµÄÊı¾İ¹ÜÀí¹¦ÄÜ£¬Èç¹ûÒÑ¾­ÔÚNANDÖĞ¿ªÆôÁË´Ë¹¦ÄÜ£¬Ôò²»ĞèÒª¹´Ñ¡´ËÑ¡Ïî"
+msgid "å‹¾é€‰æ­¤é€‰é¡¹å°†ä¼šåœ¨CFWä¸­å¼€å¯ç³»ç»Ÿè®¾ç½®ä¸­çš„æ•°æ®ç®¡ç†åŠŸèƒ½ï¼Œå¦‚æœå·²ç»åœ¨NANDä¸­å¼€å¯äº†æ­¤åŠŸèƒ½ï¼Œåˆ™ä¸éœ€è¦å‹¾é€‰æ­¤é€‰é¡¹"
 msgstr "Enable Data Management option on hiyaCFW's System Settings without connecting to DSi Shop"
 
 #: hiyaCFW_Helper_R3.py:220
-msgid "ÌáÈ¡Ïà²á·ÖÇø"
+msgid "æå–ç›¸å†Œåˆ†åŒº"
 msgstr "Extract photo partition from NAND"
 
 #: hiyaCFW_Helper_R3.py:223
-msgid "ÌáÈ¡Nand±¸·İÖĞµÄÏà²á·ÖÇøÎÄ¼şµ½´æ´¢¿¨ÖĞ£¬´Ë²Ù×÷»áÕ¼ÓÃÒ»¶¨µÄ´æ´¢¿¨¿Õ¼ä(È¡¾öÓÚÏàÆ¬ÊıÁ¿£¬×î¶à¿É´ï32MB×óÓÒ)"
+msgid "æå–Nandå¤‡ä»½ä¸­çš„ç›¸å†Œåˆ†åŒºæ–‡ä»¶åˆ°å­˜å‚¨å¡ä¸­ï¼Œæ­¤æ“ä½œä¼šå ç”¨ä¸€å®šçš„å­˜å‚¨å¡ç©ºé—´(å–å†³äºç›¸ç‰‡æ•°é‡ï¼Œæœ€å¤šå¯è¾¾32MBå·¦å³)"
 msgstr "Extract photo partition from NAND backup, then the photos from the console will be seen in hiyaCFW (Occupies some storage space, up to 32MB)"
 
 #: hiyaCFW_Helper_R3.py:245
-msgid "¸üĞÂhiyaCFW"
+msgid "æ›´æ–°hiyaCFW"
 msgstr "Update hiyaCFW"
 
 #: hiyaCFW_Helper_R3.py:260
-msgid "NAND²Ù×÷Ñ¡Ïî"
+msgid "NANDæ“ä½œé€‰é¡¹"
 msgstr "NAND operation"
 
 #: hiyaCFW_Helper_R3.py:265
-msgid "°²×°»òĞ¶ÔØ×îĞÂ°æ±¾µÄunlaunch"
+msgid "å®‰è£…æˆ–å¸è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch"
 msgstr "Uninstall unlaunch or install latest"
 
 #: hiyaCFW_Helper_R3.py:270
-msgid "ÒÆ³ı No$GBA footer"
+msgid "ç§»é™¤ No$GBA footer"
 msgstr "Remove No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:273
-msgid "Ìí¼Ó No$GBA footer"
+msgid "æ·»åŠ  No$GBA footer"
 msgstr "Add No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:303
-msgid "¿ªÊ¼"
+msgid "å¼€å§‹"
 msgstr "Start"
 
 #: hiyaCFW_Helper_R3.py:306
-msgid "¸ß¼¶"
+msgid "é«˜çº§"
 msgstr "Advanced"
 
 #: hiyaCFW_Helper_R3.py:307 hiyaCFW_Helper_R3.py:308
-msgid "·µ»Ø"
+msgid "è¿”å›"
 msgstr "Back"
 
 #: hiyaCFW_Helper_R3.py:310
-msgid "¸ß¼¶Ä£Ê½Ìá¹©ÁËµ¥¶À°²×°TWiLightMenu++µÈ¹¦ÄÜ"
+msgid "é«˜çº§æ¨¡å¼æä¾›äº†å•ç‹¬å®‰è£…TWiLightMenu++ç­‰åŠŸèƒ½"
 msgstr "Advanced mode provides 'Only install TWiLightMenu++' feature and more"
 
 #: hiyaCFW_Helper_R3.py:312
-msgid "ÍË³ö"
+msgid "é€€å‡º"
 msgstr "Exit"
 
 #: hiyaCFW_Helper_R3.py:345
-msgid "ÄãÕıÒª½øÈëNAND²Ù×÷Ä£Ê½, ÇëÈ·ÈÏÄãÖªµÀ×Ô¼ºÔÚ×öÊ²Ã´, ¼ÌĞøÂğ?"
+msgid "ä½ æ­£è¦è¿›å…¥NANDæ“ä½œæ¨¡å¼, è¯·ç¡®è®¤ä½ çŸ¥é“è‡ªå·±åœ¨åšä»€ä¹ˆ, ç»§ç»­å—?"
 msgstr "You are about to enter NAND mode. Do it only if you know what you are doing. Proceed?"
 
 #: hiyaCFW_Helper_R3.py:345
-msgid "¾¯¸æ"
+msgid "è­¦å‘Š"
 msgstr "Warning"
 
 #: hiyaCFW_Helper_R3.py:455
-msgid "\"ÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí\"¹¦ÄÜÆôÓÃ³É¹¦"
+msgid "\"ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†\"åŠŸèƒ½å¯ç”¨æˆåŠŸ"
 msgstr "Succeeded in enabling 'Data Management' on System Settings"
 
 #: hiyaCFW_Helper_R3.py:463
-msgid "ÇëÑ¡Ôñ»úÆ÷µÄ´æ´¢¿¨¸ùÄ¿Â¼"
+msgid "è¯·é€‰æ‹©æœºå™¨çš„å­˜å‚¨å¡æ ¹ç›®å½•"
 msgstr "Please choose your console's SD card path"
 
 #: hiyaCFW_Helper_R3.py:463 hiyaCFW_Helper_R3.py:517
-msgid "ÌáÊ¾"
+msgid "æç¤º"
 msgstr "Info"
 
 #: hiyaCFW_Helper_R3.py:508
-msgid "´Ë¹¦ÄÜĞèÒªÒÔ¹ÜÀíÔ±È¨ÏŞÔËĞĞ±¾¹¤¾ß"
+msgid "æ­¤åŠŸèƒ½éœ€è¦ä»¥ç®¡ç†å‘˜æƒé™è¿è¡Œæœ¬å·¥å…·"
 msgstr "In order to use this feature, 'hiyaCFW HelperR' needs to be run with administrator privileges."
 
 #: hiyaCFW_Helper_R3.py:508 hiyaCFW_Helper_R3.py:525 hiyaCFW_Helper_R3.py:537
 #: hiyaCFW_Helper_R3.py:541 hiyaCFW_Helper_R3.py:549 hiyaCFW_Helper_R3.py:556
 #: hiyaCFW_Helper_R3.py:1813
-msgid "´íÎó"
+msgid "é”™è¯¯"
 msgstr "ERROR"
 
 #: hiyaCFW_Helper_R3.py:517
-msgid "½ÓÏÂÀ´ÇëÑ¡ÔñÄãÓÃÀ´°²×°×ÔÖÆÏµÍ³µÄ´æ´¢¿¨Â·¾¶(»òÊä³öÂ·¾¶)\nÎªÁË±ÜÃâ Æô¶¯´íÎó ÇëÈ·±£Ä¿Â¼ÏÂÎŞÈÎºÎÎÄ¼ş"
+msgid "æ¥ä¸‹æ¥è¯·é€‰æ‹©ä½ ç”¨æ¥å®‰è£…è‡ªåˆ¶ç³»ç»Ÿçš„å­˜å‚¨å¡è·¯å¾„(æˆ–è¾“å‡ºè·¯å¾„)\nä¸ºäº†é¿å… å¯åŠ¨é”™è¯¯ è¯·ç¡®ä¿ç›®å½•ä¸‹æ— ä»»ä½•æ–‡ä»¶"
 msgstr "Now you will be asked to choose the SD card path that will be used "
 "for installing the custom firmware (or an output folder).\n\nIn order to avoid "
 "boot errors please assure it is empty before continuing."
 
 #: hiyaCFW_Helper_R3.py:525
-msgid "Ä¿Â¼¼ì²âÎ´Í¨¹ı£¬ÈôCFWÒÑ°²×°£¬Çë×ªµ½¸ß¼¶Ä£Ê½£¬»òÑ¡ÔñÒ»¸ö¿ÕÄ¿Â¼ÒÔ¼ÌĞø"
+msgid "ç›®å½•æ£€æµ‹æœªé€šè¿‡ï¼Œè‹¥CFWå·²å®‰è£…ï¼Œè¯·è½¬åˆ°é«˜çº§æ¨¡å¼ï¼Œæˆ–é€‰æ‹©ä¸€ä¸ªç©ºç›®å½•ä»¥ç»§ç»­"
 msgstr "Failed on 'Path check'. If hiyaCFW is already installed on this SD card, please use 'Advanced mode' or choose a empty folder"
 
 #: hiyaCFW_Helper_R3.py:562
-msgid "×´Ì¬"
+msgid "çŠ¶æ€"
 msgstr "Status"
 
 #: hiyaCFW_Helper_R3.py:580
-msgid "¹Ø±Õ"
+msgid "å…³é—­"
 msgstr "Close"
 
 #: hiyaCFW_Helper_R3.py:633
-msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷"
+msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ"
 msgstr "An error was encountered or terminate by user"
 
 #: hiyaCFW_Helper_R3.py:640
-msgid "ÕıÔÚ¼ì²éNANDÎÄ¼ş..."
+msgid "æ­£åœ¨æ£€æŸ¥NANDæ–‡ä»¶..."
 msgstr "Checking NAND file..."
 
 #: hiyaCFW_Helper_R3.py:679
-msgid "´íÎó: Ã»ÓĞ¼ì²âµ½No$GBA footer\n¾¯¸æ: ÈôÈ·¶¨NandÒÑÍêÕûdump, ÔòÓÃÓÚdumpµÄ´æ´¢¿¨¼«ÓĞ¿ÉÄÜÊÇÀ©Èİ¿¨»òÕßÒÑ³öÏÖ»µ¿é"
+msgid "é”™è¯¯: æ²¡æœ‰æ£€æµ‹åˆ°No$GBA footer\nè­¦å‘Š: è‹¥ç¡®å®šNandå·²å®Œæ•´dump, åˆ™ç”¨äºdumpçš„å­˜å‚¨å¡ææœ‰å¯èƒ½æ˜¯æ‰©å®¹å¡æˆ–è€…å·²å‡ºç°åå—"
 msgstr "ERROR: No$GBA footer not found\nWarning: If 'NAND dump' progress was certainly done, you should check your SD "
 "card for errors using H2testw (Windows), F3 (Linux), or F3X (macOS)."
 
 #: hiyaCFW_Helper_R3.py:683
-msgid "´íÎó: ÎŞ·¨´ò¿ªÎÄ¼ş "
+msgid "é”™è¯¯: æ— æ³•æ‰“å¼€æ–‡ä»¶ "
 msgstr "ERROR: Could not open the file "
 
 #: hiyaCFW_Helper_R3.py:696
-msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄhiyaCFW..."
+msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„hiyaCFW..."
 msgstr "Downloading latest hiyaCFW release..."
 
 #: hiyaCFW_Helper_R3.py:705
-msgid "- ÕıÔÚ½âÑ¹ hiyaCFW Ñ¹Ëõ°ü..."
+msgid "- æ­£åœ¨è§£å‹ hiyaCFW å‹ç¼©åŒ…..."
 msgstr "- Extracting hiyaCFW archive..."
 
 #: hiyaCFW_Helper_R3.py:724 hiyaCFW_Helper_R3.py:777 hiyaCFW_Helper_R3.py:982
 #: hiyaCFW_Helper_R3.py:993 hiyaCFW_Helper_R3.py:1096
 #: hiyaCFW_Helper_R3.py:1196 hiyaCFW_Helper_R3.py:1283
 #: hiyaCFW_Helper_R3.py:1532
-msgid "´íÎó: ½âÑ¹Ê§°Ü"
+msgid "é”™è¯¯: è§£å‹å¤±è´¥"
 msgstr "ERROR: Extractor failed"
 
 #: hiyaCFW_Helper_R3.py:729
-msgid "´íÎó: ÎŞ·¨ÏÂÔØhiyaCFW"
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½hiyaCFW"
 msgstr "ERROR: Could not get hiyaCFW"
 
 #: hiyaCFW_Helper_R3.py:733 hiyaCFW_Helper_R3.py:782 hiyaCFW_Helper_R3.py:912
@@ -187,332 +187,332 @@ msgstr "ERROR: Could not get hiyaCFW"
 #: hiyaCFW_Helper_R3.py:1206 hiyaCFW_Helper_R3.py:1293
 #: hiyaCFW_Helper_R3.py:1546 hiyaCFW_Helper_R3.py:1600
 #: hiyaCFW_Helper_R3.py:1629 hiyaCFW_Helper_R3.py:1655
-msgid "´íÎó: ÎŞ·¨ÔËĞĞ "
+msgid "é”™è¯¯: æ— æ³•è¿è¡Œ "
 msgstr "ERROR: Could not execute "
 
 #: hiyaCFW_Helper_R3.py:740
-msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ ARM7/ARM9 BIOS..."
+msgid "æ­£åœ¨ä»NANDä¸­è§£å‹ ARM7/ARM9 BIOS..."
 msgstr "Extracting ARM7/ARM9 BIOS from NAND..."
 
 #: hiyaCFW_Helper_R3.py:743
-msgid "µ÷ÓÃ twltool(½âÑ¹ BIOS)"
+msgid "è°ƒç”¨ twltool(è§£å‹ BIOS)"
 msgstr "Execute twltool (Extract BIOS)"
 
 #: hiyaCFW_Helper_R3.py:826
-msgid "´íÎó: ÎŞ·¨Íê³É patch BIOS"
+msgid "é”™è¯¯: æ— æ³•å®Œæˆ patch BIOS"
 msgstr "ERROR: Could not patch BIOS"
 
 #: hiyaCFW_Helper_R3.py:831
-msgid "´íÎó: ÎŞĞ§µÄ patch header"
+msgid "é”™è¯¯: æ— æ•ˆçš„ patch header"
 msgstr "ERROR: Invalid patch header"
 
 #: hiyaCFW_Helper_R3.py:837
-msgid "ÕıÔÚÔ¤ÔØÊı¾İµ½ ARM9 BIOS..."
+msgid "æ­£åœ¨é¢„è½½æ•°æ®åˆ° ARM9 BIOS..."
 msgstr "Prepending data to ARM9 BIOS..."
 
 #: hiyaCFW_Helper_R3.py:867
-msgid "´íÎó: ÎŞ·¨Ô¤ÔØÊı¾İµ½ ARM9 BIOS"
+msgid "é”™è¯¯: æ— æ³•é¢„è½½æ•°æ®åˆ° ARM9 BIOS"
 msgstr "ERROR: Could not prepend data to ARM9 BIOS"
 
 #: hiyaCFW_Helper_R3.py:873
-msgid "ÕıÔÚÉú³É bootloader..."
+msgid "æ­£åœ¨ç”Ÿæˆ bootloader..."
 msgstr "Generating bootloader..."
 
 #: hiyaCFW_Helper_R3.py:880
-msgid "µ÷ÓÃ ndstool(Éú³É bootloader)"
+msgid "è°ƒç”¨ ndstool(ç”Ÿæˆ bootloader)"
 msgstr "Execute ndstool (Make bootloader)"
 
 #: hiyaCFW_Helper_R3.py:882
-msgid "µ÷ÓÃ ndsblc(Éú³É bootloader)"
+msgid "è°ƒç”¨ ndsblc(ç”Ÿæˆ bootloader)"
 msgstr "Execute ndsblc (Make bootloader)"
 
 #: hiyaCFW_Helper_R3.py:907
-msgid "´íÎó: Éú³ÉÊ§°Ü"
+msgid "é”™è¯¯: ç”Ÿæˆå¤±è´¥"
 msgstr "ERROR: Generator failed"
 
 #: hiyaCFW_Helper_R3.py:920
-msgid "ÕıÔÚ½âÃÜ NAND..."
+msgid "æ­£åœ¨è§£å¯† NAND..."
 msgstr "Decrypting NAND..."
 
 #: hiyaCFW_Helper_R3.py:923
-msgid "µ÷ÓÃ twltool(½âÃÜ NAND)"
+msgid "è°ƒç”¨ twltool(è§£å¯† NAND)"
 msgstr "Execute twltool (Decrypt NAND)"
 
 #: hiyaCFW_Helper_R3.py:938
-msgid "´íÎó: ½âÃÜÊ§°Ü"
+msgid "é”™è¯¯: è§£å¯†å¤±è´¥"
 msgstr "ERROR: Decryptor failed"
 
 #: hiyaCFW_Helper_R3.py:951 hiyaCFW_Helper_R3.py:1070
-msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ÎÄ¼ş..."
+msgid "æ­£åœ¨ä»NANDä¸­è§£å‹æ–‡ä»¶..."
 msgstr "Extracting files from NAND..."
 
 #: hiyaCFW_Helper_R3.py:954
-msgid "µ÷ÓÃ 7-Zip(½âÑ¹ NAND)"
+msgid "è°ƒç”¨ 7-Zip(è§£å‹ NAND)"
 msgstr "Execute 7-Zip (Extract NAND)"
 
 #: hiyaCFW_Helper_R3.py:976 hiyaCFW_Helper_R3.py:1090
-msgid "´íÎó: ½âÑ¹Ïà²á·ÖÇøÊ§°Ü"
+msgid "é”™è¯¯: è§£å‹ç›¸å†Œåˆ†åŒºå¤±è´¥"
 msgstr "ERROR: Failed to extract photo partition"
 
 #: hiyaCFW_Helper_R3.py:985 hiyaCFW_Helper_R3.py:996 hiyaCFW_Helper_R3.py:1008
-msgid "³¢ÊÔÊ¹ÓÃfatcat..."
+msgid "å°è¯•ä½¿ç”¨fatcat..."
 msgstr "Trying with fatcat..."
 
 #: hiyaCFW_Helper_R3.py:1018
-msgid "¹ÒÔØ½âÃÜµÄNAND¾µÏñÖĞ..."
+msgid "æŒ‚è½½è§£å¯†çš„NANDé•œåƒä¸­..."
 msgstr "Mounting decrypted NAND..."
 
 #: hiyaCFW_Helper_R3.py:1021
-msgid "µ÷ÓÃ osfmount(¹ÒÔØ twln)"
+msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twln)"
 msgstr "Execute osfmount (Mount twln)"
 
 #: hiyaCFW_Helper_R3.py:1034
-msgid "- ¹ÒÔØµ½Çı¶¯Æ÷ "
+msgid "- æŒ‚è½½åˆ°é©±åŠ¨å™¨ "
 msgstr "- Mounted on drive "
 
 #: hiyaCFW_Helper_R3.py:1036
-msgid "µ÷ÓÃ osfmount(¹ÒÔØ twlp)"
+msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twlp)"
 msgstr "Execute osfmount (Mount twlp)"
 
 #: hiyaCFW_Helper_R3.py:1045
-msgid "- DSiÏà²á·ÖÇø¹ÒÔØµ½Çı¶¯Æ÷ "
+msgid "- DSiç›¸å†Œåˆ†åŒºæŒ‚è½½åˆ°é©±åŠ¨å™¨ "
 msgstr "- DSi's photo partition mounted on drive "
 
 #: hiyaCFW_Helper_R3.py:1047
-msgid "´íÎó: ¹ÒÔØÏà²á·ÖÇøÊ§°Ü"
+msgid "é”™è¯¯: æŒ‚è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
 msgstr "ERROR: Failed to mount photo partition"
 
 #: hiyaCFW_Helper_R3.py:1051
-msgid "´íÎó: ¹ÒÔØÊ§°Ü"
+msgid "é”™è¯¯: æŒ‚è½½å¤±è´¥"
 msgstr "ERROR: Mounter failed"
 
 #: hiyaCFW_Helper_R3.py:1073
-msgid "µ÷ÓÃ fatcat(½âÑ¹ NAND)"
+msgid "è°ƒç”¨ fatcat(è§£å‹ NAND)"
 msgstr "Execute fatcat (Extract NAND)"
 
 #: hiyaCFW_Helper_R3.py:1107
-msgid "ÕıÔÚ´ÓNANDÖĞ¸´ÖÆÎÄ¼ş..."
+msgid "æ­£åœ¨ä»NANDä¸­å¤åˆ¶æ–‡ä»¶..."
 msgstr "Copying files from NAND..."
 
 #: hiyaCFW_Helper_R3.py:1117
-msgid "´íÎó: ¸´ÖÆÊ§°Ü"
+msgid "é”™è¯¯: å¤åˆ¶å¤±è´¥"
 msgstr "ERROR: Failed to copy files"
 
 #: hiyaCFW_Helper_R3.py:1145
-msgid "ÕıÔÚÏÂÔØ "
+msgid "æ­£åœ¨ä¸‹è½½ "
 msgstr "Downloading "
 
 #: hiyaCFW_Helper_R3.py:1155
-msgid "- ÕıÔÚ½âÑ¹Launcher..."
+msgid "- æ­£åœ¨è§£å‹Launcher..."
 msgstr "- Decrypting Launcher..."
 
 #: hiyaCFW_Helper_R3.py:1201
-msgid "´íÎó: ÎŞ·¨ÏÂÔØ "
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ "
 msgstr "ERROR: Could not download "
 
 #: hiyaCFW_Helper_R3.py:1212
-msgid "ÕıÔÚ¸´ÖÆhiyaCFWÏà¹ØÎÄ¼ş..."
+msgid "æ­£åœ¨å¤åˆ¶hiyaCFWç›¸å…³æ–‡ä»¶..."
 msgstr "Copying hiyaCFW files..."
 
 #: hiyaCFW_Helper_R3.py:1235
-msgid "ÕıÔÚ¸üĞÂhiyaCFW..."
+msgid "æ­£åœ¨æ›´æ–°hiyaCFW..."
 msgstr "Updating hiyaCFW..."
 
 #: hiyaCFW_Helper_R3.py:1258
-msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄTWiLightMenu++..."
+msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„TWiLightMenu++..."
 msgstr "Downloading latest TWiLightMenu++ release..."
 
 #: hiyaCFW_Helper_R3.py:1267
-msgid " Ñ¹Ëõ°ü..."
+msgid " å‹ç¼©åŒ…..."
 msgstr " archive..."
 
 #: hiyaCFW_Helper_R3.py:1267
-msgid "- ÕıÔÚ½âÑ¹ "
+msgid "- æ­£åœ¨è§£å‹ "
 msgstr "- Extracting "
 
 #: hiyaCFW_Helper_R3.py:1288
-msgid "´íÎó: ÎŞ·¨ÏÂÔØTWiLightMenu++"
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½TWiLightMenu++"
 msgstr "ERROR: Could not get TWiLightMenu++"
 
 #: hiyaCFW_Helper_R3.py:1299
-msgid " Ïà¹ØÎÄ¼ş..."
+msgid " ç›¸å…³æ–‡ä»¶..."
 msgstr " files..."
 
 #: hiyaCFW_Helper_R3.py:1299
-msgid "ÕıÔÚ¸´ÖÆ "
+msgid "æ­£åœ¨å¤åˆ¶ "
 msgstr "Copying "
 
 #: hiyaCFW_Helper_R3.py:1327
-msgid "µ÷ÓÃ appgen"
+msgid "è°ƒç”¨ appgen"
 msgstr "Execute appgen"
 
 #: hiyaCFW_Helper_R3.py:1341
-msgid "ÇåÀíÖĞ..."
+msgid "æ¸…ç†ä¸­..."
 msgstr "Cleaning..."
 
 #: hiyaCFW_Helper_R3.py:1358
-msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷\n"
+msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ\n"
 msgstr "An error was encountered or terminate by user\n"
 
 #: hiyaCFW_Helper_R3.py:1365
-msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª"
+msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º"
 msgstr "Done!\nModified NAND stored as"
 
 #: hiyaCFW_Helper_R3.py:1368
-msgid "²Ù×÷ÖÕÖ¹!\nÄ¿±êÎÄ¼şÒÑ´æÔÚÓÚ³ÌĞòÔËĞĞÄ¿Â¼ÏÂ, ÎŞ·¨¸²¸ÇÔ­ÎÄ¼ş\n"
+msgid "æ“ä½œç»ˆæ­¢!\nç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨äºç¨‹åºè¿è¡Œç›®å½•ä¸‹, æ— æ³•è¦†ç›–åŸæ–‡ä»¶\n"
 msgstr "ERROR: The destination file already exists\n"
 
 #: hiyaCFW_Helper_R3.py:1372
-msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n¶ÔÓÚ3DSÉè±¸, Äã»¹ĞèÒªÔÚ»úÆ÷ÉÏÊ¹ÓÃFBIÍê³ÉTitleµÄ°²×°\n"
+msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\nå¯¹äº3DSè®¾å¤‡, ä½ è¿˜éœ€è¦åœ¨æœºå™¨ä¸Šä½¿ç”¨FBIå®ŒæˆTitleçš„å®‰è£…\n"
 msgstr "Done!\nEject your SD card and insert it into your console.\nFor 3DS console, you should use FBI to install titles\n"
 
 #: hiyaCFW_Helper_R3.py:1374
-msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n"
+msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\n"
 msgstr "Done!\nEject your SD card and insert it into your DSi\n"
 
 #: hiyaCFW_Helper_R3.py:1450 hiyaCFW_Helper_R3.py:1456
 #: hiyaCFW_Helper_R3.py:1459
-msgid "- ¼ì²âµ½ "
+msgid "- æ£€æµ‹åˆ° "
 msgstr "- Detected "
 
 #: hiyaCFW_Helper_R3.py:1465
-msgid "´íÎó: ÔÚNANDÖĞÕÒ²»µ½ÊÜÖ§³ÖµÄLauncher"
+msgid "é”™è¯¯: åœ¨NANDä¸­æ‰¾ä¸åˆ°å—æ”¯æŒçš„Launcher"
 msgstr "ERROR: Could not find supported Launcher on NAND"
 
 #: hiyaCFW_Helper_R3.py:1468
-msgid "´íÎó: ÎŞ·¨¼ì²âÏµÍ³ÇøÓò"
+msgid "é”™è¯¯: æ— æ³•æ£€æµ‹ç³»ç»ŸåŒºåŸŸ"
 msgstr "ERROR: Could not detect console region"
 
 #: hiyaCFW_Helper_R3.py:1471
-msgid "´íÎó: "
+msgid "é”™è¯¯: "
 msgstr "ERROR: "
 
 #: hiyaCFW_Helper_R3.py:1480
-msgid "¼ì²éunlaunch×´Ì¬ÖĞ..."
+msgid "æ£€æŸ¥unlaunchçŠ¶æ€ä¸­..."
 msgstr "Checking unlaunch status..."
 
 #: hiyaCFW_Helper_R3.py:1494
-msgid "- Î´°²×°..."
+msgid "- æœªå®‰è£…..."
 msgstr "- Not installed..."
 
 #: hiyaCFW_Helper_R3.py:1498
-msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄunlaunch..."
+msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch..."
 msgstr "Downloading latest unlaunch..."
 
 #: hiyaCFW_Helper_R3.py:1515
-msgid "- ÕıÔÚ°²×°unlaunch..."
+msgid "- æ­£åœ¨å®‰è£…unlaunch..."
 msgstr "- Installing unlaunch..."
 
 #: hiyaCFW_Helper_R3.py:1539
-msgid "´íÎó: ÎŞ·¨ÏÂÔØ unlaunch"
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ unlaunch"
 msgstr "ERROR: Could not get unlaunch"
 
 #: hiyaCFW_Helper_R3.py:1552
-msgid "- ÒÑ°²×°, Ğ¶ÔØÖĞ..."
+msgid "- å·²å®‰è£…, å¸è½½ä¸­..."
 msgstr "- Installed. Uninstalling..."
 
 #: hiyaCFW_Helper_R3.py:1572
-msgid "ÕıÔÚĞ¶ÔØNAND..."
+msgid "æ­£åœ¨å¸è½½NAND..."
 msgstr "Unmounting NAND..."
 
 #: hiyaCFW_Helper_R3.py:1575
-msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twln)"
+msgid "è°ƒç”¨ osfmount(å¸è½½ twln)"
 msgstr "Execute osfmount (Unmount twln)"
 
 #: hiyaCFW_Helper_R3.py:1582
-msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twlp)"
+msgid "è°ƒç”¨ osfmount(å¸è½½ twlp)"
 msgstr "Execute osfmount (Unmount twlp)"
 
 #: hiyaCFW_Helper_R3.py:1589
-msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü"
+msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
 msgstr "ERROR: Failed to unmount photo partition"
 
 #: hiyaCFW_Helper_R3.py:1595
-msgid "´íÎó: Ğ¶ÔØÊ§°Ü"
+msgid "é”™è¯¯: å¸è½½å¤±è´¥"
 msgstr "ERROR: Unmounter failed"
 
 #: hiyaCFW_Helper_R3.py:1603
-msgid "ÕıÔÚÇ¿ÖÆĞ¶ÔØNAND..."
+msgid "æ­£åœ¨å¼ºåˆ¶å¸è½½NAND..."
 msgstr "Unmounting NAND (force)..."
 
 #: hiyaCFW_Helper_R3.py:1606
-msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twln)"
+msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twln)"
 msgstr "Execute osfmount (Force to unmount twln)"
 
 #: hiyaCFW_Helper_R3.py:1613
-msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twlp)"
+msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twlp)"
 msgstr "Execute osfmount (Force to unmount twlp)"
 
 #: hiyaCFW_Helper_R3.py:1619
-msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü»òÉĞÎ´¹ÒÔØ"
+msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥æˆ–å°šæœªæŒ‚è½½"
 msgstr "ERROR: Failed to unmount photo partition or not mount yet"
 
 #: hiyaCFW_Helper_R3.py:1624
-msgid "´íÎó: Ğ¶ÔØÊ§°Ü»òÉĞÎ´¹ÒÔØ"
+msgid "é”™è¯¯: å¸è½½å¤±è´¥æˆ–å°šæœªæŒ‚è½½"
 msgstr "ERROR: Unmounter failed or not mount yet"
 
 #: hiyaCFW_Helper_R3.py:1638
-msgid "ÕıÔÚÖØ¼ÓÃÜNAND..."
+msgid "æ­£åœ¨é‡åŠ å¯†NAND..."
 msgstr "Encrypting back NAND..."
 
 #: hiyaCFW_Helper_R3.py:1641
-msgid "µ÷ÓÃ twltool(ÖØ¼ÓÃÜ NAND)"
+msgid "è°ƒç”¨ twltool(é‡åŠ å¯† NAND)"
 msgstr "Execute twltool (Encrypt back NAND)"
 
 #: hiyaCFW_Helper_R3.py:1650
-msgid "´íÎó: ¼ÓÃÜÊ§°Ü"
+msgid "é”™è¯¯: åŠ å¯†å¤±è´¥"
 msgstr "ERROR: Encryptor failed"
 
 #: hiyaCFW_Helper_R3.py:1661
-msgid "ÕıÔÚÒÆ³ıNo$GBA footer..."
+msgid "æ­£åœ¨ç§»é™¤No$GBA footer..."
 msgstr "Removing No$GBA footer..."
 
 #: hiyaCFW_Helper_R3.py:1679 hiyaCFW_Helper_R3.py:1719
-msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª\n"
+msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º\n"
 msgstr "Done!\nModified NAND stored as\n"
 
 #: hiyaCFW_Helper_R3.py:1680
-msgid "\nfooterĞÅÏ¢ÒÑ±£´æµ½ "
+msgid "\nfooterä¿¡æ¯å·²ä¿å­˜åˆ° "
 msgstr "\nStored footer info in "
 
 #: hiyaCFW_Helper_R3.py:1684 hiyaCFW_Helper_R3.py:1723
-msgid "´íÎó: ÎŞ·¨´ò¿ª "
+msgid "é”™è¯¯: æ— æ³•æ‰“å¼€ "
 msgstr "ERROR: Could not open the file "
 
 #: hiyaCFW_Helper_R3.py:1690
-msgid "ÕıÔÚÌí¼ÓNo$GBA footer..."
+msgid "æ­£åœ¨æ·»åŠ No$GBA footer..."
 msgstr "Adding No$GBA footer..."
 
 #: hiyaCFW_Helper_R3.py:1705
-msgid "´íÎó: ÎÄ¼şÖĞÒÑ´æÔÚ No$GBA footer"
+msgid "é”™è¯¯: æ–‡ä»¶ä¸­å·²å­˜åœ¨ No$GBA footer"
 msgstr "ERROR: File already has a No$GBA footer"
 
 #: hiyaCFW_Helper_R3.py:1784 hiyaCFW_Helper_R3.py:1792
-msgid "64Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
+msgid "64ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
 msgstr "OSFMount (64-bit) found"
 
 #: hiyaCFW_Helper_R3.py:1798
-msgid "32Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
+msgid "32ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
 msgstr "OSFMount (32-bit) found"
 
 #: hiyaCFW_Helper_R3.py:1804
-msgid "7-ZipÄ£¿éÒÑ¼ÓÔØ"
+msgid "7-Zipæ¨¡å—å·²åŠ è½½"
 msgstr "7-Zip found"
 
 #: hiyaCFW_Helper_R3.py:1813
-msgid "ÕÒ²»µ½Fatcat, ÇëÈ·ÈÏ´Ë³ÌĞòÎ»ÓÚ±¾¹¤¾ßÄ¿Â¼µÄ\"{}\"ÎÄ¼ş¼ĞÖĞ"
+msgid "æ‰¾ä¸åˆ°Fatcat, è¯·ç¡®è®¤æ­¤ç¨‹åºä½äºæœ¬å·¥å…·ç›®å½•çš„\"{}\"æ–‡ä»¶å¤¹ä¸­"
 msgstr "Fatcat not found. Please make sure 'fatcat' is at the '{}' folder"
 
 #: hiyaCFW_Helper_R3.py:1817
-msgid "GUI³õÊ¼»¯ÖĞ..."
+msgid "GUIåˆå§‹åŒ–ä¸­..."
 msgstr "Initializing GUI..."
 
-msgid "°æ±¾ĞÅÏ¢:\n"
+msgid "ç‰ˆæœ¬ä¿¡æ¯:\n"
 msgstr "Version Info:\n"
 
-msgid "»úÆ÷ĞòÁĞºÅ: "
+msgid "æœºå™¨åºåˆ—å·: "
 msgstr "Console Serial: "
 
-msgid "TWLMagicianÆô¶¯ÖĞ..."
+msgid "TWLMagicianå¯åŠ¨ä¸­..."
 msgstr "Opening TWLMagician..."
 
