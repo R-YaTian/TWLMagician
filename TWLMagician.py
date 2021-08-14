@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.2.2
+# Version 0.2.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -696,9 +696,16 @@ class Application(Frame):
                     with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
-                    with urlopen('https://github.com/RocketRobz/hiyaCFW/releases/latest/download/' +
-                        filename) as src, open(filename, 'wb') as dst:
-                        copyfileobj(src, dst)
+                    try:
+                        with urlopen('https://github.com/RocketRobz/hiyaCFW/releases/latest/download/' +
+                            filename) as src, open(filename, 'wb') as dst:
+                            copyfileobj(src, dst)
+                    except:
+                        if loc == 'zh_CN':
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + filename) as src, open(filename, 'wb') as dst:
+                                copyfileobj(src, dst)
+                        else:
+                            raise IOError
 
             self.log.write(_('- 正在解压 hiyaCFW 压缩包...'))
 
@@ -1145,10 +1152,17 @@ class Application(Frame):
                     with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
-                    with urlopen('https://raw.githubusercontent.com'
-                        '/R-YaTian/TWLMagician/main/launchers/' +
-                        self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
-                        copyfileobj(src, dst)
+                    try:
+                        with urlopen('https://raw.githubusercontent.com'
+                            '/R-YaTian/TWLMagician/main/launchers/' +
+                            self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
+                            copyfileobj(src, dst)
+                    except:
+                        if loc == 'zh_CN':
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
+                                copyfileobj(src, dst)
+                        else:
+                            raise IOError
 
             self.log.write(_('- 正在解压Launcher...'))
 
@@ -1264,18 +1278,41 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
-                    idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
-                        copyfileobj(src0, dst0)
-                    with open('Temp.fid', 'r') as ftmp:
-                        fileid = ftmp.read()
-                    remove('Temp.fid')
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
-                        copyfileobj(src, dst)
+                    try:
+                        with urlopen('https://spinaround.tk/somefiles/' +
+                            filename) as src, open(filename, 'wb') as dst:
+                            copyfileobj(src, dst)
+                    except:
+                        idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
+                        with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
+                            copyfileobj(src0, dst0)
+                        with open('Temp.fid', 'r') as ftmp:
+                            fileid = ftmp.read()
+                        remove('Temp.fid')
+                        with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
+                            copyfileobj(src, dst)
                 else:
-                    with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
-                        filename) as src, open(filename, 'wb') as dst:
-                        copyfileobj(src, dst)
+                    try:
+                        with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
+                            filename) as src, open(filename, 'wb') as dst:
+                            copyfileobj(src, dst)
+                    except:
+                        if loc == 'zh_CN':
+                            try:
+                                with urlopen('https://spinaround.tk/somefiles/' +
+                                    filename) as src, open(filename, 'wb') as dst:
+                                    copyfileobj(src, dst)
+                            except:
+                                idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
+                                with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
+                                    copyfileobj(src0, dst0)
+                                with open('Temp.fid', 'r') as ftmp:
+                                    fileid = ftmp.read()
+                                remove('Temp.fid')
+                                with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
+                                    copyfileobj(src, dst)
+                        else:
+                            raise IOError
 
             self.log.write(_('- 正在解压 ') + filename[:-3] + _(' 压缩包...'))
 
