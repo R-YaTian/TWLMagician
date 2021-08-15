@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.2.9
+# Version 0.3.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1415,6 +1415,22 @@ class Application(Frame):
             self.make_dekp(self.sd_path1)
         if self.adv_mode and self.have_hiya == True:
             self.check_serial(self.sd_path1)
+        if self.adv_mode and self.tftt.get() == 1:
+            if path.exists('TFTT.dat'):
+                self.log.write(_('- 正在安装TFTT'))
+                self.folders.append('gm9')
+                try:
+                    self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', 'TFTT.dat', 'gm9'])
+                    ret_val = self.proc.wait()
+                    if ret_val == 0:
+                        copy_tree('gm9', path.join(self.sd_path1, 'gm9'))
+                    else:
+                        self.log.write(_('错误: 安装TFTT失败'))
+                except OSError as e:
+                    printl(str(e))
+                    self.log.write(_('错误: 无法运行 ') + _7za)
+            else:
+                self.log.write(_('警告: 找不到TFTT.dat文件, 未安装TFTT'))
 
         Thread(target=self.clean).start()
 
@@ -1876,7 +1892,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta2 BY R-YaTian')
+root.title('TWLMagician Beta3 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
