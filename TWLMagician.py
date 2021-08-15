@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.2.4
+# Version 0.2.8
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -232,7 +232,7 @@ class Application(Frame):
         self.ag1_chk = Checkbutton(self.checks_frame1, text=_('使用AppGen'), variable=self.appgen, state=DISABLED)
 
         self.ag1_chk.pack(padx=10, anchor=W)
-        ToolTip(self.ag1_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
+        ToolTip(self.ag1_chk, msg=_('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
 
         self.updatehiya = IntVar()
         self.updatehiya.set(0)
@@ -245,6 +245,14 @@ class Application(Frame):
 
         self.dkp1_chk.pack(padx=10, anchor=W)
         ToolTip(self.dkp1_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+
+        self.tftt = IntVar()
+        self.tftt.set(0)
+
+        self.tftt_chk = Checkbutton(self.checks_frame1, text=_('同时安装TFTT'), variable=self.tftt, state=DISABLED)
+
+        self.tftt_chk.pack(padx=10, anchor=W)
+        ToolTip(self.tftt_chk, msg=_('在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)'))
 
         if loc == 'zh_CN':
             adl1_chk = Checkbutton(self.checks_frame1, text='优先使用备用载点', variable=self.altdl)
@@ -295,7 +303,7 @@ class Application(Frame):
         # Third row
         f3 = Frame(self)
 
-        self.start_button = Button(f3, text=_('开始'), width=13, command=self.hiya, state=DISABLED)
+        self.start_button = Button(f3, text=_('开始'), width=13, command=self.start_hiya, state=DISABLED)
         self.start_button.pack(side='left', padx=(0, 5))
 
         self.adv_button = Button(f3, text=_('高级'), command=self.change_mode1, width=13)
@@ -358,6 +366,8 @@ class Application(Frame):
             self.have_menu = False
             self.is_tds = False
             self.have_hiya = False
+            if self.tftt.get() == 1:
+                self.tftt.set(0)
             if self.appgen.get() == 1:
                 self.appgen.set(0)
             if self.devkp.get() == 1:
@@ -392,6 +402,8 @@ class Application(Frame):
             self.have_menu = False
             self.is_tds = False
             self.have_hiya = False
+            if self.tftt.get() == 1:
+                self.tftt.set(0)
             if self.appgen.get() == 1:
                 self.appgen.set(0)
             if self.devkp.get() == 1:
@@ -412,6 +424,7 @@ class Application(Frame):
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
+            self.tftt_chk['state'] = DISABLED
             self.start_button['state'] = DISABLED
             self.start_button.pack(side='left', padx=(0, 5))
             self.back1_button.pack(side='left', padx=(0, 0))
@@ -458,6 +471,8 @@ class Application(Frame):
         showinfo(_('提示'), _('请选择机器的存储卡根目录'))
         self.sd_path1 = askdirectory()
         self.sdp.set(self.sd_path1)
+        if self.tftt.get() == 1:
+            self.tftt.set(0)
         if self.appgen.get() == 1:
             self.appgen.set(0)
         if self.devkp.get() == 1:
@@ -469,24 +484,29 @@ class Application(Frame):
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
+            self.tftt_chk['state'] = DISABLED
             return
         self.check_console(self.sd_path1)
         if self.is_tds == True:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
+            self.tftt_chk['state'] = NORMAL
         elif self.have_hiya == True:
             self.uh_chk['state'] = NORMAL
             self.dkp1_chk['state'] = NORMAL
             self.ag1_chk['state'] = (DISABLED if self.have_menu == True else NORMAL)
+            self.tftt_chk['state'] = DISABLED
         elif self.have_menu == True:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
+            self.tftt_chk['state'] = DISABLED
         else:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
+            self.tftt_chk['state'] = DISABLED
     def choose_nand(self):
         name = askopenfilename(filetypes=( ( 'nand.bin', '*.bin' ), ( 'DSi-1.mmc', '*.mmc' ) ))
         self.nand_file.set(name)
@@ -495,6 +515,9 @@ class Application(Frame):
 
 
     ################################################################################################
+    def start_hiya(self):
+        self.TThread = Thread(target=self.hiya)
+        self.TThread.start()
     def hiya(self):
         if not self.adv_mode:
             if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
@@ -607,6 +630,8 @@ class Application(Frame):
         if self.adv_mode:
             self.sd_path1 = ''
             self.sdp.set(self.sd_path1)
+            if self.tftt.get() == 1:
+                self.tftt.set(0)
             if self.appgen.get() == 1:
                 self.appgen.set(0)
             if self.devkp.get() == 1:
@@ -614,6 +639,7 @@ class Application(Frame):
             if self.updatehiya.get() == 1:
                 self.updatehiya.set(0)
             self.start_button['state'] = DISABLED
+            self.tftt_chk['state'] = DISABLED
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
