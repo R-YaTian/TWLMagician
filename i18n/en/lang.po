@@ -516,3 +516,12 @@ msgstr "Console Serial: "
 msgid "TWLMagician启动中..."
 msgstr "Opening TWLMagician..."
 
+msgid "提取SDNand中的DSiWare软件并复制到\nroms/dsiware"
+msgstr "Export DSiWare from SDNAND and copy to roms/dsiware"
+
+msgid "同时安装TFTT"
+msgstr "Install TFTT"
+
+msgid "在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)"
+msgstr "Install TWLFontTransferTool (a GodMode9 Script) on 3DS console"
+

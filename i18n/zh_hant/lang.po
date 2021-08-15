@@ -513,3 +513,12 @@ msgstr "版本資訊:\n"
 msgid "机器序列号: "
 msgstr "機器串號: "
 
+msgid "提取SDNand中的DSiWare软件并复制到\nroms/dsiware"
+msgstr "匯出 SDNand 內安裝的 DSiWare 並複製到\nroms/dsiware"
+
+msgid "同时安装TFTT"
+msgstr "安裝 TFTT"
+
+msgid "在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)"
+msgstr "在 3DS 主機上安裝 TWLFontTransferTool (基於 GodMode9 腳本程式)"
+
