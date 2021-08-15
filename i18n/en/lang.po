@@ -362,10 +362,6 @@ msgstr "Done!\nModified NAND stored as"
 msgid "操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n"
 msgstr "ERROR: The destination file already exists\n"
 
-#: hiyaCFW_Helper_R3.py:1372
-msgid "完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n"
-msgstr "Done!\nEject your SD card and insert it into your console.\nFor 3DS console, you should use FBI to install titles\n"
-
 #: hiyaCFW_Helper_R3.py:1374
 msgid "完成!\n弹出你的存储卡并插回到机器中\n"
 msgstr "Done!\nEject your SD card and insert it into your DSi\n"
@@ -524,4 +520,16 @@ msgstr "Install TFTT"
 
 msgid "在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)"
 msgstr "Install TWLFontTransferTool (a GodMode9 Script) on 3DS console"
+
+msgid "- 正在安装TFTT"
+msgstr "- Installing TFTT"
+
+msgid "错误: 安装TFTT失败"
+msgstr "ERROR: Install TFTT failed"
+
+msgid "警告: 找不到TFTT.dat文件, 未安装TFTT"
+msgstr "Warning: TFTT.dat is missing, skip installing TFTT..."
+
+msgid "完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n"
+msgstr "Done!\nEject your SD card and insert it into your console.\nFor 3DS console, you should install titles via FBI.\n"
 

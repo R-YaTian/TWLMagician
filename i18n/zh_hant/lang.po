@@ -522,3 +522,12 @@ msgstr "安裝 TFTT"
 msgid "在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)"
 msgstr "在 3DS 主機上安裝 TWLFontTransferTool (基於 GodMode9 腳本程式)"
 
+msgid "- 正在安装TFTT"
+msgstr "- 正在安裝 TFTT"
+
+msgid "错误: 安装TFTT失败"
+msgstr "錯誤: 安裝 TFTT 失敗"
+
+msgid "警告: 找不到TFTT.dat文件, 未安装TFTT"
+msgstr "警告: 找不到 TFTT.dat, 尚未安裝 TFTT..."
+

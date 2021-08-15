@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.3.0
+# Version 0.3.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1295,6 +1295,7 @@ class Application(Frame):
         self.files.append('TWiLight Menu - Game booter.cia')
         self.files.append('TWiLight Menu.cia')
         self.files.append('version.txt')
+        self.files.append('Temp.fid')
         self.folders.append('_nds')
         self.folders.append('roms')
         self.folders.append('title')
