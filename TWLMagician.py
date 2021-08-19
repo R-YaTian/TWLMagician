@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.4.3
+# Version 0.4.6
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -121,6 +121,8 @@ class Application(Frame):
         self.is_tds = False
         self.have_menu = False
         self.finish = False
+
+        self.image_file = StringVar()
 
         # First row
         f1 = Frame(self) 
@@ -475,6 +477,7 @@ class Application(Frame):
             self.exit_button.pack(side='left', padx=(5, 0))
             self.chb1['state'] = NORMAL
             self.transfer_mode = False
+            self.adv_mode = True
         else:
             self.chb1['state'] = DISABLED
             if self.updatehiya.get() == 1:
@@ -492,6 +495,7 @@ class Application(Frame):
             self.back2_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
             self.transfer_mode = True
+            self.adv_mode = False
 
 
     ################################################################################################
@@ -587,7 +591,53 @@ class Application(Frame):
             self.TThread = Thread(target=self.hiya)
             self.TThread.start()
         else:
-            print('TODO')
+            self.TThread = Thread(target=self.transfer)
+            self.TThread.start()
+    def log_window(self):
+        if sysname == 'Linux':
+            self.dialog = Toplevel(class_ = 'Magician')
+            self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, nand_icon)
+        else:
+            self.dialog = Toplevel()
+        # Open as dialog (parent disabled)
+        self.dialog.grab_set()
+        self.dialog.title(_('状态'))
+        # Disable maximizing
+        self.dialog.resizable(0, 0)
+        self.dialog.protocol("WM_DELETE_WINDOW", self.closethread)
+
+        frame = Frame(self.dialog, bd=2, relief=SUNKEN)
+
+        scrollbar = Scrollbar(frame)
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        self.log = ThreadSafeText(frame, bd=0, width=52, height=20,
+            yscrollcommand=scrollbar.set)
+        self.log.pack()
+
+        scrollbar.config(command=self.log.yview)
+
+        frame.pack()
+
+        Button(self.dialog, text=_('关闭'), command=self.closethread, width=16).pack(pady=10)
+
+        # Center in window
+        self.dialog.update_idletasks()
+        width = self.dialog.winfo_width()
+        height = self.dialog.winfo_height()
+        self.dialog.geometry('%dx%d+%d+%d' % (width, height, root.winfo_x() + (root.winfo_width() / 2) -
+            (width / 2), root.winfo_y() + (root.winfo_height() / 2) - (height / 2)))
+
+        self.finish = False
+    def transfer(self):
+        showinfo(_('提示'), _('接下来请选择TWLTransfer目标镜像文件'))
+        name = askopenfilename(filetypes=[(_('镜像文件'), '*.bin')])
+        self.image_file.set(name)
+        if self.image_file.get() == '':
+            return
+        self.log_window()
+        self.TThread = Thread(target=self.check_image)
+        self.TThread.start()
     def hiya(self):
         if not self.adv_mode:
             if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
@@ -644,41 +694,8 @@ class Application(Frame):
                 showerror(_('错误'), 'Bad Console ID')
                 return
 
-        if sysname == 'Linux':
-            self.dialog = Toplevel(class_ = 'Magician')
-            self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, nand_icon)
-        else:
-            self.dialog = Toplevel()
-        # Open as dialog (parent disabled)
-        self.dialog.grab_set()
-        self.dialog.title(_('状态'))
-        # Disable maximizing
-        self.dialog.resizable(0, 0)
-        self.dialog.protocol("WM_DELETE_WINDOW", self.closethread)
+        self.log_window()
 
-        frame = Frame(self.dialog, bd=2, relief=SUNKEN)
-
-        scrollbar = Scrollbar(frame)
-        scrollbar.pack(side=RIGHT, fill=Y)
-
-        self.log = ThreadSafeText(frame, bd=0, width=52, height=20,
-            yscrollcommand=scrollbar.set)
-        self.log.pack()
-
-        scrollbar.config(command=self.log.yview)
-
-        frame.pack()
-
-        Button(self.dialog, text=_('关闭'), command=self.closethread, width=16).pack(pady=10)
-
-        # Center in window
-        self.dialog.update_idletasks()
-        width = self.dialog.winfo_width()
-        height = self.dialog.winfo_height()
-        self.dialog.geometry('%dx%d+%d+%d' % (width, height, root.winfo_x() + (root.winfo_width() / 2) -
-            (width / 2), root.winfo_y() + (root.winfo_height() / 2) - (height / 2)))
-
-        self.finish = False
         # Check if we'll be adding a No$GBA footer
         if self.nand_mode and self.nand_operation.get() == 1:
             self.TThread = Thread(target=self.add_footer, args=(cid, console_id))
@@ -777,6 +794,37 @@ class Application(Frame):
             printl(str(e))
             self.log.write(_('错误: 无法打开文件 ') +
                 path.basename(self.nand_file.get()))
+    def check_image(self):
+        REGION_CODES_IMAGE = {
+            '053A1C2ADB047AC28C4FB218244C4FA3BB315525': 'CHN',
+            '627AEC8FDF778401958E96DB267CC628A72772F2': 'USA',
+            '939190F0E6AC93B7F5833756BE2A251DA71125F9': 'JPN',
+            '6B7BBC961C686C4382811D48BEF8A100CACE25E4': 'KOR',
+            '12546984F820B681AC0B2E7485531F0818FC1DF3': 'EUR',
+            '600F7E36E9F6966540B7F79F057942D3C2336F9E': 'AUS',
+            '0FE96AAF374BA777FFEC30A2525409D0DE0E7EA1': 'JPN-kst'
+        }
+        try:
+            sha1_hash = sha1()
+
+            with open(self.image_file.get(), 'rb') as f:
+                sha1_hash.update(f.read())
+
+            image_sha1 = hexlify(sha1_hash.digest()).upper().decode('ascii')
+            image_filename = path.basename(self.image_file.get())
+
+            try:
+                self.dest_region = REGION_CODES_IMAGE[image_sha1]
+            except:
+                self.log.write(_('错误: 无效的镜像文件'))
+                return
+
+            self.log.write('- ' + image_filename + ' SHA1:\n' + image_sha1)
+            self.log.write(_('目标区域: ') + self.dest_region)
+
+        except IOError as e:
+            printl(str(e))
+            self.log.write(_('错误: 无法打开文件 ') + image_filename)
 
 
     ################################################################################################
