@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.4.2
+# Version 0.4.3
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -128,7 +128,6 @@ class Application(Frame):
         self.bak_frame=LabelFrame(f1, text=_('含有No$GBA footer的NAND备份文件'), padx=10, pady=10)
 
         self.nand_button = Button(self.bak_frame, image=nand_icon, command=self.change_mode, state=DISABLED)
-        #self.nand_button.image = nand_icon
 
         self.nand_button.pack(side='left')
 
@@ -144,7 +143,6 @@ class Application(Frame):
         self.adv_frame=LabelFrame(f1, text=_('存储卡根目录'), padx=10, pady=10)
 
         self.transfer_button = Button(self.adv_frame, image=nand_icon, command=self.change_mode2, state=DISABLED)
-        #self.transfer_button.image = nand_icon
 
         self.transfer_button.pack(side='left')
 

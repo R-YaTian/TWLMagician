@@ -531,3 +531,9 @@ msgstr "錯誤: 安裝 TFTT 失敗"
 msgid "警告: 找不到TFTT.dat文件, 未安装TFTT"
 msgstr "警告: 找不到 TFTT.dat, 尚未安裝 TFTT..."
 
+msgid "同时安装TFMH"
+msgstr "安裝 TFMH"
+
+msgid "安装或更新TWiLightMenu++"
+msgstr "安裝或是更新 TWiLightMenu++"
+

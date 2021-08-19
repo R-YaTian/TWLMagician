@@ -533,3 +533,9 @@ msgstr "Warning: TFTT.dat is missing, skip installing TFTT..."
 msgid "完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n"
 msgstr "Done!\nEject your SD card and insert it into your console.\nFor 3DS console, you should install titles via FBI.\n"
 
+msgid "同时安装TFMH"
+msgstr "Install TFMH"
+
+msgid "安装或更新TWiLightMenu++"
+msgstr "Install or update TWiLightMenu++"
+
