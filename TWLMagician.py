@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.3.2
+# Version 0.4.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -115,6 +115,7 @@ class Application(Frame):
         self.pack()
         self.adv_mode = False
         self.nand_mode = False
+        self.transfer_mode = False
         self.setup_select = False
         self.have_hiya = False
         self.is_tds = False
@@ -127,7 +128,7 @@ class Application(Frame):
         self.bak_frame=LabelFrame(f1, text=_('含有No$GBA footer的NAND备份文件'), padx=10, pady=10)
 
         self.nand_button = Button(self.bak_frame, image=nand_icon, command=self.change_mode, state=DISABLED)
-        self.nand_button.image = nand_icon
+        #self.nand_button.image = nand_icon
 
         self.nand_button.pack(side='left')
 
@@ -142,9 +143,14 @@ class Application(Frame):
 
         self.adv_frame=LabelFrame(f1, text=_('存储卡根目录'), padx=10, pady=10)
 
+        self.transfer_button = Button(self.adv_frame, image=nand_icon, command=self.change_mode2, state=DISABLED)
+        #self.transfer_button.image = nand_icon
+
+        self.transfer_button.pack(side='left')
+
         self.sdp = StringVar()
-        self.sdpath = Entry(self.adv_frame, textvariable=self.sdp, state='readonly', width=42)
-        self.sdpath.pack(padx=4, side='left')
+        self.sdpath = Entry(self.adv_frame, textvariable=self.sdp, state='readonly', width=40)
+        self.sdpath.pack(side='left')
 
         self.chb1 = Button(self.adv_frame, text='...', command=self.choose_sdp)
         self.chb1.pack(side='left')
@@ -259,6 +265,27 @@ class Application(Frame):
             adl1_chk.pack(padx=10, anchor=W)
             ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
+        self.checks_frame2 = Frame(f2)
+
+        self.dkp2_chk = Checkbutton(self.checks_frame2, text=_('启用系统设置-数据管理功能'), variable=self.devkp)
+
+        self.dkp2_chk.pack(padx=10, anchor=W)
+        ToolTip(self.dkp2_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+
+        self.tfmh = IntVar()
+        self.tfmh.set(0)
+
+        self.tfmh_chk = Checkbutton(self.checks_frame2, text=_('同时安装TFMH'), variable=self.tfmh)
+
+        self.tfmh_chk.pack(padx=10, anchor=W)
+
+        self.updatemenu = IntVar()
+        self.updatemenu.set(0)
+
+        self.um_chk = Checkbutton(self.checks_frame2, text=_('安装或更新TWiLightMenu++'), variable=self.updatemenu)
+
+        self.um_chk.pack(padx=10, anchor=W)
+
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padx=10, pady=10)
 
@@ -282,33 +309,34 @@ class Application(Frame):
         self.cid_label.pack(anchor=W, padx=(24, 0))
 
         self.cid = StringVar()
-        self.cid_entry = Entry(fl, textvariable=self.cid, width=20, state=DISABLED)
+        self.cid_entry = Entry(fl, textvariable=self.cid, width=35, state=DISABLED)
         self.cid_entry.pack(anchor=W, padx=(24, 0))
 
-        fl.pack(side='left')
+        fl.pack(anchor=W)
 
         fr = Frame(self.nand_frame)
 
         self.console_id_label = Label(fr, text='Console ID', state=DISABLED)
-        self.console_id_label.pack(anchor=W)
+        self.console_id_label.pack(anchor=W, padx=(24, 0))
 
         self.console_id = StringVar()
-        self.console_id_entry = Entry(fr, textvariable=self.console_id, width=20, state=DISABLED)
-        self.console_id_entry.pack(anchor=W)
+        self.console_id_entry = Entry(fr, textvariable=self.console_id, width=35, state=DISABLED)
+        self.console_id_entry.pack(anchor=W, padx=(24, 0))
 
-        fr.pack(side='right')
+        fr.pack(anchor=W)
 
         f2.pack(fill=X)
 
         # Third row
         f3 = Frame(self)
 
-        self.start_button = Button(f3, text=_('开始'), width=13, command=self.start_hiya, state=DISABLED)
+        self.start_button = Button(f3, text=_('开始'), width=13, command=self.start_point, state=DISABLED)
         self.start_button.pack(side='left', padx=(0, 5))
 
         self.adv_button = Button(f3, text=_('高级'), command=self.change_mode1, width=13)
         self.back_button = Button(f3, text=_('返回'), command=self.change_mode, width=13)
         self.back1_button = Button(f3, text=_('返回'), command=self.change_mode1, width=13)
+        self.back2_button = Button(f3, text=_('返回'), command=self.change_mode2, width=13)
         self.adv_button.pack(side='left', padx=(0, 0))
         ToolTip(self.adv_button, msg=_('高级模式提供了单独安装TWiLightMenu++等功能'))
 
@@ -363,6 +391,7 @@ class Application(Frame):
                 self.nand_mode = True
     def change_mode1(self):
         if (self.adv_mode):
+            self.transfer_button['state'] = DISABLED
             self.have_menu = False
             self.is_tds = False
             self.have_hiya = False
@@ -430,6 +459,41 @@ class Application(Frame):
             self.back1_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
             self.adv_mode = True
+    def change_mode2(self):
+        if (self.transfer_mode):
+            if self.updatehiya.get() == 1:
+                self.updatehiya.set(0)
+            if self.updatemenu.get() == 1:
+                self.updatemenu.set(0)
+            if self.tfmh.get() == 1:
+                self.tfmh.set(0)
+            self.start_button.pack_forget()
+            self.back2_button.pack_forget()
+            self.exit_button.pack_forget()
+            self.checks_frame2.pack_forget()
+            self.checks_frame1.pack(anchor=W)
+            self.start_button.pack(side='left', padx=(0, 5))
+            self.back1_button.pack(side='left', padx=(0, 0))
+            self.exit_button.pack(side='left', padx=(5, 0))
+            self.chb1['state'] = NORMAL
+            self.transfer_mode = False
+        else:
+            self.chb1['state'] = DISABLED
+            if self.updatehiya.get() == 1:
+                self.updatehiya.set(0)
+            if self.updatemenu.get() == 1:
+                self.updatemenu.set(0)
+            if self.tfmh.get() == 1:
+                self.tfmh.set(0)
+            self.start_button.pack_forget()
+            self.back1_button.pack_forget()
+            self.exit_button.pack_forget()
+            self.checks_frame1.pack_forget()
+            self.checks_frame2.pack(anchor=W)
+            self.start_button.pack(side='left', padx=(0, 5))
+            self.back2_button.pack(side='left', padx=(0, 0))
+            self.exit_button.pack(side='left', padx=(5, 0))
+            self.transfer_mode = True
 
 
     ################################################################################################
@@ -485,6 +549,7 @@ class Application(Frame):
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             self.tftt_chk['state'] = DISABLED
+            self.transfer_button['state'] = DISABLED
             return
         self.check_console(self.sd_path1)
         if self.is_tds == True:
@@ -492,21 +557,25 @@ class Application(Frame):
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             self.tftt_chk['state'] = NORMAL
+            self.transfer_button['state'] = DISABLED
         elif self.have_hiya == True:
             self.uh_chk['state'] = NORMAL
             self.dkp1_chk['state'] = NORMAL
             self.ag1_chk['state'] = (DISABLED if self.have_menu == True else NORMAL)
             self.tftt_chk['state'] = DISABLED
+            self.transfer_button['state'] = NORMAL
         elif self.have_menu == True:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             self.tftt_chk['state'] = DISABLED
+            self.transfer_button['state'] = DISABLED
         else:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             self.tftt_chk['state'] = DISABLED
+            self.transfer_button['state'] = DISABLED
     def choose_nand(self):
         name = askopenfilename(filetypes=( ( 'nand.bin', '*.bin' ), ( 'DSi-1.mmc', '*.mmc' ) ))
         self.nand_file.set(name)
@@ -515,9 +584,12 @@ class Application(Frame):
 
 
     ################################################################################################
-    def start_hiya(self):
-        self.TThread = Thread(target=self.hiya)
-        self.TThread.start()
+    def start_point(self):
+        if not self.transfer_mode:
+            self.TThread = Thread(target=self.hiya)
+            self.TThread.start()
+        else:
+            print('TODO')
     def hiya(self):
         if not self.adv_mode:
             if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
@@ -1893,7 +1965,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta3 BY R-YaTian')
+root.title('TWLMagician Beta4 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
