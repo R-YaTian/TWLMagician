@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.4.6
+# Version 0.4.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -285,6 +285,11 @@ class Application(Frame):
         self.um_chk = Checkbutton(self.checks_frame2, text=_('安装或更新TWiLightMenu++'), variable=self.updatemenu)
 
         self.um_chk.pack(padx=10, anchor=W)
+
+        if loc == 'zh_CN':
+            adl2_chk = Checkbutton(self.checks_frame2, text='优先使用备用载点', variable=self.altdl)
+            adl2_chk.pack(padx=10, anchor=W)
+            ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padx=10, pady=10)
@@ -726,6 +731,7 @@ class Application(Frame):
             if self.updatehiya.get() == 1:
                 self.updatehiya.set(0)
             self.start_button['state'] = DISABLED
+            self.transfer_button['state'] = DISABLED
             self.tftt_chk['state'] = DISABLED
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
@@ -798,6 +804,14 @@ class Application(Frame):
             '600F7E36E9F6966540B7F79F057942D3C2336F9E': 'AUS',
             '0FE96AAF374BA777FFEC30A2525409D0DE0E7EA1': 'JPN-kst'
         }
+        REGION_HWINFO = {
+            '00': 'JPN',
+            '01': 'USA',
+            '02': 'EUR',
+            '03': 'AUS',
+            '04': 'CHN',
+            '05': 'KOR'
+        }
         try:
             sha1_hash = sha1()
 
@@ -816,11 +830,31 @@ class Application(Frame):
                 return
 
             self.log.write('- ' + image_filename + ' SHA1:\n' + image_sha1)
-            self.log.write(_('目标区域: ') + self.dest_region)
+            self.log.write(_('目标系统: ') + self.dest_region)
 
         except IOError as e:
             printl(str(e))
             self.log.write(_('错误: 无法打开文件 ') + image_filename)
+            return
+
+        hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
+        hwinfo_o = path.join(self.sd_path1, 'sys', 'HWINFO_O.dat')
+
+        if path.exists(hwinfo):
+            with open(hwinfo, 'rb') as infotmp:
+                infotmp.seek(0x90,0)
+                self.cur_region = REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')]
+                self.log.write(_('当前区域: ') + self.cur_region)
+        else:
+            self.log.write(_('错误: 无法读取系统区域信息'))
+            return
+
+        if path.exists(hwinfo_o):
+            with open(hwinfo_o, 'rb') as infotmp:
+                infotmp.seek(0x90,0)
+                self.log.write(_('原始区域: ') + REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')])
+        else:
+            self.log.write(_('原始区域: ') + self.cur_region)
 
 
     ################################################################################################
