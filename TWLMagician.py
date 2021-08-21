@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.4.9
+# Version 0.5.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -855,6 +855,9 @@ class Application(Frame):
                 self.log.write(_('原始区域: ') + REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')])
         else:
             self.log.write(_('原始区域: ') + self.cur_region)
+
+        self.TThread = Thread(target=self.get_common_data)
+        self.TThread.start()
 
 
     ################################################################################################
@@ -1958,6 +1961,42 @@ class Application(Frame):
                 path.basename(self.nand_file.get()))
 
 
+    ################################################################################################
+    def get_common_data(self):
+        self.folders.append('hiya')
+        self.folders.append('title')
+        self.folders.append('ticket')
+
+        try:
+            if not path.isfile('Common.dat'):
+                self.log.write(_('正在下载通用数据...'))
+                with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/Common.dat') as src, open('Common.dat', 'wb') as dst:
+                    copyfileobj(src, dst)
+
+            self.log.write(_('- 正在解压通用数据...'))
+
+            self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', 'Common.dat', 'hiya', 'title', 'ticket' ])
+
+            ret_val = self.proc.wait()
+
+            if ret_val == 0:
+                print("TODO")
+                #self.TThread = Thread(target=self.decrypt_image)
+                #self.TThread.start()
+
+            else:
+                self.log.write(_('错误: 解压失败'))
+                Thread(target=self.clean, args=(True,)).start()
+
+        except (URLError, IOError) as e:
+            printl(str(e))
+            self.log.write(_('错误: 无法下载通用数据'))
+
+        except OSError as e:
+            printl(str(e))
+            self.log.write(_('错误: 无法运行 ') + _7za)
+
+
 ####################################################################################################
 # Entry point
 
@@ -2028,7 +2067,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta4 BY R-YaTian')
+root.title('TWLMagician Beta5 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
