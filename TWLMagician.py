@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.5.0
+# Version 0.5.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -819,7 +819,7 @@ class Application(Frame):
                 sha1_hash.update(f.read())
 
             image_sha1 = hexlify(sha1_hash.digest()).upper().decode('ascii')
-            image_filename = path.basename(self.image_file.get())
+            self.image_filename = path.basename(self.image_file.get())
 
             try:
                 self.dest_region = REGION_CODES_IMAGE[image_sha1]
@@ -829,12 +829,12 @@ class Application(Frame):
                 self.log.write(_('错误: 无效的镜像文件'))
                 return
 
-            self.log.write('- ' + image_filename + ' SHA1:\n' + image_sha1)
+            self.log.write('- ' + self.image_filename + ' SHA1:\n' + image_sha1)
             self.log.write(_('目标系统: ') + self.dest_region)
 
         except IOError as e:
             printl(str(e))
-            self.log.write(_('错误: 无法打开文件 ') + image_filename)
+            self.log.write(_('错误: 无法打开文件 ') + self.image_filename)
             return
 
         hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
@@ -1980,9 +1980,8 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                print("TODO")
-                #self.TThread = Thread(target=self.decrypt_image)
-                #self.TThread.start()
+                self.TThread = Thread(target=self.decrypt_image)
+                self.TThread.start()
 
             else:
                 self.log.write(_('错误: 解压失败'))
@@ -1995,6 +1994,36 @@ class Application(Frame):
         except OSError as e:
             printl(str(e))
             self.log.write(_('错误: 无法运行 ') + _7za)
+
+
+    ################################################################################################
+    def decrypt_image(self):
+        self.files.append(self.dest_region + '.app')
+        self.folders.append('shared1')
+        self.folders.append('sys')
+        self.folders.append('title')
+        self.folders.append('ticket')
+        self.log.write(_('正在解密TWLTransfer镜像文件...'))
+
+        try:
+            self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', self.image_filename,
+                                self.dest_region + '.app', 'shared1', 'sys', 'title', 'ticket' ])
+
+            ret_val = self.proc.wait()
+
+            if ret_val == 0:
+                print("TODO")
+                #self.TThread = Thread(target=self.transfer_main)
+                #self.TThread.start()
+
+            else:
+                self.log.write(_('错误: 解密失败'))
+                Thread(target=self.clean, args=(True,)).start()
+
+        except OSError as e:
+            printl(str(e))
+            self.log.write(_('错误: 无法运行 ') + _7za)
+            Thread(target=self.clean, args=(True,)).start()
 
 
 ####################################################################################################
