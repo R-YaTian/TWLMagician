@@ -762,18 +762,12 @@ class Application(Frame):
                 if bstr == b'DSi eMMC CID/CPU':
                     # Read the CID
                     bstr = f.read(0x10)
-                    try:
-                        self.cid.set(bstr.hex().upper())
-                    except:
-                        self.cid.set(hexlify(bstr).upper().decode('ascii'))
+                    self.cid.set(hexlify(bstr).upper().decode('ascii'))
                     self.log.write('- eMMC CID: ' + self.cid.get())
 
                     # Read the console ID
                     bstr = f.read(8)
-                    try:
-                        self.console_id.set(bytearray(reversed(bstr)).hex().upper())
-                    except:
-                        self.console_id.set(hexlify(bytearray(reversed(bstr))).upper().decode('ascii'))
+                    self.console_id.set(hexlify(bytearray(reversed(bstr))).upper().decode('ascii'))
                     self.log.write('- Console ID: ' + self.console_id.get())
 
                     if self.nand_mode:
@@ -815,6 +809,8 @@ class Application(Frame):
 
             try:
                 self.dest_region = REGION_CODES_IMAGE[image_sha1]
+            except SystemExit:
+                return
             except:
                 self.log.write(_('错误: 无效的镜像文件'))
                 return
@@ -844,6 +840,8 @@ class Application(Frame):
                         with urlopen('https://github.com/RocketRobz/hiyaCFW/releases/latest/download/' +
                             filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
+                    except SystemExit:
+                        return
                     except:
                         if loc == 'zh_CN':
                             with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + filename) as src, open(filename, 'wb') as dst:
@@ -900,24 +898,16 @@ class Application(Frame):
 
                 with open('arm7.bin', 'rb') as f:
                     sha1_hash.update(f.read())
-                try:
-                    self.log.write('- arm7.bin SHA1:\n  ' +
-                        sha1_hash.digest().hex().upper())
-                except:
-                    self.log.write('- arm7.bin SHA1:\n  ' +
-                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
+                self.log.write('- arm7.bin SHA1:\n  ' +
+                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 # Hash arm9.bin
                 sha1_hash = sha1()
 
                 with open('arm9.bin', 'rb') as f:
                     sha1_hash.update(f.read())
-                try:
-                    self.log.write('- arm9.bin SHA1:\n  ' +
-                        sha1_hash.digest().hex().upper())
-                except:
-                    self.log.write('- arm9.bin SHA1:\n  ' +
-                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
+                self.log.write('- arm9.bin SHA1:\n  ' +
+                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 self.TThread = Thread(target=self.patch_bios)
                 self.TThread.start()
@@ -948,24 +938,16 @@ class Application(Frame):
 
             with open('arm7.bin', 'rb') as f:
                 sha1_hash.update(f.read())
-            try:
-                self.log.write('- Patched arm7.bin SHA1:\n  ' +
-                    sha1_hash.digest().hex().upper())
-            except:
-                self.log.write('- Patched arm7.bin SHA1:\n  ' +
-                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
+            self.log.write('- Patched arm7.bin SHA1:\n  ' +
+                hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
             # Hash arm9.bin
             sha1_hash = sha1()
 
             with open('arm9.bin', 'rb') as f:
                 sha1_hash.update(f.read())
-            try:
-                self.log.write('- Patched arm9.bin SHA1:\n  ' +
-                    sha1_hash.digest().hex().upper())
-            except:
-                self.log.write('- Patched arm9.bin SHA1:\n  ' +
-                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
+            self.log.write('- Patched arm9.bin SHA1:\n  ' +
+                hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
             self.TThread = Thread(target=self.arm9_prepend)
             self.TThread.start()
@@ -1001,12 +983,8 @@ class Application(Frame):
 
             with open('arm9.bin', 'rb') as f:
                 sha1_hash.update(f.read())
-            try:
-                self.log.write('- Prepended arm9.bin SHA1:\n  ' +
-                    sha1_hash.digest().hex().upper())
-            except:
-                self.log.write('- Prepended arm9.bin SHA1:\n  ' +
-                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
+            self.log.write('- Prepended arm9.bin SHA1:\n  ' +
+                hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
             self.TThread = Thread(target=self.make_bootloader)
             self.TThread.start()
@@ -1042,12 +1020,8 @@ class Application(Frame):
 
                 with open('bootloader.nds', 'rb') as f:
                     sha1_hash.update(f.read())
-                try:
-                    self.log.write('- bootloader.nds SHA1:\n  ' +
-                        sha1_hash.digest().hex().upper())
-                except:
-                    self.log.write('- bootloader.nds SHA1:\n  ' +
-                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
+                self.log.write('- bootloader.nds SHA1:\n  ' +
+                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 self.TThread = Thread(target=self.decrypt_nand)
                 self.TThread.start()
@@ -1262,6 +1236,8 @@ class Application(Frame):
                 copy_tree(self.twlp, self.sd_path, preserve_mode=0)
             self.TThread = Thread(target=self.unmount_nand)
             self.TThread.start()
+        except SystemExit:
+            return
         except:
             self.log.write(_('错误: 复制失败'))
             self.TThread = Thread(target=self.unmount_nand1)
@@ -1301,6 +1277,8 @@ class Application(Frame):
                             '/R-YaTian/TWLMagician/main/launchers/' +
                             self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                             copyfileobj(src, dst)
+                    except SystemExit:
+                        return
                     except:
                         if loc == 'zh_CN':
                             with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
@@ -1338,12 +1316,8 @@ class Application(Frame):
 
                 with open(launcher_app, 'rb') as f:
                     sha1_hash.update(f.read())
-                try:
-                    self.log.write('- Patched Launcher SHA1:\n  ' +
-                        sha1_hash.digest().hex().upper())
-                except:
-                    self.log.write('- Patched Launcher SHA1:\n  ' +
-                        hexlify(sha1_hash.digest()).upper().decode('ascii'))
+                self.log.write('- Patched Launcher SHA1:\n  ' +
+                    hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 self.TThread = Thread(target=self.install_hiyacfw, args=(launcher_app, launcher_folder, app))
                 self.TThread.start()
@@ -1427,6 +1401,8 @@ class Application(Frame):
                         with urlopen('https://spinaround.tk/somefiles/' +
                             filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
+                    except SystemExit:
+                        return
                     except:
                         idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
                         with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
@@ -1441,12 +1417,16 @@ class Application(Frame):
                         with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
                             filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
+                    except SystemExit:
+                        return
                     except:
                         if loc == 'zh_CN':
                             try:
                                 with urlopen('https://spinaround.tk/somefiles/' +
                                     filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
+                            except SystemExit:
+                                return
                             except:
                                 idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
                                 with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
@@ -1718,6 +1698,8 @@ class Application(Frame):
                     try:
                         with urlopen('http://problemkaputt.de/unlaunch.zip') as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
+                    except SystemExit:
+                        return
                     except:
                         if loc == 'zh_CN':
                             with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip') as src, open(filename, 'wb') as dst:
@@ -1845,7 +1827,8 @@ class Application(Frame):
             printl(str(e))
             self.log.write(_('错误: 无法运行 ') + osfmount)
             Thread(target=self.clean, args=(True,)).start()
-
+        except SystemExit:
+            return
         except:
             Thread(target=self.clean, args=(True,)).start()
 
