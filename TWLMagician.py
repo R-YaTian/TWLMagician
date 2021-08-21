@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.5.1
+# Version 0.5.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -819,7 +819,7 @@ class Application(Frame):
                 sha1_hash.update(f.read())
 
             image_sha1 = hexlify(sha1_hash.digest()).upper().decode('ascii')
-            self.image_filename = path.basename(self.image_file.get())
+            image_filename = path.basename(self.image_file.get())
 
             try:
                 self.dest_region = REGION_CODES_IMAGE[image_sha1]
@@ -829,12 +829,12 @@ class Application(Frame):
                 self.log.write(_('错误: 无效的镜像文件'))
                 return
 
-            self.log.write('- ' + self.image_filename + ' SHA1:\n' + image_sha1)
+            self.log.write('- ' + image_filename + ' SHA1:\n' + image_sha1)
             self.log.write(_('目标系统: ') + self.dest_region)
 
         except IOError as e:
             printl(str(e))
-            self.log.write(_('错误: 无法打开文件 ') + self.image_filename)
+            self.log.write(_('错误: 无法打开文件 ') + image_filename)
             return
 
         hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
@@ -852,9 +852,11 @@ class Application(Frame):
         if path.exists(hwinfo_o):
             with open(hwinfo_o, 'rb') as infotmp:
                 infotmp.seek(0x90,0)
-                self.log.write(_('原始区域: ') + REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')])
+                self.origin_region = REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')]
+                self.log.write(_('原始区域: ') + self.origin_region)
         else:
-            self.log.write(_('原始区域: ') + self.cur_region)
+            self.origin_region = self.cur_region
+        self.log.write(_('原始区域: ') + self.origin_region)
 
         self.TThread = Thread(target=self.get_common_data)
         self.TThread.start()
@@ -2006,7 +2008,7 @@ class Application(Frame):
         self.log.write(_('正在解密TWLTransfer镜像文件...'))
 
         try:
-            self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', self.image_filename,
+            self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', self.image_file.get(),
                                 self.dest_region + '.app', 'shared1', 'sys', 'title', 'ticket' ])
 
             ret_val = self.proc.wait()
