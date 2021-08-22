@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.6.0
+# Version 0.6.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -272,12 +272,12 @@ class Application(Frame):
         self.dkp2_chk.pack(padx=10, anchor=W)
         ToolTip(self.dkp2_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
-        self.tfmh = IntVar()
-        self.tfmh.set(0)
+        self.tmfh = IntVar()
+        self.tmfh.set(0)
 
-        self.tfmh_chk = Checkbutton(self.checks_frame2, text=_('同时安装TFMH'), variable=self.tfmh, state=DISABLED)
+        self.tmfh_chk = Checkbutton(self.checks_frame2, text=_('同时安装TMFH'), variable=self.tmfh, state=DISABLED)
 
-        self.tfmh_chk.pack(padx=10, anchor=W)
+        self.tmfh_chk.pack(padx=10, anchor=W)
 
         self.updatemenu = IntVar()
         self.updatemenu.set(0)
@@ -470,8 +470,8 @@ class Application(Frame):
                 self.updatehiya.set(0)
             if self.updatemenu.get() == 1:
                 self.updatemenu.set(0)
-            if self.tfmh.get() == 1:
-                self.tfmh.set(0)
+            if self.tmfh.get() == 1:
+                self.tmfh.set(0)
             self.start_button.pack_forget()
             self.back2_button.pack_forget()
             self.exit_button.pack_forget()
@@ -489,8 +489,8 @@ class Application(Frame):
                 self.updatehiya.set(0)
             if self.updatemenu.get() == 1:
                 self.updatemenu.set(0)
-            if self.tfmh.get() == 1:
-                self.tfmh.set(0)
+            if self.tmfh.get() == 1:
+                self.tmfh.set(0)
             self.start_button.pack_forget()
             self.back1_button.pack_forget()
             self.exit_button.pack_forget()
