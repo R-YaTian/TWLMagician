@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.5.7
+# Version 0.6.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -275,19 +275,19 @@ class Application(Frame):
         self.tfmh = IntVar()
         self.tfmh.set(0)
 
-        self.tfmh_chk = Checkbutton(self.checks_frame2, text=_('同时安装TFMH'), variable=self.tfmh)
+        self.tfmh_chk = Checkbutton(self.checks_frame2, text=_('同时安装TFMH'), variable=self.tfmh, state=DISABLED)
 
         self.tfmh_chk.pack(padx=10, anchor=W)
 
         self.updatemenu = IntVar()
         self.updatemenu.set(0)
 
-        self.um_chk = Checkbutton(self.checks_frame2, text=_('安装或更新TWiLightMenu++'), variable=self.updatemenu)
+        self.um_chk = Checkbutton(self.checks_frame2, text=_('安装或更新TWiLightMenu++'), variable=self.updatemenu, state=DISABLED)
 
         self.um_chk.pack(padx=10, anchor=W)
 
         if loc == 'zh_CN':
-            adl2_chk = Checkbutton(self.checks_frame2, text='优先使用备用载点', variable=self.altdl)
+            adl2_chk = Checkbutton(self.checks_frame2, text='优先使用备用载点', variable=self.altdl, state=DISABLED)
             adl2_chk.pack(padx=10, anchor=W)
             ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
@@ -528,7 +528,6 @@ class Application(Frame):
         if not path.exists(dekp):
             with open(dekp, 'wb+') as f:
                 f.seek(0,0)
-                #f.read(0x04)
                 f.write(b'DUMMY')
                 f.close()
             self.log.write(_('"系统设置-数据管理"功能启用成功'))
@@ -853,7 +852,6 @@ class Application(Frame):
             with open(hwinfo_o, 'rb') as infotmp:
                 infotmp.seek(0x90,0)
                 self.origin_region = REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')]
-                self.log.write(_('原始区域: ') + self.origin_region)
         else:
             self.origin_region = self.cur_region
         self.log.write(_('原始区域: ') + self.origin_region)
@@ -2078,6 +2076,23 @@ class Application(Frame):
             f.flush()
             f.close()
 
+        _path_created.clear()
+        copy_tree('title', path.join(self.sd_path1, 'title'))
+        copy_tree('hiya', path.join(self.sd_path1, 'hiya'))
+        copy_tree('ticket', path.join(self.sd_path1, 'ticket'))
+        copy_tree('sys', path.join(self.sd_path1, 'sys'))
+        copy_tree('shared1', path.join(self.sd_path1, 'shared1'))
+        #copy_tree('_nds', path.join(self.sd_path1, '_nds'))
+        #copy_tree('roms', path.join(self.sd_path1, 'roms'))
+        #copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
+        #copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
+        copyfile(self.dest_region + '.app', path.join(self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name))
+
+        if self.devkp.get() == 1:
+            self.make_dekp(self.sd_path1)
+
+        Thread(target=self.clean).start()
+
 
 ####################################################################################################
 # Entry point
@@ -2149,7 +2164,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta5 BY R-YaTian')
+root.title('TWLMagician Beta6 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
