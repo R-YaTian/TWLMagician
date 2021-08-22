@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.6.1
+# Version 0.6.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -539,7 +539,7 @@ class Application(Frame):
         self.is_tds = False
         self.have_menu = False
         showinfo(_('提示'), _('请选择机器的存储卡根目录'))
-        self.sd_path1 = askdirectory()
+        self.sd_path1 = askdirectory(title='')
         self.sdp.set(self.sd_path1)
         if self.tftt.get() == 1:
             self.tftt.set(0)
@@ -658,7 +658,7 @@ class Application(Frame):
             if not self.adv_mode:
                 showinfo(_('提示'), _('接下来请选择你用来安装自制系统的存储卡路径(或输出路径)\n为了避免 '
                     '启动错误 请确保目录下无任何文件'))
-                self.sd_path = askdirectory()
+                self.sd_path = askdirectory(title='')
                 # Exit if no path was selected
                 if self.sd_path == '':
                     return
