@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.5.2
+# Version 0.5.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -28,7 +28,7 @@ from tooltip import ToolTip
 from inspect import isclass
 from datetime import datetime
 from time import sleep
-from binascii import hexlify
+from binascii import hexlify, unhexlify
 from langs import lang_init
 import ctypes, platform, ssl
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -528,7 +528,7 @@ class Application(Frame):
         if not path.exists(dekp):
             with open(dekp, 'wb+') as f:
                 f.seek(0,0)
-                f.read(0x04)
+                #f.read(0x04)
                 f.write(b'DUMMY')
                 f.close()
             self.log.write(_('"系统设置-数据管理"功能启用成功'))
@@ -635,7 +635,7 @@ class Application(Frame):
 
         self.finish = False
     def transfer(self):
-        showinfo(_('提示'), _('接下来请选择TWLTransfer目标镜像文件'))
+        showinfo(_('提示'), _('接下来请选择TWLTransfer目标镜像文件\n请注意: TWLCFG会被重置'))
         name = askopenfilename(filetypes=[(_('镜像文件'), '*.bin')])
         self.image_file.set(name)
         if self.image_file.get() == '':
@@ -857,6 +857,7 @@ class Application(Frame):
         else:
             self.origin_region = self.cur_region
         self.log.write(_('原始区域: ') + self.origin_region)
+        self.check_serial(self.sd_path1)
 
         self.TThread = Thread(target=self.get_common_data)
         self.TThread.start()
@@ -2014,9 +2015,8 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                print("TODO")
-                #self.TThread = Thread(target=self.transfer_main)
-                #self.TThread.start()
+                self.TThread = Thread(target=self.transfer_main)
+                self.TThread.start()
 
             else:
                 self.log.write(_('错误: 解密失败'))
@@ -2026,6 +2026,57 @@ class Application(Frame):
             printl(str(e))
             self.log.write(_('错误: 无法运行 ') + _7za)
             Thread(target=self.clean, args=(True,)).start()
+
+
+    ################################################################################################
+    def transfer_main(self):
+        TITLE_ID = {
+            'CHN': '484e4143',
+            'USA': '484e4145',
+            'JPN': '484e414a',
+            'KOR': '484e414b',
+            'EUR': '484e4150',
+            'AUS': '484e4155'
+        }
+        REGION_BYTES = {
+            'JPN'    : '00',
+            'JPN-kst': '00',
+            'USA'    : '01',
+            'EUR'    : '02',
+            'AUS'    : '03',
+            'CHN'    : '04',
+            'KOR'    : '05'
+        }
+        if self.origin_region in ('CHN', 'KOR'):
+            launcher_name = '00000000.app'
+        else:
+            launcher_name = '00000002.app'
+        launcher_id = TITLE_ID[self.origin_region]
+
+        self.log.write(_('正在执行TWLTransfer...'))
+
+        oldfolders = []
+        oldfolders.append(path.join(self.sd_path1, 'title', '0003000f'))
+        oldfolders.append(path.join(self.sd_path1, 'title', '00030004'))
+        oldfolders.append(path.join(self.sd_path1, 'title', '00030005'))
+        oldfolders.append(path.join(self.sd_path1, 'title', '00030015'))
+        oldfolders.append(path.join(self.sd_path1, 'ticket', '0003000f'))
+        oldfolders.append(path.join(self.sd_path1, 'ticket', '00030004'))
+        oldfolders.append(path.join(self.sd_path1, 'ticket', '00030005'))
+        oldfolders.append(path.join(self.sd_path1, 'ticket', '00030015'))
+        while len(oldfolders) > 0:
+            rmtree(oldfolders.pop(), ignore_errors=True)
+
+        hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
+        hwinfo_o = path.join(self.sd_path1, 'sys', 'HWINFO_O.dat')
+        if not path.exists(hwinfo_o):
+            copyfile(hwinfo, hwinfo_o)
+
+        with open(hwinfo, 'rb+') as f:
+            f.seek(0x90,0)
+            f.write(unhexlify(REGION_BYTES[self.dest_region]))
+            f.flush()
+            f.close()
 
 
 ####################################################################################################
