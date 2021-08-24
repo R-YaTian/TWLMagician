@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.6.2
+# Version 0.6.6
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -275,7 +275,7 @@ class Application(Frame):
         self.tmfh = IntVar()
         self.tmfh.set(0)
 
-        self.tmfh_chk = Checkbutton(self.checks_frame2, text=_('同时安装TMFH'), variable=self.tmfh, state=DISABLED)
+        self.tmfh_chk = Checkbutton(self.checks_frame2, text=_('同时安装TMFH'), variable=self.tmfh)
 
         self.tmfh_chk.pack(padx=10, anchor=W)
 
@@ -1556,11 +1556,13 @@ class Application(Frame):
             if path.exists('TFTT.dat'):
                 self.log.write(_('- 正在安装TFTT'))
                 self.folders.append('gm9')
+                self.folders.append('luma')
                 try:
-                    self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', 'TFTT.dat', 'gm9'])
+                    self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', 'TFTT.dat', 'gm9', 'luma'])
                     ret_val = self.proc.wait()
                     if ret_val == 0:
                         copy_tree('gm9', path.join(self.sd_path1, 'gm9'))
+                        copy_tree('luma', path.join(self.sd_path1, 'luma'))
                     else:
                         self.log.write(_('错误: 安装TFTT失败'))
                 except OSError as e:
@@ -1964,6 +1966,7 @@ class Application(Frame):
 
     ################################################################################################
     def get_common_data(self):
+        self.files.append('Common.dat')
         self.folders.append('hiya')
         self.folders.append('title')
         self.folders.append('ticket')
@@ -1976,7 +1979,10 @@ class Application(Frame):
 
             self.log.write(_('- 正在解压通用数据...'))
 
-            self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', 'Common.dat', 'hiya', 'title', 'ticket' ])
+            if self.tmfh.get() == 1:
+                self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', 'Common.dat', 'hiya', 'title', 'ticket', 'TMFH' ])
+            else:
+                self.proc = Popen([ _7za, 'x', '-bso0', '-y', '-pR-YaTian', 'Common.dat', 'hiya', 'title', 'ticket' ])
 
             ret_val = self.proc.wait()
 
@@ -2082,6 +2088,9 @@ class Application(Frame):
         copy_tree('ticket', path.join(self.sd_path1, 'ticket'))
         copy_tree('sys', path.join(self.sd_path1, 'sys'))
         copy_tree('shared1', path.join(self.sd_path1, 'shared1'))
+        if self.tmfh.get() == 1:
+            self.log.write(_('正在安装TMFH...'))
+            copy_tree('TMFH/title', path.join(self.sd_path1, 'title'))
         #copy_tree('_nds', path.join(self.sd_path1, '_nds'))
         #copy_tree('roms', path.join(self.sd_path1, 'roms'))
         #copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
