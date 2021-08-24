@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.7.2
+# Version 0.7.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -775,6 +775,7 @@ class Application(Frame):
 
                     # Read the console ID
                     bstr = f.read(8)
+                    f.close()
                     self.console_id.set(hexlify(bytearray(reversed(bstr))).upper().decode('ascii'))
                     self.log.write('- Console ID: ' + self.console_id.get())
 
@@ -819,6 +820,7 @@ class Application(Frame):
 
             with open(self.image_file.get(), 'rb') as f:
                 sha1_hash.update(f.read())
+                f.close()
 
             image_sha1 = hexlify(sha1_hash.digest()).upper().decode('ascii')
             image_filename = path.basename(self.image_file.get())
@@ -846,6 +848,7 @@ class Application(Frame):
             with open(hwinfo, 'rb') as infotmp:
                 infotmp.seek(0x90,0)
                 self.cur_region = REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')]
+                infotmp.close()
                 self.log.write(_('当前区域: ') + self.cur_region)
         else:
             self.log.write(_('错误: 无法读取系统区域信息'))
@@ -855,6 +858,7 @@ class Application(Frame):
             with open(hwinfo_o, 'rb') as infotmp:
                 infotmp.seek(0x90,0)
                 self.origin_region = REGION_HWINFO[hexlify(infotmp.read(0x01)).decode('ascii')]
+                infotmp.close()
         else:
             self.origin_region = self.cur_region
         self.log.write(_('原始区域: ') + self.origin_region)
@@ -939,6 +943,7 @@ class Application(Frame):
 
                 with open('arm7.bin', 'rb') as f:
                     sha1_hash.update(f.read())
+                    f.close()
                 self.log.write('- arm7.bin SHA1:\n  ' +
                     hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
@@ -947,6 +952,7 @@ class Application(Frame):
 
                 with open('arm9.bin', 'rb') as f:
                     sha1_hash.update(f.read())
+                    f.close()
                 self.log.write('- arm9.bin SHA1:\n  ' +
                     hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
@@ -979,6 +985,7 @@ class Application(Frame):
 
             with open('arm7.bin', 'rb') as f:
                 sha1_hash.update(f.read())
+                f.close()
             self.log.write('- Patched arm7.bin SHA1:\n  ' +
                 hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
@@ -987,6 +994,7 @@ class Application(Frame):
 
             with open('arm9.bin', 'rb') as f:
                 sha1_hash.update(f.read())
+                f.close()
             self.log.write('- Patched arm9.bin SHA1:\n  ' +
                 hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
@@ -1011,19 +1019,22 @@ class Application(Frame):
         try:
             with open('arm9.bin', 'rb') as f:
                 data = f.read()
+                f.close()
 
             with open('arm9.bin', 'wb') as f:
                 with open(path.join('for PC', 'bootloader files',
                     'bootloader arm9 append to start.bin'), 'rb') as pre:
                     f.write(pre.read())
-
+                    pre.close()
                 f.write(data)
+                f.close()
 
             # Hash arm9.bin
             sha1_hash = sha1()
 
             with open('arm9.bin', 'rb') as f:
                 sha1_hash.update(f.read())
+                f.close()
             self.log.write('- Prepended arm9.bin SHA1:\n  ' +
                 hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
@@ -1061,6 +1072,7 @@ class Application(Frame):
 
                 with open('bootloader.nds', 'rb') as f:
                     sha1_hash.update(f.read())
+                    f.close()
                 self.log.write('- bootloader.nds SHA1:\n  ' +
                     hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
@@ -1357,6 +1369,7 @@ class Application(Frame):
 
                 with open(launcher_app, 'rb') as f:
                     sha1_hash.update(f.read())
+                    f.close()
                 self.log.write('- Patched Launcher SHA1:\n  ' +
                     hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
@@ -1416,6 +1429,7 @@ class Application(Frame):
             with open(hwinfo, 'rb') as infotmp:
                 infotmp.seek(0x91,0)
                 strtmp = infotmp.read(0xC).decode('ascii')
+                infotmp.close()
                 self.log.write(_('机器序列号: ') + strtmp)
 
 
@@ -1450,6 +1464,7 @@ class Application(Frame):
                             copyfileobj(src0, dst0)
                         with open('Temp.fid', 'r') as ftmp:
                             fileid = ftmp.read()
+                            ftmp.close()
                         remove('Temp.fid')
                         with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
@@ -1474,6 +1489,7 @@ class Application(Frame):
                                     copyfileobj(src0, dst0)
                                 with open('Temp.fid', 'r') as ftmp:
                                     fileid = ftmp.read()
+                                    ftmp.close()
                                 remove('Temp.fid')
                                 with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
@@ -1579,9 +1595,9 @@ class Application(Frame):
         with open('version.txt', 'r') as ver:
             tmpstr = ver.readline()
             tmpstr1 = ver.readline()
+            ver.close()
             tmpstr1 = tmpstr1.replace('\n','')
             self.log.write(_('版本信息:\n') + tmpstr + tmpstr1)
-            ver.close()
 
 
     ################################################################################################
@@ -1770,6 +1786,8 @@ class Application(Frame):
                     with open(tmd, 'ab') as f:
                         with open('UNLAUNCH.DSI', 'rb') as unl:
                             f.write(unl.read())
+                            unl.close()
+                        f.close()
 
                     self.check_serial(self.mounted)
                     self.make_dekp(self.mounted)
@@ -1812,6 +1830,7 @@ class Application(Frame):
 
             with open(tmd, 'r+b') as f:
                 f.truncate(520)
+                f.close()
 
             self.check_serial(self.mounted)
             self.make_dekp(self.mounted)
@@ -1917,14 +1936,16 @@ class Application(Frame):
 
             # Back-up footer info
             with open(self.console_id.get() + '-info.txt', 'w') as f:
-                f.write('eMMC CID: ' + self.cid.get() + '\r\n')
-                f.write('Console ID: ' + self.console_id.get() + '\r\n')
+                f.write('eMMC CID: ' + self.cid.get() + '\n')
+                f.write('Console ID: ' + self.console_id.get() + '\n')
+                f.close()
 
             with open(file, 'r+b') as f:
                 # Go to the No$GBA footer offset
                 f.seek(-64, 2)
                 # Remove footer
                 f.truncate()
+                f.close()
             self.finish = True
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file +
                 _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt\n')
@@ -1965,6 +1986,7 @@ class Application(Frame):
                 f.write(console_id)
                 f.write(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                     b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+                f.close()
             self.finish = True
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file + '\n')
 
