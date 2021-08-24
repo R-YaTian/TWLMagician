@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.6.7
+# Version 0.7.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -224,7 +224,10 @@ class Application(Frame):
         ToolTip(photo_chk, msg=_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
 
         self.altdl = IntVar()
-        self.altdl.set(0)
+        if loc == 'zh_CN':
+            self.altdl.set(1)
+        else:
+            self.altdl.set(0)
 
         if loc == 'zh_CN':
             adl_chk = Checkbutton(self.checks_frame, text='优先使用备用载点', variable=self.altdl)
@@ -282,12 +285,12 @@ class Application(Frame):
         self.updatemenu = IntVar()
         self.updatemenu.set(0)
 
-        self.um_chk = Checkbutton(self.checks_frame2, text=_('安装或更新TWiLightMenu++'), variable=self.updatemenu, state=DISABLED)
+        self.um_chk = Checkbutton(self.checks_frame2, text=_('安装或更新TWiLightMenu++'), variable=self.updatemenu)
 
         self.um_chk.pack(padx=10, anchor=W)
 
         if loc == 'zh_CN':
-            adl2_chk = Checkbutton(self.checks_frame2, text='优先使用备用载点', variable=self.altdl, state=DISABLED)
+            adl2_chk = Checkbutton(self.checks_frame2, text='优先使用备用载点', variable=self.altdl)
             adl2_chk.pack(padx=10, anchor=W)
             ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
@@ -1489,8 +1492,12 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.TThread = Thread(target=self.install_twilight, args=(filename[:-3],))
-                self.TThread.start()
+                if self.transfer_mode and self.updatemenu.get() == 1:
+                    self.TThread = Thread(target=self.decrypt_image)
+                    self.TThread.start()
+                else:
+                    self.TThread = Thread(target=self.install_twilight, args=(filename[:-3],))
+                    self.TThread.start()
 
             else:
                 self.log.write(_('错误: 解压失败'))
@@ -1536,11 +1543,7 @@ class Application(Frame):
                 copyfile('TWiLight Menu.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu.cia'))
                 copyfile('TWiLight Menu - Game booter.cia', path.join(self.sd_path1, 'cias', 'TWiLight Menu - Game booter.cia'))
 
-        with open('version.txt', 'r') as ver:
-            tmpstr = ver.readline()
-            tmpstr1 = ver.readline()
-            tmpstr1 = tmpstr1.replace('\n','')
-            self.log.write(_('版本信息:\n') + tmpstr + tmpstr1)
+        self.read_ver()
 
         if self.appgen.get() == 1:
             printl(_('调用 appgen'))
@@ -1572,6 +1575,13 @@ class Application(Frame):
                 self.log.write(_('警告: 找不到TFTT.dat文件, 未安装TFTT'))
 
         Thread(target=self.clean).start()
+    def read_ver(self):
+        with open('version.txt', 'r') as ver:
+            tmpstr = ver.readline()
+            tmpstr1 = ver.readline()
+            tmpstr1 = tmpstr1.replace('\n','')
+            self.log.write(_('版本信息:\n') + tmpstr + tmpstr1)
+            ver.close()
 
 
     ################################################################################################
@@ -1988,8 +1998,12 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                self.TThread = Thread(target=self.decrypt_image)
-                self.TThread.start()
+                if self.updatemenu.get() == 1:
+                    self.TThread = Thread(target=self.get_latest_twilight)
+                    self.TThread.start()
+                else:
+                    self.TThread = Thread(target=self.decrypt_image)
+                    self.TThread.start()
 
             else:
                 self.log.write(_('错误: 解压失败'))
@@ -2089,14 +2103,20 @@ class Application(Frame):
         copy_tree('ticket', path.join(self.sd_path1, 'ticket'))
         copy_tree('sys', path.join(self.sd_path1, 'sys'))
         copy_tree('shared1', path.join(self.sd_path1, 'shared1'))
+        copyfile(self.dest_region + '.app', path.join(self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name))
         if self.tmfh.get() == 1:
             self.log.write(_('正在安装TMFH...'))
             copy_tree('TMFH/title', path.join(self.sd_path1, 'title'))
-        #copy_tree('_nds', path.join(self.sd_path1, '_nds'))
-        #copy_tree('roms', path.join(self.sd_path1, 'roms'))
-        #copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
-        #copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
-        copyfile(self.dest_region + '.app', path.join(self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name))
+        if self.updatemenu.get() == 1:
+            if self.have_menu == True:
+                self.log.write(_('正在更新TWiLightMenu++...'))
+            else:
+                self.log.write(_('正在安装TWiLightMenu++...'))
+            copy_tree('_nds', path.join(self.sd_path1, '_nds'))
+            copy_tree('roms', path.join(self.sd_path1, 'roms'))
+            copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
+            copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
+            self.read_ver()
 
         if self.devkp.get() == 1:
             self.make_dekp(self.sd_path1)
@@ -2174,7 +2194,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta6 BY R-YaTian')
+root.title('TWLMagician Beta7 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
