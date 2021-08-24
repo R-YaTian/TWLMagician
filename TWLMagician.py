@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.7.4
+# Version 0.7.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -29,7 +29,7 @@ from inspect import isclass
 from datetime import datetime
 from time import sleep
 from binascii import hexlify, unhexlify
-from langs import lang_init
+from py_langs.langs import lang_init
 import ctypes, platform, ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -871,6 +871,7 @@ class Application(Frame):
     ################################################################################################
     def get_latest_hiyacfw(self):
         filename = 'hiyaCFW.7z'
+        self.files.append(filename)
         self.folders.append('for PC')
         self.folders.append('for SDNAND SD card')
 
@@ -2152,7 +2153,7 @@ class Application(Frame):
 sysname = platform.system()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
-loc = lang_init('zh_hans', 'i18n')
+loc = lang_init('zh_hans', 'i18n')[0]
 
 if path.isfile('console.log'):
     clog = open('Console.log', 'a')
