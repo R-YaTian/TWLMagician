@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.6.6
+# Version 0.6.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1970,6 +1970,7 @@ class Application(Frame):
         self.folders.append('hiya')
         self.folders.append('title')
         self.folders.append('ticket')
+        self.folders.append('TMFH')
 
         try:
             if not path.isfile('Common.dat'):
