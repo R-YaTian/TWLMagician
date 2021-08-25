@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.8.1
+# Version 0.8.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -648,7 +648,7 @@ class Application(Frame):
     def hiya(self):
         if not self.adv_mode:
             if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
-                if ctypes.windll.shell32.IsUserAnAdmin() == 0:
+                if sysname == 'Windows' and ctypes.windll.shell32.IsUserAnAdmin() == 0:
                     root.withdraw()
                     showerror(_('错误'), _('此功能需要以管理员权限运行本工具'))
                     root.destroy()
@@ -753,6 +753,7 @@ class Application(Frame):
         printl(_('操作过程发生错误或用户终止操作'))
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
             if not self.adv_mode:
+                print('umount')
                 self.unmount_nand1()
         else:
             self.clean(True,)
@@ -1195,43 +1196,79 @@ class Application(Frame):
         self.log.write(_('挂载解密的NAND镜像中...'))
 
         try:
-            printl(_('调用 osfmount(挂载 twln)'), fixn=True)
-            cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
-                '#:', '-o', 'ro,rem' ]
+            if sysname == 'Windows':
+                printl(_('调用 osfmount(挂载 twln)'), fixn=True)
+                cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
+                    '#:', '-o', 'ro,rem' ]
 
-            if self.nand_mode:
-                cmd[-1] = 'rw,rem'
+                if self.nand_mode:
+                    cmd[-1] = 'rw,rem'
 
-            self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-            outs, errs = self.proc.communicate()
-            print(outs.decode('utf-8').strip())
+                self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+                outs, errs = self.proc.communicate()
+                print(outs.decode('utf-8').strip())
 
-            if self.proc.returncode == 0:
-                self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
-                self.log.write(_('- 挂载到驱动器 ') + self.mounted)
-                if self.nand_mode == False and self.photo.get() == 1:
-                    printl(_('调用 osfmount(挂载 twlp)'))
-                    cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
-                        '#:', '-v', '2', '-o', 'ro,rem' ]
-                    self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-                    outs, errs = self.proc.communicate()
-                    print(outs.decode('utf-8').strip())
+                if self.proc.returncode == 0:
+                    self.mounted = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
+                    self.log.write(_('- 挂载到驱动器 ') + self.mounted)
+                    if self.nand_mode == False and self.photo.get() == 1:
+                        printl(_('调用 osfmount(挂载 twlp)'))
+                        cmd = [ osfmount, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
+                            '#:', '-v', '2', '-o', 'ro,rem' ]
+                        self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+                        outs, errs = self.proc.communicate()
+                        print(outs.decode('utf-8').strip())
 
-                    if self.proc.returncode == 0:
-                        self.twlp = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
-                        self.log.write(_('- DSi相册分区挂载到驱动器 ') + self.twlp)
+                        if self.proc.returncode == 0:
+                            self.twlp = search(r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
+                            self.log.write(_('- DSi相册分区挂载到驱动器 ') + self.twlp)
+                        else:
+                            self.log.write(_('错误: 挂载相册分区失败'))
+                            Thread(target=self.clean, args=(True,)).start()
+                            return
+                else:
+                    self.log.write(_('错误: 挂载失败'))
+                    Thread(target=self.clean, args=(True,)).start()
+                    return
+            elif sysname == 'Linux':
+                exe = 'losetup'
+
+                cmd = [ exe, '-P', '-f', '--show', self.console_id.get() + '.img' ]
+
+                self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+                outs, errs = self.proc.communicate()
+                print(outs.decode('utf-8').strip())
+
+                if self.proc.returncode == 0:
+                    self.loop_dev = search(r'\/dev\/loop\d+', outs.decode('utf-8')).group(0).strip()
+                    self.log.write('- Mounted loop device on ' + self.loop_dev)
+
+                    exe = 'mount'
+
+                    self.mounted = '/mnt'
+
+                    cmd = [ exe, '-t', 'vfat', self.loop_dev + 'p1', self.mounted ]
+
+                    self.proc = Popen(cmd)
+
+                    ret_val = self.proc.wait()
+
+                    if ret_val == 0:
+                        self.log.write('- Mounted partition on ' + self.mounted)
+
                     else:
-                        self.log.write(_('错误: 挂载相册分区失败'))
+                        self.log.write('ERROR: Mounter failed')
                         Thread(target=self.clean, args=(True,)).start()
                         return
-            else:
-                self.log.write(_('错误: 挂载失败'))
-                Thread(target=self.clean, args=(True,)).start()
-                return
+                else:
+                    self.log.write('ERROR: Mounter failed')
+                    Thread(target=self.clean, args=(True,)).start()
+                    return
 
             if self.nand_mode:
-                self.TThread = Thread(target=self.unlaunch_proc)
-                self.TThread.start()
+                print('test')
+                #self.TThread = Thread(target=self.unlaunch_proc)
+                #self.TThread.start()
             else:
                 self.TThread = Thread(target=self.extract_nand2)
                 self.TThread.start()
@@ -1845,8 +1882,24 @@ class Application(Frame):
         self.log.write(_('正在卸载NAND...'))
 
         try:
-            printl(_('调用 osfmount(卸载 twln)'))
-            self.proc = Popen([ osfmount, '-D', '-m', self.mounted ])
+            if sysname == 'Windows':
+                printl(_('调用 osfmount(卸载 twln)'))
+                exe = osfmount
+                self.proc = Popen([ exe, '-D', '-m', self.mounted ])
+            #elif sysname == 'Darwin':
+                #exe = 'hdiutil'
+                #proc = Popen([ exe, 'detach', self.raw_disk ])
+            elif sysname == 'Linux':
+                exe = 'umount'
+                self.proc = Popen([ exe, self.mounted ])
+                ret_val = self.proc.wait()
+                if ret_val == 0:
+                    exe = 'losetup'
+                    self.proc = Popen([ exe, '-d', self.loop_dev ])
+                else:
+                    self.log.write(_('错误: 卸载失败'))
+                    Thread(target=self.clean, args=(True,)).start()
+                    return
 
             ret_val = self.proc.wait()
 
@@ -1870,14 +1923,30 @@ class Application(Frame):
 
         except OSError as e:
             printl(str(e))
-            self.log.write(_('错误: 无法运行 ') + osfmount)
+            self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
     def unmount_nand1(self):
         self.log.write(_('正在强制卸载NAND...'))
 
         try:
-            printl(_('调用 osfmount(强制卸载 twln)'))
-            self.proc = Popen([ osfmount, '-D', '-m', self.mounted ])
+            if sysname == 'Windows':
+                printl(_('调用 osfmount(强制卸载 twln)'))
+                exe = osfmount
+                self.proc = Popen([ exe, '-D', '-m', self.mounted ])
+            #elif sysname == 'Darwin':
+                #exe = 'hdiutil'
+                #proc = Popen([ exe, 'detach', self.raw_disk ])
+            elif sysname == 'Linux':
+                exe = 'umount'
+                self.proc = Popen([ exe, self.mounted ])
+                ret_val = self.proc.wait()
+                if ret_val == 0:
+                    exe = 'losetup'
+                    self.proc = Popen([ exe, '-d', self.loop_dev ])
+                else:
+                    self.log.write(_('错误: 卸载失败或尚未挂载'))
+                    Thread(target=self.clean, args=(True,)).start()
+                    return
 
             ret_val = self.proc.wait()
 
@@ -1895,7 +1964,7 @@ class Application(Frame):
 
         except OSError as e:
             printl(str(e))
-            self.log.write(_('错误: 无法运行 ') + osfmount)
+            self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
         except SystemExit:
             return
