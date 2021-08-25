@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.7.9
+# Version 0.8.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -303,7 +303,7 @@ class Application(Frame):
         rb0 = Radiobutton(self.nand_frame, text=_('安装或卸载最新版本的unlaunch'),
             variable=self.nand_operation, value=2,
             command=lambda: self.enable_entries(False))
-        if osfmount is not None:
+        if osfmount is not None or su == True:
             rb0.pack(anchor=W)
         Radiobutton(self.nand_frame, text=_('移除 No$GBA footer'), variable=self.nand_operation,
             value=0, command=lambda: self.enable_entries(False)).pack(anchor=W)
@@ -1429,7 +1429,7 @@ class Application(Frame):
         if path.exists(hwinfo):
             with open(hwinfo, 'rb') as infotmp:
                 infotmp.seek(0x91,0)
-                strtmp = infotmp.read(0xC).decode('ascii')
+                strtmp = infotmp.read(0xB).decode('ascii')
                 infotmp.close()
                 self.log.write(_('机器序列号: ') + strtmp)
 
@@ -2206,6 +2206,14 @@ if sysname == 'Windows':
     else:
          _7z = None
 
+elif sysname == 'Linux':
+    from os import getuid
+    if getuid() != 0:
+        su = False
+        printl(_('警告: 请以sudo运行此脚本，体验完整功能'))
+    else:
+        su = True
+
 if not path.exists(fatcat):
     if osfmount or _7z is not None:
         fatcat = None
@@ -2217,7 +2225,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta7 BY R-YaTian')
+root.title('TWLMagician Beta8 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
