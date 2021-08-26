@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.8.7
+# Version 0.8.8
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1067,7 +1067,8 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-
+                if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                    Popen([ 'chown', '-R', ug + ':' + ug, 'bootloader.nds' ]).wait()
                 # Hash bootloader.nds
                 sha1_hash = sha1()
 
@@ -1399,6 +1400,9 @@ class Application(Frame):
                                 copyfileobj(src, dst)
                         else:
                             raise IOError
+
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                    Popen([ 'chown', '-R', ug + ':' + ug, self.launcher_region ]).wait()
 
             self.log.write(_('- 正在解压Launcher...'))
 
@@ -1828,7 +1832,7 @@ class Application(Frame):
             self.log.write(_('- 未安装...'))
 
             try:
-                if not path.exists('unlaunch.zip'):
+                if not path.exists(filename):
                     self.log.write(_('正在下载最新版本的unlaunch...'))
                     try:
                         with urlopen('http://problemkaputt.de/unlaunch.zip') as src, open(filename, 'wb') as dst:
@@ -1841,6 +1845,9 @@ class Application(Frame):
                                 copyfileobj(src, dst)
                         else:
                             raise IOError
+
+                if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                    Popen([ 'chown', '-R', ug + ':' + ug, filename ]).wait()
 
                 self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
 
@@ -2127,6 +2134,9 @@ class Application(Frame):
                 with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/Common.dat') as src, open('Common.dat', 'wb') as dst:
                     copyfileobj(src, dst)
 
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                Popen([ 'chown', '-R', ug + ':' + ug, 'Common.dat' ]).wait()
+
             self.log.write(_('- 正在解压通用数据...'))
 
             if self.tmfh.get() == 1:
@@ -2294,6 +2304,11 @@ if sysname == 'Linux' and ug is not None and su == True:
     if not path.isfile('Window.log'):
         open('Window.log', 'a')
         Popen([ 'chown', '-R', ug + ':' + ug, 'Window.log' ]).wait()
+    try:
+        Popen([ 'chown', '-R', ug + ':' + ug, '__pycache__' ]).wait()
+        Popen([ 'chown', '-R', ug + ':' + ug, 'py_langs' ]).wait()
+    except:
+        pass
 
 printl(_('TWLMagician启动中...'))
 
