@@ -739,6 +739,7 @@ class Application(Frame):
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
         self.dialog.destroy()
+        self.dialog = None
         if self.finish == True:
             self.finish = False
             return
