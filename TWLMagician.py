@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.8.8
+# Version 0.8.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1271,7 +1271,7 @@ class Application(Frame):
 
                 if self.proc.returncode == 0:
                     self.raw_disk = search(r'^\/dev\/disk\d+', outs.decode('utf-8')).group(0).strip()
-                    self.log.write(_('- 挂载内存盘到 ') + self.raw_disk)
+                    self.log.write(_('- 挂载raw disk到 ') + self.raw_disk)
 
                     cmd = [ exe, 'mount', self.raw_disk + 's1' ]
 
@@ -1935,13 +1935,16 @@ class Application(Frame):
                 exe = osfmount
                 self.proc = Popen([ exe, '-D', '-m', self.mounted ])
             elif sysname == 'Darwin':
+                printl(_('调用 hdiutil(卸载 raw disk)'))
                 exe = 'hdiutil'
                 self.proc = Popen([ exe, 'detach', self.raw_disk ])
             elif sysname == 'Linux':
+                printl(_('调用 umount(卸载分区)'))
                 exe = 'umount'
                 self.proc = Popen([ exe, self.mounted ])
                 ret_val = self.proc.wait()
                 if ret_val == 0:
+                    printl(_('调用 losetup(卸载 loop device)'))
                     exe = 'losetup'
                     self.proc = Popen([ exe, '-d', self.loop_dev ])
                 else:
@@ -1982,13 +1985,16 @@ class Application(Frame):
                 exe = osfmount
                 self.proc = Popen([ exe, '-D', '-m', self.mounted ])
             elif sysname == 'Darwin':
+                printl(_('调用 hdiutil(强制卸载 raw disk)'))
                 exe = 'hdiutil'
                 self.proc = Popen([ exe, 'detach', self.raw_disk ])
             elif sysname == 'Linux':
+                printl(_('调用 umount(强制卸载分区)'))
                 exe = 'umount'
                 self.proc = Popen([ exe, self.mounted ])
                 ret_val = self.proc.wait()
                 if ret_val == 0:
+                    printl(_('调用 losetup(强制卸载 loop device)'))
                     exe = 'losetup'
                     self.proc = Popen([ exe, '-d', self.loop_dev ])
                 else:
