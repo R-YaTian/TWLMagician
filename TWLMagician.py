@@ -303,7 +303,7 @@ class Application(Frame):
         rb0 = Radiobutton(self.nand_frame, text=_('安装或卸载最新版本的unlaunch'),
             variable=self.nand_operation, value=2,
             command=lambda: self.enable_entries(False))
-        if osfmount is not None or su == True:
+        if osfmount is not None or (sysname == 'Linux' and su == True):
             rb0.pack(anchor=W)
         Radiobutton(self.nand_frame, text=_('移除 No$GBA footer'), variable=self.nand_operation,
             value=0, command=lambda: self.enable_entries(False)).pack(anchor=W)
@@ -648,12 +648,11 @@ class Application(Frame):
     def hiya(self):
         if not self.adv_mode:
             if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
-                if sysname == 'Windows':
-                    if ctypes.windll.shell32.IsUserAnAdmin() == 0:
-                        root.withdraw()
-                        showerror(_('错误'), _('此功能需要以管理员权限运行本工具'))
-                        root.destroy()
-                        exit(1)
+                if sysname == 'Windows' and ctypes.windll.shell32.IsUserAnAdmin() == 0:
+                    root.withdraw()
+                    showerror(_('错误'), _('此功能需要以管理员权限运行本工具'))
+                    root.destroy()
+                    exit(1)
 
         if not self.nand_mode:
             self.have_hiya = False
@@ -1069,9 +1068,8 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                if sysname == 'Linux':
-                    if ug is not None and su == True: #chown in Linux if with sudo
-                        Popen([ 'chown', '-R', ug + ':' + ug, 'bootloader.nds' ]).wait()
+                if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                    Popen([ 'chown', '-R', ug + ':' + ug, 'bootloader.nds' ]).wait()
                 # Hash bootloader.nds
                 sha1_hash = sha1()
 
@@ -1404,8 +1402,7 @@ class Application(Frame):
                         else:
                             raise IOError
 
-            if sysname == 'Linux':
-                if ug is not None and su == True: #chown in Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
                     Popen([ 'chown', '-R', ug + ':' + ug, self.launcher_region ]).wait()
 
             self.log.write(_('- 正在解压Launcher...'))
@@ -1696,21 +1693,19 @@ class Application(Frame):
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
-                if sysname == 'Linux':
-                    if ug is not None and su == True: #chown in Linux if with sudo
-                        Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
+                if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                    Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
                 self.log.write(_('完成!\n修改后的NAND已保存为') + file + '\n')
             except FileExistsError:
                 remove(self.console_id.get() + '.img')
                 self.log.write(_('操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n'))
             return
 
-        if sysname == 'Linux':
-            if ug is not None and su == True: #chown in Linux if with sudo
-                if self.adv_mode or self.transfer_mode:
-                    Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path1 ]).wait()
-                else:
-                    Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path ]).wait()
+        if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+            if self.adv_mode or self.transfer_mode:
+                Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path1 ]).wait()
+            else:
+                Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path ]).wait()
 
         if self.adv_mode and self.is_tds:
             self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
@@ -1852,9 +1847,8 @@ class Application(Frame):
                         else:
                             raise IOError
 
-                if sysname == 'Linux':
-                    if ug is not None and su == True: #chown in Linux if with sudo
-                        Popen([ 'chown', '-R', ug + ':' + ug, filename ]).wait()
+                if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                    Popen([ 'chown', '-R', ug + ':' + ug, filename ]).wait()
 
                 self.proc = Popen([ _7za, 'x', '-bso0', '-y', filename, 'UNLAUNCH.DSI' ])
 
@@ -2079,10 +2073,9 @@ class Application(Frame):
                 f.truncate()
                 f.close()
             self.finish = True
-            if sysname == 'Linux':
-                if ug is not None and su == True: #chown in Linux if with sudo
-                    Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
-                    Popen([ 'chown', '-R', ug + ':' + ug, self.console_id.get() + '-info.txt' ]).wait()
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
+                Popen([ 'chown', '-R', ug + ':' + ug, self.console_id.get() + '-info.txt' ]).wait()
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file +
                 _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt\n')
 
@@ -2124,9 +2117,8 @@ class Application(Frame):
                     b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
                 f.close()
             self.finish = True
-            if sysname == 'Linux':
-                if ug is not None and su == True: #chown in Linux if with sudo
-                    Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file + '\n')
 
         except IOError as e:
@@ -2149,9 +2141,8 @@ class Application(Frame):
                 with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/Common.dat') as src, open('Common.dat', 'wb') as dst:
                     copyfileobj(src, dst)
 
-            if sysname == 'Linux':
-                if ug is not None and su == True: #chown in Linux if with sudo
-                    Popen([ 'chown', '-R', ug + ':' + ug, 'Common.dat' ]).wait()
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                Popen([ 'chown', '-R', ug + ':' + ug, 'Common.dat' ]).wait()
 
             self.log.write(_('- 正在解压通用数据...'))
 
@@ -2313,19 +2304,18 @@ if path.isfile('Console.log'):
     clog.write('\n')
     clog.close()
 
-if sysname == 'Linux':
-    if ug is not None and su == True:
-        if not path.isfile('Console.log'):
-            open('Console.log', 'a')
-            Popen([ 'chown', '-R', ug + ':' + ug, 'Console.log' ]).wait()
-        if not path.isfile('Window.log'):
-            open('Window.log', 'a')
-            Popen([ 'chown', '-R', ug + ':' + ug, 'Window.log' ]).wait()
-        try:
-            Popen([ 'chown', '-R', ug + ':' + ug, '__pycache__' ]).wait()
-            Popen([ 'chown', '-R', ug + ':' + ug, 'py_langs' ]).wait()
-        except:
-            pass
+if sysname == 'Linux' and ug is not None and su == True:
+    if not path.isfile('Console.log'):
+        open('Console.log', 'a')
+        Popen([ 'chown', '-R', ug + ':' + ug, 'Console.log' ]).wait()
+    if not path.isfile('Window.log'):
+        open('Window.log', 'a')
+        Popen([ 'chown', '-R', ug + ':' + ug, 'Window.log' ]).wait()
+    try:
+        Popen([ 'chown', '-R', ug + ':' + ug, '__pycache__' ]).wait()
+        Popen([ 'chown', '-R', ug + ':' + ug, 'py_langs' ]).wait()
+    except:
+        pass
 
 printl(_('TWLMagician启动中...'))
 
