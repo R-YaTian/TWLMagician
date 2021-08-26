@@ -2068,7 +2068,7 @@ class Application(Frame):
 
     ################################################################################################
     def get_common_data(self):
-        self.files.append('Common.dat')
+        #self.files.append('Common.dat')
         self.folders.append('hiya')
         self.folders.append('title')
         self.folders.append('ticket')
@@ -2224,10 +2224,30 @@ root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
 loc = lang_init('zh_hans', 'i18n')[0]
 
-if path.isfile('console.log'):
+if sysname == 'Linux':
+    from os import getuid, getlogin
+    try:
+        ug = getlogin()
+    except OSError:
+        ug = None
+    if getuid() != 0:
+        su = False
+    else:
+        su = True
+
+if path.isfile('Console.log'):
     clog = open('Console.log', 'a')
     clog.write('\n')
     clog.close()
+
+if ug is not None and su == True:
+    if not path.isfile('Console.log'):
+        open('Console.log', 'a')
+        Popen([ 'chown', '-R', ug + ':' + ug, 'Console.log' ]).wait()
+    if not path.isfile('Window.log'):
+        open('Window.log', 'a')
+        Popen([ 'chown', '-R', ug + ':' + ug, 'Window.log' ]).wait()
+
 printl(_('TWLMagician启动中...'))
 
 fatcat = path.join(sysname, 'fatcat')
@@ -2274,14 +2294,6 @@ if sysname == 'Windows':
         printl(_('7-Zip模块已加载'))
     else:
          _7z = None
-
-elif sysname == 'Linux':
-    from os import getuid
-    if getuid() != 0:
-        su = False
-        printl(_('警告: 请以sudo运行此脚本，体验完整功能'))
-    else:
-        su = True
 
 if not path.exists(fatcat):
     if osfmount or _7z is not None:
