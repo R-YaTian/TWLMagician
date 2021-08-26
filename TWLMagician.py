@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TWLMagician
-# Version 0.8.5
+# Version 0.8.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1231,17 +1231,17 @@ class Application(Frame):
                     Thread(target=self.clean, args=(True,)).start()
                     return
             elif sysname == 'Linux':
+                printl(_('调用 losetup(挂载 loop device)'), fixn=True)
                 exe = 'losetup'
                 cmd = [ exe, '-P', '-f', '--show', self.console_id.get() + '.img' ]
 
                 self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
                 outs, errs = self.proc.communicate()
-                print(outs.decode('utf-8').strip())
 
                 if self.proc.returncode == 0:
                     self.loop_dev = search(r'\/dev\/loop\d+', outs.decode('utf-8')).group(0).strip()
                     self.log.write(_('- 挂载loop device到 ') + self.loop_dev)
-
+                    printl(_('调用 mount(挂载分区)'))
                     exe = 'mount'
                     self.mounted = '/mnt'
                     cmd = [ exe, '-t', 'vfat', self.loop_dev + 'p1', self.mounted ]
@@ -1688,11 +1688,19 @@ class Application(Frame):
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
+                if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                    Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
                 self.log.write(_('完成!\n修改后的NAND已保存为') + file + '\n')
             except FileExistsError:
                 remove(self.console_id.get() + '.img')
                 self.log.write(_('操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n'))
             return
+
+        if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+            if self.adv_mode or self.transfer_mode:
+                Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path1 ]).wait()
+            else:
+                Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path ]).wait()
 
         if self.adv_mode and self.is_tds:
             self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
@@ -1857,7 +1865,12 @@ class Application(Frame):
                     for file in listdir(path.join(self.mounted, 'title', '00030017', app,
                         'content')):
                         file = path.join(self.mounted, 'title', '00030017', app, 'content', file)
-                        chmod(file, 292)
+                        if sysname == 'Darwin':
+                            Popen([ 'chflags', 'uchg', file ]).wait()
+                        elif sysname == 'Linux':
+                            Popen([ path.join('Linux', 'fatattr'), '+R', file ]).wait()
+                        else:
+                            chmod(file, 292)
 
                 else:
                     self.log.write(_('错误: 解压失败'))
@@ -1887,7 +1900,12 @@ class Application(Frame):
             # Set files as read-write
             for file in listdir(path.join(self.mounted, 'title', '00030017', app, 'content')):
                 file = path.join(self.mounted, 'title', '00030017', app, 'content', file)
-                chmod(file, 438)
+                if sysname == 'Darwin':
+                    Popen([ 'chflags', 'nouchg', file ]).wait()
+                elif sysname == 'Linux':
+                    Popen([ path.join('Linux', 'fatattr'), '-R', file ]).wait()
+                else:
+                    chmod(file, 438)
 
             with open(tmd, 'r+b') as f:
                 f.truncate(520)
@@ -1909,9 +1927,9 @@ class Application(Frame):
                 printl(_('调用 osfmount(卸载 twln)'))
                 exe = osfmount
                 self.proc = Popen([ exe, '-D', '-m', self.mounted ])
-            #elif sysname == 'Darwin':
-                #exe = 'hdiutil'
-                #proc = Popen([ exe, 'detach', self.raw_disk ])
+            elif sysname == 'Darwin':
+                exe = 'hdiutil'
+                self.proc = Popen([ exe, 'detach', self.raw_disk ])
             elif sysname == 'Linux':
                 exe = 'umount'
                 self.proc = Popen([ exe, self.mounted ])
@@ -1956,9 +1974,9 @@ class Application(Frame):
                 printl(_('调用 osfmount(强制卸载 twln)'))
                 exe = osfmount
                 self.proc = Popen([ exe, '-D', '-m', self.mounted ])
-            #elif sysname == 'Darwin':
-                #exe = 'hdiutil'
-                #proc = Popen([ exe, 'detach', self.raw_disk ])
+            elif sysname == 'Darwin':
+                exe = 'hdiutil'
+                self.proc = Popen([ exe, 'detach', self.raw_disk ])
             elif sysname == 'Linux':
                 exe = 'umount'
                 self.proc = Popen([ exe, self.mounted ])
@@ -2006,6 +2024,7 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
+                printl(_('操作成功完成'), fixn=True)
                 Thread(target=self.clean).start()
 
             else:
@@ -2040,6 +2059,9 @@ class Application(Frame):
                 f.truncate()
                 f.close()
             self.finish = True
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
+                Popen([ 'chown', '-R', ug + ':' + ug, self.console_id.get() + '-info.txt' ]).wait()
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file +
                 _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt\n')
 
@@ -2081,6 +2103,8 @@ class Application(Frame):
                     b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
                 f.close()
             self.finish = True
+            if sysname == 'Linux' and ug is not None and su == True: #chown in Linux if with sudo
+                Popen([ 'chown', '-R', ug + ':' + ug, file ]).wait()
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file + '\n')
 
         except IOError as e:
@@ -2263,7 +2287,7 @@ if path.isfile('Console.log'):
     clog.write('\n')
     clog.close()
 
-if ug is not None and su == True:
+if sysname == 'Linux' and ug is not None and su == True:
     if not path.isfile('Console.log'):
         open('Console.log', 'a')
         Popen([ 'chown', '-R', ug + ':' + ug, 'Console.log' ]).wait()
