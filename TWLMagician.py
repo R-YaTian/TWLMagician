@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#coding=utf-8
 
 # TWLMagician
-# Version 0.8.9
+# Version 0.9.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -37,7 +37,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
     global ntime_tmp
-    clog = open('Console.log', 'a')
+    clog = open('Console.log', 'a', encoding="UTF-8")
     try:
         ntime = datetime.now().strftime('%F %T')
     except:
@@ -79,7 +79,7 @@ class ThreadSafeText(Text):
         self.update_me()
 
     def write(self, line):
-        self.wlog = open('Window.log', 'a')
+        self.wlog = open('Window.log', 'a', encoding="UTF-8")
         try:
             now_time = datetime.now().strftime('%F %T')
         except:
@@ -2061,7 +2061,7 @@ class Application(Frame):
             copyfile(self.nand_file.get(), file)
 
             # Back-up footer info
-            with open(self.console_id.get() + '-info.txt', 'w') as f:
+            with open(self.console_id.get() + '-info.txt', 'w', encoding="UTF-8") as f:
                 f.write('eMMC CID: ' + self.cid.get() + '\n')
                 f.write('Console ID: ' + self.console_id.get() + '\n')
                 f.close()
@@ -2259,7 +2259,8 @@ class Application(Frame):
         copy_tree('ticket', path.join(self.sd_path1, 'ticket'))
         copy_tree('sys', path.join(self.sd_path1, 'sys'))
         copy_tree('shared1', path.join(self.sd_path1, 'shared1'))
-        copyfile(self.dest_region + '.app', path.join(self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name))
+        launcherdir = path.join(self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name)
+        copyfile(self.dest_region + '.app', launcherdir)
         if self.tmfh.get() == 1:
             self.log.write(_('正在安装TMFH...'))
             copy_tree('TMFH/title', path.join(self.sd_path1, 'title'))
@@ -2300,16 +2301,16 @@ if sysname == 'Linux':
         su = True
 
 if path.isfile('Console.log'):
-    clog = open('Console.log', 'a')
+    clog = open('Console.log', 'a', encoding="UTF-8")
     clog.write('\n')
     clog.close()
 
 if sysname == 'Linux' and ug is not None and su == True:
     if not path.isfile('Console.log'):
-        open('Console.log', 'a')
+        open('Console.log', 'a', encoding="UTF-8")
         Popen([ 'chown', '-R', ug + ':' + ug, 'Console.log' ]).wait()
     if not path.isfile('Window.log'):
-        open('Window.log', 'a')
+        open('Window.log', 'a', encoding="UTF-8")
         Popen([ 'chown', '-R', ug + ':' + ug, 'Window.log' ]).wait()
     try:
         Popen([ 'chown', '-R', ug + ':' + ug, '__pycache__' ]).wait()
@@ -2375,7 +2376,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta8 BY R-YaTian')
+root.title('TWLMagician Beta9 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
