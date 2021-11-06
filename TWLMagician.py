@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 0.9.1
+# Version 0.9.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -303,7 +303,7 @@ class Application(Frame):
         rb0 = Radiobutton(self.nand_frame, text=_('安装或卸载最新版本的unlaunch'),
             variable=self.nand_operation, value=2,
             command=lambda: self.enable_entries(False))
-        if osfmount is not None or (sysname == 'Linux' and su == True):
+        if osfmount is not None or (sysname == 'Linux' and su == True) or sysname == 'Darwin':
             rb0.pack(anchor=W)
         Radiobutton(self.nand_frame, text=_('移除 No$GBA footer'), variable=self.nand_operation,
             value=0, command=lambda: self.enable_entries(False)).pack(anchor=W)
