@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 0.9.2
+# Version 0.9.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -24,7 +24,6 @@ from shutil import rmtree, copyfile, copyfileobj
 from distutils.dir_util import copy_tree, _path_created
 from re import search
 from appgen import agen
-from tooltip import ToolTip
 from inspect import isclass
 from datetime import datetime
 from time import sleep
@@ -205,7 +204,6 @@ class Application(Frame):
         ag_chk = Checkbutton(self.checks_frame, text=_('使用AppGen'), variable=self.appgen)
 
         ag_chk.pack(padx=10, anchor=W)
-        ToolTip(ag_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
 
         self.devkp = IntVar()
         self.devkp.set(0)
@@ -213,7 +211,6 @@ class Application(Frame):
         dkp_chk = Checkbutton(self.checks_frame, text=_('启用系统设置-数据管理功能'), variable=self.devkp)
 
         dkp_chk.pack(padx=10, anchor=W)
-        ToolTip(dkp_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
         self.photo = IntVar()
         self.photo.set(0)
@@ -221,7 +218,6 @@ class Application(Frame):
         photo_chk = Checkbutton(self.checks_frame, text=_('提取相册分区'), variable=self.photo)
 
         photo_chk.pack(padx=10, anchor=W)
-        ToolTip(photo_chk, msg=_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
 
         self.altdl = IntVar()
         if loc == 'zh_CN':
@@ -232,7 +228,6 @@ class Application(Frame):
         if loc == 'zh_CN':
             adl_chk = Checkbutton(self.checks_frame, text='优先使用备用载点', variable=self.altdl)
             adl_chk.pack(padx=10, anchor=W)
-            ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
         self.checks_frame.pack(fill=X)
 
@@ -241,7 +236,6 @@ class Application(Frame):
         self.ag1_chk = Checkbutton(self.checks_frame1, text=_('使用AppGen'), variable=self.appgen, state=DISABLED)
 
         self.ag1_chk.pack(padx=10, anchor=W)
-        ToolTip(self.ag1_chk, msg=_('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
 
         self.updatehiya = IntVar()
         self.updatehiya.set(0)
@@ -253,7 +247,6 @@ class Application(Frame):
         self.dkp1_chk = Checkbutton(self.checks_frame1, text=_('启用系统设置-数据管理功能'), variable=self.devkp, state=DISABLED)
 
         self.dkp1_chk.pack(padx=10, anchor=W)
-        ToolTip(self.dkp1_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
         self.tftt = IntVar()
         self.tftt.set(0)
@@ -261,19 +254,16 @@ class Application(Frame):
         self.tftt_chk = Checkbutton(self.checks_frame1, text=_('同时安装TFTT'), variable=self.tftt, state=DISABLED)
 
         self.tftt_chk.pack(padx=10, anchor=W)
-        ToolTip(self.tftt_chk, msg=_('在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)'))
 
         if loc == 'zh_CN':
             adl1_chk = Checkbutton(self.checks_frame1, text='优先使用备用载点', variable=self.altdl)
             adl1_chk.pack(padx=10, anchor=W)
-            ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
         self.checks_frame2 = Frame(f2)
 
         self.dkp2_chk = Checkbutton(self.checks_frame2, text=_('启用系统设置-数据管理功能'), variable=self.devkp)
 
         self.dkp2_chk.pack(padx=10, anchor=W)
-        ToolTip(self.dkp2_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
 
         self.tmfh = IntVar()
         self.tmfh.set(0)
@@ -292,7 +282,6 @@ class Application(Frame):
         if loc == 'zh_CN':
             adl2_chk = Checkbutton(self.checks_frame2, text='优先使用备用载点', variable=self.altdl)
             adl2_chk.pack(padx=10, anchor=W)
-            ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padx=10, pady=10)
@@ -346,7 +335,6 @@ class Application(Frame):
         self.back1_button = Button(f3, text=_('返回'), command=self.change_mode1, width=13)
         self.back2_button = Button(f3, text=_('返回'), command=self.change_mode2, width=13)
         self.adv_button.pack(side='left', padx=(0, 0))
-        ToolTip(self.adv_button, msg=_('高级模式提供了单独安装TWiLightMenu++等功能'))
 
         self.exit_button = Button(f3, text=_('退出'), command=root.destroy, width=13)
         self.exit_button.pack(side='left', padx=(5, 0))
@@ -355,6 +343,42 @@ class Application(Frame):
 
         self.folders = []
         self.files = []
+
+        # General ToolTip
+        if sysname == 'Darwin':
+            from ToolTips import ToolTips
+            widgets = [ag_chk, dkp_chk, photo_chk, self.ag1_chk, self.dkp1_chk, self.tftt_chk, self.dkp2_chk, self.adv_button]
+            tooltip_text = []
+            tooltip_text.append(_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
+            tooltip_text.append(_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'))
+            tooltip_text.append(_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用\n一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
+            tooltip_text.append(_('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
+            tooltip_text.append(_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'))
+            tooltip_text.append(_('在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)'))
+            tooltip_text.append(_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'))
+            tooltip_text.append(_('高级模式提供了单独安装TWiLightMenu++\n等功能'))
+            if loc == 'zh_CN':
+                widgets.append(adl_chk)
+                widgets.append(adl1_chk)
+                widgets.append(adl2_chk)
+                tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
+                tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
+                tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
+            ToolTips(widgets, tooltip_text)
+        else:
+            from tooltip import ToolTip
+            ToolTip(ag_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
+            ToolTip(dkp_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+            ToolTip(photo_chk, msg=_('提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
+            ToolTip(self.ag1_chk, msg=_('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
+            ToolTip(self.dkp1_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+            ToolTip(self.tftt_chk, msg=_('在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)'))
+            ToolTip(self.dkp2_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+            ToolTip(self.adv_button, msg=_('高级模式提供了单独安装TWiLightMenu++等功能'))
+            if loc == 'zh_CN':
+                ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
+                ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
+                ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
 
     ################################################################################################
