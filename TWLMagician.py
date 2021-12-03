@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# coding=utf-8
+#coding=utf-8
 
 # TWLMagician
 # Version 0.9.8
@@ -76,6 +76,7 @@ def stop_thread(thread):
 
 ####################################################################################################
 # Thread-safe text class
+
 class ThreadSafeText(Text):
     def __init__(self, master, **options):
         Text.__init__(self, master, **options)
@@ -112,6 +113,7 @@ class ThreadSafeText(Text):
 
 ####################################################################################################
 # Main application class
+
 class Application(Frame):
     def __init__(self, master=None):
         super().__init__(master)
@@ -1154,7 +1156,7 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+                if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                     Popen(['chown', '-R', ug + ':' + ug, 'bootloader.nds']).wait()
                 # Hash bootloader.nds
                 sha1_hash = sha1()
@@ -1497,7 +1499,7 @@ class Application(Frame):
                         else:
                             raise IOError
 
-            if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, self.launcher_region]).wait()
 
             self.log.write(_('- 正在解压Launcher...'))
@@ -1801,7 +1803,7 @@ class Application(Frame):
             file = self.console_id.get() + self.suffix + '.bin'
             try:
                 rename(self.console_id.get() + '.img', file)
-                if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+                if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                     Popen(['chown', '-R', ug + ':' + ug, file]).wait()
                 self.log.write(_('完成!\n修改后的NAND已保存为') + file + '\n')
             except FileExistsError:
@@ -1809,7 +1811,7 @@ class Application(Frame):
                 self.log.write(_('操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n'))
             return
 
-        if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+        if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
             if self.adv_mode or self.transfer_mode:
                 Popen(['chown', '-R', ug + ':' + ug, self.sd_path1]).wait()
             else:
@@ -1964,7 +1966,7 @@ class Application(Frame):
                         else:
                             raise IOError
 
-                if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+                if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                     Popen(['chown', '-R', ug + ':' + ug, filename]).wait()
 
                 self.proc = Popen(
@@ -2195,7 +2197,7 @@ class Application(Frame):
                 f.truncate()
                 f.close()
             self.finish = True
-            if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
                 Popen(['chown', '-R', ug + ':' + ug,
                       self.console_id.get() + '-info.txt']).wait()
@@ -2239,7 +2241,7 @@ class Application(Frame):
                         b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
                 f.close()
             self.finish = True
-            if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + file + '\n')
 
@@ -2250,7 +2252,6 @@ class Application(Frame):
 
     ################################################################################################
     def get_common_data(self):
-        # self.files.append('Common.dat')
         self.folders.append('hiya')
         self.folders.append('title')
         self.folders.append('ticket')
@@ -2262,7 +2263,7 @@ class Application(Frame):
                 with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/Common.dat') as src, open('Common.dat', 'wb') as dst:
                     copyfileobj(src, dst)
 
-            if sysname == 'Linux' and ug is not None and su == True:  # chown in Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, 'Common.dat']).wait()
 
             self.log.write(_('- 正在解压通用数据...'))
@@ -2405,6 +2406,7 @@ class Application(Frame):
 
 ####################################################################################################
 # Entry point
+
 sysname = platform.system()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
