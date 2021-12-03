@@ -220,12 +220,12 @@ class Application(Frame):
         photo_chk.pack(padx=10, anchor=W)
 
         self.altdl = IntVar()
-        if loc == 'zh_CN':
+        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             self.altdl.set(1)
         else:
             self.altdl.set(0)
 
-        if loc == 'zh_CN':
+        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             adl_chk = Checkbutton(self.checks_frame, text='优先使用备用载点', variable=self.altdl)
             adl_chk.pack(padx=10, anchor=W)
 
@@ -255,7 +255,7 @@ class Application(Frame):
 
         self.tftt_chk.pack(padx=10, anchor=W)
 
-        if loc == 'zh_CN':
+        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             adl1_chk = Checkbutton(self.checks_frame1, text='优先使用备用载点', variable=self.altdl)
             adl1_chk.pack(padx=10, anchor=W)
 
@@ -279,7 +279,7 @@ class Application(Frame):
 
         self.um_chk.pack(padx=10, anchor=W)
 
-        if loc == 'zh_CN':
+        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             adl2_chk = Checkbutton(self.checks_frame2, text='优先使用备用载点', variable=self.altdl)
             adl2_chk.pack(padx=10, anchor=W)
 
@@ -358,7 +358,7 @@ class Application(Frame):
             tooltip_text.append(_('在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)'))
             tooltip_text.append(_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'))
             tooltip_text.append(_('高级模式提供了单独安装TWiLightMenu++\n等功能'))
-            if loc == 'zh_CN':
+            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                 widgets.append(adl_chk)
                 widgets.append(adl1_chk)
                 widgets.append(adl2_chk)
@@ -377,7 +377,7 @@ class Application(Frame):
             ToolTip(self.tftt_chk, msg=_('在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)'))
             ToolTip(self.dkp2_chk, msg=_('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
             ToolTip(self.adv_button, msg=_('高级模式提供了单独安装TWiLightMenu++等功能'))
-            if loc == 'zh_CN':
+            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                 ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
                 ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
                 ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
@@ -916,7 +916,7 @@ class Application(Frame):
                     except SystemExit:
                         return
                     except:
-                        if loc == 'zh_CN':
+                        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + filename) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
@@ -1422,7 +1422,7 @@ class Application(Frame):
                     except SystemExit:
                         return
                     except:
-                        if loc == 'zh_CN':
+                        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
@@ -1568,7 +1568,7 @@ class Application(Frame):
                     except SystemExit:
                         return
                     except:
-                        if loc == 'zh_CN':
+                        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             try:
                                 with urlopen('https://spinaround.tk/somefiles/' +
                                     filename) as src, open(filename, 'wb') as dst:
@@ -1876,7 +1876,7 @@ class Application(Frame):
                     except SystemExit:
                         return
                     except:
-                        if loc == 'zh_CN':
+                        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip') as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
@@ -2322,7 +2322,10 @@ class Application(Frame):
 sysname = platform.system()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
-loc = lang_init('zh_hans', 'i18n')[0]
+langs = lang_init('zh_hans', 'i18n')
+loc = langs[0]
+loca = langs[1]
+region = langs[2]
 
 if sysname == 'Linux':
     from os import getuid, getlogin
