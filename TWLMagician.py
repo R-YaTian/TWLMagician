@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 0.9.4
+# Version 0.9.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -347,6 +347,7 @@ class Application(Frame):
         # General ToolTip
         if sysname == 'Darwin':
             from ToolTips import ToolTips
+            import tkinter.font as tkFont
             widgets = [ag_chk, dkp_chk, photo_chk, self.ag1_chk, self.dkp1_chk, self.tftt_chk, self.dkp2_chk, self.adv_button]
             tooltip_text = []
             tooltip_text.append(_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
@@ -364,7 +365,8 @@ class Application(Frame):
                 tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
                 tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
                 tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
-            ToolTips(widgets, tooltip_text)
+            font_obj = tkFont.Font(family="Microsoft YaHei UI", size=13)
+            ToolTips(widgets, tooltip_text, font=font_obj)
         else:
             from tooltip import ToolTip
             ToolTip(ag_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
@@ -1730,6 +1732,15 @@ class Application(Frame):
                 Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path1 ]).wait()
             else:
                 Popen([ 'chown', '-R', ug + ':' + ug, self.sd_path ]).wait()
+
+        if sysname == 'Darwin':
+            from rm_auto import rm_
+            if self.adv_mode or self.transfer_mode:
+                out = rm_(self.sd_path1)
+            else:
+                out = rm_(self.sd_path)
+            if out == 1:
+                self.log.write(_("'._' 文件清理完毕"))
 
         if self.adv_mode and self.is_tds:
             self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
