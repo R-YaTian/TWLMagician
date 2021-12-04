@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 0.9.8
+# Version 0.9.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -754,35 +754,40 @@ class Application(Frame):
                     return
             else:
                 self.check_console(self.sd_path1)
-
-        # If adding a No$GBA footer, check if CID and ConsoleID values are OK
-        elif self.nand_operation.get() == 1:
-            cid = self.cid.get()
-            console_id = self.console_id.get()
-
-            # Check lengths
-            if len(cid) != 32:
-                showerror(_('错误'), 'Bad eMMC CID')
+        else:
+            showinfo(_('提示'), _('接下来请选择一个输出路径'))
+            self.out_path = askdirectory(title='')
+            if self.out_path == '':
                 return
 
-            elif len(console_id) != 16:
-                showerror(_('错误'), 'Bad Console ID')
-                return
+            # If adding a No$GBA footer, check if CID and ConsoleID values are OK
+            if self.nand_operation.get() == 1:
+                cid = self.cid.get()
+                console_id = self.console_id.get()
 
-            # Parse strings to hex
-            try:
-                cid = bytearray.fromhex(cid)
+                # Check lengths
+                if len(cid) != 32:
+                    showerror(_('错误'), 'Bad eMMC CID')
+                    return
 
-            except ValueError:
-                showerror(_('错误'), 'Bad eMMC CID')
-                return
+                elif len(console_id) != 16:
+                    showerror(_('错误'), 'Bad Console ID')
+                    return
 
-            try:
-                console_id = bytearray(reversed(bytearray.fromhex(console_id)))
+                # Parse strings to hex
+                try:
+                    cid = bytearray.fromhex(cid)
 
-            except ValueError:
-                showerror(_('错误'), 'Bad Console ID')
-                return
+                except ValueError:
+                    showerror(_('错误'), 'Bad eMMC CID')
+                    return
+
+                try:
+                    console_id = bytearray(reversed(bytearray.fromhex(console_id)))
+
+                except ValueError:
+                    showerror(_('错误'), 'Bad Console ID')
+                    return
 
         self.log_window()
 
@@ -2179,13 +2184,15 @@ class Application(Frame):
     def remove_footer(self):
         self.log.write(_('正在移除No$GBA footer...'))
 
-        file = self.console_id.get() + '-no-footer.bin'
+        ofilename = self.console_id.get() + '-no-footer.bin'
+        file = path.join(self.out_path, ofilename)
 
         try:
             copyfile(self.nand_file.get(), file)
 
             # Back-up footer info
-            with open(self.console_id.get() + '-info.txt', 'w', encoding="UTF-8") as f:
+            info_file = path.join(self.out_path, self.console_id.get() + '-info.txt')
+            with open(info_file, 'w', encoding="UTF-8") as f:
                 f.write('eMMC CID: ' + self.cid.get() + '\n')
                 f.write('Console ID: ' + self.console_id.get() + '\n')
                 f.close()
@@ -2199,10 +2206,9 @@ class Application(Frame):
             self.finish = True
             if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
-                Popen(['chown', '-R', ug + ':' + ug,
-                      self.console_id.get() + '-info.txt']).wait()
-            self.log.write(_('完成!\n修改后的NAND已保存为\n') + file +
-                           _('\nfooter信息已保存到 ') + self.console_id.get() + '-info.txt\n')
+                Popen(['chown', '-R', ug + ':' + ug, info_file]).wait()
+            self.log.write(_('完成!\n修改后的NAND已保存为\n') + ofilename +
+                           _('\nfooter信息已保存为 ') + self.console_id.get() + '-info.txt\n')
 
         except IOError as e:
             printl(str(e))
@@ -2213,7 +2219,8 @@ class Application(Frame):
     def add_footer(self, cid, console_id):
         self.log.write(_('正在添加No$GBA footer...'))
 
-        file = self.console_id.get() + '-footer.bin'
+        ofilename = self.console_id.get() + '-footer.bin'
+        file = path.join(self.out_path, ofilename)
 
         try:
             copyfile(self.nand_file.get(), file)
@@ -2243,7 +2250,7 @@ class Application(Frame):
             self.finish = True
             if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
-            self.log.write(_('完成!\n修改后的NAND已保存为\n') + file + '\n')
+            self.log.write(_('完成!\n修改后的NAND已保存为\n') + ofilename + '\n')
 
         except IOError as e:
             printl(str(e))
