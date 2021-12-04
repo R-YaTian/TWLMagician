@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 0.9.9
+# Version 1.0.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -11,7 +11,7 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
                      END)
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
-from os import path, remove, chmod, listdir, rename, environ, mkdir
+from os import path, remove, chmod, listdir, environ, mkdir
 from sys import exit, stdout
 from threading import Thread
 from queue import Queue, Empty
@@ -1805,15 +1805,13 @@ class Application(Frame):
             return
 
         if self.nand_mode:
-            file = self.console_id.get() + self.suffix + '.bin'
-            try:
-                rename(self.console_id.get() + '.img', file)
-                if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
-                    Popen(['chown', '-R', ug + ':' + ug, file]).wait()
-                self.log.write(_('完成!\n修改后的NAND已保存为') + file + '\n')
-            except FileExistsError:
-                remove(self.console_id.get() + '.img')
-                self.log.write(_('操作终止!\n目标文件已存在于程序运行目录下, 无法覆盖原文件\n'))
+            ofilename = self.console_id.get() + self.suffix + '.bin'
+            file = path.join(self.out_path, ofilename)
+            copyfile(self.console_id.get() + '.img', file)
+            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+                Popen(['chown', '-R', ug + ':' + ug, file]).wait()
+            remove(self.console_id.get() + '.img')
+            self.log.write(_('完成!\n修改后的NAND已保存为') + ofilename + '\n')
             return
 
         if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
@@ -2509,7 +2507,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician Beta9 BY R-YaTian')
+root.title('TWLMagician V1.0 BY R-YaTian')
 # Disable maximizing
 root.resizable(0, 0)
 # Center in window
