@@ -162,7 +162,7 @@ msgstr "Close"
 
 #: TWLMagician.py:721
 msgid "接下来请选择TWLTransfer目标镜像文件\n请注意: TWLCFG会被重置"
-msgstr "*"
+msgstr "Now please select TWLTransfer image file.\nNote: TWLCFG will be reset!"
 
 #: TWLMagician.py:722
 msgid "镜像文件"
@@ -214,7 +214,7 @@ msgstr "ERROR: Invalid image file"
 
 #: TWLMagician.py:931
 msgid "目标系统: "
-msgstr "*"
+msgstr "The destination system: "
 
 #: TWLMagician.py:947
 msgid "当前区域: "
@@ -336,27 +336,27 @@ msgstr "ERROR: Mounter failed"
 
 #: TWLMagician.py:1333
 msgid "调用 losetup(挂载 loop device)"
-msgstr ""
+msgstr "Execute losetup (Mount loop device)"
 
 #: TWLMagician.py:1344
 msgid "- 挂载loop device到 "
-msgstr ""
+msgstr "- Mounted loop device on "
 
 #: TWLMagician.py:1345
 msgid "调用 mount(挂载分区)"
-msgstr ""
+msgstr "Execute mount (Mount partition)"
 
 #: TWLMagician.py:1355
 msgid "- 挂载分区到 "
-msgstr ""
+msgstr "- Mounted partition on "
 
 #: TWLMagician.py:1376
 msgid "- 挂载raw disk到 "
-msgstr ""
+msgstr "- Mounted raw disk on "
 
 #: TWLMagician.py:1387
 msgid "- 挂载卷到 "
-msgstr ""
+msgstr "- Mounted volume on "
 
 #: TWLMagician.py:1414
 msgid "调用 fatcat(解压 NAND)"
@@ -511,15 +511,15 @@ msgstr "Execute osfmount (Unmount twln)"
 
 #: TWLMagician.py:2064
 msgid "调用 hdiutil(卸载 raw disk)"
-msgstr ""
+msgstr "Execute hdiutil (Unmount raw disk)"
 
 #: TWLMagician.py:2068
 msgid "调用 umount(卸载分区)"
-msgstr ""
+msgstr "Execute umount (Unmount partition)"
 
 #: TWLMagician.py:2073
 msgid "调用 losetup(卸载 loop device)"
-msgstr ""
+msgstr "Execute losetup (Unmount loop device)"
 
 #: TWLMagician.py:2077 TWLMagician.py:2100
 msgid "错误: 卸载失败"
@@ -543,15 +543,15 @@ msgstr "Execute osfmount (Force to unmount twln)"
 
 #: TWLMagician.py:2117
 msgid "调用 hdiutil(强制卸载 raw disk)"
-msgstr ""
+msgstr "Execute hdiutil (Force to unmount raw disk)"
 
 #: TWLMagician.py:2121
 msgid "调用 umount(强制卸载分区)"
-msgstr ""
+msgstr "Execute umount (Force to unmount partition)"
 
 #: TWLMagician.py:2126
 msgid "调用 losetup(强制卸载 loop device)"
-msgstr ""
+msgstr "Execute losetup (Force to unmount loop device)"
 
 #: TWLMagician.py:2130 TWLMagician.py:2137
 msgid "错误: 卸载失败或尚未挂载"
@@ -575,7 +575,7 @@ msgstr "Execute twltool (Encrypt back NAND)"
 
 #: TWLMagician.py:2169
 msgid "操作成功完成"
-msgstr "*"
+msgstr "Operation completed successfully"
 
 #: TWLMagician.py:2173
 msgid "错误: 加密失败"
@@ -607,23 +607,23 @@ msgstr "ERROR: File already has a No$GBA footer"
 
 #: TWLMagician.py:2267
 msgid "正在下载通用数据..."
-msgstr ""
+msgstr "Downloading common data..."
 
 #: TWLMagician.py:2274
 msgid "- 正在解压通用数据..."
-msgstr ""
+msgstr "- Extracting common data..."
 
 #: TWLMagician.py:2299
 msgid "错误: 无法下载通用数据"
-msgstr ""
+msgstr "ERROR: Could not get common data"
 
 #: TWLMagician.py:2312
 msgid "正在解密TWLTransfer镜像文件..."
-msgstr ""
+msgstr "Decrypting TWLTransfer image file..."
 
 #: TWLMagician.py:2358
 msgid "正在执行TWLTransfer..."
-msgstr ""
+msgstr "Executing TWLTransfer..."
 
 #: TWLMagician.py:2393
 msgid "正在安装TMFH..."
