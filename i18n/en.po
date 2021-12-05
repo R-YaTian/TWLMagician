@@ -110,7 +110,7 @@ msgstr "Export DSiWare from SDNAND and copy to roms/dsiware"
 
 #: TWLMagician.py:399
 msgid "在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)"
-msgstr "Install TWLFontTransferTool (a GodMode9 Script) on 3DS console"
+msgstr "Install TWLFontTransferTool (a GodMode9 Script)\non 3DS console"
 
 #: TWLMagician.py:402
 msgid "高级模式提供了单独安装TWiLightMenu++\n等功能"
@@ -219,10 +219,6 @@ msgstr "*"
 #: TWLMagician.py:947
 msgid "当前区域: "
 msgstr "Current region: "
-
-#: TWLMagician.py:949
-msgid "错误: 无法读取系统区域信息"
-msgstr "*"
 
 #: TWLMagician.py:960
 msgid "原始区域: "
@@ -404,7 +400,7 @@ msgstr "Downloading latest TWiLightMenu++ release..."
 
 #: TWLMagician.py:1675
 msgid " 压缩包..."
-msgstr "archive..."
+msgstr " archive..."
 
 #: TWLMagician.py:1675
 msgid "- 正在解压 "
@@ -474,7 +470,6 @@ msgstr "- Detected "
 msgid "错误: 在NAND中找不到受支持的Launcher"
 msgstr "ERROR: Could not find supported Launcher on NAND"
 
-#: TWLMagician.py:1929
 msgid "错误: 无法检测系统区域"
 msgstr "ERROR: Could not detect console region"
 
@@ -596,7 +591,7 @@ msgstr "Done!\nModified NAND stored as\n"
 
 #: TWLMagician.py:2209
 msgid "\nfooter信息已保存为 "
-msgstr "nStored footer info in "
+msgstr "\nStored footer info in "
 
 #: TWLMagician.py:2213 TWLMagician.py:2255
 msgid "错误: 无法打开 "
@@ -632,15 +627,15 @@ msgstr ""
 
 #: TWLMagician.py:2393
 msgid "正在安装TMFH..."
-msgstr ""
+msgstr "Installing TMFH..."
 
 #: TWLMagician.py:2397
 msgid "正在更新TWiLightMenu++..."
-msgstr ""
+msgstr "Updating TWiLightMenu++..."
 
 #: TWLMagician.py:2399
 msgid "正在安装TWiLightMenu++..."
-msgstr ""
+msgstr "Installing TWiLightMenu++..."
 
 #: TWLMagician.py:2452
 msgid "TWLMagician启动中..."
