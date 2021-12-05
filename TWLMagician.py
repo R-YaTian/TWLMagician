@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 1.0.0
+# Version 1.0.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -946,7 +946,7 @@ class Application(Frame):
                 infotmp.close()
                 self.log.write(_('当前区域: ') + self.cur_region)
         else:
-            self.log.write(_('错误: 无法读取系统区域信息'))
+            self.log.write(_('错误: 无法检测系统区域'))
             return
 
         if path.exists(hwinfo_o):
