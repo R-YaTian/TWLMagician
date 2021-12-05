@@ -588,7 +588,7 @@ msgstr "完成!\n修改後的 NAND 儲存為\n"
 
 #: TWLMagician.py:2209
 msgid "\nfooter信息已保存为 "
-msgstr "\nfooter 咨詢儲存為 "
+msgstr "\nfooter 資訊儲存為 "
 
 #: TWLMagician.py:2213 TWLMagician.py:2255
 msgid "错误: 无法打开 "
