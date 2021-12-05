@@ -1,541 +1,668 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2021-03-10 13:18+0800\n"
+"POT-Creation-Date: 2021-12-05 15:37+0800\n"
 "Last-Translator: R-YaTian\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=cp936\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
 
 
-#: hiyaCFW_Helper_R3.py:127
-msgid "å«æœ‰No$GBA footerçš„NANDå¤‡ä»½æ–‡ä»¶"
+#: TWLMagician.py:136
+msgid "º¬ÓĞNo$GBA footerµÄNAND±¸·İÎÄ¼ş"
 msgstr "NAND file with No$GBA footer"
 
-#: hiyaCFW_Helper_R3.py:148
-msgid "å­˜å‚¨å¡æ ¹ç›®å½•"
+#: TWLMagician.py:154
+msgid "´æ´¢¿¨¸ùÄ¿Â¼"
 msgstr "The root of SD card"
 
-#: hiyaCFW_Helper_R3.py:162
-msgid "NANDè§£å‹é€‰é¡¹"
+#: TWLMagician.py:174
+msgid "NAND½âÑ¹Ñ¡Ïî"
 msgstr "NAND extractor"
 
-#: hiyaCFW_Helper_R3.py:174
-msgid "Fatcat(é»˜è®¤)"
+#: TWLMagician.py:186
+msgid "Fatcat(Ä¬ÈÏ)"
 msgstr "fatcat"
 
-#: hiyaCFW_Helper_R3.py:176
-msgid "OSFMount(éœ€è¦ç®¡ç†å‘˜æƒé™)"
+#: TWLMagician.py:190
+msgid "OSFMount(ĞèÒª¹ÜÀíÔ±È¨ÏŞ)"
 msgstr "OSFMount (need administrator privileges)"
 
-#: hiyaCFW_Helper_R3.py:197
-msgid "åŒæ—¶å®‰è£…TWiLightMenu++"
+#: TWLMagician.py:212
+msgid "Í¬Ê±°²×°TWiLightMenu++"
 msgstr "Install latest TWiLightMenu++ on custom firmware"
 
-#: hiyaCFW_Helper_R3.py:204 hiyaCFW_Helper_R3.py:237
-msgid "ä½¿ç”¨AppGen"
+#: TWLMagician.py:219 TWLMagician.py:255
+msgid "Ê¹ÓÃAppGen"
 msgstr "Use AppGen"
 
-#: hiyaCFW_Helper_R3.py:207 hiyaCFW_Helper_R3.py:240
-msgid "æå–Nandå¤‡ä»½ä¸­çš„DSiWareè½¯ä»¶å¹¶å¤åˆ¶åˆ°\nroms/dsiware"
-msgstr "Export DSiWare from NAND and copy to roms/dsiware"
-
-#: hiyaCFW_Helper_R3.py:212 hiyaCFW_Helper_R3.py:249
-msgid "å¯ç”¨ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†åŠŸèƒ½"
+#: TWLMagician.py:227 TWLMagician.py:268 TWLMagician.py:288
+msgid "ÆôÓÃÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí¹¦ÄÜ"
 msgstr "Enable Data Management on System Settings"
 
-#: hiyaCFW_Helper_R3.py:215 hiyaCFW_Helper_R3.py:252
-msgid "å‹¾é€‰æ­¤é€‰é¡¹å°†ä¼šåœ¨CFWä¸­å¼€å¯ç³»ç»Ÿè®¾ç½®ä¸­çš„æ•°æ®ç®¡ç†åŠŸèƒ½ï¼Œå¦‚æœå·²ç»åœ¨NANDä¸­å¼€å¯äº†æ­¤åŠŸèƒ½ï¼Œåˆ™ä¸éœ€è¦å‹¾é€‰æ­¤é€‰é¡¹"
-msgstr "Enable Data Management option on hiyaCFW's System Settings without connecting to DSi Shop"
-
-#: hiyaCFW_Helper_R3.py:220
-msgid "æå–ç›¸å†Œåˆ†åŒº"
+#: TWLMagician.py:235
+msgid "ÌáÈ¡Ïà²á·ÖÇø"
 msgstr "Extract photo partition from NAND"
 
-#: hiyaCFW_Helper_R3.py:223
-msgid "æå–Nandå¤‡ä»½ä¸­çš„ç›¸å†Œåˆ†åŒºæ–‡ä»¶åˆ°å­˜å‚¨å¡ä¸­ï¼Œæ­¤æ“ä½œä¼šå ç”¨ä¸€å®šçš„å­˜å‚¨å¡ç©ºé—´(å–å†³äºç›¸ç‰‡æ•°é‡ï¼Œæœ€å¤šå¯è¾¾32MBå·¦å³)"
-msgstr "Extract photo partition from NAND backup, then the photos from the console will be seen in hiyaCFW (Occupies some storage space, up to 32MB)"
-
-#: hiyaCFW_Helper_R3.py:245
-msgid "æ›´æ–°hiyaCFW"
+#: TWLMagician.py:263
+msgid "¸üĞÂhiyaCFW"
 msgstr "Update hiyaCFW"
 
-#: hiyaCFW_Helper_R3.py:260
-msgid "NANDæ“ä½œé€‰é¡¹"
+#: TWLMagician.py:276
+msgid "Í¬Ê±°²×°TFTT"
+msgstr "Install TFTT"
+
+#: TWLMagician.py:297
+msgid "Í¬Ê±°²×°TMFH"
+msgstr "Install TFMH"
+
+#: TWLMagician.py:304
+msgid "°²×°»ò¸üĞÂTWiLightMenu++"
+msgstr "Install or update TWiLightMenu++"
+
+#: TWLMagician.py:315
+msgid "NAND²Ù×÷Ñ¡Ïî"
 msgstr "NAND operation"
 
-#: hiyaCFW_Helper_R3.py:265
-msgid "å®‰è£…æˆ–å¸è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch"
+#: TWLMagician.py:320
+msgid "°²×°»òĞ¶ÔØ×îĞÂ°æ±¾µÄunlaunch"
 msgstr "Uninstall unlaunch or install latest"
 
-#: hiyaCFW_Helper_R3.py:270
-msgid "ç§»é™¤ No$GBA footer"
+#: TWLMagician.py:325
+msgid "ÒÆ³ı No$GBA footer"
 msgstr "Remove No$GBA footer"
 
-#: hiyaCFW_Helper_R3.py:273
-msgid "æ·»åŠ  No$GBA footer"
+#: TWLMagician.py:328
+msgid "Ìí¼Ó No$GBA footer"
 msgstr "Add No$GBA footer"
 
-#: hiyaCFW_Helper_R3.py:303
-msgid "å¼€å§‹"
+#: TWLMagician.py:360
+msgid "¿ªÊ¼"
 msgstr "Start"
 
-#: hiyaCFW_Helper_R3.py:306
-msgid "é«˜çº§"
+#: TWLMagician.py:364
+msgid "¸ß¼¶"
 msgstr "Advanced"
 
-#: hiyaCFW_Helper_R3.py:307 hiyaCFW_Helper_R3.py:308
-msgid "è¿”å›"
+#: TWLMagician.py:366 TWLMagician.py:368 TWLMagician.py:370
+msgid "·µ»Ø"
 msgstr "Back"
 
-#: hiyaCFW_Helper_R3.py:310
-msgid "é«˜çº§æ¨¡å¼æä¾›äº†å•ç‹¬å®‰è£…TWiLightMenu++ç­‰åŠŸèƒ½"
-msgstr "Advanced mode provides 'Only install TWiLightMenu++' feature and more"
-
-#: hiyaCFW_Helper_R3.py:312
-msgid "é€€å‡º"
+#: TWLMagician.py:374
+msgid "ÍË³ö"
 msgstr "Exit"
 
-#: hiyaCFW_Helper_R3.py:345
-msgid "ä½ æ­£è¦è¿›å…¥NANDæ“ä½œæ¨¡å¼, è¯·ç¡®è®¤ä½ çŸ¥é“è‡ªå·±åœ¨åšä»€ä¹ˆ, ç»§ç»­å—?"
+#: TWLMagician.py:390 TWLMagician.py:414
+msgid "ÌáÈ¡Nand±¸·İÖĞµÄDSiWareÈí¼ş²¢¸´ÖÆµ½\nroms/dsiware"
+msgstr "Export DSiWare from NAND and copy to roms/dsiware"
+
+#: TWLMagician.py:392 TWLMagician.py:397 TWLMagician.py:401
+msgid "¹´Ñ¡´ËÑ¡Ïî½«»áÔÚCFWÖĞ¿ªÆôÏµÍ³ÉèÖÃÖĞµÄÊı¾İ¹ÜÀí¹¦ÄÜ£¬Èç¹û\nÒÑ¾­ÔÚNANDÖĞ¿ªÆôÁË´Ë¹¦ÄÜ£¬Ôò²»ĞèÒª¹´Ñ¡´ËÑ¡Ïî"
+msgstr "Enable Data Management option on hiyaCFW's System\nSettings without connecting to DSi Shop"
+
+#: TWLMagician.py:394
+msgid "ÌáÈ¡Nand±¸·İÖĞµÄÏà²á·ÖÇøÎÄ¼şµ½´æ´¢¿¨ÖĞ£¬´Ë²Ù×÷»áÕ¼ÓÃ\nÒ»¶¨µÄ´æ´¢¿¨¿Õ¼ä(È¡¾öÓÚÏàÆ¬ÊıÁ¿£¬×î¶à¿É´ï32MB×óÓÒ)"
+msgstr "Extract photo partition from NAND backup, then the\nphotos from the console will be seen in hiyaCFW\n(Occupies some storage space, up to 32MB)"
+
+#: TWLMagician.py:395 TWLMagician.py:419
+msgid "ÌáÈ¡SDNandÖĞµÄDSiWareÈí¼ş²¢¸´ÖÆµ½\nroms/dsiware"
+msgstr "Export DSiWare from SDNAND and copy to roms/dsiware"
+
+#: TWLMagician.py:399
+msgid "ÔÚ3DSÏµÁĞ»úÆ÷ÉÏ°²×°TWLFontTransferTool\n(»ùÓÚGodMode9½Å±¾)"
+msgstr "Install TWLFontTransferTool (a GodMode9 Script) on 3DS console"
+
+#: TWLMagician.py:402
+msgid "¸ß¼¶Ä£Ê½Ìá¹©ÁËµ¥¶À°²×°TWiLightMenu++\nµÈ¹¦ÄÜ"
+msgstr "Advanced mode provides 'Only install\nTWiLightMenu++' feature and more"
+
+#: TWLMagician.py:415 TWLMagician.py:421 TWLMagician.py:425
+msgid "¹´Ñ¡´ËÑ¡Ïî½«»áÔÚCFWÖĞ¿ªÆôÏµÍ³ÉèÖÃÖĞµÄÊı¾İ¹ÜÀí¹¦ÄÜ£¬Èç¹ûÒÑ¾­ÔÚNANDÖĞ¿ªÆôÁË´Ë¹¦ÄÜ£¬Ôò²»ĞèÒª¹´Ñ¡´ËÑ¡Ïî"
+msgstr "Enable Data Management option on hiyaCFW's System Settings without connecting to DSi Shop"
+
+#: TWLMagician.py:417
+msgid "ÌáÈ¡Nand±¸·İÖĞµÄÏà²á·ÖÇøÎÄ¼şµ½´æ´¢¿¨ÖĞ£¬´Ë²Ù×÷»áÕ¼ÓÃÒ»¶¨µÄ´æ´¢¿¨¿Õ¼ä(È¡¾öÓÚÏàÆ¬ÊıÁ¿£¬×î¶à¿É´ï32MB×óÓÒ)"
+msgstr "Extract photo partition from NAND backup, then the photos from the console will be seen in hiyaCFW (Occupies some storage space, up to 32MB)"
+
+#: TWLMagician.py:423
+msgid "ÔÚ3DSÏµÁĞ»úÆ÷ÉÏ°²×°TWLFontTransferTool(»ùÓÚGodMode9½Å±¾)"
+msgstr "Install TWLFontTransferTool (a GodMode9 Script) on 3DS console"
+
+#: TWLMagician.py:427
+msgid "¸ß¼¶Ä£Ê½Ìá¹©ÁËµ¥¶À°²×°TWiLightMenu++µÈ¹¦ÄÜ"
+msgstr "Advanced mode provides 'Only install TWiLightMenu++' feature and more"
+
+#: TWLMagician.py:457
+msgid "ÄãÕıÒª½øÈëNAND²Ù×÷Ä£Ê½, ÇëÈ·ÈÏÄãÖªµÀ×Ô¼ºÔÚ×öÊ²Ã´, ¼ÌĞøÂğ?"
 msgstr "You are about to enter NAND mode. Do it only if you know what you are doing. Proceed?"
 
-#: hiyaCFW_Helper_R3.py:345
-msgid "è­¦å‘Š"
+#: TWLMagician.py:457
+msgid "¾¯¸æ"
 msgstr "Warning"
 
-#: hiyaCFW_Helper_R3.py:455
-msgid "\"ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†\"åŠŸèƒ½å¯ç”¨æˆåŠŸ"
+#: TWLMagician.py:612
+msgid "\"ÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí\"¹¦ÄÜÆôÓÃ³É¹¦"
 msgstr "Succeeded in enabling 'Data Management' on System Settings"
 
-#: hiyaCFW_Helper_R3.py:463
-msgid "è¯·é€‰æ‹©æœºå™¨çš„å­˜å‚¨å¡æ ¹ç›®å½•"
+#: TWLMagician.py:619
+msgid "ÇëÑ¡Ôñ»úÆ÷µÄ´æ´¢¿¨¸ùÄ¿Â¼"
 msgstr "Please choose your console's SD card path"
 
-#: hiyaCFW_Helper_R3.py:463 hiyaCFW_Helper_R3.py:517
-msgid "æç¤º"
+#: TWLMagician.py:619 TWLMagician.py:721 TWLMagician.py:744 TWLMagician.py:758
+msgid "ÌáÊ¾"
 msgstr "Info"
 
-#: hiyaCFW_Helper_R3.py:508
-msgid "æ­¤åŠŸèƒ½éœ€è¦ä»¥ç®¡ç†å‘˜æƒé™è¿è¡Œæœ¬å·¥å…·"
-msgstr "In order to use this feature, 'hiyaCFW HelperR' needs to be run with administrator privileges."
+#: TWLMagician.py:690
+msgid "×´Ì¬"
+msgstr "Status"
 
-#: hiyaCFW_Helper_R3.py:508 hiyaCFW_Helper_R3.py:525 hiyaCFW_Helper_R3.py:537
-#: hiyaCFW_Helper_R3.py:541 hiyaCFW_Helper_R3.py:549 hiyaCFW_Helper_R3.py:556
-#: hiyaCFW_Helper_R3.py:1813
-msgid "é”™è¯¯"
+#: TWLMagician.py:708
+msgid "¹Ø±Õ"
+msgstr "Close"
+
+#: TWLMagician.py:721
+msgid "½ÓÏÂÀ´ÇëÑ¡ÔñTWLTransferÄ¿±ê¾µÏñÎÄ¼ş\nÇë×¢Òâ: TWLCFG»á±»ÖØÖÃ"
+msgstr "*"
+
+#: TWLMagician.py:722
+msgid "¾µÏñÎÄ¼ş"
+msgstr "Image file"
+
+#: TWLMagician.py:735
+msgid "´Ë¹¦ÄÜĞèÒªÒÔ¹ÜÀíÔ±È¨ÏŞÔËĞĞ±¾¹¤¾ß"
+msgstr "In order to use this feature, 'TWLMagician' needs to be run with administrator privileges."
+
+#: TWLMagician.py:735 TWLMagician.py:752 TWLMagician.py:770 TWLMagician.py:774
+#: TWLMagician.py:782 TWLMagician.py:789 TWLMagician.py:2504
+msgid "´íÎó"
 msgstr "ERROR"
 
-#: hiyaCFW_Helper_R3.py:517
-msgid "æ¥ä¸‹æ¥è¯·é€‰æ‹©ä½ ç”¨æ¥å®‰è£…è‡ªåˆ¶ç³»ç»Ÿçš„å­˜å‚¨å¡è·¯å¾„(æˆ–è¾“å‡ºè·¯å¾„)\nä¸ºäº†é¿å… å¯åŠ¨é”™è¯¯ è¯·ç¡®ä¿ç›®å½•ä¸‹æ— ä»»ä½•æ–‡ä»¶"
+#: TWLMagician.py:744
+msgid "½ÓÏÂÀ´ÇëÑ¡ÔñÄãÓÃÀ´°²×°×ÔÖÆÏµÍ³µÄ´æ´¢¿¨Â·¾¶(»òÊä³öÂ·¾¶)\nÎªÁË±ÜÃâ Æô¶¯´íÎó ÇëÈ·±£Ä¿Â¼ÏÂÎŞÈÎºÎÎÄ¼ş"
 msgstr "Now you will be asked to choose the SD card path that will be used "
 "for installing the custom firmware (or an output folder).\n\nIn order to avoid "
 "boot errors please assure it is empty before continuing."
 
-#: hiyaCFW_Helper_R3.py:525
-msgid "ç›®å½•æ£€æµ‹æœªé€šè¿‡ï¼Œè‹¥CFWå·²å®‰è£…ï¼Œè¯·è½¬åˆ°é«˜çº§æ¨¡å¼ï¼Œæˆ–é€‰æ‹©ä¸€ä¸ªç©ºç›®å½•ä»¥ç»§ç»­"
+#: TWLMagician.py:752
+msgid "Ä¿Â¼¼ì²âÎ´Í¨¹ı£¬ÈôCFWÒÑ°²×°£¬Çë×ªµ½¸ß¼¶Ä£Ê½£¬»òÑ¡ÔñÒ»¸ö¿ÕÄ¿Â¼ÒÔ¼ÌĞø"
 msgstr "Failed on 'Path check'. If hiyaCFW is already installed on this SD card, please use 'Advanced mode' or choose a empty folder"
 
-#: hiyaCFW_Helper_R3.py:562
-msgid "çŠ¶æ€"
-msgstr "Status"
+#: TWLMagician.py:758
+msgid "½ÓÏÂÀ´ÇëÑ¡ÔñÒ»¸öÊä³öÂ·¾¶"
+msgstr "Please select the output path"
 
-#: hiyaCFW_Helper_R3.py:580
-msgid "å…³é—­"
-msgstr "Close"
-
-#: hiyaCFW_Helper_R3.py:633
-msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ"
+#: TWLMagician.py:843
+msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷"
 msgstr "An error was encountered or terminate by user"
 
-#: hiyaCFW_Helper_R3.py:640
-msgid "æ­£åœ¨æ£€æŸ¥NANDæ–‡ä»¶..."
+#: TWLMagician.py:851
+msgid "ÕıÔÚ¼ì²éNANDÎÄ¼ş..."
 msgstr "Checking NAND file..."
 
-#: hiyaCFW_Helper_R3.py:679
-msgid "é”™è¯¯: æ²¡æœ‰æ£€æµ‹åˆ°No$GBA footer\nè­¦å‘Š: è‹¥ç¡®å®šNandå·²å®Œæ•´dump, åˆ™ç”¨äºdumpçš„å­˜å‚¨å¡ææœ‰å¯èƒ½æ˜¯æ‰©å®¹å¡æˆ–è€…å·²å‡ºç°åå—"
+#: TWLMagician.py:887
+msgid "´íÎó: Ã»ÓĞ¼ì²âµ½No$GBA footer\n¾¯¸æ: ÈôÈ·¶¨NandÒÑÍêÕûdump, ÔòÓÃÓÚdumpµÄ´æ´¢¿¨¼«ÓĞ¿ÉÄÜÊÇÀ©Èİ¿¨»òÕßÒÑ³öÏÖ»µ¿é"
 msgstr "ERROR: No$GBA footer not found\nWarning: If 'NAND dump' progress was certainly done, you should check your SD "
 "card for errors using H2testw (Windows), F3 (Linux), or F3X (macOS)."
 
-#: hiyaCFW_Helper_R3.py:683
-msgid "é”™è¯¯: æ— æ³•æ‰“å¼€æ–‡ä»¶ "
+#: TWLMagician.py:891 TWLMagician.py:935
+msgid "´íÎó: ÎŞ·¨´ò¿ªÎÄ¼ş "
 msgstr "ERROR: Could not open the file "
 
-#: hiyaCFW_Helper_R3.py:696
-msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„hiyaCFW..."
+#: TWLMagician.py:927
+msgid "´íÎó: ÎŞĞ§µÄ¾µÏñÎÄ¼ş"
+msgstr "ERROR: Invalid image file"
+
+#: TWLMagician.py:931
+msgid "Ä¿±êÏµÍ³: "
+msgstr "*"
+
+#: TWLMagician.py:947
+msgid "µ±Ç°ÇøÓò: "
+msgstr "Current region: "
+
+#: TWLMagician.py:949
+msgid "´íÎó: ÎŞ·¨¶ÁÈ¡ÏµÍ³ÇøÓòĞÅÏ¢"
+msgstr "*"
+
+#: TWLMagician.py:960
+msgid "Ô­Ê¼ÇøÓò: "
+msgstr "Original region: "
+
+#: TWLMagician.py:975
+msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄhiyaCFW..."
 msgstr "Downloading latest hiyaCFW release..."
 
-#: hiyaCFW_Helper_R3.py:705
-msgid "- æ­£åœ¨è§£å‹ hiyaCFW å‹ç¼©åŒ…..."
+#: TWLMagician.py:993
+msgid "- ÕıÔÚ½âÑ¹ hiyaCFW Ñ¹Ëõ°ü..."
 msgstr "- Extracting hiyaCFW archive..."
 
-#: hiyaCFW_Helper_R3.py:724 hiyaCFW_Helper_R3.py:777 hiyaCFW_Helper_R3.py:982
-#: hiyaCFW_Helper_R3.py:993 hiyaCFW_Helper_R3.py:1096
-#: hiyaCFW_Helper_R3.py:1196 hiyaCFW_Helper_R3.py:1283
-#: hiyaCFW_Helper_R3.py:1532
-msgid "é”™è¯¯: è§£å‹å¤±è´¥"
+#: TWLMagician.py:1014 TWLMagician.py:1060 TWLMagician.py:1256
+#: TWLMagician.py:1267 TWLMagician.py:1437 TWLMagician.py:1549
+#: TWLMagician.py:1696 TWLMagician.py:2009 TWLMagician.py:2294
+msgid "´íÎó: ½âÑ¹Ê§°Ü"
 msgstr "ERROR: Extractor failed"
 
-#: hiyaCFW_Helper_R3.py:729
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½hiyaCFW"
+#: TWLMagician.py:1019
+msgid "´íÎó: ÎŞ·¨ÏÂÔØhiyaCFW"
 msgstr "ERROR: Could not get hiyaCFW"
 
-#: hiyaCFW_Helper_R3.py:733 hiyaCFW_Helper_R3.py:782 hiyaCFW_Helper_R3.py:912
-#: hiyaCFW_Helper_R3.py:943 hiyaCFW_Helper_R3.py:1005
-#: hiyaCFW_Helper_R3.py:1064 hiyaCFW_Helper_R3.py:1101
-#: hiyaCFW_Helper_R3.py:1206 hiyaCFW_Helper_R3.py:1293
-#: hiyaCFW_Helper_R3.py:1546 hiyaCFW_Helper_R3.py:1600
-#: hiyaCFW_Helper_R3.py:1629 hiyaCFW_Helper_R3.py:1655
-msgid "é”™è¯¯: æ— æ³•è¿è¡Œ "
+#: TWLMagician.py:1023 TWLMagician.py:1065 TWLMagician.py:1184
+#: TWLMagician.py:1214 TWLMagician.py:1279 TWLMagician.py:1406
+#: TWLMagician.py:1442 TWLMagician.py:1559 TWLMagician.py:1706
+#: TWLMagician.py:1770 TWLMagician.py:2023 TWLMagician.py:2105
+#: TWLMagician.py:2150 TWLMagician.py:2178 TWLMagician.py:2303
+#: TWLMagician.py:2330
+msgid "´íÎó: ÎŞ·¨ÔËĞĞ "
 msgstr "ERROR: Could not execute "
 
-#: hiyaCFW_Helper_R3.py:740
-msgid "æ­£åœ¨ä»NANDä¸­è§£å‹ ARM7/ARM9 BIOS..."
+#: TWLMagician.py:1029
+msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ ARM7/ARM9 BIOS..."
 msgstr "Extracting ARM7/ARM9 BIOS from NAND..."
 
-#: hiyaCFW_Helper_R3.py:743
-msgid "è°ƒç”¨ twltool(è§£å‹ BIOS)"
+#: TWLMagician.py:1032
+msgid "µ÷ÓÃ twltool(½âÑ¹ BIOS)"
 msgstr "Execute twltool (Extract BIOS)"
 
-#: hiyaCFW_Helper_R3.py:826
-msgid "é”™è¯¯: æ— æ³•å®Œæˆ patch BIOS"
+#: TWLMagician.py:1102
+msgid "´íÎó: ÎŞ·¨Íê³É patch BIOS"
 msgstr "ERROR: Could not patch BIOS"
 
-#: hiyaCFW_Helper_R3.py:831
-msgid "é”™è¯¯: æ— æ•ˆçš„ patch header"
+#: TWLMagician.py:1107
+msgid "´íÎó: ÎŞĞ§µÄ patch header"
 msgstr "ERROR: Invalid patch header"
 
-#: hiyaCFW_Helper_R3.py:837
-msgid "æ­£åœ¨é¢„è½½æ•°æ®åˆ° ARM9 BIOS..."
+#: TWLMagician.py:1112
+msgid "ÕıÔÚÔ¤ÔØÊı¾İµ½ ARM9 BIOS..."
 msgstr "Prepending data to ARM9 BIOS..."
 
-#: hiyaCFW_Helper_R3.py:867
-msgid "é”™è¯¯: æ— æ³•é¢„è½½æ•°æ®åˆ° ARM9 BIOS"
+msgid "´íÎó: ÎŞ·¨Ô¤ÔØÊı¾İµ½ ARM9 BIOS"
 msgstr "ERROR: Could not prepend data to ARM9 BIOS"
 
-#: hiyaCFW_Helper_R3.py:873
-msgid "æ­£åœ¨ç”Ÿæˆ bootloader..."
+msgid "ÕıÔÚÉú³É bootloader..."
 msgstr "Generating bootloader..."
 
-#: hiyaCFW_Helper_R3.py:880
-msgid "è°ƒç”¨ ndstool(ç”Ÿæˆ bootloader)"
+msgid "µ÷ÓÃ ndstool(Éú³É bootloader)"
 msgstr "Execute ndstool (Make bootloader)"
 
-#: hiyaCFW_Helper_R3.py:882
-msgid "è°ƒç”¨ ndsblc(ç”Ÿæˆ bootloader)"
+msgid "µ÷ÓÃ ndsblc(Éú³É bootloader)"
 msgstr "Execute ndsblc (Make bootloader)"
 
-#: hiyaCFW_Helper_R3.py:907
-msgid "é”™è¯¯: ç”Ÿæˆå¤±è´¥"
+msgid "´íÎó: Éú³ÉÊ§°Ü"
 msgstr "ERROR: Generator failed"
 
-#: hiyaCFW_Helper_R3.py:920
-msgid "æ­£åœ¨è§£å¯† NAND..."
+msgid "ÕıÔÚ½âÃÜ NAND..."
 msgstr "Decrypting NAND..."
 
-#: hiyaCFW_Helper_R3.py:923
-msgid "è°ƒç”¨ twltool(è§£å¯† NAND)"
+#: TWLMagician.py:1194
+msgid "µ÷ÓÃ twltool(½âÃÜ NAND)"
 msgstr "Execute twltool (Decrypt NAND)"
 
-#: hiyaCFW_Helper_R3.py:938
-msgid "é”™è¯¯: è§£å¯†å¤±è´¥"
+#: TWLMagician.py:1209 TWLMagician.py:2325
+msgid "´íÎó: ½âÃÜÊ§°Ü"
 msgstr "ERROR: Decryptor failed"
 
-#: hiyaCFW_Helper_R3.py:951 hiyaCFW_Helper_R3.py:1070
-msgid "æ­£åœ¨ä»NANDä¸­è§£å‹æ–‡ä»¶..."
+msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ÎÄ¼ş..."
 msgstr "Extracting files from NAND..."
 
-#: hiyaCFW_Helper_R3.py:954
-msgid "è°ƒç”¨ 7-Zip(è§£å‹ NAND)"
+msgid "µ÷ÓÃ 7-Zip(½âÑ¹ NAND)"
 msgstr "Execute 7-Zip (Extract NAND)"
 
-#: hiyaCFW_Helper_R3.py:976 hiyaCFW_Helper_R3.py:1090
-msgid "é”™è¯¯: è§£å‹ç›¸å†Œåˆ†åŒºå¤±è´¥"
+msgid "´íÎó: ½âÑ¹Ïà²á·ÖÇøÊ§°Ü"
 msgstr "ERROR: Failed to extract photo partition"
 
-#: hiyaCFW_Helper_R3.py:985 hiyaCFW_Helper_R3.py:996 hiyaCFW_Helper_R3.py:1008
-msgid "å°è¯•ä½¿ç”¨fatcat..."
+msgid "³¢ÊÔÊ¹ÓÃfatcat..."
 msgstr "Trying with fatcat..."
 
-#: hiyaCFW_Helper_R3.py:1018
-msgid "æŒ‚è½½è§£å¯†çš„NANDé•œåƒä¸­..."
+#: TWLMagician.py:1291
+msgid "¹ÒÔØ½âÃÜµÄNAND¾µÏñÖĞ..."
 msgstr "Mounting decrypted NAND..."
 
-#: hiyaCFW_Helper_R3.py:1021
-msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twln)"
+#: TWLMagician.py:1295
+msgid "µ÷ÓÃ osfmount(¹ÒÔØ twln)"
 msgstr "Execute osfmount (Mount twln)"
 
-#: hiyaCFW_Helper_R3.py:1034
-msgid "- æŒ‚è½½åˆ°é©±åŠ¨å™¨ "
+msgid "- ¹ÒÔØµ½Çı¶¯Æ÷ "
 msgstr "- Mounted on drive "
 
-#: hiyaCFW_Helper_R3.py:1036
-msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twlp)"
+msgid "µ÷ÓÃ osfmount(¹ÒÔØ twlp)"
 msgstr "Execute osfmount (Mount twlp)"
 
-#: hiyaCFW_Helper_R3.py:1045
-msgid "- DSiç›¸å†Œåˆ†åŒºæŒ‚è½½åˆ°é©±åŠ¨å™¨ "
+msgid "- DSiÏà²á·ÖÇø¹ÒÔØµ½Çı¶¯Æ÷ "
 msgstr "- DSi's photo partition mounted on drive "
 
-#: hiyaCFW_Helper_R3.py:1047
-msgid "é”™è¯¯: æŒ‚è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
+msgid "´íÎó: ¹ÒÔØÏà²á·ÖÇøÊ§°Ü"
 msgstr "ERROR: Failed to mount photo partition"
 
-#: hiyaCFW_Helper_R3.py:1051
-msgid "é”™è¯¯: æŒ‚è½½å¤±è´¥"
+#: TWLMagician.py:1329 TWLMagician.py:1357 TWLMagician.py:1361
+#: TWLMagician.py:1389 TWLMagician.py:1393
+msgid "´íÎó: ¹ÒÔØÊ§°Ü"
 msgstr "ERROR: Mounter failed"
 
-#: hiyaCFW_Helper_R3.py:1073
-msgid "è°ƒç”¨ fatcat(è§£å‹ NAND)"
+#: TWLMagician.py:1333
+msgid "µ÷ÓÃ losetup(¹ÒÔØ loop device)"
+msgstr ""
+
+#: TWLMagician.py:1344
+msgid "- ¹ÒÔØloop deviceµ½ "
+msgstr ""
+
+#: TWLMagician.py:1345
+msgid "µ÷ÓÃ mount(¹ÒÔØ·ÖÇø)"
+msgstr ""
+
+#: TWLMagician.py:1355
+msgid "- ¹ÒÔØ·ÖÇøµ½ "
+msgstr ""
+
+#: TWLMagician.py:1376
+msgid "- ¹ÒÔØraw diskµ½ "
+msgstr ""
+
+#: TWLMagician.py:1387
+msgid "- ¹ÒÔØ¾íµ½ "
+msgstr ""
+
+#: TWLMagician.py:1414
+msgid "µ÷ÓÃ fatcat(½âÑ¹ NAND)"
 msgstr "Execute fatcat (Extract NAND)"
 
-#: hiyaCFW_Helper_R3.py:1107
-msgid "æ­£åœ¨ä»NANDä¸­å¤åˆ¶æ–‡ä»¶..."
+#: TWLMagician.py:1447
+msgid "ÕıÔÚ´ÓNANDÖĞ¸´ÖÆÎÄ¼ş..."
 msgstr "Copying files from NAND..."
 
-#: hiyaCFW_Helper_R3.py:1117
-msgid "é”™è¯¯: å¤åˆ¶å¤±è´¥"
+#: TWLMagician.py:1459
+msgid "´íÎó: ¸´ÖÆÊ§°Ü"
 msgstr "ERROR: Failed to copy files"
 
-#: hiyaCFW_Helper_R3.py:1145
-msgid "æ­£åœ¨ä¸‹è½½ "
+#: TWLMagician.py:1488
+msgid "ÕıÔÚÏÂÔØ "
 msgstr "Downloading "
 
-#: hiyaCFW_Helper_R3.py:1155
-msgid "- æ­£åœ¨è§£å‹Launcher..."
+#: TWLMagician.py:1510
+msgid "- ÕıÔÚ½âÑ¹Launcher..."
 msgstr "- Decrypting Launcher..."
 
-#: hiyaCFW_Helper_R3.py:1201
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ "
+#: TWLMagician.py:1554
+msgid "´íÎó: ÎŞ·¨ÏÂÔØ "
 msgstr "ERROR: Could not download "
 
-#: hiyaCFW_Helper_R3.py:1212
-msgid "æ­£åœ¨å¤åˆ¶hiyaCFWç›¸å…³æ–‡ä»¶..."
+#: TWLMagician.py:1565
+msgid "ÕıÔÚ¸´ÖÆhiyaCFWÏà¹ØÎÄ¼ş..."
 msgstr "Copying hiyaCFW files..."
 
-#: hiyaCFW_Helper_R3.py:1235
-msgid "æ­£åœ¨æ›´æ–°hiyaCFW..."
+#: TWLMagician.py:1595
+msgid "ÕıÔÚ¸üĞÂhiyaCFW..."
 msgstr "Updating hiyaCFW..."
 
-#: hiyaCFW_Helper_R3.py:1258
-msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„TWiLightMenu++..."
-msgstr "Downloading latest TWiLightMenu++ release..."
-
-#: hiyaCFW_Helper_R3.py:1267
-msgid " å‹ç¼©åŒ…..."
-msgstr " archive..."
-
-#: hiyaCFW_Helper_R3.py:1267
-msgid "- æ­£åœ¨è§£å‹ "
-msgstr "- Extracting "
-
-#: hiyaCFW_Helper_R3.py:1288
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½TWiLightMenu++"
-msgstr "ERROR: Could not get TWiLightMenu++"
-
-#: hiyaCFW_Helper_R3.py:1299
-msgid " ç›¸å…³æ–‡ä»¶..."
-msgstr " files..."
-
-#: hiyaCFW_Helper_R3.py:1299
-msgid "æ­£åœ¨å¤åˆ¶ "
-msgstr "Copying "
-
-#: hiyaCFW_Helper_R3.py:1327
-msgid "è°ƒç”¨ appgen"
-msgstr "Execute appgen"
-
-#: hiyaCFW_Helper_R3.py:1341
-msgid "æ¸…ç†ä¸­..."
-msgstr "Cleaning..."
-
-#: hiyaCFW_Helper_R3.py:1358
-msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ\n"
-msgstr "An error was encountered or terminate by user\n"
-
-#: hiyaCFW_Helper_R3.py:1365
-msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º"
-msgstr "Done!\nModified NAND stored as"
-
-#: hiyaCFW_Helper_R3.py:1368
-msgid "æ“ä½œç»ˆæ­¢!\nç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨äºç¨‹åºè¿è¡Œç›®å½•ä¸‹, æ— æ³•è¦†ç›–åŸæ–‡ä»¶\n"
-msgstr "ERROR: The destination file already exists\n"
-
-#: hiyaCFW_Helper_R3.py:1374
-msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\n"
-msgstr "Done!\nEject your SD card and insert it into your DSi\n"
-
-#: hiyaCFW_Helper_R3.py:1450 hiyaCFW_Helper_R3.py:1456
-#: hiyaCFW_Helper_R3.py:1459
-msgid "- æ£€æµ‹åˆ° "
-msgstr "- Detected "
-
-#: hiyaCFW_Helper_R3.py:1465
-msgid "é”™è¯¯: åœ¨NANDä¸­æ‰¾ä¸åˆ°å—æ”¯æŒçš„Launcher"
-msgstr "ERROR: Could not find supported Launcher on NAND"
-
-#: hiyaCFW_Helper_R3.py:1468
-msgid "é”™è¯¯: æ— æ³•æ£€æµ‹ç³»ç»ŸåŒºåŸŸ"
-msgstr "ERROR: Could not detect console region"
-
-#: hiyaCFW_Helper_R3.py:1471
-msgid "é”™è¯¯: "
-msgstr "ERROR: "
-
-#: hiyaCFW_Helper_R3.py:1480
-msgid "æ£€æŸ¥unlaunchçŠ¶æ€ä¸­..."
-msgstr "Checking unlaunch status..."
-
-#: hiyaCFW_Helper_R3.py:1494
-msgid "- æœªå®‰è£…..."
-msgstr "- Not installed..."
-
-#: hiyaCFW_Helper_R3.py:1498
-msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch..."
-msgstr "Downloading latest unlaunch..."
-
-#: hiyaCFW_Helper_R3.py:1515
-msgid "- æ­£åœ¨å®‰è£…unlaunch..."
-msgstr "- Installing unlaunch..."
-
-#: hiyaCFW_Helper_R3.py:1539
-msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ unlaunch"
-msgstr "ERROR: Could not get unlaunch"
-
-#: hiyaCFW_Helper_R3.py:1552
-msgid "- å·²å®‰è£…, å¸è½½ä¸­..."
-msgstr "- Installed. Uninstalling..."
-
-#: hiyaCFW_Helper_R3.py:1572
-msgid "æ­£åœ¨å¸è½½NAND..."
-msgstr "Unmounting NAND..."
-
-#: hiyaCFW_Helper_R3.py:1575
-msgid "è°ƒç”¨ osfmount(å¸è½½ twln)"
-msgstr "Execute osfmount (Unmount twln)"
-
-#: hiyaCFW_Helper_R3.py:1582
-msgid "è°ƒç”¨ osfmount(å¸è½½ twlp)"
-msgstr "Execute osfmount (Unmount twlp)"
-
-#: hiyaCFW_Helper_R3.py:1589
-msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
-msgstr "ERROR: Failed to unmount photo partition"
-
-#: hiyaCFW_Helper_R3.py:1595
-msgid "é”™è¯¯: å¸è½½å¤±è´¥"
-msgstr "ERROR: Unmounter failed"
-
-#: hiyaCFW_Helper_R3.py:1603
-msgid "æ­£åœ¨å¼ºåˆ¶å¸è½½NAND..."
-msgstr "Unmounting NAND (force)..."
-
-#: hiyaCFW_Helper_R3.py:1606
-msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twln)"
-msgstr "Execute osfmount (Force to unmount twln)"
-
-#: hiyaCFW_Helper_R3.py:1613
-msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twlp)"
-msgstr "Execute osfmount (Force to unmount twlp)"
-
-#: hiyaCFW_Helper_R3.py:1619
-msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥æˆ–å°šæœªæŒ‚è½½"
-msgstr "ERROR: Failed to unmount photo partition or not mount yet"
-
-#: hiyaCFW_Helper_R3.py:1624
-msgid "é”™è¯¯: å¸è½½å¤±è´¥æˆ–å°šæœªæŒ‚è½½"
-msgstr "ERROR: Unmounter failed or not mount yet"
-
-#: hiyaCFW_Helper_R3.py:1638
-msgid "æ­£åœ¨é‡åŠ å¯†NAND..."
-msgstr "Encrypting back NAND..."
-
-#: hiyaCFW_Helper_R3.py:1641
-msgid "è°ƒç”¨ twltool(é‡åŠ å¯† NAND)"
-msgstr "Execute twltool (Encrypt back NAND)"
-
-#: hiyaCFW_Helper_R3.py:1650
-msgid "é”™è¯¯: åŠ å¯†å¤±è´¥"
-msgstr "ERROR: Encryptor failed"
-
-#: hiyaCFW_Helper_R3.py:1661
-msgid "æ­£åœ¨ç§»é™¤No$GBA footer..."
-msgstr "Removing No$GBA footer..."
-
-#: hiyaCFW_Helper_R3.py:1679 hiyaCFW_Helper_R3.py:1719
-msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º\n"
-msgstr "Done!\nModified NAND stored as\n"
-
-#: hiyaCFW_Helper_R3.py:1680
-msgid "\nfooterä¿¡æ¯å·²ä¿å­˜åˆ° "
-msgstr "\nStored footer info in "
-
-#: hiyaCFW_Helper_R3.py:1684 hiyaCFW_Helper_R3.py:1723
-msgid "é”™è¯¯: æ— æ³•æ‰“å¼€ "
-msgstr "ERROR: Could not open the file "
-
-#: hiyaCFW_Helper_R3.py:1690
-msgid "æ­£åœ¨æ·»åŠ No$GBA footer..."
-msgstr "Adding No$GBA footer..."
-
-#: hiyaCFW_Helper_R3.py:1705
-msgid "é”™è¯¯: æ–‡ä»¶ä¸­å·²å­˜åœ¨ No$GBA footer"
-msgstr "ERROR: File already has a No$GBA footer"
-
-#: hiyaCFW_Helper_R3.py:1784 hiyaCFW_Helper_R3.py:1792
-msgid "64ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
-msgstr "OSFMount (64-bit) found"
-
-#: hiyaCFW_Helper_R3.py:1798
-msgid "32ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
-msgstr "OSFMount (32-bit) found"
-
-#: hiyaCFW_Helper_R3.py:1804
-msgid "7-Zipæ¨¡å—å·²åŠ è½½"
-msgstr "7-Zip found"
-
-#: hiyaCFW_Helper_R3.py:1813
-msgid "æ‰¾ä¸åˆ°Fatcat, è¯·ç¡®è®¤æ­¤ç¨‹åºä½äºæœ¬å·¥å…·ç›®å½•çš„\"{}\"æ–‡ä»¶å¤¹ä¸­"
-msgstr "Fatcat not found. Please make sure 'fatcat' is at the '{}' folder"
-
-#: hiyaCFW_Helper_R3.py:1817
-msgid "GUIåˆå§‹åŒ–ä¸­..."
-msgstr "Initializing GUI..."
-
-msgid "ç‰ˆæœ¬ä¿¡æ¯:\n"
-msgstr "Version Info:\n"
-
-msgid "æœºå™¨åºåˆ—å·: "
+#: TWLMagician.py:1610
+msgid "»úÆ÷ĞòÁĞºÅ: "
 msgstr "Console Serial: "
 
-msgid "TWLMagicianå¯åŠ¨ä¸­..."
-msgstr "Opening TWLMagician..."
+#: TWLMagician.py:1629
+msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄTWiLightMenu++..."
+msgstr "Downloading latest TWiLightMenu++ release..."
 
-msgid "æå–SDNandä¸­çš„DSiWareè½¯ä»¶å¹¶å¤åˆ¶åˆ°\nroms/dsiware"
-msgstr "Export DSiWare from SDNAND and copy to roms/dsiware"
+#: TWLMagician.py:1675
+msgid " Ñ¹Ëõ°ü..."
+msgstr "archive..."
 
-msgid "åŒæ—¶å®‰è£…TFTT"
-msgstr "Install TFTT"
+#: TWLMagician.py:1675
+msgid "- ÕıÔÚ½âÑ¹ "
+msgstr "- Extracting "
 
-msgid "åœ¨3DSç³»åˆ—æœºå™¨ä¸Šå®‰è£…TWLFontTransferTool(åŸºäºGodMode9è„šæœ¬)"
-msgstr "Install TWLFontTransferTool (a GodMode9 Script) on 3DS console"
+#: TWLMagician.py:1701
+msgid "´íÎó: ÎŞ·¨ÏÂÔØTWiLightMenu++"
+msgstr "ERROR: Could not get TWiLightMenu++"
 
-msgid "- æ­£åœ¨å®‰è£…TFTT"
+#: TWLMagician.py:1711
+msgid " Ïà¹ØÎÄ¼ş..."
+msgstr " files..."
+
+#: TWLMagician.py:1711
+msgid "ÕıÔÚ¸´ÖÆ "
+msgstr "Copying "
+
+#: TWLMagician.py:1743
+msgid "µ÷ÓÃ appgen"
+msgstr "Execute appgen"
+
+#: TWLMagician.py:1756
+msgid "- ÕıÔÚ°²×°TFTT"
 msgstr "- Installing TFTT"
 
-msgid "é”™è¯¯: å®‰è£…TFTTå¤±è´¥"
+#: TWLMagician.py:1767
+msgid "´íÎó: °²×°TFTTÊ§°Ü"
 msgstr "ERROR: Install TFTT failed"
 
-msgid "è­¦å‘Š: æ‰¾ä¸åˆ°TFTT.datæ–‡ä»¶, æœªå®‰è£…TFTT"
+#: TWLMagician.py:1772
+msgid "¾¯¸æ: ÕÒ²»µ½TFTT.datÎÄ¼ş, Î´°²×°TFTT"
 msgstr "Warning: TFTT.dat is missing, skip installing TFTT..."
 
-msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\nå¯¹äº3DSè®¾å¤‡, ä½ è¿˜éœ€è¦åœ¨æœºå™¨ä¸Šä½¿ç”¨FBIå®ŒæˆTitleçš„å®‰è£…\n"
+#: TWLMagician.py:1782
+msgid "°æ±¾ĞÅÏ¢:\n"
+msgstr "Version Info:\n"
+
+#: TWLMagician.py:1787
+msgid "ÇåÀíÖĞ..."
+msgstr "Cleaning..."
+
+#: TWLMagician.py:1804
+msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷\n"
+msgstr "An error was encountered or terminate by user\n"
+
+#: TWLMagician.py:1814
+msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª"
+msgstr "Done!\nModified NAND stored as"
+
+#: TWLMagician.py:1830
+msgid "'._' ÎÄ¼şÇåÀíÍê±Ï"
+msgstr "Cleaning all '._' files"
+
+#: TWLMagician.py:1834
+msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n¶ÔÓÚ3DSÉè±¸, Äã»¹ĞèÒªÔÚ»úÆ÷ÉÏÊ¹ÓÃFBIÍê³ÉTitleµÄ°²×°\n"
 msgstr "Done!\nEject your SD card and insert it into your console.\nFor 3DS console, you should install titles via FBI.\n"
 
-msgid "åŒæ—¶å®‰è£…TFMH"
-msgstr "Install TFMH"
+#: TWLMagician.py:1836
+msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n"
+msgstr "Done!\nEject your SD card and insert it into your DSi\n"
 
-msgid "å®‰è£…æˆ–æ›´æ–°TWiLightMenu++"
-msgstr "Install or update TWiLightMenu++"
+#: TWLMagician.py:1909 TWLMagician.py:1916 TWLMagician.py:1919
+msgid "- ¼ì²âµ½ "
+msgstr "- Detected "
+
+#: TWLMagician.py:1926
+msgid "´íÎó: ÔÚNANDÖĞÕÒ²»µ½ÊÜÖ§³ÖµÄLauncher"
+msgstr "ERROR: Could not find supported Launcher on NAND"
+
+#: TWLMagician.py:1929
+msgid "´íÎó: ÎŞ·¨¼ì²âÏµÍ³ÇøÓò"
+msgstr "ERROR: Could not detect console region"
+
+#: TWLMagician.py:1932
+msgid "´íÎó: "
+msgstr "ERROR: "
+
+#: TWLMagician.py:1940
+msgid "¼ì²éunlaunch×´Ì¬ÖĞ..."
+msgstr "Checking unlaunch status..."
+
+#: TWLMagician.py:1955
+msgid "- Î´°²×°..."
+msgstr "- Not installed..."
+
+#: TWLMagician.py:1959
+msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄunlaunch..."
+msgstr "Downloading latest unlaunch..."
+
+#: TWLMagician.py:1982
+msgid "- ÕıÔÚ°²×°unlaunch..."
+msgstr "- Installing unlaunch..."
+
+#: TWLMagician.py:2016
+msgid "´íÎó: ÎŞ·¨ÏÂÔØ unlaunch"
+msgstr "ERROR: Could not get unlaunch"
+
+#: TWLMagician.py:2029
+msgid "- ÒÑ°²×°, Ğ¶ÔØÖĞ..."
+msgstr "- Installed. Uninstalling..."
+
+#: TWLMagician.py:2056
+msgid "ÕıÔÚĞ¶ÔØNAND..."
+msgstr "Unmounting NAND..."
+
+#: TWLMagician.py:2060
+msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twln)"
+msgstr "Execute osfmount (Unmount twln)"
+
+#: TWLMagician.py:2064
+msgid "µ÷ÓÃ hdiutil(Ğ¶ÔØ raw disk)"
+msgstr ""
+
+#: TWLMagician.py:2068
+msgid "µ÷ÓÃ umount(Ğ¶ÔØ·ÖÇø)"
+msgstr ""
+
+#: TWLMagician.py:2073
+msgid "µ÷ÓÃ losetup(Ğ¶ÔØ loop device)"
+msgstr ""
+
+#: TWLMagician.py:2077 TWLMagician.py:2100
+msgid "´íÎó: Ğ¶ÔØÊ§°Ü"
+msgstr "ERROR: Unmounter failed"
+
+#: TWLMagician.py:2085
+msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twlp)"
+msgstr "Execute osfmount (Unmount twlp)"
+
+#: TWLMagician.py:2093
+msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü"
+msgstr "ERROR: Failed to unmount photo partition"
+
+#: TWLMagician.py:2109
+msgid "ÕıÔÚÇ¿ÖÆĞ¶ÔØNAND..."
+msgstr "Unmounting NAND (force)..."
+
+#: TWLMagician.py:2113
+msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twln)"
+msgstr "Execute osfmount (Force to unmount twln)"
+
+#: TWLMagician.py:2117
+msgid "µ÷ÓÃ hdiutil(Ç¿ÖÆĞ¶ÔØ raw disk)"
+msgstr ""
+
+#: TWLMagician.py:2121
+msgid "µ÷ÓÃ umount(Ç¿ÖÆĞ¶ÔØ·ÖÇø)"
+msgstr ""
+
+#: TWLMagician.py:2126
+msgid "µ÷ÓÃ losetup(Ç¿ÖÆĞ¶ÔØ loop device)"
+msgstr ""
+
+#: TWLMagician.py:2130 TWLMagician.py:2137
+msgid "´íÎó: Ğ¶ÔØÊ§°Ü»òÉĞÎ´¹ÒÔØ"
+msgstr "ERROR: Unmounter failed or not mount yet"
+
+#: TWLMagician.py:2140
+msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twlp)"
+msgstr "Execute osfmount (Force to unmount twlp)"
+
+#: TWLMagician.py:2144
+msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü»òÉĞÎ´¹ÒÔØ"
+msgstr "ERROR: Failed to unmount photo partition or not mount yet"
+
+#: TWLMagician.py:2159
+msgid "ÕıÔÚÖØ¼ÓÃÜNAND..."
+msgstr "Encrypting back NAND..."
+
+#: TWLMagician.py:2162
+msgid "µ÷ÓÃ twltool(ÖØ¼ÓÃÜ NAND)"
+msgstr "Execute twltool (Encrypt back NAND)"
+
+#: TWLMagician.py:2169
+msgid "²Ù×÷³É¹¦Íê³É"
+msgstr "*"
+
+#: TWLMagician.py:2173
+msgid "´íÎó: ¼ÓÃÜÊ§°Ü"
+msgstr "ERROR: Encryptor failed"
+
+#: TWLMagician.py:2183
+msgid "ÕıÔÚÒÆ³ıNo$GBA footer..."
+msgstr "Removing No$GBA footer..."
+
+#: TWLMagician.py:2208 TWLMagician.py:2251
+msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª\n"
+msgstr "Done!\nModified NAND stored as\n"
+
+#: TWLMagician.py:2209
+msgid "\nfooterĞÅÏ¢ÒÑ±£´æÎª "
+msgstr "nStored footer info in "
+
+#: TWLMagician.py:2213 TWLMagician.py:2255
+msgid "´íÎó: ÎŞ·¨´ò¿ª "
+msgstr "ERROR: Could not open the file "
+
+#: TWLMagician.py:2218
+msgid "ÕıÔÚÌí¼ÓNo$GBA footer..."
+msgstr "Adding No$GBA footer..."
+
+#: TWLMagician.py:2234
+msgid "´íÎó: ÎÄ¼şÖĞÒÑ´æÔÚ No$GBA footer"
+msgstr "ERROR: File already has a No$GBA footer"
+
+#: TWLMagician.py:2267
+msgid "ÕıÔÚÏÂÔØÍ¨ÓÃÊı¾İ..."
+msgstr ""
+
+#: TWLMagician.py:2274
+msgid "- ÕıÔÚ½âÑ¹Í¨ÓÃÊı¾İ..."
+msgstr ""
+
+#: TWLMagician.py:2299
+msgid "´íÎó: ÎŞ·¨ÏÂÔØÍ¨ÓÃÊı¾İ"
+msgstr ""
+
+#: TWLMagician.py:2312
+msgid "ÕıÔÚ½âÃÜTWLTransfer¾µÏñÎÄ¼ş..."
+msgstr ""
+
+#: TWLMagician.py:2358
+msgid "ÕıÔÚÖ´ĞĞTWLTransfer..."
+msgstr ""
+
+#: TWLMagician.py:2393
+msgid "ÕıÔÚ°²×°TMFH..."
+msgstr ""
+
+#: TWLMagician.py:2397
+msgid "ÕıÔÚ¸üĞÂTWiLightMenu++..."
+msgstr ""
+
+#: TWLMagician.py:2399
+msgid "ÕıÔÚ°²×°TWiLightMenu++..."
+msgstr ""
+
+#: TWLMagician.py:2452
+msgid "TWLMagicianÆô¶¯ÖĞ..."
+msgstr "Opening TWLMagician..."
+
+#: TWLMagician.py:2475 TWLMagician.py:2483
+msgid "64Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
+msgstr "OSFMount (64-bit) found"
+
+#: TWLMagician.py:2489
+msgid "32Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
+msgstr "OSFMount (32-bit) found"
+
+#: TWLMagician.py:2495
+msgid "7-ZipÄ£¿éÒÑ¼ÓÔØ"
+msgstr "7-Zip found"
+
+#: TWLMagician.py:2504
+msgid "ÕÒ²»µ½Fatcat, ÇëÈ·ÈÏ´Ë³ÌĞòÎ»ÓÚ±¾¹¤¾ßÄ¿Â¼µÄ\"{}\"ÎÄ¼ş¼ĞÖĞ"
+msgstr "Fatcat not found. Please make sure 'fatcat' is at the '{}' folder"
+
+#: TWLMagician.py:2508
+msgid "GUI³õÊ¼»¯ÖĞ..."
+msgstr "Initializing GUI..."
 
