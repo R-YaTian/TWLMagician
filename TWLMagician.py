@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 1.0.2
+# Version 1.0.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -20,8 +20,7 @@ from urllib.request import urlopen
 from urllib.error import URLError
 from subprocess import Popen, PIPE
 from struct import unpack_from
-from shutil import rmtree, copyfile, copyfileobj
-from distutils.dir_util import copy_tree, _path_created
+from shutil import rmtree, copyfile, copyfileobj, copytree
 from re import search
 from appgen import agen
 from inspect import isclass
@@ -1441,12 +1440,10 @@ class Application(Frame):
     ################################################################################################
     def extract_nand2(self):
         self.log.write(_('正在从NAND中复制文件...'))
-        # Reset copied files cache
-        _path_created.clear()
         try:
-            copy_tree(self.mounted, self.sd_path, preserve_mode=0)
+            copytree(self.mounted, self.sd_path, dirs_exist_ok=True)
             if self.nand_mode is False and self.photo.get() == 1:
-                copy_tree(self.twlp, self.sd_path, preserve_mode=0)
+                copytree(self.twlp, self.sd_path, dirs_exist_ok=True)
             self.TThread = Thread(target=self.unmount_nand)
             self.TThread.start()
         except SystemExit:
@@ -1561,13 +1558,10 @@ class Application(Frame):
         self.check_serial(self.sd_path)
         self.log.write(_('正在复制hiyaCFW相关文件...'))
 
-        # Reset copied files cache
-        _path_created.clear()
-
-        copy_tree(path.join('for SDNAND SD card', 'hiya'),
-                  path.join(self.sd_path, 'hiya'))
-        copy_tree(path.join('for SDNAND SD card', 'photo'),
-                  path.join(self.sd_path, 'photo'))
+        copytree(path.join('for SDNAND SD card', 'hiya'),
+                  path.join(self.sd_path, 'hiya'), dirs_exist_ok=True)
+        copytree(path.join('for SDNAND SD card', 'photo'),
+                  path.join(self.sd_path, 'photo'), dirs_exist_ok=True)
         copyfile(path.join('for SDNAND SD card', 'hiya.dsi'),
                  path.join(self.sd_path, 'hiya.dsi'))
         copyfile('bootloader.nds', path.join(
@@ -1695,22 +1689,19 @@ class Application(Frame):
     def install_twilight(self, name):
         self.log.write(_('正在复制 ') + name + _(' 相关文件...'))
 
-        # Reset copied files cache
-        _path_created.clear()
-
         if not self.adv_mode:
-            copy_tree('_nds', path.join(self.sd_path, '_nds'))
-            copy_tree('title', path.join(self.sd_path, 'title'))
-            copy_tree('hiya', path.join(self.sd_path, 'hiya'))
-            copy_tree('roms', path.join(self.sd_path, 'roms'))
+            copytree('_nds', path.join(self.sd_path, '_nds'), dirs_exist_ok=True)
+            copytree('title', path.join(self.sd_path, 'title'), dirs_exist_ok=True)
+            copytree('hiya', path.join(self.sd_path, 'hiya'), dirs_exist_ok=True)
+            copytree('roms', path.join(self.sd_path, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
             if self.updatehiya.get() == 1:
-                copy_tree('title', path.join(self.sd_path1, 'title'))
-                copy_tree('hiya', path.join(self.sd_path1, 'hiya'))
-            copy_tree('_nds', path.join(self.sd_path1, '_nds'))
-            copy_tree('roms', path.join(self.sd_path1, 'roms'))
+                copytree('title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
+                copytree('hiya', path.join(self.sd_path1, 'hiya'), dirs_exist_ok=True)
+            copytree('_nds', path.join(self.sd_path1, '_nds'), dirs_exist_ok=True)
+            copytree('roms', path.join(self.sd_path1, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
             if self.is_tds is True:
@@ -1746,8 +1737,8 @@ class Application(Frame):
                         [_7za, 'x', '-bso0', '-y', '-pR-YaTian', 'TFTT.dat', 'gm9', 'luma'])
                     ret_val = self.proc.wait()
                     if ret_val == 0:
-                        copy_tree('gm9', path.join(self.sd_path1, 'gm9'))
-                        copy_tree('luma', path.join(self.sd_path1, 'luma'))
+                        copytree('gm9', path.join(self.sd_path1, 'gm9'), dirs_exist_ok=True)
+                        copytree('luma', path.join(self.sd_path1, 'luma'), dirs_exist_ok=True)
                     else:
                         self.log.write(_('错误: 安装TFTT失败'))
                 except OSError as e:
@@ -2362,25 +2353,24 @@ class Application(Frame):
             f.flush()
             f.close()
 
-        _path_created.clear()
-        copy_tree('title', path.join(self.sd_path1, 'title'))
-        copy_tree('hiya', path.join(self.sd_path1, 'hiya'))
-        copy_tree('ticket', path.join(self.sd_path1, 'ticket'))
-        copy_tree('sys', path.join(self.sd_path1, 'sys'))
-        copy_tree('shared1', path.join(self.sd_path1, 'shared1'))
+        copytree('title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
+        copytree('hiya', path.join(self.sd_path1, 'hiya'), dirs_exist_ok=True)
+        copytree('ticket', path.join(self.sd_path1, 'ticket'), dirs_exist_ok=True)
+        copytree('sys', path.join(self.sd_path1, 'sys'), dirs_exist_ok=True)
+        copytree('shared1', path.join(self.sd_path1, 'shared1'), dirs_exist_ok=True)
         launcherdir = path.join(
             self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name)
         copyfile(self.dest_region + '.app', launcherdir)
         if self.tmfh.get() == 1:
             self.log.write(_('正在安装TMFH...'))
-            copy_tree('TMFH/title', path.join(self.sd_path1, 'title'))
+            copytree('TMFH/title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
         if self.updatemenu.get() == 1:
             if self.have_menu is True:
                 self.log.write(_('正在更新TWiLightMenu++...'))
             else:
                 self.log.write(_('正在安装TWiLightMenu++...'))
-            copy_tree('_nds', path.join(self.sd_path1, '_nds'))
-            copy_tree('roms', path.join(self.sd_path1, 'roms'))
+            copytree('_nds', path.join(self.sd_path1, '_nds'), dirs_exist_ok=True)
+            copytree('roms', path.join(self.sd_path1, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
             self.read_ver()
