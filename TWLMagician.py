@@ -43,8 +43,8 @@ def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
         ntime = datetime.now().strftime('%F %T')
     except:
         ntime = datetime.now().strftime('%c')
-    if ntime_tmp != ntime or ntime_tmp == None:
-        if fixn == False:
+    if ntime_tmp != ntime or ntime_tmp is None:
+        if fixn is False:
             print('[' + ntime + ']')
         else:
             print('\n[' + ntime + ']')
@@ -90,7 +90,7 @@ class ThreadSafeText(Text):
             now_time = datetime.now().strftime('%F %T')
         except:
             now_time = datetime.now().strftime('%c')
-        if self.now_time_tmp != now_time or self.now_time_tmp == None:
+        if self.now_time_tmp != now_time or self.now_time_tmp is None:
             self.queue.put('[' + now_time + ']')
             self.wlog.write('[' + now_time + ']\n')
         self.queue.put(line)
@@ -112,7 +112,7 @@ class ThreadSafeText(Text):
 
 
 ####################################################################################################
-# Main application class
+# Main application class
 
 class Application(Frame):
     def __init__(self, master=None):
@@ -320,7 +320,7 @@ class Application(Frame):
         rb0 = Radiobutton(self.nand_frame, text=_('安装或卸载最新版本的unlaunch'),
                           variable=self.nand_operation, value=2,
                           command=lambda: self.enable_entries(False))
-        if osfmount is not None or (sysname == 'Linux' and su == True) or sysname == 'Darwin':
+        if osfmount is not None or (sysname == 'Linux' and su is True) or sysname == 'Darwin':
             rb0.pack(anchor=W)
         Radiobutton(self.nand_frame, text=_('移除 No$GBA footer'), variable=self.nand_operation,
                     value=0, command=lambda: self.enable_entries(False)).pack(anchor=W)
@@ -383,23 +383,17 @@ class Application(Frame):
         # General ToolTip
         if sysname == 'Darwin':
             from ToolTips import ToolTips
-            import tkinter.font as tkFont
+            import tkinter.font as tk_font
             widgets = [ag_chk, dkp_chk, photo_chk, self.ag1_chk,
                        self.dkp1_chk, self.tftt_chk, self.dkp2_chk, self.adv_button]
-            tooltip_text = []
-            tooltip_text.append(_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
-            tooltip_text.append(
-                _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'))
-            tooltip_text.append(
-                _('提取Nand备份中的相册分区文件到存储卡中，此操作会占用\n一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
-            tooltip_text.append(_('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
-            tooltip_text.append(
-                _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'))
-            tooltip_text.append(
-                _('在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)'))
-            tooltip_text.append(
-                _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'))
-            tooltip_text.append(_('高级模式提供了单独安装TWiLightMenu++\n等功能'))
+            tooltip_text = [_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'),
+                            _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
+                            _('提取Nand备份中的相册分区文件到存储卡中，此操作会占用\n一定的存储卡空间(取决于相片数量，最多可达32MB左右)'),
+                            _('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'),
+                            _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
+                            _('在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)'),
+                            _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
+                            _('高级模式提供了单独安装TWiLightMenu++\n等功能')]
             if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                 widgets.append(adl_chk)
                 widgets.append(adl1_chk)
@@ -407,7 +401,7 @@ class Application(Frame):
                 tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
                 tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
                 tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
-            font_obj = tkFont.Font(family="Microsoft YaHei UI", size=13)
+            font_obj = tk_font.Font(family="Microsoft YaHei UI", size=13)
             ToolTips(widgets, tooltip_text, font=font_obj)
         else:
             from tooltip import ToolTip
@@ -432,7 +426,7 @@ class Application(Frame):
 
     ################################################################################################
     def change_mode(self):
-        if (self.nand_mode):
+        if self.nand_mode:
             self.nand_operation.set(0)
             self.enable_entries(False)
             self.nand_frame.pack_forget()
@@ -458,7 +452,7 @@ class Application(Frame):
                 self.have_hiya = False
                 self.is_tds = False
                 self.have_menu = False
-                if (self.setup_select):
+                if self.setup_select:
                     self.setup_frame.pack_forget()
                 self.setup_operation.set(0)
                 self.checks_frame.pack_forget()
@@ -472,7 +466,7 @@ class Application(Frame):
                 self.nand_mode = True
 
     def change_mode1(self):
-        if (self.adv_mode):
+        if self.adv_mode:
             self.transfer_button['state'] = DISABLED
             self.have_menu = False
             self.is_tds = False
@@ -524,7 +518,7 @@ class Application(Frame):
             if self.nand_file.get() != '':
                 self.nand_file.set('')
             self.bak_frame.pack_forget()
-            if (self.setup_select):
+            if self.setup_select:
                 self.setup_frame.pack_forget()
             self.checks_frame.pack_forget()
             self.start_button.pack_forget()
@@ -543,7 +537,7 @@ class Application(Frame):
             self.adv_mode = True
 
     def change_mode2(self):
-        if (self.transfer_mode):
+        if self.transfer_mode:
             if self.updatehiya.get() == 1:
                 self.updatehiya.set(0)
             if self.updatemenu.get() == 1:
@@ -637,20 +631,20 @@ class Application(Frame):
             self.transfer_button['state'] = DISABLED
             return
         self.check_console(self.sd_path1)
-        if self.is_tds == True:
+        if self.is_tds:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             self.tftt_chk['state'] = NORMAL
             self.transfer_button['state'] = DISABLED
-        elif self.have_hiya == True:
+        elif self.have_hiya:
             self.uh_chk['state'] = NORMAL
             self.dkp1_chk['state'] = NORMAL
             self.ag1_chk['state'] = (
-                DISABLED if self.have_menu == True else NORMAL)
+                DISABLED if self.have_menu is True else NORMAL)
             self.tftt_chk['state'] = DISABLED
             self.transfer_button['state'] = NORMAL
-        elif self.have_menu == True:
+        elif self.have_menu:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
@@ -689,7 +683,7 @@ class Application(Frame):
         self.dialog.grab_set()
         self.dialog.title(_('状态'))
         # Disable maximizing
-        self.dialog.resizable(0, 0)
+        self.dialog.resizable(False, False)
         self.dialog.protocol("WM_DELETE_WINDOW", self.closethread)
 
         frame = Frame(self.dialog, bd=2, relief=SUNKEN)
@@ -828,7 +822,7 @@ class Application(Frame):
             self.ag1_chk['state'] = DISABLED
         self.dialog.destroy()
         self.dialog = None
-        if self.finish == True:
+        if self.finish:
             self.finish = False
             return
         try:
@@ -974,18 +968,20 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的hiyaCFW...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + filename) as src, open(filename, 'wb') as dst:
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' +
+                                 filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     try:
-                        with urlopen('https://github.com/RocketRobz/hiyaCFW/releases/latest/download/' +
+                        with urlopen('https://github.com/DS-Homebrew/hiyaCFW/releases/latest/download/' +
                                      filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                     except SystemExit:
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + filename) as src, open(filename, 'wb') as dst:
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' +
+                                         filename) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
                             raise IOError
@@ -1161,7 +1157,7 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+                if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                     Popen(['chown', '-R', ug + ':' + ug, 'bootloader.nds']).wait()
                 # Hash bootloader.nds
                 sha1_hash = sha1()
@@ -1202,8 +1198,8 @@ class Application(Frame):
                     self.TThread = Thread(target=self.mount_nand)
                     self.TThread.start()
                 else:
-                    self.TThread = Thread(target=self.extract_nand1 if (sysname == 'Windows' and self.setup_operation.get() == 1)
-                                          else self.extract_nand)
+                    self.TThread = Thread(target=self.extract_nand1 if (
+                            sysname == 'Windows' and self.setup_operation.get() == 1) else self.extract_nand)
                     self.TThread.start()
             else:
                 self.log.write(_('错误: 解密失败'))
@@ -1308,7 +1304,7 @@ class Application(Frame):
                     self.mounted = search(
                         r'[a-zA-Z]:\s', outs.decode('utf-8')).group(0).strip()
                     self.log.write(_('- 挂载到驱动器 ') + self.mounted)
-                    if self.nand_mode == False and self.photo.get() == 1:
+                    if self.nand_mode is False and self.photo.get() == 1:
                         printl(_('调用 osfmount(挂载 twlp)'))
                         cmd = [exe, '-a', '-t', 'file', '-f', self.console_id.get() + '.img', '-m',
                                '#:', '-v', '2', '-o', 'ro,rem']
@@ -1449,7 +1445,7 @@ class Application(Frame):
         _path_created.clear()
         try:
             copy_tree(self.mounted, self.sd_path, preserve_mode=0)
-            if self.nand_mode == False and self.photo.get() == 1:
+            if self.nand_mode is False and self.photo.get() == 1:
                 copy_tree(self.twlp, self.sd_path, preserve_mode=0)
             self.TThread = Thread(target=self.unmount_nand)
             self.TThread.start()
@@ -1487,24 +1483,25 @@ class Application(Frame):
                 self.log.write(
                     _('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' +
+                                 self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
                     try:
-                        with urlopen('https://raw.githubusercontent.com'
-                                     '/R-YaTian/TWLMagician/main/launchers/' +
+                        with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/launchers/' +
                                      self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                             copyfileobj(src, dst)
                     except SystemExit:
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' + self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' +
+                                         self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
                             raise IOError
 
-            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, self.launcher_region]).wait()
 
             self.log.write(_('- 正在解压Launcher...'))
@@ -1611,7 +1608,7 @@ class Application(Frame):
 
     ################################################################################################
     def get_latest_twilight(self):
-        filename = 'TWiLightMenu-DSi.7z' if self.is_tds == False else 'TWiLightMenu-3DS.7z'
+        filename = 'TWiLightMenu-DSi.7z' if self.is_tds is False else 'TWiLightMenu-3DS.7z'
         self.files.append(filename)
         self.files.append('BOOT.NDS')
         self.files.append('snemul.cfg')
@@ -1635,14 +1632,8 @@ class Application(Frame):
                     except SystemExit:
                         return
                     except:
-                        idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
-                        with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
-                            copyfileobj(src0, dst0)
-                        with open('Temp.fid', 'r') as ftmp:
-                            fileid = ftmp.read()
-                            ftmp.close()
-                        remove('Temp.fid')
-                        with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
+                        with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/latest/' +
+                                     filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                 else:
                     try:
@@ -1660,21 +1651,15 @@ class Application(Frame):
                             except SystemExit:
                                 return
                             except:
-                                idfile = 'ID1.bin' if self.is_tds == False else 'ID2.bin'
-                                with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' + idfile) as src0, open('Temp.fid', 'wb') as dst0:
-                                    copyfileobj(src0, dst0)
-                                with open('Temp.fid', 'r') as ftmp:
-                                    fileid = ftmp.read()
-                                    ftmp.close()
-                                remove('Temp.fid')
-                                with urlopen('https://gitee.com/ryatian/twlmagician-resources/attach_files/' + fileid + '/download/' + filename) as src, open(filename, 'wb') as dst:
+                                with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/latest/'
+                                             + filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
                         else:
                             raise IOError
 
             self.log.write(_('- 正在解压 ') + filename[:-3] + _(' 压缩包...'))
 
-            if self.is_tds == False:
+            if self.is_tds is False:
                 self.proc = Popen([_7za, 'x', '-bso0', '-y', filename, '_nds', 'title',
                                    'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg', 'version.txt'])
             else:
@@ -1728,7 +1713,7 @@ class Application(Frame):
             copy_tree('roms', path.join(self.sd_path1, 'roms'))
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
-            if self.is_tds == True:
+            if self.is_tds is True:
                 cias = path.join(self.sd_path1, 'cias')
                 if not path.exists(cias):
                     mkdir(cias)
@@ -1749,7 +1734,7 @@ class Application(Frame):
                      path.join(self.sd_path1, 'roms'))
         if self.adv_mode and self.devkp.get() == 1:
             self.make_dekp(self.sd_path1)
-        if self.adv_mode and self.have_hiya == True:
+        if self.adv_mode and self.have_hiya is True:
             self.check_serial(self.sd_path1)
         if self.adv_mode and self.tftt.get() == 1:
             if path.exists('TFTT.dat'):
@@ -1808,13 +1793,13 @@ class Application(Frame):
             ofilename = self.console_id.get() + self.suffix + '.bin'
             file = path.join(self.out_path, ofilename)
             copyfile(self.console_id.get() + '.img', file)
-            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
             remove(self.console_id.get() + '.img')
             self.log.write(_('完成!\n修改后的NAND已保存为') + ofilename + '\n')
             return
 
-        if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+        if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
             if self.adv_mode or self.transfer_mode:
                 Popen(['chown', '-R', ug + ':' + ug, self.sd_path1]).wait()
             else:
@@ -1880,7 +1865,8 @@ class Application(Frame):
         patchfile.close()
 
     ################################################################################################
-    def unpack_int(self, bstr):
+    @staticmethod
+    def unpack_int(bstr):
         # Read an n-byte big-endian integer from a byte string
         (ret_val, ) = unpack_from('>I', b'\x00' * (4 - len(bstr)) + bstr)
         return ret_val
@@ -1918,8 +1904,7 @@ class Application(Frame):
                                 else:
                                     self.log.write(_('- 检测到 ') + REGION_CODES_DEV[app.lower()] +
                                                    ' Launcher')
-                                    self.launcher_region = REGION_CODES_DEV[app.lower(
-                                    )]
+                                    self.launcher_region = REGION_CODES_DEV[app.lower()]
                             return app
 
                         except KeyError:
@@ -1964,12 +1949,13 @@ class Application(Frame):
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip') as src, open(filename, 'wb') as dst:
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip'
+                                         ) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
                             raise IOError
 
-                if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+                if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                     Popen(['chown', '-R', ug + ':' + ug, filename]).wait()
 
                 self.proc = Popen(
@@ -2081,7 +2067,7 @@ class Application(Frame):
             ret_val = self.proc.wait()
 
             if ret_val == 0:
-                if self.nand_mode == False and self.photo.get() == 1:
+                if self.nand_mode is False and self.photo.get() == 1:
                     printl(_('调用 osfmount(卸载 twlp)'))
                     self.proc = Popen([osfmount, '-D', '-m', self.twlp])
                     ret_val = self.proc.wait()
@@ -2136,7 +2122,7 @@ class Application(Frame):
             if ret_val != 0:
                 self.log.write(_('错误: 卸载失败或尚未挂载'))
 
-            if self.nand_mode == False and self.photo.get() == 1:
+            if self.nand_mode is False and self.photo.get() == 1:
                 printl(_('调用 osfmount(强制卸载 twlp)'))
                 self.proc = Popen([osfmount, '-D', '-m', self.twlp])
                 ret_val = self.proc.wait()
@@ -2202,7 +2188,7 @@ class Application(Frame):
                 f.truncate()
                 f.close()
             self.finish = True
-            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
                 Popen(['chown', '-R', ug + ':' + ug, info_file]).wait()
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + ofilename +
@@ -2246,7 +2232,7 @@ class Application(Frame):
                         b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
                 f.close()
             self.finish = True
-            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
             self.log.write(_('完成!\n修改后的NAND已保存为\n') + ofilename + '\n')
 
@@ -2265,10 +2251,11 @@ class Application(Frame):
         try:
             if not path.isfile('Common.dat'):
                 self.log.write(_('正在下载通用数据...'))
-                with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/Common.dat') as src, open('Common.dat', 'wb') as dst:
+                with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/Common.dat') as src, open(
+                        'Common.dat', 'wb') as dst:
                     copyfileobj(src, dst)
 
-            if sysname == 'Linux' and ug is not None and su == True:  # chown on Linux if with sudo
+            if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, 'Common.dat']).wait()
 
             self.log.write(_('- 正在解压通用数据...'))
@@ -2357,15 +2344,10 @@ class Application(Frame):
 
         self.log.write(_('正在执行TWLTransfer...'))
 
-        oldfolders = []
-        oldfolders.append(path.join(self.sd_path1, 'title', '0003000f'))
-        oldfolders.append(path.join(self.sd_path1, 'title', '00030004'))
-        oldfolders.append(path.join(self.sd_path1, 'title', '00030005'))
-        oldfolders.append(path.join(self.sd_path1, 'title', '00030015'))
-        oldfolders.append(path.join(self.sd_path1, 'ticket', '0003000f'))
-        oldfolders.append(path.join(self.sd_path1, 'ticket', '00030004'))
-        oldfolders.append(path.join(self.sd_path1, 'ticket', '00030005'))
-        oldfolders.append(path.join(self.sd_path1, 'ticket', '00030015'))
+        oldfolders = [path.join(self.sd_path1, 'title', '0003000f'), path.join(self.sd_path1, 'title', '00030004'),
+                      path.join(self.sd_path1, 'title', '00030005'), path.join(self.sd_path1, 'title', '00030015'),
+                      path.join(self.sd_path1, 'ticket', '0003000f'), path.join(self.sd_path1, 'ticket', '00030004'),
+                      path.join(self.sd_path1, 'ticket', '00030005'), path.join(self.sd_path1, 'ticket', '00030015')]
         while len(oldfolders) > 0:
             rmtree(oldfolders.pop(), ignore_errors=True)
 
@@ -2393,7 +2375,7 @@ class Application(Frame):
             self.log.write(_('正在安装TMFH...'))
             copy_tree('TMFH/title', path.join(self.sd_path1, 'title'))
         if self.updatemenu.get() == 1:
-            if self.have_menu == True:
+            if self.have_menu is True:
                 self.log.write(_('正在更新TWiLightMenu++...'))
             else:
                 self.log.write(_('正在安装TWiLightMenu++...'))
@@ -2436,7 +2418,7 @@ if path.isfile('Console.log'):
     clog.write('\n')
     clog.close()
 
-if sysname == 'Linux' and ug is not None and su == True:
+if sysname == 'Linux' and ug is not None and su is True:
     if not path.isfile('Console.log'):
         open('Console.log', 'a', encoding="UTF-8")
         Popen(['chown', '-R', ug + ':' + ug, 'Console.log']).wait()
@@ -2509,7 +2491,7 @@ printl(_('GUI初始化中...'))
 
 root.title('TWLMagician V1.0 BY R-YaTian')
 # Disable maximizing
-root.resizable(0, 0)
+root.resizable(False, False)
 # Center in window
 root.eval('tk::PlaceWindow %s center' % root.winfo_toplevel())
 nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAAA'
