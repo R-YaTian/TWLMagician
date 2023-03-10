@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# coding=utf-8
+#coding=utf-8
 
 # TWLMagician
 # Version 1.0.4
@@ -31,13 +31,10 @@ from py_langs.langs import lang_init
 import ctypes
 import platform
 import ssl
-
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # TimeLog-Print
 ntime_tmp = None
-
-
 def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
     global ntime_tmp
     clog = open('Console.log', 'a', encoding="UTF-8")
@@ -738,7 +735,7 @@ class Application(Frame):
             self.have_menu = False
             if not self.adv_mode:
                 showinfo(_('提示'), _('接下来请选择你用来安装自制系统的存储卡路径(或输出路径)\n为了避免 '
-                                      '启动错误 请确保目录下无任何文件'))
+                                    '启动错误 请确保目录下无任何文件'))
                 self.sd_path = askdirectory(title='')
                 # Exit if no path was selected
                 if self.sd_path == '':
@@ -841,7 +838,7 @@ class Application(Frame):
             if not self.adv_mode:
                 self.unmount_nand1()
         else:
-            self.clean(True, )
+            self.clean(True,)
 
     def check_nand(self):
         self.log.write(_('正在检查NAND文件...'))
@@ -1005,7 +1002,7 @@ class Application(Frame):
                     self.TThread.start()
                 else:
                     self.TThread = Thread(target=self.decrypt_nand if path.isfile('bootloader.nds')
-                    else self.extract_bios)
+                                          else self.extract_bios)
                     self.TThread.start()
 
             else:
@@ -1862,7 +1859,7 @@ class Application(Frame):
     @staticmethod
     def unpack_int(bstr):
         # Read an n-byte big-endian integer from a byte string
-        (ret_val,) = unpack_from('>I', b'\x00' * (4 - len(bstr)) + bstr)
+        (ret_val, ) = unpack_from('>I', b'\x00' * (4 - len(bstr)) + bstr)
         return ret_val
 
     ################################################################################################
@@ -2141,7 +2138,7 @@ class Application(Frame):
         try:
             printl(_('调用 twltool(重加密 NAND)'))
             self.proc = Popen([twltool, 'nandcrypt', '--in',
-                               self.console_id.get() + '.img'])
+                              self.console_id.get() + '.img'])
 
             ret_val = self.proc.wait()
 
@@ -2256,7 +2253,7 @@ class Application(Frame):
 
             if self.tmfh.get() == 1:
                 self.proc = Popen([_7za, 'x', '-bso0', '-y', '-pR-YaTian',
-                                   'Common.dat', 'hiya', 'title', 'ticket', 'TMFH'])
+                                  'Common.dat', 'hiya', 'title', 'ticket', 'TMFH'])
             else:
                 self.proc = Popen(
                     [_7za, 'x', '-bso0', '-y', '-pR-YaTian', 'Common.dat', 'hiya', 'title', 'ticket'])
@@ -2397,7 +2394,6 @@ region = langs[2]
 
 if sysname == 'Linux':
     from os import getuid, getlogin
-
     try:
         ug = getlogin()
     except OSError:
