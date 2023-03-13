@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 1.0.4
+# Version 1.0.5
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -79,6 +79,7 @@ def stop_thread(thread):
 class ThreadSafeText(Text):
     def __init__(self, master, **options):
         Text.__init__(self, master, **options)
+        self.wlog = None
         self.now_time_tmp = None
         self.queue = Queue()
         self.update_me()
@@ -117,6 +118,20 @@ class Application(Frame):
     def __init__(self, master=None):
         super().__init__(master)
 
+        self.log = None
+        self.out_path = None
+        self.dialog = None
+        self.dest_region = None
+        self.cur_region = None
+        self.origin_region = None
+        self.twlp = None
+        self.loop_dev = None
+        self.raw_disk = None
+        self.mounted = None
+        self.launcher_region = None
+        self.suffix = None
+        self.proc = None
+        self.TThread = None
         self.sd_path = None
         self.sd_path1 = None
         self.pack()
@@ -469,14 +484,7 @@ class Application(Frame):
             self.have_menu = False
             self.is_tds = False
             self.have_hiya = False
-            if self.tftt.get() == 1:
-                self.tftt.set(0)
-            if self.appgen.get() == 1:
-                self.appgen.set(0)
-            if self.devkp.get() == 1:
-                self.devkp.set(0)
-            if self.updatehiya.get() == 1:
-                self.updatehiya.set(0)
+            self.common_set()
             if self.sdp.get() != '':
                 self.sdp.set('')
             self.adv_frame.pack_forget()
@@ -496,14 +504,7 @@ class Application(Frame):
             self.have_menu = False
             self.is_tds = False
             self.have_hiya = False
-            if self.tftt.get() == 1:
-                self.tftt.set(0)
-            if self.appgen.get() == 1:
-                self.appgen.set(0)
-            if self.devkp.get() == 1:
-                self.devkp.set(0)
-            if self.updatehiya.get() == 1:
-                self.updatehiya.set(0)
+            self.common_set()
             if self.nand_file.get() != '':
                 self.nand_file.set('')
             self.bak_frame.pack_forget()
@@ -526,16 +527,16 @@ class Application(Frame):
             self.adv_mode = True
 
     def change_mode2(self):
+        if self.updatehiya.get() == 1:
+            self.updatehiya.set(0)
+        if self.updatemenu.get() == 1:
+            self.updatemenu.set(0)
+        if self.tmfh.get() == 1:
+            self.tmfh.set(0)
+        self.start_button.pack_forget()
+        self.exit_button.pack_forget()
         if self.transfer_mode:
-            if self.updatehiya.get() == 1:
-                self.updatehiya.set(0)
-            if self.updatemenu.get() == 1:
-                self.updatemenu.set(0)
-            if self.tmfh.get() == 1:
-                self.tmfh.set(0)
-            self.start_button.pack_forget()
             self.back2_button.pack_forget()
-            self.exit_button.pack_forget()
             self.checks_frame2.pack_forget()
             self.checks_frame1.pack(anchor=W)
             self.start_button.pack(side='left', padx=(0, 5))
@@ -546,15 +547,7 @@ class Application(Frame):
             self.adv_mode = True
         else:
             self.chb1['state'] = DISABLED
-            if self.updatehiya.get() == 1:
-                self.updatehiya.set(0)
-            if self.updatemenu.get() == 1:
-                self.updatemenu.set(0)
-            if self.tmfh.get() == 1:
-                self.tmfh.set(0)
-            self.start_button.pack_forget()
             self.back1_button.pack_forget()
-            self.exit_button.pack_forget()
             self.checks_frame1.pack_forget()
             self.checks_frame2.pack(anchor=W)
             self.start_button.pack(side='left', padx=(0, 5))
@@ -602,14 +595,7 @@ class Application(Frame):
         showinfo(_('提示'), _('请选择机器的存储卡根目录'))
         self.sd_path1 = askdirectory(title='')
         self.sdp.set(self.sd_path1)
-        if self.tftt.get() == 1:
-            self.tftt.set(0)
-        if self.appgen.get() == 1:
-            self.appgen.set(0)
-        if self.devkp.get() == 1:
-            self.devkp.set(0)
-        if self.updatehiya.get() == 1:
-            self.updatehiya.set(0)
+        self.common_set()
         self.start_button['state'] = (
             NORMAL if self.sd_path1 != '' else DISABLED)
         if self.sd_path1 == '':
@@ -791,18 +777,21 @@ class Application(Frame):
             self.TThread.start()
 
     ################################################################################################
+    def common_set(self):
+        if self.tftt.get() == 1:
+            self.tftt.set(0)
+        if self.appgen.get() == 1:
+            self.appgen.set(0)
+        if self.devkp.get() == 1:
+            self.devkp.set(0)
+        if self.updatehiya.get() == 1:
+            self.updatehiya.set(0)
+
     def closethread(self):
         if self.adv_mode:
             self.sd_path1 = ''
             self.sdp.set(self.sd_path1)
-            if self.tftt.get() == 1:
-                self.tftt.set(0)
-            if self.appgen.get() == 1:
-                self.appgen.set(0)
-            if self.devkp.get() == 1:
-                self.devkp.set(0)
-            if self.updatehiya.get() == 1:
-                self.updatehiya.set(0)
+            self.common_set()
             self.start_button['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
             self.tftt_chk['state'] = DISABLED
