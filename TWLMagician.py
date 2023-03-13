@@ -117,6 +117,8 @@ class Application(Frame):
     def __init__(self, master=None):
         super().__init__(master)
 
+        self.sd_path = None
+        self.sd_path1 = None
         self.pack()
         self.adv_mode = False
         self.nand_mode = False
@@ -189,16 +191,7 @@ class Application(Frame):
         self.rb3 = Radiobutton(self.setup_frame, text=_(
             'OSFMount(需要管理员权限)'), variable=self.setup_operation, value=2)
 
-        if osfmount or _7z is not None:
-            if fatcat is not None:
-                self.rb1.pack(anchor=W)
-            if _7z is not None:
-                self.rb2.pack(anchor=W)
-            if osfmount is not None:
-                self.rb3.pack(anchor=W)
-            if (fatcat is not None) or (osfmount and _7z is not None):
-                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
-                self.setup_select = True
+        self.common_pack(True)
 
         # Check boxes
         self.checks_frame = Frame(f2)
@@ -424,6 +417,21 @@ class Application(Frame):
                 ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
 
     ################################################################################################
+    def common_pack(self, init):
+        if osfmount or _7z is not None:
+            if fatcat is not None:
+                self.rb1.pack(anchor=W)
+            if _7z is not None:
+                self.rb2.pack(anchor=W)
+            if osfmount is not None:
+                self.rb3.pack(anchor=W)
+            if (fatcat is not None) or (osfmount and _7z is not None):
+                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+                if init is True:
+                    self.setup_select = True
+        if init is not True:
+            self.checks_frame.pack(anchor=W)
+
     def change_mode(self):
         if self.nand_mode:
             self.nand_operation.set(0)
@@ -432,16 +440,7 @@ class Application(Frame):
             self.start_button.pack_forget()
             self.back_button.pack_forget()
             self.exit_button.pack_forget()
-            if osfmount or _7z is not None:
-                if fatcat is not None:
-                    self.rb1.pack(anchor=W)
-                if _7z is not None:
-                    self.rb2.pack(anchor=W)
-                if osfmount is not None:
-                    self.rb3.pack(anchor=W)
-                if (fatcat is not None) or (osfmount and _7z is not None):
-                    self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
-            self.checks_frame.pack(anchor=W)
+            self.common_pack(False)
             self.start_button.pack(side='left', padx=(0, 5))
             self.adv_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
@@ -486,16 +485,7 @@ class Application(Frame):
             self.back1_button.pack_forget()
             self.exit_button.pack_forget()
             self.bak_frame.pack(fill=X)
-            if osfmount or _7z is not None:
-                if fatcat is not None:
-                    self.rb1.pack(anchor=W)
-                if _7z is not None:
-                    self.rb2.pack(anchor=W)
-                if osfmount is not None:
-                    self.rb3.pack(anchor=W)
-                if (fatcat is not None) or (osfmount and _7z is not None):
-                    self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
-            self.checks_frame.pack(anchor=W)
+            self.common_pack(False)
             self.start_button['state'] = DISABLED
             self.nand_button['state'] = DISABLED
             self.start_button.pack(side='left', padx=(0, 5))
