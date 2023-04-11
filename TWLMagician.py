@@ -1671,14 +1671,16 @@ class Application(Frame):
         if not self.adv_mode:
             copytree('_nds', path.join(self.sd_path, '_nds'), dirs_exist_ok=True)
             copytree('title', path.join(self.sd_path, 'title'), dirs_exist_ok=True)
-            copytree('hiya', path.join(self.sd_path, 'hiya'), dirs_exist_ok=True)
+            try:
+                copytree('hiya', path.join(self.sd_path, 'hiya'), dirs_exist_ok=True)
+            except FileNotFoundError:
+                pass
             copytree('roms', path.join(self.sd_path, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path, 'BOOT.NDS'))
             copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
             if self.updatehiya.get() == 1:
                 copytree('title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
-                copytree('hiya', path.join(self.sd_path1, 'hiya'), dirs_exist_ok=True)
             copytree('_nds', path.join(self.sd_path1, '_nds'), dirs_exist_ok=True)
             copytree('roms', path.join(self.sd_path1, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
