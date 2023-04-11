@@ -2,7 +2,7 @@
 #coding=utf-8
 
 # TWLMagician
-# Version 1.0.5
+# Version 1.0.6
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
