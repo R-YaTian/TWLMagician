@@ -31,13 +31,11 @@ from py_langs.langs import lang_init
 import ctypes
 import platform
 import ssl
-
 ssl._create_default_https_context = ssl._create_unverified_context
-
-# TimeLog-Print
 ntime_tmp = None
 
 
+# TimeLog-Print
 def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
     global ntime_tmp
     clog = open('Console.log', 'a', encoding="UTF-8")
