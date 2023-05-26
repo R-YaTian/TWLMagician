@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.0.8
+# Version 1.0.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1579,7 +1579,7 @@ class Application(Frame):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
                     try:
-                        with urlopen('https://spinaround.tk/somefiles/' +
+                        with urlopen('https://gyker.top/storage/somefiles/' +
                                      filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                     except SystemExit:
@@ -1598,7 +1598,7 @@ class Application(Frame):
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             try:
-                                with urlopen('https://spinaround.tk/somefiles/' +
+                                with urlopen('https://gyker.top/storage/somefiles/' +
                                              filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
                             except SystemExit:
