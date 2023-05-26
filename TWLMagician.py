@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.0.6
+# Version 1.0.8
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -278,14 +278,6 @@ class Application(Frame):
 
         self.dkp1_chk.pack(padx=10, anchor=W)
 
-        self.tftt = IntVar()
-        self.tftt.set(0)
-
-        self.tftt_chk = Checkbutton(self.checks_frame1, text=_(
-            '同时安装TFTT'), variable=self.tftt, state=DISABLED)
-
-        self.tftt_chk.pack(padx=10, anchor=W)
-
         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             adl1_chk = Checkbutton(
                 self.checks_frame1, text='优先使用备用载点', variable=self.altdl)
@@ -393,13 +385,12 @@ class Application(Frame):
             from ToolTips import ToolTips
             import tkinter.font as tk_font
             widgets = [ag_chk, dkp_chk, photo_chk, self.ag1_chk,
-                       self.dkp1_chk, self.tftt_chk, self.dkp2_chk, self.adv_button]
+                       self.dkp1_chk, self.dkp2_chk, self.adv_button]
             tooltip_text = [_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'),
                             _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
                             _('提取Nand备份中的相册分区文件到存储卡中，此操作会占用\n一定的存储卡空间(取决于相片数量，最多可达32MB左右)'),
                             _('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'),
                             _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
-                            _('在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)'),
                             _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
                             _('高级模式提供了单独安装TWiLightMenu++\n等功能')]
             if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
@@ -422,8 +413,6 @@ class Application(Frame):
                 '提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
             ToolTip(self.dkp1_chk, msg=_(
                 '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
-            ToolTip(self.tftt_chk, msg=_(
-                '在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)'))
             ToolTip(self.dkp2_chk, msg=_(
                 '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
             ToolTip(self.adv_button, msg=_('高级模式提供了单独安装TWiLightMenu++等功能'))
@@ -520,7 +509,6 @@ class Application(Frame):
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
-            self.tftt_chk['state'] = DISABLED
             self.start_button['state'] = DISABLED
             self.start_button.pack(side='left', padx=(0, 5))
             self.back1_button.pack(side='left', padx=(0, 0))
@@ -603,7 +591,6 @@ class Application(Frame):
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
-            self.tftt_chk['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
             return
         self.check_console(self.sd_path1)
@@ -611,26 +598,22 @@ class Application(Frame):
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
-            self.tftt_chk['state'] = NORMAL
             self.transfer_button['state'] = DISABLED
         elif self.have_hiya:
             self.uh_chk['state'] = NORMAL
             self.dkp1_chk['state'] = NORMAL
             self.ag1_chk['state'] = (
                 DISABLED if self.have_menu is True else NORMAL)
-            self.tftt_chk['state'] = DISABLED
             self.transfer_button['state'] = NORMAL
         elif self.have_menu:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
-            self.tftt_chk['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
         else:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
-            self.tftt_chk['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
 
     def choose_nand(self):
@@ -778,8 +761,6 @@ class Application(Frame):
 
     ################################################################################################
     def common_set(self):
-        if self.tftt.get() == 1:
-            self.tftt.set(0)
         if self.appgen.get() == 1:
             self.appgen.set(0)
         if self.devkp.get() == 1:
@@ -794,7 +775,6 @@ class Application(Frame):
             self.common_set()
             self.start_button['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
-            self.tftt_chk['state'] = DISABLED
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
@@ -1708,25 +1688,6 @@ class Application(Frame):
             self.make_dekp(self.sd_path1)
         if self.adv_mode and self.have_hiya is True:
             self.check_serial(self.sd_path1)
-        if self.adv_mode and self.tftt.get() == 1:
-            if path.exists('TFTT.dat'):
-                self.log.write(_('- 正在安装TFTT'))
-                self.folders.append('gm9')
-                self.folders.append('luma')
-                try:
-                    self.proc = Popen(
-                        [_7za, 'x', '-bso0', '-y', '-pR-YaTian', 'TFTT.dat', 'gm9', 'luma'])
-                    ret_val = self.proc.wait()
-                    if ret_val == 0:
-                        copytree('gm9', path.join(self.sd_path1, 'gm9'), dirs_exist_ok=True)
-                        copytree('luma', path.join(self.sd_path1, 'luma'), dirs_exist_ok=True)
-                    else:
-                        self.log.write(_('错误: 安装TFTT失败'))
-                except OSError as e:
-                    printl(str(e))
-                    self.log.write(_('错误: 无法运行 ') + _7za)
-            else:
-                self.log.write(_('警告: 找不到TFTT.dat文件, 未安装TFTT'))
 
         Thread(target=self.clean).start()
 
