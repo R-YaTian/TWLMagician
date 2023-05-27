@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.0.9
+# Version 1.1.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -36,7 +36,7 @@ ntime_tmp = None
 
 
 # TimeLog-Print
-def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
+def printl(*objects, fixn=False):
     global ntime_tmp
     clog = open('Console.log', 'a', encoding="UTF-8")
     try:
@@ -1434,6 +1434,7 @@ class Application(Frame):
                     chmod(file, 438)
             remove(file)
 
+        # noinspection PyExceptClausesOrder
         try:
             if not path.isfile(self.launcher_region):
                 self.log.write(
@@ -1872,11 +1873,13 @@ class Application(Frame):
         if tmd_size == 520:
             self.log.write(_('- 未安装...'))
 
+            # noinspection PyExceptClausesOrder
             try:
                 if not path.exists(filename):
                     self.log.write(_('正在下载最新版本的unlaunch...'))
                     try:
-                        with urlopen('http://problemkaputt.de/unlaunch.zip') as src, open(filename, 'wb') as dst:
+                        with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/unlaunch.zip'
+                                     ) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                     except SystemExit:
                         return
