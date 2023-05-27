@@ -1,1 +1,6 @@
-
+/shelf/
+/workspace.xml
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
