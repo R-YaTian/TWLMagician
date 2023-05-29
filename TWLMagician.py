@@ -20,12 +20,12 @@ from urllib.request import urlopen
 from urllib.error import URLError
 from subprocess import Popen, PIPE
 from struct import unpack_from
-from shutil import rmtree, copyfile, copyfileobj, copytree
+from shutil import rmtree, copyfile, copytree
 from re import search
 from appgen import agen
 from inspect import isclass
 from datetime import datetime
-from time import sleep
+from time import sleep, time
 from binascii import hexlify, unhexlify
 from py_langs.langs import lang_init
 import ctypes
@@ -33,10 +33,63 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
+downloading = False
+
+
+# download files
+def print_progress(filename, size, res, download_speed):
+    sp = res / size
+    sp = 1 if (sp > 1) else sp
+    done_block = '▊' * int(30 * sp)
+    print(f'\r{filename}: [{done_block:30}] ', format(sp * 100, '.2f'), '% ', format_bytes_num(download_speed), '/s ',
+          format_bytes_num(res), '/', format_bytes_num(size), sep='', end='')
+
+
+def copyfileobj(fsrc, fdst, length=0):
+    """copy data from file-like object fsrc to file-like object fdst"""
+    global downloading
+    downloading = True
+    if not length:
+        length = 32 * 1024
+    # Localize variable access to minimize overhead.
+    fsrc_read = fsrc.read
+    fdst_write = fdst.write
+    last_time = start_time = time()
+    last_res = res = 0
+    filename = fdst.name
+    size = fsrc.length
+    download_speed = 0.00
+    while buf := fsrc_read(length):
+        fdst_write(buf)
+        res += length
+        rt_time = time()
+        if rt_time - last_time >= 1:
+            download_time = rt_time - last_time
+            last_time = time()
+            download_speed = (res - last_res) / download_time
+            last_res = res
+        print_progress(filename, size, res, download_speed)
+
+    rt_time = time()
+    if rt_time - start_time < 1:
+        download_time = rt_time - start_time
+        download_speed = size / download_time
+        print_progress(filename, size, size, download_speed)
+    print('\n')
+    downloading = False
+
+
+def format_bytes_num(bytes_num):
+    i = 0
+    while bytes_num > 1024 and i < 9 - 1:
+        bytes_num /= 1024
+        i += 1
+    unit = ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB')[i]
+    return "%.2f" % bytes_num + unit
 
 
 # TimeLog-Print
-def printl(*objects, fixn=False):
+def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
     global ntime_tmp
     clog = open('Console.log', 'a', encoding="UTF-8")
     try:
@@ -49,7 +102,7 @@ def printl(*objects, fixn=False):
         else:
             print('\n[' + ntime + ']')
         clog.write('[' + ntime + ']\n')
-    print(*objects, sep=' ', end='\n', file=stdout, flush=False)
+    print(*objects, sep=sep, end=end, file=file, flush=flush)
     clog.write(*objects)
     clog.write('\n')
     ntime_tmp = ntime
@@ -652,6 +705,7 @@ class Application(Frame):
 
         self.log = ThreadSafeText(frame, bd=0, width=52, height=20,
                                   yscrollcommand=scrollbar.set)
+        self.log.bind("<Key>", lambda a: "break")
         self.log.pack()
 
         scrollbar.config(command=self.log.yview)
@@ -792,7 +846,7 @@ class Application(Frame):
 
     def after_close(self):
         sleep(1)
-        printl(_('操作过程发生错误或用户终止操作'))
+        printl(_('操作过程发生错误或用户终止操作'), fixn=True if downloading else False)
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
             if not self.adv_mode:
                 self.unmount_nand1()
