@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.4
+# Version 1.1.5
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -33,7 +33,7 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
-version_number = 112
+version_number = 114
 
 
 # download files
@@ -1952,18 +1952,18 @@ class Application(Frame):
                 if not path.exists(filename):
                     self.log.write(_('正在下载最新版本的unlaunch...'))
                     try:
-                        with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/unlaunch.zip'
-                                     ) as src, open(filename, 'wb') as dst:
-                            copyfileobj(src, dst)
-                    except SystemExit:
-                        return
-                    except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
                                          'unlaunch.zip') as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
-                            raise IOError
+                            with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/unlaunch.zip'
+                                         ) as src, open(filename, 'wb') as dst:
+                                copyfileobj(src, dst)
+                    except SystemExit:
+                        return
+                    except:
+                        raise IOError
 
                 if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                     Popen(['chown', '-R', ug + ':' + ug, filename]).wait()
