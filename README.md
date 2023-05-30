@@ -36,7 +36,7 @@ Clicking on the integrated circuit button will give you a NAND mode, where you c
 
 ## How to use it:
 
-Thanks to:
+## Thanks to:
 * jerbear64, LmN and mondul for the original version.
 * [@RocketRobz](https://github.com/RocketRobz) for his HiyaCFW fork, its releases and for having the helper script on his repo.
 * WB3000 for his [NUS Downloader source code](https://code.google.com/archive/p/nusdownloader/source/default/source).
