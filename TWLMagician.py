@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.2
+# Version 1.1.3
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -20,7 +20,7 @@ from urllib.request import urlopen
 from urllib.error import URLError
 from subprocess import Popen, PIPE
 from struct import unpack_from
-from shutil import rmtree, copyfile, copytree
+from shutil import rmtree, copyfile, copytree, copyfileobj as download_file
 from re import search
 from appgen import agen
 from inspect import isclass
@@ -33,6 +33,7 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
+version_number = 112
 
 
 # download files
@@ -82,6 +83,23 @@ def format_bytes_num(bytes_num):
         i += 1
     unit = ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB')[i]
     return "%.2f" % bytes_num + unit
+
+
+# Check Update
+def check_update():
+    if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
+        version_url = 'https://gitee.com/ryatian/twlmagician-resources/raw/master/'
+    else:
+        version_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/'
+    try:
+        with urlopen(version_url + 'version.bin') as src0, open('version.bin', 'wb') as dst0:
+            download_file(src0, dst0)
+        with open('version.bin', 'r') as ftmp:
+            version_str = ftmp.read()
+        remove('version.bin')
+        return int(version_str)
+    except:
+        return -1
 
 
 # TimeLog-Print
@@ -2382,12 +2400,32 @@ class Application(Frame):
 # Entry point
 
 sysname = platform.system()
-root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
 langs = lang_init('zh_hans', 'i18n')
 loc = langs[0]
 loca = langs[1]
 region = langs[2]
+
+printl(_('检查更新中...'))
+new_version = check_update()
+if new_version == -1:
+    printl(_('检查更新失败'))
+elif new_version > version_number:
+    if sysname == 'Darwin' or sysname == 'Linux':
+        import webbrowser
+        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
+            release_url = 'https://gitee.com/ryatian/twlmagician-resources/releases/tag/TWLMagician'
+        else:
+            release_url = 'https://github.com/R-YaTian/TWLMagician/releases'
+        showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
+        webbrowser.open(release_url, 2, autoraise=True)
+        exit(1)
+    else:
+        showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新, 暂不支持跳过更新'))
+else:
+    printl(_('当前为最新版本!'))
+
+root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 
 if sysname == 'Linux':
     from os import getuid, getlogin
@@ -2477,7 +2515,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician V1.0 BY R-YaTian')
+root.title('TWLMagician V1.1 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
