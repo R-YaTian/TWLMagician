@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.3
+# Version 1.1.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -47,7 +47,10 @@ def print_progress(filename, size, res, download_speed):
 
 def copyfileobj(fsrc, fdst, length=0):
     """copy data from file-like object fsrc to file-like object fdst"""
-    app.downloading = True
+    try:
+        app.downloading = True
+    except:
+        pass
     if not length:
         length = 32 * 1024
     # Localize variable access to minimize overhead.
@@ -997,7 +1000,7 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的hiyaCFW...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' +
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
                                  filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
@@ -1009,7 +1012,7 @@ class Application(Frame):
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/' +
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
                                          filename) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
@@ -1511,7 +1514,7 @@ class Application(Frame):
                 self.log.write(
                     _('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' +
+                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
                                  self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
@@ -1523,7 +1526,7 @@ class Application(Frame):
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/launchers/' +
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
                                          self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
@@ -1956,8 +1959,8 @@ class Application(Frame):
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/unlaunch.zip'
-                                         ) as src, open(filename, 'wb') as dst:
+                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
+                                         'unlaunch.zip') as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
                             raise IOError
@@ -2257,8 +2260,8 @@ class Application(Frame):
         try:
             if not path.isfile('Common.dat'):
                 self.log.write(_('正在下载通用数据...'))
-                with urlopen('https://gitee.com/ryatian/twlmagician-resources/raw/master/Common.dat') as src, open(
-                        'Common.dat', 'wb') as dst:
+                with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/Common.dat'
+                             ) as src, open('Common.dat', 'wb') as dst:
                     copyfileobj(src, dst)
 
             if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
@@ -2500,6 +2503,7 @@ if sysname == 'Windows':
 
     _7z = path.join(sysname, '7z.exe')
     if path.exists(_7z):
+        _7za = _7z
         printl(_('7-Zip模块已加载'))
     else:
         _7z = None
