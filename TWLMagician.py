@@ -2419,7 +2419,7 @@ elif new_version > version_number:
         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             release_url = 'https://gitee.com/ryatian/twlmagician-resources/releases/tag/TWLMagician'
         else:
-            release_url = 'https://github.com/R-YaTian/TWLMagician/releases'
+            release_url = 'https://github.com/R-YaTian/TWLMagician/releases/latest'
         showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
         webbrowser.open(release_url, 2, autoraise=True)
         exit(1)
