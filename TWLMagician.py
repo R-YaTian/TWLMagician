@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.0
+# Version 1.1.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -33,7 +33,6 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
-downloading = False
 
 
 # download files
@@ -47,8 +46,7 @@ def print_progress(filename, size, res, download_speed):
 
 def copyfileobj(fsrc, fdst, length=0):
     """copy data from file-like object fsrc to file-like object fdst"""
-    global downloading
-    downloading = True
+    app.downloading = True
     if not length:
         length = 32 * 1024
     # Localize variable access to minimize overhead.
@@ -75,8 +73,6 @@ def copyfileobj(fsrc, fdst, length=0):
         download_time = rt_time - start_time
         download_speed = size / download_time
         print_progress(filename, size, size, download_speed)
-    print('\n')
-    downloading = False
 
 
 def format_bytes_num(bytes_num):
@@ -197,6 +193,7 @@ class Application(Frame):
         self.is_tds = False
         self.have_menu = False
         self.finish = False
+        self.downloading = False
 
         self.image_file = StringVar()
 
@@ -846,7 +843,9 @@ class Application(Frame):
 
     def after_close(self):
         sleep(1)
-        printl(_('操作过程发生错误或用户终止操作'), fixn=True if downloading else False)
+        printl(_('操作过程发生错误或用户终止操作'), fixn=True if self.downloading else False)
+        if self.downloading:
+            self.downloading = False
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
             if not self.adv_mode:
                 self.unmount_nand1()
@@ -1954,7 +1953,6 @@ class Application(Frame):
                 ret_val = self.proc.wait()
 
                 if ret_val == 0:
-
                     self.log.write(_('- 正在安装unlaunch...'))
 
                     self.suffix = '-unlaunch'
