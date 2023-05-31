@@ -117,8 +117,7 @@ def WriteRestartCmd():
     TempList += 'del %0\n'
     fbat.write(TempList)
     fbat.close()
-    # Popen("upgrade.bat")
-    exit(1)
+    Popen("upgrade.bat")
 
 
 def check_update():
@@ -150,7 +149,7 @@ def check_update():
                 WriteRestartCmd()
             except:
                 showerror(_('错误'), _('下载或执行更新失败, 程序即将退出'))
-                exit(1)
+            exit(1)
     else:
         printl(_('当前为最新版本!'))
 
