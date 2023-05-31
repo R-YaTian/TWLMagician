@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.5
+# Version 1.1.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -20,7 +20,7 @@ from urllib.request import urlopen
 from urllib.error import URLError
 from subprocess import Popen, PIPE
 from struct import unpack_from
-from shutil import rmtree, copyfile, copytree, copyfileobj as download_file
+from shutil import rmtree, copyfile, copytree
 from re import search
 from appgen import agen
 from inspect import isclass
@@ -45,7 +45,7 @@ def print_progress(filename, size, res, download_speed):
           format_bytes_num(res), '/', format_bytes_num(size), sep='', end='')
 
 
-def copyfileobj(fsrc, fdst, length=0):
+def copyfileobj(fsrc, fdst, length=0, show_progress=True):
     """copy data from file-like object fsrc to file-like object fdst"""
     try:
         app.downloading = True
@@ -56,27 +56,30 @@ def copyfileobj(fsrc, fdst, length=0):
     # Localize variable access to minimize overhead.
     fsrc_read = fsrc.read
     fdst_write = fdst.write
-    last_time = start_time = time()
-    last_res = res = 0
     filename = fdst.name
     size = fsrc.length
-    download_speed = 0.00
+    show_progress = False if size is None else show_progress
+    if show_progress is True:
+        last_time = start_time = time()
+        last_res = res = 0
+        download_speed = 0.0
     while buf := fsrc_read(length):
         fdst_write(buf)
-        res += length
+        if show_progress is True:
+            res += length
+            rt_time = time()
+            if rt_time - last_time >= 1:
+                download_time = rt_time - last_time
+                last_time = time()
+                download_speed = (res - last_res) / download_time
+                last_res = res
+            print_progress(filename, size, res, download_speed)
+    if show_progress is True:
         rt_time = time()
-        if rt_time - last_time >= 1:
-            download_time = rt_time - last_time
-            last_time = time()
-            download_speed = (res - last_res) / download_time
-            last_res = res
-        print_progress(filename, size, res, download_speed)
-
-    rt_time = time()
-    if rt_time - start_time < 1:
-        download_time = rt_time - start_time
-        download_speed = size / download_time
-        print_progress(filename, size, size, download_speed)
+        if rt_time - start_time < 1:
+            download_time = rt_time - start_time
+            download_speed = size / download_time
+            print_progress(filename, size, size, download_speed)
 
 
 def format_bytes_num(bytes_num):
@@ -89,20 +92,49 @@ def format_bytes_num(bytes_num):
 
 
 # Check Update
-def check_update():
+def get_version():
     if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-        version_url = 'https://gitee.com/ryatian/twlmagician-resources/raw/master/'
+        version_url = 'https://gitee.com/ryatian/mirrors/raw/master/'
     else:
         version_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/'
     try:
         with urlopen(version_url + 'version.bin') as src0, open('version.bin', 'wb') as dst0:
-            download_file(src0, dst0)
+            copyfileobj(src0, dst0, show_progress=False)
         with open('version.bin', 'r') as ftmp:
             version_str = ftmp.read()
         remove('version.bin')
         return int(version_str)
     except:
         return -1
+
+
+def check_update():
+    printl(_('检查更新中...'))
+    new_version = get_version()
+    if new_version == -1:
+        printl(_('检查更新失败'))
+    elif new_version > version_number:
+        if sysname == 'Darwin' or sysname == 'Linux':
+            import webbrowser
+            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
+                release_url = 'https://gitee.com/ryatian/mirrors/releases/tag/TWLMagician'
+            else:
+                release_url = 'https://github.com/R-YaTian/TWLMagician/releases/latest'
+            showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
+            webbrowser.open(release_url, 2, autoraise=True)
+            exit(1)
+        else:
+            showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新, 暂不支持跳过更新, 即将下载更新'))
+            pybits = platform.architecture()[0]
+            ota_fname = 'OTA.7z' if pybits == '64bit' else 'OTA_x86.7z'
+            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
+                ota_url = 'https://gitee.com/ryatian/mirrors/releases/download/Res/'
+            else:
+                ota_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/patches/'
+            with urlopen(ota_url + ota_fname) as src0, open('OTA.7z', 'wb') as dst0:
+                copyfileobj(src0, dst0)
+    else:
+        printl(_('当前为最新版本!'))
 
 
 # TimeLog-Print
@@ -1000,7 +1032,7 @@ class Application(Frame):
             if not path.isfile(filename):
                 self.log.write(_('正在下载最新版本的hiyaCFW...'))
                 if self.altdl.get() == 1:
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
+                    with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/' +
                                  filename) as src, open(filename, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
@@ -1012,7 +1044,7 @@ class Application(Frame):
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
+                            with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/' +
                                          filename) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
@@ -1514,7 +1546,7 @@ class Application(Frame):
                 self.log.write(
                     _('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
-                    with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
+                    with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/' +
                                  self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                         copyfileobj(src, dst)
                 else:
@@ -1526,7 +1558,7 @@ class Application(Frame):
                         return
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
+                            with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/' +
                                          self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
@@ -1660,7 +1692,7 @@ class Application(Frame):
                     except SystemExit:
                         return
                     except:
-                        with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/latest/' +
+                        with urlopen('https://gitee.com/ryatian/mirrors/releases/download/latest/' +
                                      filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                 else:
@@ -1679,7 +1711,7 @@ class Application(Frame):
                             except SystemExit:
                                 return
                             except:
-                                with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/latest/'
+                                with urlopen('https://gitee.com/ryatian/mirrors/releases/download/latest/'
                                              + filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
                         else:
@@ -1953,8 +1985,8 @@ class Application(Frame):
                     self.log.write(_('正在下载最新版本的unlaunch...'))
                     try:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                            with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/' +
-                                         'unlaunch.zip') as src, open(filename, 'wb') as dst:
+                            with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/unlaunch.zip'
+                                         ) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
                             with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/unlaunch.zip'
@@ -2260,7 +2292,7 @@ class Application(Frame):
         try:
             if not path.isfile('Common.dat'):
                 self.log.write(_('正在下载通用数据...'))
-                with urlopen('https://gitee.com/ryatian/twlmagician-resources/releases/download/Res/Common.dat'
+                with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/Common.dat'
                              ) as src, open('Common.dat', 'wb') as dst:
                     copyfileobj(src, dst)
 
@@ -2409,30 +2441,8 @@ loc = langs[0]
 loca = langs[1]
 region = langs[2]
 
-printl(_('检查更新中...'))
-new_version = check_update()
-if new_version == -1:
-    printl(_('检查更新失败'))
-elif new_version > version_number:
-    if sysname == 'Darwin' or sysname == 'Linux':
-        import webbrowser
-        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-            release_url = 'https://gitee.com/ryatian/twlmagician-resources/releases/tag/TWLMagician'
-        else:
-            release_url = 'https://github.com/R-YaTian/TWLMagician/releases/latest'
-        showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
-        webbrowser.open(release_url, 2, autoraise=True)
-        exit(1)
-    else:
-        showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新, 暂不支持跳过更新'))
-else:
-    printl(_('当前为最新版本!'))
-
-root = Tk(className="Magician") if sysname == 'Linux' else Tk()
-
 if sysname == 'Linux':
     from os import getuid, getlogin
-
     try:
         ug = getlogin()
     except OSError:
@@ -2460,6 +2470,8 @@ if sysname == 'Linux' and ug is not None and su is True:
     except:
         pass
 
+check_update()
+root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 printl(_('TWLMagician启动中...'))
 
 fatcat = path.join(sysname, 'fatcat')
