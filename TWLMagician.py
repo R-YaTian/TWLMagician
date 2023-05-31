@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.7
+# Version 1.1.8
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -108,6 +108,19 @@ def get_version():
         return -1
 
 
+def WriteRestartCmd():
+    fbat = open("upgrade.bat", 'w')
+    TempList = '@echo off\n'
+    TempList += 'if not exist ' + 'OTA.exe' + ' exit\n'
+    TempList += 'sleep 3\n'
+    TempList += 'start OTA.exe\n'
+    TempList += 'del %0\n'
+    fbat.write(TempList)
+    fbat.close()
+    # Popen("upgrade.bat")
+    exit(1)
+
+
 def check_update():
     printl(_('检查更新中...'))
     new_version = get_version()
@@ -126,13 +139,18 @@ def check_update():
         else:
             showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新, 暂不支持跳过更新, 即将下载更新'))
             pybits = platform.architecture()[0]
-            ota_fname = 'OTA.7z' if pybits == '64bit' else 'OTA_x86.7z'
+            ota_fname = 'OTA.exe' if pybits == '64bit' else 'OTA_x86.exe'
             if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                 ota_url = 'https://gitee.com/ryatian/mirrors/releases/download/Res/'
             else:
                 ota_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/patches/'
-            with urlopen(ota_url + ota_fname) as src0, open('OTA.7z', 'wb') as dst0:
-                copyfileobj(src0, dst0)
+            try:
+                with urlopen(ota_url + ota_fname) as src0, open('OTA.exe', 'wb') as dst0:
+                    copyfileobj(src0, dst0)
+                WriteRestartCmd()
+            except:
+                showerror(_('错误'), _('下载或执行更新失败, 程序即将退出'))
+                exit(1)
     else:
         printl(_('当前为最新版本!'))
 
