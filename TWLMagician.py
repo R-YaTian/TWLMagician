@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.8
+# Version 1.1.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -11,7 +11,7 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
                      END)
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
-from os import path, remove, chmod, listdir, environ, mkdir
+from os import path, remove, chmod, listdir, environ, mkdir, startfile
 from sys import exit, stdout
 from threading import Thread
 from queue import Queue, Empty
@@ -33,7 +33,7 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
-version_number = 117
+version_number = 119
 
 
 # download files
@@ -42,7 +42,7 @@ def print_progress(filename, size, res, download_speed):
     sp = 1 if (sp > 1) else sp
     done_block = '▊' * int(30 * sp)
     print(f'\r{filename}: [{done_block:30}] ', format(sp * 100, '.2f'), '% ', format_bytes_num(download_speed), '/s ',
-          format_bytes_num(res), '/', format_bytes_num(size), sep='', end='')
+          format_bytes_num(res), '/', format_bytes_num(size) + '        ', sep='', end='')
 
 
 def copyfileobj(fsrc, fdst, length=0, show_progress=True):
@@ -80,6 +80,7 @@ def copyfileobj(fsrc, fdst, length=0, show_progress=True):
             download_time = rt_time - start_time
             download_speed = size / download_time
             print_progress(filename, size, size, download_speed)
+        print('\r', sep='', flush=True)
 
 
 def format_bytes_num(bytes_num):
@@ -109,7 +110,7 @@ def get_version():
 
 
 def WriteRestartCmd():
-    fbat = open("upgrade.bat", 'w')
+    fbat = open('upgrade.cmd', 'w')
     TempList = '@echo off\n'
     TempList += 'if not exist ' + 'OTA.exe' + ' exit\n'
     TempList += 'sleep 3\n'
@@ -117,7 +118,7 @@ def WriteRestartCmd():
     TempList += 'del %0\n'
     fbat.write(TempList)
     fbat.close()
-    Popen("upgrade.bat")
+    startfile('upgrade.cmd')
 
 
 def check_update():
@@ -144,6 +145,8 @@ def check_update():
             else:
                 ota_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/patches/'
             try:
+                if path.isfile('OTA.exe'):
+                    remove('OTA.exe')
                 with urlopen(ota_url + ota_fname) as src0, open('OTA.exe', 'wb') as dst0:
                     copyfileobj(src0, dst0)
                 WriteRestartCmd()
