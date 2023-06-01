@@ -137,7 +137,7 @@ def check_update():
             webbrowser.open(release_url, 2, autoraise=True)
             exit(1)
         else:
-            showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新, 暂不支持跳过更新, 即将下载更新'))
+            showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载更新'))
             pybits = platform.architecture()[0]
             ota_fname = 'OTA.exe' if pybits == '64bit' else 'OTA_x86.exe'
             if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
