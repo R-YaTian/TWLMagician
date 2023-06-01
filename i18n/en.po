@@ -48,10 +48,6 @@ msgstr "Extract photo partition from NAND"
 msgid "更新hiyaCFW"
 msgstr "Update hiyaCFW"
 
-#: TWLMagician.py:276
-msgid "同时安装TFTT"
-msgstr "Install TFTT"
-
 #: TWLMagician.py:297
 msgid "同时安装TMFH"
 msgstr "Install TFMH"
@@ -108,10 +104,6 @@ msgstr "Extract photo partition from NAND backup, then the\nphotos from the cons
 msgid "提取SDNand中的DSiWare软件并复制到\nroms/dsiware"
 msgstr "Export DSiWare from SDNAND and copy to roms/dsiware"
 
-#: TWLMagician.py:399
-msgid "在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)"
-msgstr "Install TWLFontTransferTool (a GodMode9 Script)\non 3DS console"
-
 #: TWLMagician.py:402
 msgid "高级模式提供了单独安装TWiLightMenu++\n等功能"
 msgstr "Advanced mode provides 'Only install\nTWiLightMenu++' feature and more"
@@ -123,10 +115,6 @@ msgstr "Enable Data Management option on hiyaCFW's System Settings without conne
 #: TWLMagician.py:417
 msgid "提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)"
 msgstr "Extract photo partition from NAND backup, then the photos from the console will be seen in hiyaCFW (Occupies some storage space, up to 32MB)"
-
-#: TWLMagician.py:423
-msgid "在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)"
-msgstr "Install TWLFontTransferTool (a GodMode9 Script) on 3DS console"
 
 #: TWLMagician.py:427
 msgid "高级模式提供了单独安装TWiLightMenu++等功能"
@@ -422,18 +410,6 @@ msgstr "Copying "
 msgid "调用 appgen"
 msgstr "Execute appgen"
 
-#: TWLMagician.py:1756
-msgid "- 正在安装TFTT"
-msgstr "- Installing TFTT"
-
-#: TWLMagician.py:1767
-msgid "错误: 安装TFTT失败"
-msgstr "ERROR: Install TFTT failed"
-
-#: TWLMagician.py:1772
-msgid "警告: 找不到TFTT.dat文件, 未安装TFTT"
-msgstr "Warning: TFTT.dat is missing, skip installing TFTT..."
-
 #: TWLMagician.py:1782
 msgid "版本信息:\n"
 msgstr "Version Info:\n"
@@ -661,3 +637,20 @@ msgstr "Fatcat not found. Please make sure 'fatcat' is at the '{}' folder"
 msgid "GUI初始化中..."
 msgstr "Initializing GUI..."
 
+msgid "检查更新中..."
+msgstr "Checking update..."
+
+msgid "检查更新失败"
+msgstr "Failed to check update"
+
+msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页"
+msgstr ""
+
+msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载更新"
+msgstr ""
+
+msgid "下载或执行更新失败, 程序即将退出"
+msgstr ""
+
+msgid "当前为最新版本!"
+msgstr ""
