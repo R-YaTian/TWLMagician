@@ -643,14 +643,14 @@ msgstr "Checking update..."
 msgid "检查更新失败"
 msgstr "Failed to check update"
 
-msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页"
-msgstr ""
+msgid 检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页
+msgstr "New version available. It contains important updates that \n cannot be declined. \nYou will be directed to the release page."
 
 msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载更新"
-msgstr ""
+msgstr "New version available. It contains important updates that \n cannot be declined. \nThe update will be downloaded."
 
 msgid "下载或执行更新失败, 程序即将退出"
-msgstr ""
+msgstr "The download or execution of the update has failed. Exiting. "
 
 msgid "当前为最新版本!"
-msgstr ""
+msgstr "This is the latest version!"
