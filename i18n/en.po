@@ -643,7 +643,7 @@ msgstr "Checking update..."
 msgid "检查更新失败"
 msgstr "Failed to check update"
 
-msgid 检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页
+msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页"
 msgstr "New version available. It contains important updates that \n cannot be declined. \nYou will be directed to the release page."
 
 msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载更新"
