@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.1.9
+# Version 1.2.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -33,7 +33,7 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
-version_number = 119
+version_number = 120
 
 
 # download files
@@ -748,6 +748,8 @@ class Application(Frame):
 
     ################################################################################################
     def start_point(self):
+        if taskbar is not None:
+            taskbar.set_mode(0x1)
         if not self.transfer_mode:
             self.TThread = Thread(target=self.hiya)
             self.TThread.start()
@@ -1847,6 +1849,10 @@ class Application(Frame):
                 except:
                     pass
             self.log.write(_('操作过程发生错误或用户终止操作\n'))
+            if taskbar is not None:
+                taskbar.set_mode(0x4)
+                sleep(0.5)
+                taskbar.set_mode(0)
             return
 
         if self.nand_mode:
@@ -1857,6 +1863,8 @@ class Application(Frame):
                 Popen(['chown', '-R', ug + ':' + ug, file]).wait()
             remove(self.console_id.get() + '.img')
             self.log.write(_('完成!\n修改后的NAND已保存为') + ofilename + '\n')
+            if taskbar is not None:
+                taskbar.set_mode(0)
             return
 
         if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
@@ -1879,6 +1887,8 @@ class Application(Frame):
                 _('完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
         else:
             self.log.write(_('完成!\n弹出你的存储卡并插回到机器中\n'))
+        if taskbar is not None:
+            taskbar.set_mode(0)
 
     ################################################################################################
     def patcher(self, patchpath, filepath):
@@ -2499,6 +2509,7 @@ _7za = path.join(sysname, '7za')
 twltool = path.join(sysname, 'twltool')
 osfmount = None
 _7z = None
+taskbar = None
 
 if sysname == 'Windows':
     fatcat += '.exe'
@@ -2510,6 +2521,10 @@ if sysname == 'Windows':
     if winver == 'Vista' or winver == 'XP' or winver == '2003Server':
         osfpath = 'elder'
     else:
+        try:
+            taskbar = ctypes.CDLL('./TaskbarLib.dll')
+        except (ModuleNotFoundError, UnicodeEncodeError, AttributeError, OSError):
+            pass
         osfpath = 'extras'
 
     if pybits == '64bit':
@@ -2551,7 +2566,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician V1.1 BY R-YaTian')
+root.title('TWLMagician V1.2 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
@@ -2563,4 +2578,7 @@ nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAA
 if sysname == 'Linux':
     root.tk.call('wm', 'iconphoto', root._w, nand_icon)
 app = Application(master=root)
+if taskbar is not None:
+    hwnd = int(root.wm_frame(), 16)
+    taskbar.init(hwnd)
 app.mainloop()
