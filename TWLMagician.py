@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.0
+# Version 1.2.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -33,7 +33,7 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
-version_number = 120
+version_number = 121
 
 
 # download files
@@ -1850,6 +1850,7 @@ class Application(Frame):
                     pass
             self.log.write(_('操作过程发生错误或用户终止操作\n'))
             if taskbar is not None:
+                taskbar.set_value(100, 100)
                 taskbar.set_mode(0x4)
                 sleep(0.5)
                 taskbar.set_mode(0)
@@ -2580,5 +2581,5 @@ if sysname == 'Linux':
 app = Application(master=root)
 if taskbar is not None:
     hwnd = int(root.wm_frame(), 16)
-    taskbar.init(hwnd)
+    taskbar.init_with_hwnd(hwnd)
 app.mainloop()

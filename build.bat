@@ -6,7 +6,7 @@ call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap TWLMagician.py
 
 cd bootstrap
-call nuitka.bat --standalone --msvc=14.3 --remove-output --enable-plugin=tk-inter --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --windows-icon-from-ico=icon.ico Run_TWLMagician.py
+call nuitka.bat --standalone --msvc=14.3 --remove-output --enable-plugin=tk-inter --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --windows-icon-from-ico=..\icon.ico Run_TWLMagician.py
 rmdir /S /Q Run_TWLMagician.dist\tk\images
 
 xcopy /Y /S /Q Run_TWLMagician.dist C:\Users\Public\Run_TWLMagician.dist\
