@@ -22,7 +22,7 @@ del *.pyd
 ..\pack\enigmavbconsole.exe ..\pack\main.evb ..\pack\lib.evb.template  .\dist\lib.dat
 ..\pack\enigmavbconsole.exe ..\pack\main.evb ..\pack\tkinter.evb.template .\dist\tkinter.dat
 ..\pack\enigmavbconsole.exe ..\pack\main.evb ..\pack\pyd.evb.template .\dist\pyd.dat
-..\pack\enigmavbconsole.exe ..\pack\main.evb -output ..\dist\TWLMagician.exe
+..\pack\enigmavbconsole.exe ..\pack\main.evb -output ..\bootstrap\dist\TWLMagician.exe
 
 rmdir /S /Q C:\Users\Public\Run_TWLMagician.dist
 copy /Y ..\pack\x64\TaskbarLib.dll .\dist\TaskbarLib.dll
