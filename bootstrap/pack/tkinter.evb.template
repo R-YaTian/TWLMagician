@@ -953,18 +953,6 @@
             <HideFromDialogs>0</HideFromDialogs>
           </File>
           <File>
-            <Type>2</Type>
-            <Name>tk86t.dll</Name>
-            <File>C:\Users\Public\Run_TWLMagician.dist\tk86t.dll</File>
-            <ActiveX>False</ActiveX>
-            <ActiveXInstall>False</ActiveXInstall>
-            <Action>0</Action>
-            <OverwriteDateTime>False</OverwriteDateTime>
-            <OverwriteAttributes>False</OverwriteAttributes>
-            <PassCommandLine>False</PassCommandLine>
-            <HideFromDialogs>0</HideFromDialogs>
-          </File>
-          <File>
             <Type>3</Type>
             <Name>tcl</Name>
             <Action>0</Action>
