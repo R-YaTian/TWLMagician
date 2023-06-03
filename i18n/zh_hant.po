@@ -48,10 +48,6 @@ msgstr "匯出相片分區"
 msgid "更新hiyaCFW"
 msgstr "更新 hiyaCFW"
 
-#: TWLMagician.py:276
-msgid "同时安装TFTT"
-msgstr "安裝 TFTT"
-
 #: TWLMagician.py:297
 msgid "同时安装TMFH"
 msgstr "安裝 TFMH"
@@ -108,10 +104,6 @@ msgstr "匯出 Nand 備份檔案內的相片分區"
 msgid "提取SDNand中的DSiWare软件并复制到\nroms/dsiware"
 msgstr "匯出 SDNand 內安裝的 DSiWare 並\n複製到roms/dsiware"
 
-#: TWLMagician.py:399
-msgid "在3DS系列机器上安装TWLFontTransferTool\n(基于GodMode9脚本)"
-msgstr "在 3DS 主機上安裝 TWLFontTransferTool\n(基於 GodMode9 腳本程式)"
-
 #: TWLMagician.py:402
 msgid "高级模式提供了单独安装TWiLightMenu++\n等功能"
 msgstr "進階模式提供了 '只安裝 TWiLightMenu++'\n和更多功能"
@@ -123,10 +115,6 @@ msgstr "啟用 hiyaCFW 系統設定內的資料管理"
 #: TWLMagician.py:417
 msgid "提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)"
 msgstr "匯出 Nand 備份檔案內的相片分區"
-
-#: TWLMagician.py:423
-msgid "在3DS系列机器上安装TWLFontTransferTool(基于GodMode9脚本)"
-msgstr "在 3DS 主機上安裝 TWLFontTransferTool (基於 GodMode9 腳本程式)"
 
 #: TWLMagician.py:427
 msgid "高级模式提供了单独安装TWiLightMenu++等功能"
@@ -419,18 +407,6 @@ msgstr "正在複製 "
 msgid "调用 appgen"
 msgstr "執行 appgen"
 
-#: TWLMagician.py:1756
-msgid "- 正在安装TFTT"
-msgstr "- 正在安裝 TFTT"
-
-#: TWLMagician.py:1767
-msgid "错误: 安装TFTT失败"
-msgstr "錯誤: 安裝 TFTT 失敗"
-
-#: TWLMagician.py:1772
-msgid "警告: 找不到TFTT.dat文件, 未安装TFTT"
-msgstr "警告: 找不到 TFTT.dat, 尚未安裝 TFTT..."
-
 #: TWLMagician.py:1782
 msgid "版本信息:\n"
 msgstr "版本資訊:\n"
@@ -658,3 +634,20 @@ msgstr "找不到 fatcat, 請確認 'fatcat' 儲存在 '{}' 資料夾"
 msgid "GUI初始化中..."
 msgstr "初始化 GUI..."
 
+msgid "检查更新中..."
+msgstr "檢查更新中, 請稍後..."
+
+msgid "检查更新失败"
+msgstr "檢查更新失敗"
+
+msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页"
+msgstr "發現新版本, 軟體有重要改動\n暫不支援跳過更新, 將訪問發佈頁面"
+
+msgid "检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载并更新"
+msgstr "發現新版本, 軟體有重要改動\n暫不支援跳過更新, 將下載並執行更新檔"
+
+msgid "下载或执行更新失败, 程序即将退出"
+msgstr "下載或執行更新失敗, 軟體將結束執行"
+
+msgid "当前为最新版本!"
+msgstr "目前為最新版本!"
