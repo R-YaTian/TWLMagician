@@ -1,3 +1,3 @@
 cd bootstrap
-rm -rf dist
+rmdir /S /Q dist
 pause
