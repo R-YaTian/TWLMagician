@@ -63,7 +63,10 @@ def copyfileobj(fsrc, fdst, length=0, show_progress=True):
         last_time = start_time = time()
         last_res = res = 0
         download_speed = 0.0
-    while buf := fsrc_read(length):
+    while True:
+        buf = fsrc_read(length)
+        if not buf:
+            break
         fdst_write(buf)
         if show_progress is True:
             res += length
@@ -161,10 +164,7 @@ def check_update():
 def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
     global ntime_tmp
     clog = open('Console.log', 'a', encoding="UTF-8")
-    try:
-        ntime = datetime.now().strftime('%F %T')
-    except:
-        ntime = datetime.now().strftime('%c')
+    ntime = datetime.now().strftime('%F %T')
     if ntime_tmp != ntime or ntime_tmp is None:
         if fixn is False:
             print('[' + ntime + ']')
@@ -209,10 +209,7 @@ class ThreadSafeText(Text):
 
     def write(self, line):
         self.wlog = open('Window.log', 'a', encoding="UTF-8")
-        try:
-            now_time = datetime.now().strftime('%F %T')
-        except:
-            now_time = datetime.now().strftime('%c')
+        now_time = datetime.now().strftime('%F %T')
         if self.now_time_tmp != now_time or self.now_time_tmp is None:
             self.queue.put('[' + now_time + ']')
             self.wlog.write('[' + now_time + ']\n')
