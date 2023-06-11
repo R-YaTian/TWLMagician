@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.2
+# Version 1.2.3
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -33,7 +33,7 @@ import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
-version_number = 122
+version_number = 123
 
 
 # download files
@@ -41,7 +41,7 @@ def print_progress(filename, size, res, download_speed):
     sp = res / size
     sp = 1 if (sp > 1) else sp
     done_block = '▊' * int(30 * sp)
-    print(f'\r{filename}: [{done_block:30}] ', format(sp * 100, '.2f'), '% ', format_bytes_num(download_speed), '/s ',
+    print('\r{0}: [{1:30}] '.format(filename, done_block), format(sp * 100, '.2f'), '% ', format_bytes_num(download_speed), '/s ',
           format_bytes_num(res), '/', format_bytes_num(size) + '        ', sep='', end='')
 
 
@@ -2524,7 +2524,7 @@ if sysname == 'Windows':
     else:
         try:
             taskbar = ctypes.CDLL('./TaskbarLib.dll')
-        except (ModuleNotFoundError, UnicodeEncodeError, AttributeError, OSError):
+        except (UnicodeEncodeError, AttributeError, OSError):
             pass
         osfpath = 'extras'
 
