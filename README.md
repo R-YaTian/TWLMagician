@@ -23,7 +23,7 @@ Clicking on the integrated circuit button will give you a NAND mode, where you c
 * None, everything needed is included in the release archive.
 
 ### _Linux:_
-* Python 3.4 or greater with the Tk library (Run `sudo apt-get install python3-tk -y` in Ubuntu, `sudo dnf install python3-tkinter` in Fedora, `sudo pacman -S tk` in Arch Linux). You might need to install the Python 3 distutils package also.
+* Python 3.5 or greater with the Tk library (Run `sudo apt-get install python3-tk -y` in Ubuntu, `sudo dnf install python3-tkinter` in Fedora, `sudo pacman -S tk` in Arch Linux). You might need to install the Python 3 distutils package also.
 
 ### _macOS:_
 * None, everything needed in included in the release archive.
