@@ -62,8 +62,8 @@ def copytree(src, dst, symlinks=False, ignore=None, copy_function=copy2,
 def print_progress(filename, size, res, download_speed):
     sp = res / size
     sp = 1 if (sp > 1) else sp
-    done_block = '▊' * int(30 * sp)
-    print('\r{0}: [{1:30}] '.format(filename, done_block), format(sp * 100, '.2f'),
+    done_block = '▊' * int(10 * sp)
+    print('\r{0}: [{1:10}] '.format(filename, done_block), format(sp * 100, '.2f'),
           '% ', format_bytes_num(download_speed), '/s ', format_bytes_num(res),
           '/', format_bytes_num(size) + '        ', sep='', end='')
 
