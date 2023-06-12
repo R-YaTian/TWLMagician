@@ -17,6 +17,7 @@ import py_langs.langs
 import py_langs.po2buf
 import urllib.request
 import urllib.error
+import pyutils
 
 if __name__ == '__main__':
     import TWLMagician

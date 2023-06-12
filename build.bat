@@ -4,6 +4,7 @@ call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap appgen.py
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap tooltip.py
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap TWLMagician.py
+call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap pyutils.py
 
 cd bootstrap
 call nuitka.bat --standalone --msvc=14.3 --remove-output --enable-plugin=tk-inter --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --windows-icon-from-ico=..\icon.ico Run_TWLMagician.py
@@ -16,6 +17,7 @@ copy /Y Run_TWLMagician.dist\vcruntime140.dll .\dist\vcruntime140.dll
 copy /Y Run_TWLMagician.dist\appgen.pyd .\dist\appgen.pyd
 copy /Y Run_TWLMagician.dist\TWLMagician.pyd .\dist\TWLMagician.pyd
 copy /Y Run_TWLMagician.dist\tooltip.pyd .\dist\tooltip.pyd
+copy /Y Run_TWLMagician.dist\pyutils.pyd .\dist\pyutils.pyd
 rmdir /S /Q Run_TWLMagician.dist py_langs
 del *.pyd
 
