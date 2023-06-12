@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.3
+# Version 1.2.5
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -20,79 +20,22 @@ from urllib.request import urlopen
 from urllib.error import URLError
 from subprocess import Popen, PIPE
 from struct import unpack_from
-from shutil import rmtree, copyfile, copytree
+from shutil import rmtree, copyfile
 from re import search
 from appgen import agen
 from inspect import isclass
 from datetime import datetime
-from time import sleep, time
+from time import sleep
 from binascii import hexlify, unhexlify
 from py_langs.langs import lang_init
+from pyutils import copyfileobj, copytree
 import ctypes
 import platform
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
-version_number = 123
-
-
-# download files
-def print_progress(filename, size, res, download_speed):
-    sp = res / size
-    sp = 1 if (sp > 1) else sp
-    done_block = '▊' * int(30 * sp)
-    print('\r{0}: [{1:30}] '.format(filename, done_block), format(sp * 100, '.2f'), '% ', format_bytes_num(download_speed), '/s ',
-          format_bytes_num(res), '/', format_bytes_num(size) + '        ', sep='', end='')
-
-
-def copyfileobj(fsrc, fdst, length=0, show_progress=True):
-    """copy data from file-like object fsrc to file-like object fdst"""
-    try:
-        app.downloading = True
-    except:
-        pass
-    if not length:
-        length = 32 * 1024
-    # Localize variable access to minimize overhead.
-    fsrc_read = fsrc.read
-    fdst_write = fdst.write
-    filename = fdst.name
-    size = fsrc.length
-    show_progress = False if size is None else show_progress
-    if show_progress is True:
-        last_time = start_time = time()
-        last_res = res = 0
-        download_speed = 0.0
-    while True:
-        buf = fsrc_read(length)
-        if not buf:
-            break
-        fdst_write(buf)
-        if show_progress is True:
-            res += length
-            rt_time = time()
-            if rt_time - last_time >= 1:
-                download_time = rt_time - last_time
-                last_time = time()
-                download_speed = (res - last_res) / download_time
-                last_res = res
-            print_progress(filename, size, res, download_speed)
-    if show_progress is True:
-        rt_time = time()
-        if rt_time - start_time < 1:
-            download_time = rt_time - start_time
-            download_speed = size / download_time
-            print_progress(filename, size, size, download_speed)
-        print('\r', sep='', flush=True)
-
-
-def format_bytes_num(bytes_num):
-    i = 0
-    while bytes_num > 1024 and i < 9 - 1:
-        bytes_num /= 1024
-        i += 1
-    unit = ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB')[i]
-    return "%.2f" % bytes_num + unit
+downloadfile = False
+version_number = 125
 
 
 # Check Update
@@ -162,9 +105,12 @@ def check_update():
 
 # TimeLog-Print
 def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
-    global ntime_tmp
+    global ntime_tmp, downloadfile
     clog = open('Console.log', 'a', encoding="UTF-8")
     ntime = datetime.now().strftime('%F %T')
+    if downloadfile:
+        fixn = True
+        downloadfile = False
     if ntime_tmp != ntime or ntime_tmp is None:
         if fixn is False:
             print('[' + ntime + ']')
@@ -263,7 +209,6 @@ class Application(Frame):
         self.is_tds = False
         self.have_menu = False
         self.finish = False
-        self.downloading = False
 
         self.image_file = StringVar()
 
@@ -824,8 +769,7 @@ class Application(Frame):
                     return
                 self.check_console(self.sd_path)
                 if self.is_tds or self.have_hiya:
-                    showerror(_('错误'), _(
-                        '目录检测未通过，若CFW已安装，请转到高级模式，或选择一个空目录以继续'))
+                    showerror(_('错误'), _('目录检测未通过，若CFW已安装，请转到高级模式，或选择一个空目录以继续'))
                     return
             else:
                 self.check_console(self.sd_path1)
@@ -915,9 +859,7 @@ class Application(Frame):
 
     def after_close(self):
         sleep(1)
-        printl(_('操作过程发生错误或用户终止操作'), fixn=True if self.downloading else False)
-        if self.downloading:
-            self.downloading = False
+        printl(_('操作过程发生错误或用户终止操作'))
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
             if not self.adv_mode:
                 self.unmount_nand1()
@@ -1042,6 +984,9 @@ class Application(Frame):
 
     ################################################################################################
     def get_latest_hiyacfw(self):
+        global downloadfile
+        if downloadfile is False:
+            downloadfile = True
         filename = 'hiyaCFW.7z'
         self.files.append(filename)
         self.folders.append('for PC')
@@ -1546,6 +1491,10 @@ class Application(Frame):
             Thread(target=self.clean, args=(True,)).start()
             return
 
+        global downloadfile
+        if downloadfile is False:
+            downloadfile = True
+
         # Delete contents of the launcher folder as it will be replaced by the one from hiyaCFW
         launcher_folder = path.join(
             self.sd_path, 'title', '00030017', app, 'content')
@@ -1562,8 +1511,7 @@ class Application(Frame):
         # noinspection PyExceptClausesOrder
         try:
             if not path.isfile(self.launcher_region):
-                self.log.write(
-                    _('正在下载 ') + self.launcher_region + ' Launcher...')
+                self.log.write(_('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
                     with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/' +
                                  self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
@@ -1687,6 +1635,9 @@ class Application(Frame):
 
     ################################################################################################
     def get_latest_twilight(self):
+        global downloadfile
+        if downloadfile is False:
+            downloadfile = True
         filename = 'TWiLightMenu-DSi.7z' if self.is_tds is False else 'TWiLightMenu-3DS.7z'
         self.files.append(filename)
         self.files.append('BOOT.NDS')
@@ -1998,6 +1949,10 @@ class Application(Frame):
             self.TThread = Thread(target=self.unmount_nand1)
             self.TThread.start()
             return
+
+        global downloadfile
+        if downloadfile is False:
+            downloadfile = True
 
         tmd = path.join(self.mounted, 'title', '00030017',
                         app, 'content', 'title.tmd')
@@ -2312,6 +2267,9 @@ class Application(Frame):
 
     ################################################################################################
     def get_common_data(self):
+        global downloadfile
+        if downloadfile is False:
+            downloadfile = True
         self.folders.append('hiya')
         self.folders.append('title')
         self.folders.append('ticket')
