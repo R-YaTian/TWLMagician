@@ -12,12 +12,7 @@ rmdir /S /Q Run_TWLMagician.dist\tk\images
 
 xcopy /Y /S /Q Run_TWLMagician.dist C:\Users\Public\Run_TWLMagician.dist\
 mkdir dist
-xcopy /Y /S /Q Run_TWLMagician.dist\py_langs .\dist\py_langs\
 copy /Y Run_TWLMagician.dist\vcruntime140.dll .\dist\vcruntime140.dll
-copy /Y Run_TWLMagician.dist\appgen.pyd .\dist\appgen.pyd
-copy /Y Run_TWLMagician.dist\TWLMagician.pyd .\dist\TWLMagician.pyd
-copy /Y Run_TWLMagician.dist\tooltip.pyd .\dist\tooltip.pyd
-copy /Y Run_TWLMagician.dist\pyutils.pyd .\dist\pyutils.pyd
 rmdir /S /Q Run_TWLMagician.dist py_langs
 del *.pyd
 
