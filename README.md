@@ -30,7 +30,7 @@ Clicking on the integrated circuit button will give you a NAND mode, where you c
 
 ## What it includes:
 * 7za binaries for Windows, Linux and macOS. It's used to decompress the HiyaCFW latest release as [@RocketRobz](https://github.com/RocketRobz) uploaded it as a 7z archive. Compiled from the [kornelski's GitHub repo](https://github.com/kornelski/7z).
-* twltool binaries for Windows, Linux and mxacOS. Compiled from the [WinterMute's GitHub repo](https://github.com/WinterMute/twltool).
+* twltool binaries for Windows, Linux and macOS. Compiled from the [WinterMute's GitHub repo](https://github.com/WinterMute/twltool).
 * NDS bootloader creator binaries for Linux and macOS (based off devkitPro's ndstool v1.27). Compiled from [mondul's GitHub repo](https://github.com/mondul/NDS-Bootloader-Creator). For Windows the ndstool included with HiyaCFW is used.
 * fatcat binaries for Windows, Linux and mxacOS. Compiled from the [Gregwar's GitHub repo](https://github.com/Gregwar/fatcat).
 
