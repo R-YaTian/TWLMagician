@@ -44,7 +44,7 @@ jobs:
           submodules: recursive
       - name: Make binary
         run: |
-          zip TWLMagician-Python3-Linux.zip TWLMagician.py appgen.py requirements.txt
+          zip TWLMagician-Python3-Linux.zip TWLMagician.py appgen.py requirements.txt pyutils.py
           zip -ur TWLMagician-Python3-Linux.zip Linux py_langs rmdot_files tk_tooltip i18n
       - name: Publish artifact
         uses: actions/upload-artifact@main
