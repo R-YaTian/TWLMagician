@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.5
+# Version 1.2.6
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -22,11 +22,11 @@ from subprocess import Popen, PIPE
 from struct import unpack_from
 from shutil import rmtree, copyfile
 from re import search
-from appgen import agen
 from inspect import isclass
 from datetime import datetime
 from time import sleep
 from binascii import hexlify, unhexlify
+from appgen import agen
 from py_langs.langs import lang_init
 from pyutils import copyfileobj, copytree
 import ctypes
@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 125
+version_number = 126
 
 
 # Check Update
@@ -447,7 +447,7 @@ class Application(Frame):
 
         # General ToolTip
         if sysname == 'Darwin':
-            from ToolTips import ToolTips
+            from tkinter_tooltips.ToolTips import ToolTips
             import tkinter.font as tk_font
             widgets = [ag_chk, dkp_chk, photo_chk, self.ag1_chk,
                        self.dkp1_chk, self.dkp2_chk, self.adv_button]
@@ -468,7 +468,7 @@ class Application(Frame):
             font_obj = tk_font.Font(family="Microsoft YaHei UI", size=13)
             ToolTips(widgets, tooltip_text, font=font_obj)
         else:
-            from tooltip import ToolTip
+            from tk_tooltip.tooltip import ToolTip
             ToolTip(ag_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
             ToolTip(dkp_chk, msg=_(
                 '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
@@ -1823,7 +1823,7 @@ class Application(Frame):
                 Popen(['chown', '-R', ug + ':' + ug, self.sd_path]).wait()
 
         if sysname == 'Darwin':
-            from rmdot_files import rmdot_
+            from rmdot_files.rmdot_files import rmdot_
             if self.adv_mode or self.transfer_mode:
                 out = rmdot_(self.sd_path1)
             else:
