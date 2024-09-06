@@ -23,9 +23,6 @@ jobs:
       - name: Install pyinstaller
         run: |
           pip3 install certifi pyinstaller
-      - name: Get tag
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Make binary
         run: |
           pyinstaller --add-data "Darwin/*:Darwin" --add-data "i18n/*:i18n" TWLMagician.py
@@ -45,13 +42,10 @@ jobs:
         uses: actions/checkout@main
         with:
           submodules: recursive
-      - name: Get tag
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Make binary
         run: |
           zip TWLMagician-Python3-Linux.zip TWLMagician.py appgen.py requirements.txt
-          zip -ur ../TWLMagician-Python3-Linux.zip Linux py_langs rmdot_files tk_tooltip i18n
+          zip -ur TWLMagician-Python3-Linux.zip Linux py_langs rmdot_files tk_tooltip i18n
       - name: Publish artifact
         uses: actions/upload-artifact@main
         with:
