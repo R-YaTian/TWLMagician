@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.6
+# Version 1.2.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -11,7 +11,7 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
                      END)
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
-from os import path, remove, chmod, listdir, environ, mkdir, startfile
+from os import path, remove, chmod, listdir, environ, mkdir
 from sys import exit, stdout
 from threading import Thread
 from queue import Queue, Empty
@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 126
+version_number = 127
 
 
 # Check Update
@@ -56,6 +56,7 @@ def get_version():
 
 
 def WriteRestartCmd():
+    from os import startfile
     fbat = open('upgrade.cmd', 'w')
     TempList = '@echo off\n'
     TempList += 'if not exist ' + 'OTA.exe' + ' exit\n'
@@ -355,13 +356,13 @@ class Application(Frame):
 
         self.dkp2_chk.pack(padx=10, anchor=W)
 
-        self.tmfh = IntVar()
-        self.tmfh.set(0)
+        self.ntm = IntVar()
+        self.ntm.set(0)
 
-        self.tmfh_chk = Checkbutton(
-            self.checks_frame2, text=_('同时安装TMFH'), variable=self.tmfh)
+        self.ntm_chk = Checkbutton(
+            self.checks_frame2, text=_('同时安装NTM'), variable=self.ntm)
 
-        self.tmfh_chk.pack(padx=10, anchor=W)
+        self.ntm_chk.pack(padx=10, anchor=W)
 
         self.updatemenu = IntVar()
         self.updatemenu.set(0)
@@ -585,8 +586,8 @@ class Application(Frame):
             self.updatehiya.set(0)
         if self.updatemenu.get() == 1:
             self.updatemenu.set(0)
-        if self.tmfh.get() == 1:
-            self.tmfh.set(0)
+        if self.ntm.get() == 1:
+            self.ntm.set(0)
         self.start_button.pack_forget()
         self.exit_button.pack_forget()
         if self.transfer_mode:
@@ -2273,7 +2274,7 @@ class Application(Frame):
         self.folders.append('hiya')
         self.folders.append('title')
         self.folders.append('ticket')
-        self.folders.append('TMFH')
+        self.folders.append('NTM')
 
         try:
             if not path.isfile('Common.dat'):
@@ -2287,9 +2288,9 @@ class Application(Frame):
 
             self.log.write(_('- 正在解压通用数据...'))
 
-            if self.tmfh.get() == 1:
+            if self.ntm.get() == 1:
                 self.proc = Popen([_7za, 'x', '-bso0', '-y', '-pR-YaTian',
-                                   'Common.dat', 'hiya', 'title', 'ticket', 'TMFH'])
+                                   'Common.dat', 'hiya', 'title', 'ticket', 'NTM'])
             else:
                 self.proc = Popen(
                     [_7za, 'x', '-bso0', '-y', '-pR-YaTian', 'Common.dat', 'hiya', 'title', 'ticket'])
@@ -2397,9 +2398,9 @@ class Application(Frame):
         launcherdir = path.join(
             self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name)
         copyfile(self.dest_region + '.app', launcherdir)
-        if self.tmfh.get() == 1:
-            self.log.write(_('正在安装TMFH...'))
-            copytree('TMFH/title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
+        if self.ntm.get() == 1:
+            self.log.write(_('正在安装NTM...'))
+            copytree('NTM/title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
         if self.updatemenu.get() == 1:
             if self.have_menu is True:
                 self.log.write(_('正在更新TWiLightMenu++...'))
