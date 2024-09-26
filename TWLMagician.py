@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.7
+# Version 1.2.8
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -12,7 +12,7 @@ from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutt
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
 from os import path, remove, chmod, listdir, environ, mkdir
-from sys import exit, stdout
+from sys import exit, stdout, argv
 from threading import Thread
 from queue import Queue, Empty
 from hashlib import sha1
@@ -2461,9 +2461,10 @@ check_update()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 printl(_('TWLMagician启动中...'))
 
-fatcat = path.join(sysname, 'fatcat')
-_7za = path.join(sysname, '7za')
-twltool = path.join(sysname, 'twltool')
+selfPath = path.dirname(path.abspath(argv[0]))
+fatcat = path.join(selfPath, sysname, 'fatcat')
+_7za = path.join(selfPath, sysname, '7za')
+twltool = path.join(selfPath, sysname, 'twltool')
 osfmount = None
 _7z = None
 taskbar = None
