@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.8
+# Version 1.2.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -2462,6 +2462,11 @@ root = Tk(className="Magician") if sysname == 'Linux' else Tk()
 printl(_('TWLMagician启动中...'))
 
 selfPath = path.dirname(path.abspath(argv[0]))
+if sysname == 'Darwin':
+    import sys
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
+        selfPath = bundle_dir
 fatcat = path.join(selfPath, sysname, 'fatcat')
 _7za = path.join(selfPath, sysname, '7za')
 twltool = path.join(selfPath, sysname, 'twltool')
