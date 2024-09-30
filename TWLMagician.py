@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.3.0
+# Version 1.3.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -753,10 +753,8 @@ class Application(Frame):
         if not self.adv_mode:
             if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
                 if sysname == 'Windows' and ctypes.windll.shell32.IsUserAnAdmin() == 0:
-                    root.withdraw()
                     showerror(_('错误'), _('此功能需要以管理员权限运行本工具'))
-                    root.destroy()
-                    exit(1)
+                    return
 
         if not self.nand_mode:
             self.have_hiya = False
@@ -846,8 +844,9 @@ class Application(Frame):
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
-        self.dialog.destroy()
-        self.dialog = None
+        if self.dialog is not None:
+            self.dialog.destroy()
+            self.dialog = None
         if self.finish:
             self.finish = False
             return
