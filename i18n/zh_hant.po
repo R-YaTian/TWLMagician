@@ -3,229 +3,229 @@ msgid ""
 msgstr ""
 "POT-Creation-Date: 2021-12-05 15:37+0800\n"
 "Last-Translator: R-YaTian\n"
-"Content-Type: text/plain; charset=cp936\n"
+"Content-Type: text/plain; charset=UTF8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
 
 #: TWLMagician.py:136
-msgid "º¬ÓĞNo$GBA footerµÄNAND±¸·İÎÄ¼ş"
-msgstr "ƒÈ½¨ No$GBA footer µÄ NAND ‚ä·İ™n°¸"
+msgid "å«æœ‰No$GBA footerçš„NANDå¤‡ä»½æ–‡ä»¶"
+msgstr "å…§å»º No$GBA footer çš„ NAND å‚™ä»½æª”æ¡ˆ"
 
 #: TWLMagician.py:154
-msgid "´æ´¢¿¨¸ùÄ¿Â¼"
-msgstr "SD ¿¨µÄ¸ùÄ¿ä›"
+msgid "å­˜å‚¨å¡æ ¹ç›®å½•"
+msgstr "SD å¡çš„æ ¹ç›®éŒ„"
 
 #: TWLMagician.py:174
-msgid "NAND½âÑ¹Ñ¡Ïî"
-msgstr "NAND ½â‰ºßx†Î"
+msgid "NANDè§£å‹é€‰é¡¹"
+msgstr "NAND è§£å£“é¸å–®"
 
 #: TWLMagician.py:186
-msgid "Fatcat(Ä¬ÈÏ)"
+msgid "Fatcat(é»˜è®¤)"
 msgstr "fatcat"
 
 #: TWLMagician.py:190
-msgid "OSFMount(ĞèÒª¹ÜÀíÔ±È¨ÏŞ)"
-msgstr "OSFMount (Ğè¹ÜÀí†TÊÚ™à)"
+msgid "OSFMount(éœ€è¦ç®¡ç†å‘˜æƒé™)"
+msgstr "OSFMount (éœ€ç®¡ç†å“¡æˆæ¬Š)"
 
 #: TWLMagician.py:212
-msgid "Í¬Ê±°²×°TWiLightMenu++"
-msgstr "°²Ñb×îĞÂ°æµÄ TWiLightMenu++"
+msgid "åŒæ—¶å®‰è£…TWiLightMenu++"
+msgstr "å®‰è£æœ€æ–°ç‰ˆçš„ TWiLightMenu++"
 
 #: TWLMagician.py:219 TWLMagician.py:255
-msgid "Ê¹ÓÃAppGen"
-msgstr "Ê¹ÓÃ AppGen"
+msgid "ä½¿ç”¨AppGen"
+msgstr "ä½¿ç”¨ AppGen"
 
 #: TWLMagician.py:227 TWLMagician.py:268 TWLMagician.py:288
-msgid "ÆôÓÃÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí¹¦ÄÜ"
-msgstr "†¢ÓÃÏµ½yÔO¶¨ƒÈµÄÙYÁÏ¹ÜÀí"
+msgid "å¯ç”¨ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†åŠŸèƒ½"
+msgstr "å•Ÿç”¨ç³»çµ±è¨­å®šå…§çš„è³‡æ–™ç®¡ç†"
 
 #: TWLMagician.py:235
-msgid "ÌáÈ¡Ïà²á·ÖÇø"
-msgstr "…R³öÏàÆ¬·Ö…^"
+msgid "æå–ç›¸å†Œåˆ†åŒº"
+msgstr "åŒ¯å‡ºç›¸ç‰‡åˆ†å€"
 
 #: TWLMagician.py:263
-msgid "¸üĞÂhiyaCFW"
-msgstr "¸üĞÂ hiyaCFW"
+msgid "æ›´æ–°hiyaCFW"
+msgstr "æ›´æ–° hiyaCFW"
 
 #: TWLMagician.py:297
-msgid "Í¬Ê±°²×°TMFH"
-msgstr "°²Ñb TFMH"
+msgid "åŒæ—¶å®‰è£…NTM"
+msgstr "å®‰è£ NTM"
 
 #: TWLMagician.py:304
-msgid "°²×°»ò¸üĞÂTWiLightMenu++"
-msgstr "°²Ñb»ò¸üĞÂ TWiLightMenu++"
+msgid "å®‰è£…æˆ–æ›´æ–°TWiLightMenu++"
+msgstr "å®‰è£æˆ–æ›´æ–° TWiLightMenu++"
 
 #: TWLMagician.py:315
-msgid "NAND²Ù×÷Ñ¡Ïî"
-msgstr "NAND ×÷˜Ißx†Î"
+msgid "NANDæ“ä½œé€‰é¡¹"
+msgstr "NAND ä½œæ¥­é¸å–®"
 
 #: TWLMagician.py:320
-msgid "°²×°»òĞ¶ÔØ×îĞÂ°æ±¾µÄunlaunch"
-msgstr "°²Ñb»òĞ¶İd×îĞÂ°æµÄ unlaunch"
+msgid "å®‰è£…æˆ–å¸è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch"
+msgstr "å®‰è£æˆ–å¸è¼‰æœ€æ–°ç‰ˆçš„ unlaunch"
 
 #: TWLMagician.py:325
-msgid "ÒÆ³ı No$GBA footer"
+msgid "ç§»é™¤ No$GBA footer"
 msgstr ""
 
 #: TWLMagician.py:328
-msgid "Ìí¼Ó No$GBA footer"
+msgid "æ·»åŠ  No$GBA footer"
 msgstr ""
 
 #: TWLMagician.py:360
-msgid "¿ªÊ¼"
-msgstr "é_Ê¼"
+msgid "å¼€å§‹"
+msgstr "é–‹å§‹"
 
 #: TWLMagician.py:364
-msgid "¸ß¼¶"
-msgstr "ßMëA"
+msgid "é«˜çº§"
+msgstr "é€²éš"
 
 #: TWLMagician.py:366 TWLMagician.py:368 TWLMagician.py:370
-msgid "·µ»Ø"
+msgid "è¿”å›"
 msgstr ""
 
 #: TWLMagician.py:374
-msgid "ÍË³ö"
-msgstr "½YÊø"
+msgid "é€€å‡º"
+msgstr "çµæŸ"
 
 #: TWLMagician.py:390 TWLMagician.py:414
-msgid "ÌáÈ¡Nand±¸·İÖĞµÄDSiWareÈí¼ş²¢¸´ÖÆµ½\nroms/dsiware"
-msgstr "…R³ö Nand ‚ä·İ™n°¸ƒÈµÄ DSiWare K\nÑ}Ñuµ½roms/dsiware"
+msgid "æå–Nandå¤‡ä»½ä¸­çš„DSiWareè½¯ä»¶å¹¶å¤åˆ¶åˆ°\nroms/dsiware"
+msgstr "åŒ¯å‡º Nand å‚™ä»½æª”æ¡ˆå…§çš„ DSiWare ä¸¦\nè¤‡è£½åˆ°roms/dsiware"
 
 #: TWLMagician.py:392 TWLMagician.py:397 TWLMagician.py:401
-msgid "¹´Ñ¡´ËÑ¡Ïî½«»áÔÚCFWÖĞ¿ªÆôÏµÍ³ÉèÖÃÖĞµÄÊı¾İ¹ÜÀí¹¦ÄÜ£¬Èç¹û\nÒÑ¾­ÔÚNANDÖĞ¿ªÆôÁË´Ë¹¦ÄÜ£¬Ôò²»ĞèÒª¹´Ñ¡´ËÑ¡Ïî"
-msgstr "†¢ÓÃ hiyaCFW Ïµ½yÔO¶¨ƒÈµÄÙYÁÏ¹ÜÀí"
+msgid "å‹¾é€‰æ­¤é€‰é¡¹å°†ä¼šåœ¨CFWä¸­å¼€å¯ç³»ç»Ÿè®¾ç½®ä¸­çš„æ•°æ®ç®¡ç†åŠŸèƒ½ï¼Œå¦‚æœ\nå·²ç»åœ¨NANDä¸­å¼€å¯äº†æ­¤åŠŸèƒ½ï¼Œåˆ™ä¸éœ€è¦å‹¾é€‰æ­¤é€‰é¡¹"
+msgstr "å•Ÿç”¨ hiyaCFW ç³»çµ±è¨­å®šå…§çš„è³‡æ–™ç®¡ç†"
 
 #: TWLMagician.py:394
-msgid "ÌáÈ¡Nand±¸·İÖĞµÄÏà²á·ÖÇøÎÄ¼şµ½´æ´¢¿¨ÖĞ£¬´Ë²Ù×÷»áÕ¼ÓÃ\nÒ»¶¨µÄ´æ´¢¿¨¿Õ¼ä(È¡¾öÓÚÏàÆ¬ÊıÁ¿£¬×î¶à¿É´ï32MB×óÓÒ)"
-msgstr "…R³ö Nand ‚ä·İ™n°¸ƒÈµÄÏàÆ¬·Ö…^"
+msgid "æå–Nandå¤‡ä»½ä¸­çš„ç›¸å†Œåˆ†åŒºæ–‡ä»¶åˆ°å­˜å‚¨å¡ä¸­ï¼Œæ­¤æ“ä½œä¼šå ç”¨\nä¸€å®šçš„å­˜å‚¨å¡ç©ºé—´(å–å†³äºç›¸ç‰‡æ•°é‡ï¼Œæœ€å¤šå¯è¾¾32MBå·¦å³)"
+msgstr "åŒ¯å‡º Nand å‚™ä»½æª”æ¡ˆå…§çš„ç›¸ç‰‡åˆ†å€"
 
 #: TWLMagician.py:395 TWLMagician.py:419
-msgid "ÌáÈ¡SDNandÖĞµÄDSiWareÈí¼ş²¢¸´ÖÆµ½\nroms/dsiware"
-msgstr "…R³ö SDNand ƒÈ°²ÑbµÄ DSiWare K\nÑ}Ñuµ½roms/dsiware"
+msgid "æå–SDNandä¸­çš„DSiWareè½¯ä»¶å¹¶å¤åˆ¶åˆ°\nroms/dsiware"
+msgstr "åŒ¯å‡º SDNand å…§å®‰è£çš„ DSiWare ä¸¦\nè¤‡è£½åˆ°roms/dsiware"
 
 #: TWLMagician.py:402
-msgid "¸ß¼¶Ä£Ê½Ìá¹©ÁËµ¥¶À°²×°TWiLightMenu++\nµÈ¹¦ÄÜ"
-msgstr "ßMëAÄ£Ê½Ìá¹©ÁË 'Ö»°²Ñb TWiLightMenu++'\nºÍ¸ü¶à¹¦ÄÜ"
+msgid "é«˜çº§æ¨¡å¼æä¾›äº†å•ç‹¬å®‰è£…TWiLightMenu++\nç­‰åŠŸèƒ½"
+msgstr "é€²éšæ¨¡å¼æä¾›äº† 'åªå®‰è£ TWiLightMenu++'\nå’Œæ›´å¤šåŠŸèƒ½"
 
 #: TWLMagician.py:415 TWLMagician.py:421 TWLMagician.py:425
-msgid "¹´Ñ¡´ËÑ¡Ïî½«»áÔÚCFWÖĞ¿ªÆôÏµÍ³ÉèÖÃÖĞµÄÊı¾İ¹ÜÀí¹¦ÄÜ£¬Èç¹ûÒÑ¾­ÔÚNANDÖĞ¿ªÆôÁË´Ë¹¦ÄÜ£¬Ôò²»ĞèÒª¹´Ñ¡´ËÑ¡Ïî"
-msgstr "†¢ÓÃ hiyaCFW Ïµ½yÔO¶¨ƒÈµÄÙYÁÏ¹ÜÀí"
+msgid "å‹¾é€‰æ­¤é€‰é¡¹å°†ä¼šåœ¨CFWä¸­å¼€å¯ç³»ç»Ÿè®¾ç½®ä¸­çš„æ•°æ®ç®¡ç†åŠŸèƒ½ï¼Œå¦‚æœå·²ç»åœ¨NANDä¸­å¼€å¯äº†æ­¤åŠŸèƒ½ï¼Œåˆ™ä¸éœ€è¦å‹¾é€‰æ­¤é€‰é¡¹"
+msgstr "å•Ÿç”¨ hiyaCFW ç³»çµ±è¨­å®šå…§çš„è³‡æ–™ç®¡ç†"
 
 #: TWLMagician.py:417
-msgid "ÌáÈ¡Nand±¸·İÖĞµÄÏà²á·ÖÇøÎÄ¼şµ½´æ´¢¿¨ÖĞ£¬´Ë²Ù×÷»áÕ¼ÓÃÒ»¶¨µÄ´æ´¢¿¨¿Õ¼ä(È¡¾öÓÚÏàÆ¬ÊıÁ¿£¬×î¶à¿É´ï32MB×óÓÒ)"
-msgstr "…R³ö Nand ‚ä·İ™n°¸ƒÈµÄÏàÆ¬·Ö…^"
+msgid "æå–Nandå¤‡ä»½ä¸­çš„ç›¸å†Œåˆ†åŒºæ–‡ä»¶åˆ°å­˜å‚¨å¡ä¸­ï¼Œæ­¤æ“ä½œä¼šå ç”¨ä¸€å®šçš„å­˜å‚¨å¡ç©ºé—´(å–å†³äºç›¸ç‰‡æ•°é‡ï¼Œæœ€å¤šå¯è¾¾32MBå·¦å³)"
+msgstr "åŒ¯å‡º Nand å‚™ä»½æª”æ¡ˆå…§çš„ç›¸ç‰‡åˆ†å€"
 
 #: TWLMagician.py:427
-msgid "¸ß¼¶Ä£Ê½Ìá¹©ÁËµ¥¶À°²×°TWiLightMenu++µÈ¹¦ÄÜ"
-msgstr "ßMëAÄ£Ê½Ìá¹©ÁË 'Ö»°²Ñb TWiLightMenu++' ºÍ¸ü¶à¹¦ÄÜ"
+msgid "é«˜çº§æ¨¡å¼æä¾›äº†å•ç‹¬å®‰è£…TWiLightMenu++ç­‰åŠŸèƒ½"
+msgstr "é€²éšæ¨¡å¼æä¾›äº† 'åªå®‰è£ TWiLightMenu++' å’Œæ›´å¤šåŠŸèƒ½"
 
 #: TWLMagician.py:457
-msgid "ÄãÕıÒª½øÈëNAND²Ù×÷Ä£Ê½, ÇëÈ·ÈÏÄãÖªµÀ×Ô¼ºÔÚ×öÊ²Ã´, ¼ÌĞøÂğ?"
-msgstr "ÄãÕıÒªßMÈë NAND ×÷˜IÄ£Ê½, Õˆ´_ÕJÄãÖªµÀ×Ô¼ºÔÚ×öÊ²üN, ÊÇ·ñÀ^Àm?"
+msgid "ä½ æ­£è¦è¿›å…¥NANDæ“ä½œæ¨¡å¼, è¯·ç¡®è®¤ä½ çŸ¥é“è‡ªå·±åœ¨åšä»€ä¹ˆ, ç»§ç»­å—?"
+msgstr "ä½ æ­£è¦é€²å…¥ NAND ä½œæ¥­æ¨¡å¼, è«‹ç¢ºèªä½ çŸ¥é“è‡ªå·±åœ¨åšä»€éº¼, æ˜¯å¦ç¹¼çºŒ?"
 
 #: TWLMagician.py:457
-msgid "¾¯¸æ"
+msgid "è­¦å‘Š"
 msgstr ""
 
 #: TWLMagician.py:612
-msgid "\"ÏµÍ³ÉèÖÃ-Êı¾İ¹ÜÀí\"¹¦ÄÜÆôÓÃ³É¹¦"
-msgstr "†¢ÓÃÏµ½yÔO¶¨ƒÈµÄÙYÁÏ¹ÜÀí³É¹¦"
+msgid "\"ç³»ç»Ÿè®¾ç½®-æ•°æ®ç®¡ç†\"åŠŸèƒ½å¯ç”¨æˆåŠŸ"
+msgstr "å•Ÿç”¨ç³»çµ±è¨­å®šå…§çš„è³‡æ–™ç®¡ç†æˆåŠŸ"
 
 #: TWLMagician.py:619
-msgid "ÇëÑ¡Ôñ»úÆ÷µÄ´æ´¢¿¨¸ùÄ¿Â¼"
-msgstr "Õˆßx“ñ™CÆ÷µÄ SD ¿¨µÄ¸ùÄ¿ä›"
+msgid "è¯·é€‰æ‹©æœºå™¨çš„å­˜å‚¨å¡æ ¹ç›®å½•"
+msgstr "è«‹é¸æ“‡æ©Ÿå™¨çš„ SD å¡çš„æ ¹ç›®éŒ„"
 
 #: TWLMagician.py:619 TWLMagician.py:721 TWLMagician.py:744 TWLMagician.py:758
-msgid "ÌáÊ¾"
+msgid "æç¤º"
 msgstr ""
 
 #: TWLMagician.py:690
-msgid "×´Ì¬"
-msgstr " î‘B"
+msgid "çŠ¶æ€"
+msgstr "ç‹€æ…‹"
 
 #: TWLMagician.py:708
-msgid "¹Ø±Õ"
-msgstr "êPé]"
+msgid "å…³é—­"
+msgstr "é—œé–‰"
 
 #: TWLMagician.py:721
-msgid "½ÓÏÂÀ´ÇëÑ¡ÔñTWLTransferÄ¿±ê¾µÏñÎÄ¼ş\nÇë×¢Òâ: TWLCFG»á±»ÖØÖÃ"
-msgstr "½ÓÏÂíÕˆßx“ñ TWLTransfer Ó³Ïñ™n\nÕˆ×¢Òâ: TWLCFG Œ¢•ş±»ÖØÔO"
+msgid "æ¥ä¸‹æ¥è¯·é€‰æ‹©TWLTransferç›®æ ‡é•œåƒæ–‡ä»¶\nè¯·æ³¨æ„: TWLCFGä¼šè¢«é‡ç½®"
+msgstr "æ¥ä¸‹ä¾†è«‹é¸æ“‡ TWLTransfer æ˜ åƒæª”\nè«‹æ³¨æ„: TWLCFG å°‡æœƒè¢«é‡è¨­"
 
 #: TWLMagician.py:722
-msgid "¾µÏñÎÄ¼ş"
-msgstr "Ó³Ïñ™n"
+msgid "é•œåƒæ–‡ä»¶"
+msgstr "æ˜ åƒæª”"
 
 #: TWLMagician.py:735
-msgid "´Ë¹¦ÄÜĞèÒªÒÔ¹ÜÀíÔ±È¨ÏŞÔËĞĞ±¾¹¤¾ß"
-msgstr "ß@‚€¹¦ÄÜĞèÊ¹ÓÃ¹ÜÀí†TÊÚ™àˆÌĞĞ³ÌÊ½"
+msgid "æ­¤åŠŸèƒ½éœ€è¦ä»¥ç®¡ç†å‘˜æƒé™è¿è¡Œæœ¬å·¥å…·"
+msgstr "é€™å€‹åŠŸèƒ½éœ€ä½¿ç”¨ç®¡ç†å“¡æˆæ¬ŠåŸ·è¡Œç¨‹å¼"
 
 #: TWLMagician.py:735 TWLMagician.py:752 TWLMagician.py:770 TWLMagician.py:774
 #: TWLMagician.py:782 TWLMagician.py:789 TWLMagician.py:2504
-msgid "´íÎó"
-msgstr "åeÕ`"
+msgid "é”™è¯¯"
+msgstr "éŒ¯èª¤"
 
 #: TWLMagician.py:744
-msgid "½ÓÏÂÀ´ÇëÑ¡ÔñÄãÓÃÀ´°²×°×ÔÖÆÏµÍ³µÄ´æ´¢¿¨Â·¾¶(»òÊä³öÂ·¾¶)\nÎªÁË±ÜÃâ Æô¶¯´íÎó ÇëÈ·±£Ä¿Â¼ÏÂÎŞÈÎºÎÎÄ¼ş"
-msgstr "½ÓÏÂíÕˆßx“ñ SD ¿¨µÄ¸ùÄ¿ä›, ¸ùÄ¿ä›ÏÂ×îºÃ²»ÒªÓĞÈÎºÎ™n°¸"
+msgid "æ¥ä¸‹æ¥è¯·é€‰æ‹©ä½ ç”¨æ¥å®‰è£…è‡ªåˆ¶ç³»ç»Ÿçš„å­˜å‚¨å¡è·¯å¾„(æˆ–è¾“å‡ºè·¯å¾„)\nä¸ºäº†é¿å… å¯åŠ¨é”™è¯¯ è¯·ç¡®ä¿ç›®å½•ä¸‹æ— ä»»ä½•æ–‡ä»¶"
+msgstr "æ¥ä¸‹ä¾†è«‹é¸æ“‡ SD å¡çš„æ ¹ç›®éŒ„, æ ¹ç›®éŒ„ä¸‹æœ€å¥½ä¸è¦æœ‰ä»»ä½•æª”æ¡ˆ"
 
 #: TWLMagician.py:752
-msgid "Ä¿Â¼¼ì²âÎ´Í¨¹ı£¬ÈôCFWÒÑ°²×°£¬Çë×ªµ½¸ß¼¶Ä£Ê½£¬»òÑ¡ÔñÒ»¸ö¿ÕÄ¿Â¼ÒÔ¼ÌĞø"
-msgstr "ÙYÁÏŠA™zœyÊ§”¡, Èç¹û hiyaCFW ÒÑ°²Ñb, ÕˆÊ¹ÓÃßMëAÄ£Ê½»òßx“ñÒ»‚€¿ÕÙYÁÏŠA"
+msgid "ç›®å½•æ£€æµ‹æœªé€šè¿‡ï¼Œè‹¥CFWå·²å®‰è£…ï¼Œè¯·è½¬åˆ°é«˜çº§æ¨¡å¼ï¼Œæˆ–é€‰æ‹©ä¸€ä¸ªç©ºç›®å½•ä»¥ç»§ç»­"
+msgstr "è³‡æ–™å¤¾æª¢æ¸¬å¤±æ•—, å¦‚æœ hiyaCFW å·²å®‰è£, è«‹ä½¿ç”¨é€²éšæ¨¡å¼æˆ–é¸æ“‡ä¸€å€‹ç©ºè³‡æ–™å¤¾"
 
 #: TWLMagician.py:758
-msgid "½ÓÏÂÀ´ÇëÑ¡ÔñÒ»¸öÊä³öÂ·¾¶"
-msgstr "½ÓÏÂíÕˆßx“ñİ”³öÂ·½"
+msgid "æ¥ä¸‹æ¥è¯·é€‰æ‹©ä¸€ä¸ªè¾“å‡ºè·¯å¾„"
+msgstr "æ¥ä¸‹ä¾†è«‹é¸æ“‡è¼¸å‡ºè·¯å¾‘"
 
 #: TWLMagician.py:843
-msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷"
-msgstr "×÷˜Iß^³Ì°lÉúåeÕ`»òÊ¹ÓÃÕß½KÖ¹×÷˜I"
+msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ"
+msgstr "ä½œæ¥­éç¨‹ç™¼ç”ŸéŒ¯èª¤æˆ–ä½¿ç”¨è€…çµ‚æ­¢ä½œæ¥­"
 
 #: TWLMagician.py:851
-msgid "ÕıÔÚ¼ì²éNANDÎÄ¼ş..."
-msgstr "ÕıÔÚ™z²é NAND ™n°¸..."
+msgid "æ­£åœ¨æ£€æŸ¥NANDæ–‡ä»¶..."
+msgstr "æ­£åœ¨æª¢æŸ¥ NAND æª”æ¡ˆ..."
 
 #: TWLMagician.py:887
-msgid "´íÎó: Ã»ÓĞ¼ì²âµ½No$GBA footer\n¾¯¸æ: ÈôÈ·¶¨NandÒÑÍêÕûdump, ÔòÓÃÓÚdumpµÄ´æ´¢¿¨¼«ÓĞ¿ÉÄÜÊÇÀ©Èİ¿¨»òÕßÒÑ³öÏÖ»µ¿é"
-msgstr "åeÕ`: ÕÒ²»µ½ No$GBA footer"
+msgid "é”™è¯¯: æ²¡æœ‰æ£€æµ‹åˆ°No$GBA footer\nè­¦å‘Š: è‹¥ç¡®å®šNandå·²å®Œæ•´dump, åˆ™ç”¨äºdumpçš„å­˜å‚¨å¡ææœ‰å¯èƒ½æ˜¯æ‰©å®¹å¡æˆ–è€…å·²å‡ºç°åå—"
+msgstr "éŒ¯èª¤: æ‰¾ä¸åˆ° No$GBA footer"
 
 #: TWLMagician.py:891 TWLMagician.py:935
-msgid "´íÎó: ÎŞ·¨´ò¿ªÎÄ¼ş "
-msgstr "åeÕ`: Ÿo·¨´òé_™n°¸ "
+msgid "é”™è¯¯: æ— æ³•æ‰“å¼€æ–‡ä»¶ "
+msgstr "éŒ¯èª¤: ç„¡æ³•æ‰“é–‹æª”æ¡ˆ "
 
 #: TWLMagician.py:927
-msgid "´íÎó: ÎŞĞ§µÄ¾µÏñÎÄ¼ş"
-msgstr "åeÕ`: ŸoĞ§µÄÓ³Ïñ™n"
+msgid "é”™è¯¯: æ— æ•ˆçš„é•œåƒæ–‡ä»¶"
+msgstr "éŒ¯èª¤: ç„¡æ•ˆçš„æ˜ åƒæª”"
 
 #: TWLMagician.py:931
-msgid "Ä¿±êÏµÍ³: "
-msgstr "Ä¿˜ËÏµ½y: "
+msgid "ç›®æ ‡ç³»ç»Ÿ: "
+msgstr "ç›®æ¨™ç³»çµ±: "
 
 #: TWLMagician.py:947
-msgid "µ±Ç°ÇøÓò: "
-msgstr "®”Ç°…^´a: "
+msgid "å½“å‰åŒºåŸŸ: "
+msgstr "ç•¶å‰å€ç¢¼: "
 
 #: TWLMagician.py:960
-msgid "Ô­Ê¼ÇøÓò: "
-msgstr "Ô­Ê¼…^´a: "
+msgid "åŸå§‹åŒºåŸŸ: "
+msgstr "åŸå§‹å€ç¢¼: "
 
 #: TWLMagician.py:975
-msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄhiyaCFW..."
-msgstr "ÕıÔÚÏÂİd×îĞÂ°æµÄ hiyaCFW..."
+msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„hiyaCFW..."
+msgstr "æ­£åœ¨ä¸‹è¼‰æœ€æ–°ç‰ˆçš„ hiyaCFW..."
 
 #: TWLMagician.py:993
-msgid "- ÕıÔÚ½âÑ¹ hiyaCFW Ñ¹Ëõ°ü..."
-msgstr "- ÕıÔÚ½â‰º hiyaCFW ‰º¿s™n..."
+msgid "- æ­£åœ¨è§£å‹ hiyaCFW å‹ç¼©åŒ…..."
+msgstr "- æ­£åœ¨è§£å£“ hiyaCFW å£“ç¸®æª”..."
 
 #: TWLMagician.py:1014 TWLMagician.py:1060 TWLMagician.py:1256
 #: TWLMagician.py:1267 TWLMagician.py:1437 TWLMagician.py:1549
 #: TWLMagician.py:1696 TWLMagician.py:2009 TWLMagician.py:2294
-msgid "´íÎó: ½âÑ¹Ê§°Ü"
-msgstr "åeÕ`: ½â‰ºÊ§”¡"
+msgid "é”™è¯¯: è§£å‹å¤±è´¥"
+msgstr "éŒ¯èª¤: è§£å£“å¤±æ•—"
 
 #: TWLMagician.py:1019
-msgid "´íÎó: ÎŞ·¨ÏÂÔØhiyaCFW"
-msgstr "åeÕ`: Ÿo·¨ÏÂİd hiyaCFW"
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½hiyaCFW"
+msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ hiyaCFW"
 
 #: TWLMagician.py:1023 TWLMagician.py:1065 TWLMagician.py:1184
 #: TWLMagician.py:1214 TWLMagician.py:1279 TWLMagician.py:1406
@@ -233,421 +233,421 @@ msgstr "åeÕ`: Ÿo·¨ÏÂİd hiyaCFW"
 #: TWLMagician.py:1770 TWLMagician.py:2023 TWLMagician.py:2105
 #: TWLMagician.py:2150 TWLMagician.py:2178 TWLMagician.py:2303
 #: TWLMagician.py:2330
-msgid "´íÎó: ÎŞ·¨ÔËĞĞ "
-msgstr "åeÕ`: Ÿo·¨ˆÌĞĞ "
+msgid "é”™è¯¯: æ— æ³•è¿è¡Œ "
+msgstr "éŒ¯èª¤: ç„¡æ³•åŸ·è¡Œ "
 
 #: TWLMagician.py:1029
-msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ ARM7/ARM9 BIOS..."
-msgstr "ÕıÔÚ½â‰º NAND ÄÚµÄ ARM7/ARM9 BIOS..."
+msgid "æ­£åœ¨ä»NANDä¸­è§£å‹ ARM7/ARM9 BIOS..."
+msgstr "æ­£åœ¨è§£å£“ NAND å†…çš„ ARM7/ARM9 BIOS..."
 
 #: TWLMagician.py:1032
-msgid "µ÷ÓÃ twltool(½âÑ¹ BIOS)"
-msgstr "ˆÌĞĞ twltool (½â‰º BIOS)"
+msgid "è°ƒç”¨ twltool(è§£å‹ BIOS)"
+msgstr "åŸ·è¡Œ twltool (è§£å£“ BIOS)"
 
 #: TWLMagician.py:1102
-msgid "´íÎó: ÎŞ·¨Íê³É patch BIOS"
-msgstr "åeÕ`: Ÿo·¨Íê³É patch BIOS"
+msgid "é”™è¯¯: æ— æ³•å®Œæˆ patch BIOS"
+msgstr "éŒ¯èª¤: ç„¡æ³•å®Œæˆ patch BIOS"
 
 #: TWLMagician.py:1107
-msgid "´íÎó: ÎŞĞ§µÄ patch header"
-msgstr "åeÕ`: ŸoĞ§µÄ patch header"
+msgid "é”™è¯¯: æ— æ•ˆçš„ patch header"
+msgstr "éŒ¯èª¤: ç„¡æ•ˆçš„ patch header"
 
 #: TWLMagician.py:1112
-msgid "ÕıÔÚÔ¤ÔØÊı¾İµ½ ARM9 BIOS..."
-msgstr "ÕıÔÚîAİdÈëÙYÁÏµ½ ARM9 BIOS..."
+msgid "æ­£åœ¨é¢„è½½æ•°æ®åˆ° ARM9 BIOS..."
+msgstr "æ­£åœ¨é è¼‰å…¥è³‡æ–™åˆ° ARM9 BIOS..."
 
-msgid "´íÎó: ÎŞ·¨Ô¤ÔØÊı¾İµ½ ARM9 BIOS"
-msgstr "åeÕ`: Ÿo·¨îAİdÈëÙYÁÏµ½ ARM9 BIOS"
+msgid "é”™è¯¯: æ— æ³•é¢„è½½æ•°æ®åˆ° ARM9 BIOS"
+msgstr "éŒ¯èª¤: ç„¡æ³•é è¼‰å…¥è³‡æ–™åˆ° ARM9 BIOS"
 
-msgid "ÕıÔÚÉú³É bootloader..."
+msgid "æ­£åœ¨ç”Ÿæˆ bootloader..."
 msgstr ""
 
-msgid "µ÷ÓÃ ndstool(Éú³É bootloader)"
-msgstr "ˆÌĞĞ ndstool (Éú³É bootloader)"
+msgid "è°ƒç”¨ ndstool(ç”Ÿæˆ bootloader)"
+msgstr "åŸ·è¡Œ ndstool (ç”Ÿæˆ bootloader)"
 
-msgid "µ÷ÓÃ ndsblc(Éú³É bootloader)"
-msgstr "ˆÌĞĞ ndsblc (Éú³É bootloader)"
+msgid "è°ƒç”¨ ndsblc(ç”Ÿæˆ bootloader)"
+msgstr "åŸ·è¡Œ ndsblc (ç”Ÿæˆ bootloader)"
 
-msgid "´íÎó: Éú³ÉÊ§°Ü"
-msgstr "åeÕ`: Éú³ÉÊ§”¡"
+msgid "é”™è¯¯: ç”Ÿæˆå¤±è´¥"
+msgstr "éŒ¯èª¤: ç”Ÿæˆå¤±æ•—"
 
-msgid "ÕıÔÚ½âÃÜ NAND..."
+msgid "æ­£åœ¨è§£å¯† NAND..."
 msgstr ""
 
 #: TWLMagician.py:1194
-msgid "µ÷ÓÃ twltool(½âÃÜ NAND)"
-msgstr "ˆÌĞĞ twltool (½âÃÜ NAND)"
+msgid "è°ƒç”¨ twltool(è§£å¯† NAND)"
+msgstr "åŸ·è¡Œ twltool (è§£å¯† NAND)"
 
 #: TWLMagician.py:1209 TWLMagician.py:2325
-msgid "´íÎó: ½âÃÜÊ§°Ü"
-msgstr "åeÕ`: ½âÃÜÊ§”¡"
+msgid "é”™è¯¯: è§£å¯†å¤±è´¥"
+msgstr "éŒ¯èª¤: è§£å¯†å¤±æ•—"
 
-msgid "ÕıÔÚ´ÓNANDÖĞ½âÑ¹ÎÄ¼ş..."
-msgstr "ÕıÔÚÄ NAND ½â‰º™n°¸..."
+msgid "æ­£åœ¨ä»NANDä¸­è§£å‹æ–‡ä»¶..."
+msgstr "æ­£åœ¨å¾ NAND è§£å£“æª”æ¡ˆ..."
 
-msgid "µ÷ÓÃ 7-Zip(½âÑ¹ NAND)"
-msgstr "ˆÌĞĞ 7-Zip (½â‰º NAND)"
+msgid "è°ƒç”¨ 7-Zip(è§£å‹ NAND)"
+msgstr "åŸ·è¡Œ 7-Zip (è§£å£“ NAND)"
 
-msgid "´íÎó: ½âÑ¹Ïà²á·ÖÇøÊ§°Ü"
-msgstr "åeÕ`: ½â‰ºÏàÆ¬·Ö…^Ê§”¡"
+msgid "é”™è¯¯: è§£å‹ç›¸å†Œåˆ†åŒºå¤±è´¥"
+msgstr "éŒ¯èª¤: è§£å£“ç›¸ç‰‡åˆ†å€å¤±æ•—"
 
-msgid "³¢ÊÔÊ¹ÓÃfatcat..."
-msgstr "‡LÔ‡Ê¹ÓÃ fatcat..."
+msgid "å°è¯•ä½¿ç”¨fatcat..."
+msgstr "å˜—è©¦ä½¿ç”¨ fatcat..."
 
 #: TWLMagician.py:1291
-msgid "¹ÒÔØ½âÃÜµÄNAND¾µÏñÖĞ..."
-msgstr "ÕıÔÚ’ìİd½âÃÜµÄ NAND ™n°¸..."
+msgid "æŒ‚è½½è§£å¯†çš„NANDé•œåƒä¸­..."
+msgstr "æ­£åœ¨æ›è¼‰è§£å¯†çš„ NAND æª”æ¡ˆ..."
 
 #: TWLMagician.py:1295
-msgid "µ÷ÓÃ osfmount(¹ÒÔØ twln)"
-msgstr "ˆÌĞĞ osfmount (’ìİd twln)"
+msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twln)"
+msgstr "åŸ·è¡Œ osfmount (æ›è¼‰ twln)"
 
-msgid "- ¹ÒÔØµ½Çı¶¯Æ÷ "
-msgstr "- ’ìİdµ½´Åµú "
+msgid "- æŒ‚è½½åˆ°é©±åŠ¨å™¨ "
+msgstr "- æ›è¼‰åˆ°ç£ç¢Ÿ "
 
-msgid "µ÷ÓÃ osfmount(¹ÒÔØ twlp)"
-msgstr "ˆÌĞĞ osfmount (’ìİd twlp)"
+msgid "è°ƒç”¨ osfmount(æŒ‚è½½ twlp)"
+msgstr "åŸ·è¡Œ osfmount (æ›è¼‰ twlp)"
 
-msgid "- DSiÏà²á·ÖÇø¹ÒÔØµ½Çı¶¯Æ÷ "
-msgstr "- ÏàÆ¬·Ö…^’ìİdµ½´Åµú "
+msgid "- DSiç›¸å†Œåˆ†åŒºæŒ‚è½½åˆ°é©±åŠ¨å™¨ "
+msgstr "- ç›¸ç‰‡åˆ†å€æ›è¼‰åˆ°ç£ç¢Ÿ "
 
-msgid "´íÎó: ¹ÒÔØÏà²á·ÖÇøÊ§°Ü"
-msgstr "åeÕ`: ’ìİdÏàÆ¬·Ö…^Ê§”¡"
+msgid "é”™è¯¯: æŒ‚è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
+msgstr "éŒ¯èª¤: æ›è¼‰ç›¸ç‰‡åˆ†å€å¤±æ•—"
 
 #: TWLMagician.py:1329 TWLMagician.py:1357 TWLMagician.py:1361
 #: TWLMagician.py:1389 TWLMagician.py:1393
-msgid "´íÎó: ¹ÒÔØÊ§°Ü"
-msgstr "åeÕ`: ’ìİdÊ§”¡"
+msgid "é”™è¯¯: æŒ‚è½½å¤±è´¥"
+msgstr "éŒ¯èª¤: æ›è¼‰å¤±æ•—"
 
 #: TWLMagician.py:1333
-msgid "µ÷ÓÃ losetup(¹ÒÔØ loop device)"
-msgstr "ˆÌĞĞ losetup (’ìİd loop device)"
+msgid "è°ƒç”¨ losetup(æŒ‚è½½ loop device)"
+msgstr "åŸ·è¡Œ losetup (æ›è¼‰ loop device)"
 
 #: TWLMagician.py:1344
-msgid "- ¹ÒÔØloop deviceµ½ "
-msgstr "- ’ìİd loop device µ½ "
+msgid "- æŒ‚è½½loop deviceåˆ° "
+msgstr "- æ›è¼‰ loop device åˆ° "
 
 #: TWLMagician.py:1345
-msgid "µ÷ÓÃ mount(¹ÒÔØ·ÖÇø)"
-msgstr "ˆÌĞĞ mount (’ìİd·Ö…^)"
+msgid "è°ƒç”¨ mount(æŒ‚è½½åˆ†åŒº)"
+msgstr "åŸ·è¡Œ mount (æ›è¼‰åˆ†å€)"
 
 #: TWLMagician.py:1355
-msgid "- ¹ÒÔØ·ÖÇøµ½ "
-msgstr "- ’ìİd·Ö…^µ½ "
+msgid "- æŒ‚è½½åˆ†åŒºåˆ° "
+msgstr "- æ›è¼‰åˆ†å€åˆ° "
 
 #: TWLMagician.py:1376
-msgid "- ¹ÒÔØraw diskµ½ "
-msgstr "- ’ìİd raw disk µ½ "
+msgid "- æŒ‚è½½raw diskåˆ° "
+msgstr "- æ›è¼‰ raw disk åˆ° "
 
 #: TWLMagician.py:1387
-msgid "- ¹ÒÔØ¾íµ½ "
-msgstr "- ’ìİdÈİówµ½ "
+msgid "- æŒ‚è½½å·åˆ° "
+msgstr "- æ›è¼‰å®¹é«”åˆ° "
 
 #: TWLMagician.py:1414
-msgid "µ÷ÓÃ fatcat(½âÑ¹ NAND)"
-msgstr "ˆÌĞĞ fatcat (½â‰º NAND)"
+msgid "è°ƒç”¨ fatcat(è§£å‹ NAND)"
+msgstr "åŸ·è¡Œ fatcat (è§£å£“ NAND)"
 
 #: TWLMagician.py:1447
-msgid "ÕıÔÚ´ÓNANDÖĞ¸´ÖÆÎÄ¼ş..."
-msgstr "ÕıÔÚÄ NAND Ñ}Ñu™n°¸..."
+msgid "æ­£åœ¨ä»NANDä¸­å¤åˆ¶æ–‡ä»¶..."
+msgstr "æ­£åœ¨å¾ NAND è¤‡è£½æª”æ¡ˆ..."
 
 #: TWLMagician.py:1459
-msgid "´íÎó: ¸´ÖÆÊ§°Ü"
-msgstr "åeÕ`: Ñ}ÑuÊ§”¡"
+msgid "é”™è¯¯: å¤åˆ¶å¤±è´¥"
+msgstr "éŒ¯èª¤: è¤‡è£½å¤±æ•—"
 
 #: TWLMagician.py:1488
-msgid "ÕıÔÚÏÂÔØ "
-msgstr "ÕıÔÚÏÂİd "
+msgid "æ­£åœ¨ä¸‹è½½ "
+msgstr "æ­£åœ¨ä¸‹è¼‰ "
 
 #: TWLMagician.py:1510
-msgid "- ÕıÔÚ½âÑ¹Launcher..."
-msgstr "- ÕıÔÚ½â‰º Launcher..."
+msgid "- æ­£åœ¨è§£å‹Launcher..."
+msgstr "- æ­£åœ¨è§£å£“ Launcher..."
 
 #: TWLMagician.py:1554
-msgid "´íÎó: ÎŞ·¨ÏÂÔØ "
-msgstr "åeÕ`: Ÿo·¨ÏÂİd "
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ "
+msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ "
 
 #: TWLMagician.py:1565
-msgid "ÕıÔÚ¸´ÖÆhiyaCFWÏà¹ØÎÄ¼ş..."
-msgstr "ÕıÔÚÑ}Ñu hiyaCFW ™n°¸..."
+msgid "æ­£åœ¨å¤åˆ¶hiyaCFWç›¸å…³æ–‡ä»¶..."
+msgstr "æ­£åœ¨è¤‡è£½ hiyaCFW æª”æ¡ˆ..."
 
 #: TWLMagician.py:1595
-msgid "ÕıÔÚ¸üĞÂhiyaCFW..."
-msgstr "ÕıÔÚ¸üĞÂ hiyaCFW..."
+msgid "æ­£åœ¨æ›´æ–°hiyaCFW..."
+msgstr "æ­£åœ¨æ›´æ–° hiyaCFW..."
 
 #: TWLMagician.py:1610
-msgid "»úÆ÷ĞòÁĞºÅ: "
-msgstr "™CÆ÷´®Ì–: "
+msgid "æœºå™¨åºåˆ—å·: "
+msgstr "æ©Ÿå™¨ä¸²è™Ÿ: "
 
 #: TWLMagician.py:1629
-msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄTWiLightMenu++..."
-msgstr "ÕıÔÚÏÂİd×îĞÂ°æµÄ TWiLightMenu++..."
+msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„TWiLightMenu++..."
+msgstr "æ­£åœ¨ä¸‹è¼‰æœ€æ–°ç‰ˆçš„ TWiLightMenu++..."
 
 #: TWLMagician.py:1675
-msgid " Ñ¹Ëõ°ü..."
-msgstr " ‰º¿s™n..."
+msgid " å‹ç¼©åŒ…..."
+msgstr " å£“ç¸®æª”..."
 
 #: TWLMagician.py:1675
-msgid "- ÕıÔÚ½âÑ¹ "
-msgstr "- ÕıÔÚ½â‰º "
+msgid "- æ­£åœ¨è§£å‹ "
+msgstr "- æ­£åœ¨è§£å£“ "
 
 #: TWLMagician.py:1701
-msgid "´íÎó: ÎŞ·¨ÏÂÔØTWiLightMenu++"
-msgstr "åeÕ`: Ÿo·¨ÏÂİd TWiLightMenu++"
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½TWiLightMenu++"
+msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ TWiLightMenu++"
 
 #: TWLMagician.py:1711
-msgid " Ïà¹ØÎÄ¼ş..."
-msgstr " ™n°¸..."
+msgid " ç›¸å…³æ–‡ä»¶..."
+msgstr " æª”æ¡ˆ..."
 
 #: TWLMagician.py:1711
-msgid "ÕıÔÚ¸´ÖÆ "
-msgstr "ÕıÔÚÑ}Ñu "
+msgid "æ­£åœ¨å¤åˆ¶ "
+msgstr "æ­£åœ¨è¤‡è£½ "
 
 #: TWLMagician.py:1743
-msgid "µ÷ÓÃ appgen"
-msgstr "ˆÌĞĞ appgen"
+msgid "è°ƒç”¨ appgen"
+msgstr "åŸ·è¡Œ appgen"
 
 #: TWLMagician.py:1782
-msgid "°æ±¾ĞÅÏ¢:\n"
-msgstr "°æ±¾ÙYÓ:\n"
+msgid "ç‰ˆæœ¬ä¿¡æ¯:\n"
+msgstr "ç‰ˆæœ¬è³‡è¨Š:\n"
 
 #: TWLMagician.py:1787
-msgid "ÇåÀíÖĞ..."
+msgid "æ¸…ç†ä¸­..."
 msgstr ""
 
 #: TWLMagician.py:1804
-msgid "²Ù×÷¹ı³Ì·¢Éú´íÎó»òÓÃ»§ÖÕÖ¹²Ù×÷\n"
-msgstr "×÷˜Iß^³Ì°lÉúåeÕ`»òÊ¹ÓÃÕß½KÖ¹×÷˜I\n"
+msgid "æ“ä½œè¿‡ç¨‹å‘ç”Ÿé”™è¯¯æˆ–ç”¨æˆ·ç»ˆæ­¢æ“ä½œ\n"
+msgstr "ä½œæ¥­éç¨‹ç™¼ç”ŸéŒ¯èª¤æˆ–ä½¿ç”¨è€…çµ‚æ­¢ä½œæ¥­\n"
 
 #: TWLMagician.py:1814
-msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª"
-msgstr "Íê³É!\nĞŞ¸ÄááµÄ NAND ƒ¦´æé"
+msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º"
+msgstr "å®Œæˆ!\nä¿®æ”¹å¾Œçš„ NAND å„²å­˜ç‚º"
 
 #: TWLMagician.py:1830
-msgid "'._' ÎÄ¼şÇåÀíÍê±Ï"
-msgstr "'._' ™n°¸ÇåÀíÍê®…"
+msgid "'._' æ–‡ä»¶æ¸…ç†å®Œæ¯•"
+msgstr "'._' æª”æ¡ˆæ¸…ç†å®Œç•¢"
 
 #: TWLMagician.py:1834
-msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n¶ÔÓÚ3DSÉè±¸, Äã»¹ĞèÒªÔÚ»úÆ÷ÉÏÊ¹ÓÃFBIÍê³ÉTitleµÄ°²×°\n"
-msgstr "Íê³É!\n—³ö SD ¿¨KŒ¢Æä²åÈë™CÆ÷\n3DS ™CÆ÷ß€ĞèÊ¹ÓÃ FBI °²Ñb Title\n"
+msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\nå¯¹äº3DSè®¾å¤‡, ä½ è¿˜éœ€è¦åœ¨æœºå™¨ä¸Šä½¿ç”¨FBIå®ŒæˆTitleçš„å®‰è£…\n"
+msgstr "å®Œæˆ!\nå½ˆå‡º SD å¡ä¸¦å°‡å…¶æ’å…¥æ©Ÿå™¨\n3DS æ©Ÿå™¨é‚„éœ€ä½¿ç”¨ FBI å®‰è£ Title\n"
 
 #: TWLMagician.py:1836
-msgid "Íê³É!\nµ¯³öÄãµÄ´æ´¢¿¨²¢²å»Øµ½»úÆ÷ÖĞ\n"
-msgstr "Íê³É!\n—³ö SD ¿¨KŒ¢Æä²åÈë DSi\n"
+msgid "å®Œæˆ!\nå¼¹å‡ºä½ çš„å­˜å‚¨å¡å¹¶æ’å›åˆ°æœºå™¨ä¸­\n"
+msgstr "å®Œæˆ!\nå½ˆå‡º SD å¡ä¸¦å°‡å…¶æ’å…¥ DSi\n"
 
 #: TWLMagician.py:1909 TWLMagician.py:1916 TWLMagician.py:1919
-msgid "- ¼ì²âµ½ "
-msgstr "- ™zœyµ½ "
+msgid "- æ£€æµ‹åˆ° "
+msgstr "- æª¢æ¸¬åˆ° "
 
 #: TWLMagician.py:1926
-msgid "´íÎó: ÔÚNANDÖĞÕÒ²»µ½ÊÜÖ§³ÖµÄLauncher"
-msgstr "åeÕ`: ÔÚ NAND ÖĞÕÒ²»µ½ÊÜÖ§³ÖµÄ Launcher"
+msgid "é”™è¯¯: åœ¨NANDä¸­æ‰¾ä¸åˆ°å—æ”¯æŒçš„Launcher"
+msgstr "éŒ¯èª¤: åœ¨ NAND ä¸­æ‰¾ä¸åˆ°å—æ”¯æŒçš„ Launcher"
 
-msgid "´íÎó: ÎŞ·¨¼ì²âÏµÍ³ÇøÓò"
-msgstr "åeÕ`: Ÿo·¨™zœy™CÆ÷…^´a"
+msgid "é”™è¯¯: æ— æ³•æ£€æµ‹ç³»ç»ŸåŒºåŸŸ"
+msgstr "éŒ¯èª¤: ç„¡æ³•æª¢æ¸¬æ©Ÿå™¨å€ç¢¼"
 
 #: TWLMagician.py:1932
-msgid "´íÎó: "
-msgstr "åeÕ`: "
+msgid "é”™è¯¯: "
+msgstr "éŒ¯èª¤: "
 
 #: TWLMagician.py:1940
-msgid "¼ì²éunlaunch×´Ì¬ÖĞ..."
-msgstr "ÕıÔÚ™z²é unlaunch  î‘B..."
+msgid "æ£€æŸ¥unlaunchçŠ¶æ€ä¸­..."
+msgstr "æ­£åœ¨æª¢æŸ¥ unlaunch ç‹€æ…‹..."
 
 #: TWLMagician.py:1955
-msgid "- Î´°²×°..."
-msgstr "- ÉĞÎ´°²Ñb..."
+msgid "- æœªå®‰è£…..."
+msgstr "- å°šæœªå®‰è£..."
 
 #: TWLMagician.py:1959
-msgid "ÕıÔÚÏÂÔØ×îĞÂ°æ±¾µÄunlaunch..."
-msgstr "ÕıÔÚÏÂİd×îĞÂ°æµÄ unlaunch..."
+msgid "æ­£åœ¨ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„unlaunch..."
+msgstr "æ­£åœ¨ä¸‹è¼‰æœ€æ–°ç‰ˆçš„ unlaunch..."
 
 #: TWLMagician.py:1982
-msgid "- ÕıÔÚ°²×°unlaunch..."
-msgstr "- ÕıÔÚ°²Ñb unlaunch..."
+msgid "- æ­£åœ¨å®‰è£…unlaunch..."
+msgstr "- æ­£åœ¨å®‰è£ unlaunch..."
 
 #: TWLMagician.py:2016
-msgid "´íÎó: ÎŞ·¨ÏÂÔØ unlaunch"
-msgstr "åeÕ`: Ÿo·¨ÏÂİd unlaunch"
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½ unlaunch"
+msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰ unlaunch"
 
 #: TWLMagician.py:2029
-msgid "- ÒÑ°²×°, Ğ¶ÔØÖĞ..."
-msgstr "- ÒÑ°²Ñb, ÕıÔÚĞ¶İd..."
+msgid "- å·²å®‰è£…, å¸è½½ä¸­..."
+msgstr "- å·²å®‰è£, æ­£åœ¨å¸è¼‰..."
 
 #: TWLMagician.py:2056
-msgid "ÕıÔÚĞ¶ÔØNAND..."
-msgstr "ÕıÔÚĞ¶İd NAND..."
+msgid "æ­£åœ¨å¸è½½NAND..."
+msgstr "æ­£åœ¨å¸è¼‰ NAND..."
 
 #: TWLMagician.py:2060
-msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twln)"
-msgstr "ˆÌĞĞ osfmount (Ğ¶İd twln)"
+msgid "è°ƒç”¨ osfmount(å¸è½½ twln)"
+msgstr "åŸ·è¡Œ osfmount (å¸è¼‰ twln)"
 
 #: TWLMagician.py:2064
-msgid "µ÷ÓÃ hdiutil(Ğ¶ÔØ raw disk)"
-msgstr "ˆÌĞĞ hdiutil (Ğ¶İd raw disk)"
+msgid "è°ƒç”¨ hdiutil(å¸è½½ raw disk)"
+msgstr "åŸ·è¡Œ hdiutil (å¸è¼‰ raw disk)"
 
 #: TWLMagician.py:2068
-msgid "µ÷ÓÃ umount(Ğ¶ÔØ·ÖÇø)"
-msgstr "ˆÌĞĞ umount (Ğ¶İd·Ö…^)"
+msgid "è°ƒç”¨ umount(å¸è½½åˆ†åŒº)"
+msgstr "åŸ·è¡Œ umount (å¸è¼‰åˆ†å€)"
 
 #: TWLMagician.py:2073
-msgid "µ÷ÓÃ losetup(Ğ¶ÔØ loop device)"
-msgstr "ˆÌĞĞ losetup (Ğ¶İd loop device)"
+msgid "è°ƒç”¨ losetup(å¸è½½ loop device)"
+msgstr "åŸ·è¡Œ losetup (å¸è¼‰ loop device)"
 
 #: TWLMagician.py:2077 TWLMagician.py:2100
-msgid "´íÎó: Ğ¶ÔØÊ§°Ü"
-msgstr "åeÕ`: Ğ¶İdÊ§”¡"
+msgid "é”™è¯¯: å¸è½½å¤±è´¥"
+msgstr "éŒ¯èª¤: å¸è¼‰å¤±æ•—"
 
 #: TWLMagician.py:2085
-msgid "µ÷ÓÃ osfmount(Ğ¶ÔØ twlp)"
-msgstr "ˆÌĞĞ osfmount (Ğ¶İd twlp)"
+msgid "è°ƒç”¨ osfmount(å¸è½½ twlp)"
+msgstr "åŸ·è¡Œ osfmount (å¸è¼‰ twlp)"
 
 #: TWLMagician.py:2093
-msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü"
-msgstr "åeÕ`: Ÿo·¨Ğ¶İdÏàÆ¬·Ö…^"
+msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥"
+msgstr "éŒ¯èª¤: ç„¡æ³•å¸è¼‰ç›¸ç‰‡åˆ†å€"
 
 #: TWLMagician.py:2109
-msgid "ÕıÔÚÇ¿ÖÆĞ¶ÔØNAND..."
-msgstr "ÕıÔÚŠÖÆĞ¶İd NAND..."
+msgid "æ­£åœ¨å¼ºåˆ¶å¸è½½NAND..."
+msgstr "æ­£åœ¨å¼·åˆ¶å¸è¼‰ NAND..."
 
 #: TWLMagician.py:2113
-msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twln)"
-msgstr "ˆÌĞĞ osfmount (ŠÖÆĞ¶İd twln)"
+msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twln)"
+msgstr "åŸ·è¡Œ osfmount (å¼·åˆ¶å¸è¼‰ twln)"
 
 #: TWLMagician.py:2117
-msgid "µ÷ÓÃ hdiutil(Ç¿ÖÆĞ¶ÔØ raw disk)"
-msgstr "ˆÌĞĞ hdiutil (ŠÖÆĞ¶İd raw disk)"
+msgid "è°ƒç”¨ hdiutil(å¼ºåˆ¶å¸è½½ raw disk)"
+msgstr "åŸ·è¡Œ hdiutil (å¼·åˆ¶å¸è¼‰ raw disk)"
 
 #: TWLMagician.py:2121
-msgid "µ÷ÓÃ umount(Ç¿ÖÆĞ¶ÔØ·ÖÇø)"
-msgstr "ˆÌĞĞ umount (ŠÖÆĞ¶İd·Ö…^)"
+msgid "è°ƒç”¨ umount(å¼ºåˆ¶å¸è½½åˆ†åŒº)"
+msgstr "åŸ·è¡Œ umount (å¼·åˆ¶å¸è¼‰åˆ†å€)"
 
 #: TWLMagician.py:2126
-msgid "µ÷ÓÃ losetup(Ç¿ÖÆĞ¶ÔØ loop device)"
-msgstr "ˆÌĞĞ losetup (ŠÖÆĞ¶İd loop device)"
+msgid "è°ƒç”¨ losetup(å¼ºåˆ¶å¸è½½ loop device)"
+msgstr "åŸ·è¡Œ losetup (å¼·åˆ¶å¸è¼‰ loop device)"
 
 #: TWLMagician.py:2130 TWLMagician.py:2137
-msgid "´íÎó: Ğ¶ÔØÊ§°Ü»òÉĞÎ´¹ÒÔØ"
-msgstr "åeÕ`: Ÿo·¨Ğ¶İd»òÉĞÎ´’ìİd"
+msgid "é”™è¯¯: å¸è½½å¤±è´¥æˆ–å°šæœªæŒ‚è½½"
+msgstr "éŒ¯èª¤: ç„¡æ³•å¸è¼‰æˆ–å°šæœªæ›è¼‰"
 
 #: TWLMagician.py:2140
-msgid "µ÷ÓÃ osfmount(Ç¿ÖÆĞ¶ÔØ twlp)"
-msgstr "ˆÌĞĞ osfmount (ŠÖÆĞ¶İd twlp)"
+msgid "è°ƒç”¨ osfmount(å¼ºåˆ¶å¸è½½ twlp)"
+msgstr "åŸ·è¡Œ osfmount (å¼·åˆ¶å¸è¼‰ twlp)"
 
 #: TWLMagician.py:2144
-msgid "´íÎó: Ğ¶ÔØÏà²á·ÖÇøÊ§°Ü»òÉĞÎ´¹ÒÔØ"
-msgstr "åeÕ`: Ÿo·¨Ğ¶İdÏàÆ¬·Ö…^»òÉĞÎ´’ìİd"
+msgid "é”™è¯¯: å¸è½½ç›¸å†Œåˆ†åŒºå¤±è´¥æˆ–å°šæœªæŒ‚è½½"
+msgstr "éŒ¯èª¤: ç„¡æ³•å¸è¼‰ç›¸ç‰‡åˆ†å€æˆ–å°šæœªæ›è¼‰"
 
 #: TWLMagician.py:2159
-msgid "ÕıÔÚÖØ¼ÓÃÜNAND..."
-msgstr "ÕıÔÚÖØĞÂ¼ÓÃÜ NAND..."
+msgid "æ­£åœ¨é‡åŠ å¯†NAND..."
+msgstr "æ­£åœ¨é‡æ–°åŠ å¯† NAND..."
 
 #: TWLMagician.py:2162
-msgid "µ÷ÓÃ twltool(ÖØ¼ÓÃÜ NAND)"
-msgstr "ˆÌĞĞ twltool (ÖØĞÂ¼ÓÃÜ NAND)"
+msgid "è°ƒç”¨ twltool(é‡åŠ å¯† NAND)"
+msgstr "åŸ·è¡Œ twltool (é‡æ–°åŠ å¯† NAND)"
 
 #: TWLMagician.py:2169
-msgid "²Ù×÷³É¹¦Íê³É"
-msgstr "×÷˜I³É¹¦Íê³É"
+msgid "æ“ä½œæˆåŠŸå®Œæˆ"
+msgstr "ä½œæ¥­æˆåŠŸå®Œæˆ"
 
 #: TWLMagician.py:2173
-msgid "´íÎó: ¼ÓÃÜÊ§°Ü"
-msgstr "åeÕ`: ¼ÓÃÜÊ§”¡"
+msgid "é”™è¯¯: åŠ å¯†å¤±è´¥"
+msgstr "éŒ¯èª¤: åŠ å¯†å¤±æ•—"
 
 #: TWLMagician.py:2183
-msgid "ÕıÔÚÒÆ³ıNo$GBA footer..."
-msgstr "ÕıÔÚÒÆ³ı No$GBA footer..."
+msgid "æ­£åœ¨ç§»é™¤No$GBA footer..."
+msgstr "æ­£åœ¨ç§»é™¤ No$GBA footer..."
 
 #: TWLMagician.py:2208 TWLMagician.py:2251
-msgid "Íê³É!\nĞŞ¸ÄºóµÄNANDÒÑ±£´æÎª\n"
-msgstr "Íê³É!\nĞŞ¸ÄááµÄ NAND ƒ¦´æé\n"
+msgid "å®Œæˆ!\nä¿®æ”¹åçš„NANDå·²ä¿å­˜ä¸º\n"
+msgstr "å®Œæˆ!\nä¿®æ”¹å¾Œçš„ NAND å„²å­˜ç‚º\n"
 
 #: TWLMagician.py:2209
-msgid "\nfooterĞÅÏ¢ÒÑ±£´æÎª "
-msgstr "\nfooter ÙYÓƒ¦´æé "
+msgid "\nfooterä¿¡æ¯å·²ä¿å­˜ä¸º "
+msgstr "\nfooter è³‡è¨Šå„²å­˜ç‚º "
 
 #: TWLMagician.py:2213 TWLMagician.py:2255
-msgid "´íÎó: ÎŞ·¨´ò¿ª "
-msgstr "åeÕ`: Ÿo·¨´òé_ "
+msgid "é”™è¯¯: æ— æ³•æ‰“å¼€ "
+msgstr "éŒ¯èª¤: ç„¡æ³•æ‰“é–‹ "
 
 #: TWLMagician.py:2218
-msgid "ÕıÔÚÌí¼ÓNo$GBA footer..."
-msgstr "ÕıÔÚÌí¼Ó No$GBA footer..."
+msgid "æ­£åœ¨æ·»åŠ No$GBA footer..."
+msgstr "æ­£åœ¨æ·»åŠ  No$GBA footer..."
 
 #: TWLMagician.py:2234
-msgid "´íÎó: ÎÄ¼şÖĞÒÑ´æÔÚ No$GBA footer"
-msgstr "åeÕ`: ™n°¸ÖĞÒÑ´æÔÚ No$GBA footer"
+msgid "é”™è¯¯: æ–‡ä»¶ä¸­å·²å­˜åœ¨ No$GBA footer"
+msgstr "éŒ¯èª¤: æª”æ¡ˆä¸­å·²å­˜åœ¨ No$GBA footer"
 
 #: TWLMagician.py:2267
-msgid "ÕıÔÚÏÂÔØÍ¨ÓÃÊı¾İ..."
-msgstr "ÕıÔÚÏÂİdÍ¨ÓÃÙYÁÏ..."
+msgid "æ­£åœ¨ä¸‹è½½é€šç”¨æ•°æ®..."
+msgstr "æ­£åœ¨ä¸‹è¼‰é€šç”¨è³‡æ–™..."
 
 #: TWLMagician.py:2274
-msgid "- ÕıÔÚ½âÑ¹Í¨ÓÃÊı¾İ..."
-msgstr "- ÕıÔÚ½â‰ºÍ¨ÓÃÙYÁÏ..."
+msgid "- æ­£åœ¨è§£å‹é€šç”¨æ•°æ®..."
+msgstr "- æ­£åœ¨è§£å£“é€šç”¨è³‡æ–™..."
 
 #: TWLMagician.py:2299
-msgid "´íÎó: ÎŞ·¨ÏÂÔØÍ¨ÓÃÊı¾İ"
-msgstr "åeÕ`: Ÿo·¨ÏÂİdÍ¨ÓÃÙYÁÏ"
+msgid "é”™è¯¯: æ— æ³•ä¸‹è½½é€šç”¨æ•°æ®"
+msgstr "éŒ¯èª¤: ç„¡æ³•ä¸‹è¼‰é€šç”¨è³‡æ–™"
 
 #: TWLMagician.py:2312
-msgid "ÕıÔÚ½âÃÜTWLTransfer¾µÏñÎÄ¼ş..."
-msgstr "ÕıÔÚ½âÃÜ TWLTransfer Ó³Ïñ™n..."
+msgid "æ­£åœ¨è§£å¯†TWLTransferé•œåƒæ–‡ä»¶..."
+msgstr "æ­£åœ¨è§£å¯† TWLTransfer æ˜ åƒæª”..."
 
 #: TWLMagician.py:2358
-msgid "ÕıÔÚÖ´ĞĞTWLTransfer..."
-msgstr "ÕıÔÚˆÌĞĞ TWLTransfer..."
+msgid "æ­£åœ¨æ‰§è¡ŒTWLTransfer..."
+msgstr "æ­£åœ¨åŸ·è¡Œ TWLTransfer..."
 
 #: TWLMagician.py:2393
-msgid "ÕıÔÚ°²×°TMFH..."
-msgstr "ÕıÔÚ°²Ñb TMFH..."
+msgid "æ­£åœ¨å®‰è£…NTM..."
+msgstr "æ­£åœ¨å®‰è£ NTM..."
 
 #: TWLMagician.py:2397
-msgid "ÕıÔÚ¸üĞÂTWiLightMenu++..."
-msgstr "ÕıÔÚ¸üĞÂ TWiLightMenu++..."
+msgid "æ­£åœ¨æ›´æ–°TWiLightMenu++..."
+msgstr "æ­£åœ¨æ›´æ–° TWiLightMenu++..."
 
 #: TWLMagician.py:2399
-msgid "ÕıÔÚ°²×°TWiLightMenu++..."
-msgstr "ÕıÔÚ°²Ñb TWiLightMenu++..."
+msgid "æ­£åœ¨å®‰è£…TWiLightMenu++..."
+msgstr "æ­£åœ¨å®‰è£ TWiLightMenu++..."
 
 #: TWLMagician.py:2452
-msgid "TWLMagicianÆô¶¯ÖĞ..."
-msgstr "ÕıÔÚ†¢„Ó TWLMagician..."
+msgid "TWLMagicianå¯åŠ¨ä¸­..."
+msgstr "æ­£åœ¨å•Ÿå‹• TWLMagician..."
 
 #: TWLMagician.py:2475 TWLMagician.py:2483
-msgid "64Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
-msgstr "OSFMount (64 Î»Ôª) ÒÑÑbİd"
+msgid "64ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
+msgstr "OSFMount (64 ä½å…ƒ) å·²è£è¼‰"
 
 #: TWLMagician.py:2489
-msgid "32Î»°æ±¾µÄOSFMountÄ£¿éÒÑ¼ÓÔØ"
-msgstr "OSFMount (32 Î»Ôª) ÒÑÑbİd"
+msgid "32ä½ç‰ˆæœ¬çš„OSFMountæ¨¡å—å·²åŠ è½½"
+msgstr "OSFMount (32 ä½å…ƒ) å·²è£è¼‰"
 
 #: TWLMagician.py:2495
-msgid "7-ZipÄ£¿éÒÑ¼ÓÔØ"
-msgstr "7-Zip ÒÑÑbİd"
+msgid "7-Zipæ¨¡å—å·²åŠ è½½"
+msgstr "7-Zip å·²è£è¼‰"
 
 #: TWLMagician.py:2504
-msgid "ÕÒ²»µ½Fatcat, ÇëÈ·ÈÏ´Ë³ÌĞòÎ»ÓÚ±¾¹¤¾ßÄ¿Â¼µÄ\"{}\"ÎÄ¼ş¼ĞÖĞ"
-msgstr "ÕÒ²»µ½ fatcat, Õˆ´_ÕJ 'fatcat' ƒ¦´æÔÚ '{}' ÙYÁÏŠA"
+msgid "æ‰¾ä¸åˆ°Fatcat, è¯·ç¡®è®¤æ­¤ç¨‹åºä½äºæœ¬å·¥å…·ç›®å½•çš„\"{}\"æ–‡ä»¶å¤¹ä¸­"
+msgstr "æ‰¾ä¸åˆ° fatcat, è«‹ç¢ºèª 'fatcat' å„²å­˜åœ¨ '{}' è³‡æ–™å¤¾"
 
 #: TWLMagician.py:2508
-msgid "GUI³õÊ¼»¯ÖĞ..."
-msgstr "³õÊ¼»¯ GUI..."
+msgid "GUIåˆå§‹åŒ–ä¸­..."
+msgstr "åˆå§‹åŒ– GUI..."
 
-msgid "¼ì²é¸üĞÂÖĞ..."
-msgstr "™z²é¸üĞÂÖĞ, ÕˆÉÔáá..."
+msgid "æ£€æŸ¥æ›´æ–°ä¸­..."
+msgstr "æª¢æŸ¥æ›´æ–°ä¸­, è«‹ç¨å¾Œ..."
 
-msgid "¼ì²é¸üĞÂÊ§°Ü"
-msgstr "™z²é¸üĞÂÊ§”¡"
+msgid "æ£€æŸ¥æ›´æ–°å¤±è´¥"
+msgstr "æª¢æŸ¥æ›´æ–°å¤±æ•—"
 
-msgid "¼ì²âµ½ĞÂ°æ±¾, ÓÉÓÚ±¾³ÌĞòĞÂ°æ±¾°üº¬ÖØÒª¸üĞÂ\nÔİ²»Ö§³ÖÌø¹ı¸üĞÂ, ¼´½«Ç°Íù·¢²¼Ò³"
-msgstr "°l¬FĞÂ°æ±¾, Ü›ówÓĞÖØÒª¸Ä„Ó\n•º²»Ö§Ô®Ìøß^¸üĞÂ, Œ¢ÔL†–°lÑí“Ãæ"
+msgid "æ£€æµ‹åˆ°æ–°ç‰ˆæœ¬, ç”±äºæœ¬ç¨‹åºæ–°ç‰ˆæœ¬åŒ…å«é‡è¦æ›´æ–°\næš‚ä¸æ”¯æŒè·³è¿‡æ›´æ–°, å³å°†å‰å¾€å‘å¸ƒé¡µ"
+msgstr "ç™¼ç¾æ–°ç‰ˆæœ¬, è»Ÿé«”æœ‰é‡è¦æ”¹å‹•\næš«ä¸æ”¯æ´è·³éæ›´æ–°, å°‡è¨ªå•ç™¼ä½ˆé é¢"
 
-msgid "¼ì²âµ½ĞÂ°æ±¾, ÓÉÓÚ±¾³ÌĞòĞÂ°æ±¾°üº¬ÖØÒª¸üĞÂ\nÔİ²»Ö§³ÖÌø¹ı¸üĞÂ, ¼´½«ÏÂÔØ²¢¸üĞÂ"
-msgstr "°l¬FĞÂ°æ±¾, Ü›ówÓĞÖØÒª¸Ä„Ó\n•º²»Ö§Ô®Ìøß^¸üĞÂ, Œ¢ÏÂİdKˆÌĞĞ¸üĞÂ™n"
+msgid "æ£€æµ‹åˆ°æ–°ç‰ˆæœ¬, ç”±äºæœ¬ç¨‹åºæ–°ç‰ˆæœ¬åŒ…å«é‡è¦æ›´æ–°\næš‚ä¸æ”¯æŒè·³è¿‡æ›´æ–°, å³å°†ä¸‹è½½å¹¶æ›´æ–°"
+msgstr "ç™¼ç¾æ–°ç‰ˆæœ¬, è»Ÿé«”æœ‰é‡è¦æ”¹å‹•\næš«ä¸æ”¯æ´è·³éæ›´æ–°, å°‡ä¸‹è¼‰ä¸¦åŸ·è¡Œæ›´æ–°æª”"
 
-msgid "ÏÂÔØ»òÖ´ĞĞ¸üĞÂÊ§°Ü, ³ÌĞò¼´½«ÍË³ö"
-msgstr "ÏÂİd»òˆÌĞĞ¸üĞÂÊ§”¡, Ü›ówŒ¢½YÊøˆÌĞĞ"
+msgid "ä¸‹è½½æˆ–æ‰§è¡Œæ›´æ–°å¤±è´¥, ç¨‹åºå³å°†é€€å‡º"
+msgstr "ä¸‹è¼‰æˆ–åŸ·è¡Œæ›´æ–°å¤±æ•—, è»Ÿé«”å°‡çµæŸåŸ·è¡Œ"
 
-msgid "µ±Ç°Îª×îĞÂ°æ±¾!"
-msgstr "Ä¿Ç°é×îĞÂ°æ±¾!"
+msgid "å½“å‰ä¸ºæœ€æ–°ç‰ˆæœ¬!"
+msgstr "ç›®å‰ç‚ºæœ€æ–°ç‰ˆæœ¬!"

@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.2.9
+# Version 1.3.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 127
+version_number = 130
 
 
 # Check Update
@@ -2529,7 +2529,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician V1.2 BY R-YaTian')
+root.title('TWLMagician V1.3 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
