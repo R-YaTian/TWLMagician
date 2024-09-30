@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.3.1
+# Version 1.3.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1170,7 +1170,7 @@ class Application(Frame):
         self.log.write(_('正在生成 bootloader...'))
 
         exe = (path.join('for PC', 'bootloader files', 'ndstool.exe') if sysname == 'Windows' else
-               path.join(sysname, 'ndsblc'))
+               ndsblc)
 
         try:
             if sysname == 'Windows':
@@ -2469,6 +2469,7 @@ if sysname == 'Darwin':
 fatcat = path.join(selfPath, sysname, 'fatcat')
 _7za = path.join(selfPath, sysname, '7za')
 twltool = path.join(selfPath, sysname, 'twltool')
+ndsblc = path.join(selfPath, sysname, 'ndsblc')
 osfmount = None
 _7z = None
 taskbar = None
