@@ -10,7 +10,7 @@ call nuitka37.bat --msvc=14.1 --module --no-pyi-file --remove-output --nowarn-mn
 call nuitka37.bat --msvc=14.1 --module --no-pyi-file --remove-output --nowarn-mnemonic=old-python-windows-console --output-dir=bootstrap pyutils.py
 
 cd bootstrap
-call nuitka37.bat --standalone --onefile --onefile-no-compression --noinclude-dlls=tk86t.dll --include-data-files=../pack/x86/TaskbarLib.dll=TaskbarLib.dll --include-data-files=../pack/x86/tk86t.dll=tk86t.dll --msvc=14.1 --remove-output --enable-plugin=tk-inter --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --nowarn-mnemonic=old-python-windows-console --windows-icon-from-ico=..\icon.ico Run_TWLMagician.py
+call nuitka37.bat --standalone --onefile --onefile-no-compression --include-data-files=../pack/x86/TaskbarLib.dll=TaskbarLib.dll --msvc=14.1 --remove-output --enable-plugin=tk-inter --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --nowarn-mnemonic=old-python-windows-console --windows-icon-from-ico=..\icon.ico Run_TWLMagician.py
 
 rename .\Run_TWLMagician.exe TWLMagician.exe
 rmdir /S /Q py_langs

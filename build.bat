@@ -23,6 +23,5 @@ del *.pyd
 
 rmdir /S /Q C:\Users\Public\Run_TWLMagician.dist
 copy /Y ..\pack\x64\TaskbarLib.dll .\dist\TaskbarLib.dll
-copy /Y ..\pack\x64\tk86t.dll .\dist\tk86t.dll
 copy /Y ..\pack\x64\api-ms-win-core-path-l1-1-0.dll .\dist\api-ms-win-core-path-l1-1-0.dll
 pause

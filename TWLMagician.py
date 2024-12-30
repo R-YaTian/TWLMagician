@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.3.2
+# Version 1.3.3
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 130
+version_number = 133
 
 
 # Check Update
@@ -43,11 +43,11 @@ def get_version():
     if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
         version_url = 'https://gitee.com/ryatian/mirrors/raw/master/'
     else:
-        version_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/'
+        version_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/Res/'
     try:
         with urlopen(version_url + 'version.bin') as src0, open('version.bin', 'wb') as dst0:
             copyfileobj(src0, dst0, show_progress=False)
-        with open('version.bin', 'r') as ftmp:
+        with open('version.bin', 'rb') as ftmp:
             version_str = ftmp.read()
         remove('version.bin')
         return int(version_str)
@@ -70,6 +70,8 @@ def WriteRestartCmd():
 
 def check_update():
     printl(_('检查更新中...'))
+    if path.isfile('OTA.exe'):
+        remove('OTA.exe')
     new_version = get_version()
     if new_version == -1:
         printl(_('检查更新失败'))
@@ -90,10 +92,8 @@ def check_update():
             if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                 ota_url = 'https://gitee.com/ryatian/mirrors/releases/download/Res/'
             else:
-                ota_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/patches/'
+                ota_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/Res/'
             try:
-                if path.isfile('OTA.exe'):
-                    remove('OTA.exe')
                 with urlopen(ota_url + ota_fname) as src0, open('OTA.exe', 'wb') as dst0:
                     copyfileobj(src0, dst0)
                 WriteRestartCmd()
@@ -1972,7 +1972,7 @@ class Application(Frame):
                                          ) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
-                            with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/unlaunch.zip'
+                            with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/Res/unlaunch.zip'
                                          ) as src, open(filename, 'wb') as dst:
                                 copyfileobj(src, dst)
                     except SystemExit:
@@ -2458,6 +2458,7 @@ if sysname == 'Linux' and ug is not None and su is True:
 
 check_update()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
+root.iconbitmap("icon.ico")
 printl(_('TWLMagician启动中...'))
 
 selfPath = path.dirname(path.abspath(argv[0]))
