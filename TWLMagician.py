@@ -2545,7 +2545,8 @@ nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAA
                              'AAAARG0MhJaxU4Y2sECAEgikE1CAFRhGMwSMJwBsU6frIgnR/bv'
                              'hTPrWUSDnGw3JGU2xmHrsvyU5xGO8ql6+S0AifPW8kCKpcpEQA7'))
 if sysname == 'Linux':
-    root.tk.call('wm', 'iconphoto', root._w, nand_icon)
+    program_icon = PhotoImage(file="icon.png")
+    root.tk.call('wm', 'iconphoto', root._w, program_icon)
 app = Application(master=root)
 if taskbar is not None:
     hwnd = int(root.wm_frame(), 16)
