@@ -40,6 +40,8 @@ version_number = 133
 
 # Check Update
 def get_version():
+    if path.isfile('version.bin'):
+        remove('version.bin')
     if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
         version_url = 'https://gitee.com/ryatian/mirrors/raw/master/'
     else:
@@ -48,10 +50,13 @@ def get_version():
         with urlopen(version_url + 'version.bin') as src0, open('version.bin', 'wb') as dst0:
             copyfileobj(src0, dst0, show_progress=False)
         with open('version.bin', 'rb') as ftmp:
-            version_str = ftmp.read()
+            data = ftmp.read()
+            number = unpack_from('<I', data, offset=0)[0]
         remove('version.bin')
-        return int(version_str)
+        return number
     except:
+        if path.isfile('version.bin'):
+            remove('version.bin')
         return -1
 
 
