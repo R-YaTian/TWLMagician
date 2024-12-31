@@ -2283,9 +2283,14 @@ class Application(Frame):
         try:
             if not path.isfile('Common.dat'):
                 self.log.write(_('正在下载通用数据...'))
-                with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/Common.dat'
-                             ) as src, open('Common.dat', 'wb') as dst:
-                    copyfileobj(src, dst)
+                if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
+                    with urlopen('https://gitee.com/ryatian/mirrors/releases/download/Res/Common.dat'
+                                ) as src, open('Common.dat', 'wb') as dst:
+                        copyfileobj(src, dst)
+                else:
+                    with urlopen('https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/Res/Common.dat'
+                                ) as src, open('Common.dat', 'wb') as dst:
+                        copyfileobj(src, dst)
 
             if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, 'Common.dat']).wait()
