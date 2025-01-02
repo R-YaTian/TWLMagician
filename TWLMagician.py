@@ -703,8 +703,6 @@ class Application(Frame):
 
     ################################################################################################
     def start_point(self):
-        if taskbar is not None:
-            taskbar.set_mode(0x1)
         if not self.transfer_mode:
             self.TThread = Thread(target=self.hiya)
             self.TThread.start()
@@ -718,7 +716,7 @@ class Application(Frame):
             self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, program_icon)
         else:
             self.dialog = Toplevel()
-            self.dialog.iconbitmap(path.join(selfPath, 'icon.ico'))
+            self.dialog.iconbitmap("icon.ico")
         # Open as dialog (parent disabled)
         self.dialog.grab_set()
         self.dialog.title(_('状态'))
@@ -754,6 +752,8 @@ class Application(Frame):
 
     def transfer(self):
         showinfo(_('提示'), _('接下来将自动下载目标区域的TWLTransfer镜像文件\n请注意: TWLCFG会被重置'))
+        if taskbar is not None:
+            taskbar.set_mode(0x1)
         self.log_window()
         self.TThread = Thread(target=self.get_transfer_image)
         self.TThread.start()
@@ -816,6 +816,8 @@ class Application(Frame):
                     showerror(_('错误'), 'Bad Console ID')
                     return
 
+        if taskbar is not None:
+            taskbar.set_mode(0x1)
         self.log_window()
 
         # Check if we'll be adding a No$GBA footer
@@ -2490,6 +2492,7 @@ if sysname == 'Linux' and ug is not None and su is True:
 
 check_update()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
+root.iconbitmap("icon.ico")
 printl(_('TWLMagician启动中...'))
 
 selfPath = path.dirname(path.abspath(argv[0]))
@@ -2498,8 +2501,6 @@ if sysname == 'Darwin':
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
         bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
         selfPath = bundle_dir
-root.iconbitmap(path.join(selfPath, 'icon.ico'))
-
 fatcat = path.join(selfPath, sysname, 'fatcat')
 _7za = path.join(selfPath, sysname, '7za')
 twltool = path.join(selfPath, sysname, 'twltool')

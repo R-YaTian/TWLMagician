@@ -10,7 +10,7 @@ call nuitka.cmd --msvc=14.3 --module --no-pyi-file --remove-output --nowarn-mnem
 call nuitka.cmd --msvc=14.3 --module --no-pyi-file --remove-output --nowarn-mnemonic=old-python-windows-console --output-dir=bootstrap pyutils.py
 
 cd bootstrap
-call nuitka.cmd --standalone --onefile --onefile-no-compression --include-data-files=../icon.ico=icon.ico --msvc=14.3 --remove-output --enable-plugin=tk-inter --nofollow-import-to=PIL --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --nowarn-mnemonic=old-python-windows-console --windows-icon-from-ico=..\icon.ico TWLMagician_Container.py
+call nuitka.cmd --standalone --onefile --onefile-no-compression --msvc=14.3 --remove-output --enable-plugin=tk-inter --nofollow-import-to=PIL --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --nowarn-mnemonic=old-python-windows-console --windows-icon-from-ico=..\icon.ico TWLMagician_Container.py
 
 rename .\TWLMagician_Container.exe TWLMagician.exe
 rmdir /S /Q py_langs
@@ -23,10 +23,11 @@ move bootstrap\TWLMagician.exe dist
 xcopy /Y /S /Q i18n dist\i18n\
 xcopy /Y /S /Q Windows dist\Windows\
 copy pack\x86\TaskbarLib.dll dist
+copy icon.ico dist
 copy LICENSE dist
 copy README.md dist
 
 cd dist
-python -m zipfile -c TWLMagician.zip Windows i18n TWLMagician.exe LICENSE README.md TaskbarLib.dll
+python -m zipfile -c TWLMagician.zip Windows i18n TWLMagician.exe icon.ico LICENSE README.md TaskbarLib.dll
 
 pause
