@@ -149,12 +149,8 @@ msgid "关闭"
 msgstr "關閉"
 
 #: TWLMagician.py:721
-msgid "接下来请选择TWLTransfer目标镜像文件\n请注意: TWLCFG会被重置"
-msgstr "接下來請選擇 TWLTransfer 映像檔\n請注意: TWLCFG 將會被重設"
-
-#: TWLMagician.py:722
-msgid "镜像文件"
-msgstr "映像檔"
+msgid "接下来将自动下载目标区域的TWLTransfer镜像文件\n请注意: TWLCFG会被重置"
+msgstr "接下來將下載目標區碼系統的 TWLTransfer 映像檔\n請注意: TWLCFG 將會被重設"
 
 #: TWLMagician.py:735
 msgid "此功能需要以管理员权限运行本工具"
@@ -651,3 +647,12 @@ msgstr "下載或執行更新失敗, 軟體將結束執行"
 
 msgid "当前为最新版本!"
 msgstr "目前為最新版本!"
+
+msgid "选择目标系统区域:"
+msgstr "選擇目標系統區碼:"
+
+msgid "正在下载 TWLTransfer 镜像文件: "
+msgstr "正在下載 TWLTransfer 映像檔: "
+
+msgid "错误: 无法下载 TWLTransfer 镜像文件"
+msgstr "錯誤: 無法下載 TWLTransfer 映像檔"

@@ -2,11 +2,11 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.3.3
+# Version 1.3.5
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
-from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton,
+from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton, OptionMenu,
                      Label, Toplevel, Scrollbar, Text, StringVar, IntVar, RIGHT, W, X, Y, DISABLED, NORMAL, SUNKEN,
                      END)
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 133
+version_number = 135
 
 
 # Check Update
@@ -356,10 +356,17 @@ class Application(Frame):
 
         self.checks_frame2 = Frame(f2)
 
+        label = Label(self.checks_frame2, text=_("选择目标系统区域:"))
+        label.grid(row=0, column=0, padx=10, sticky="w")
+        region_items = ["JPN", "JPN-kst", "USA", "EUR", "AUS", "CHN", "KOR"]
+        self.selected_option = StringVar(value="JPN")
+        self.dropdown = OptionMenu(self.checks_frame2, self.selected_option, *region_items)
+        self.dropdown.grid(row=0, column=1, padx=0, pady=0, sticky="w")
+
         self.dkp2_chk = Checkbutton(self.checks_frame2, text=_(
             '启用系统设置-数据管理功能'), variable=self.devkp)
 
-        self.dkp2_chk.pack(padx=10, anchor=W)
+        self.dkp2_chk.grid(row=1, column=0, padx=10, sticky="w")
 
         self.ntm = IntVar()
         self.ntm.set(0)
@@ -367,7 +374,7 @@ class Application(Frame):
         self.ntm_chk = Checkbutton(
             self.checks_frame2, text=_('同时安装NTM'), variable=self.ntm)
 
-        self.ntm_chk.pack(padx=10, anchor=W)
+        self.ntm_chk.grid(row=2, column=0, padx=10, sticky="w")
 
         self.updatemenu = IntVar()
         self.updatemenu.set(0)
@@ -375,12 +382,12 @@ class Application(Frame):
         self.um_chk = Checkbutton(self.checks_frame2, text=_(
             '安装或更新TWiLightMenu++'), variable=self.updatemenu)
 
-        self.um_chk.pack(padx=10, anchor=W)
+        self.um_chk.grid(row=3, column=0, padx=10, sticky="w")
 
         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             adl2_chk = Checkbutton(
                 self.checks_frame2, text='优先使用备用载点', variable=self.altdl)
-            adl2_chk.pack(padx=10, anchor=W)
+            adl2_chk.grid(row=4, column=0, padx=10, sticky="w")
 
         # NAND operation frame
         self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padx=10, pady=10)
@@ -708,9 +715,10 @@ class Application(Frame):
     def log_window(self):
         if sysname == 'Linux':
             self.dialog = Toplevel(class_='Magician')
-            self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, nand_icon)
+            self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, program_icon)
         else:
             self.dialog = Toplevel()
+            self.dialog.iconbitmap("icon.ico")
         # Open as dialog (parent disabled)
         self.dialog.grab_set()
         self.dialog.title(_('状态'))
@@ -745,13 +753,9 @@ class Application(Frame):
         self.finish = False
 
     def transfer(self):
-        showinfo(_('提示'), _('接下来请选择TWLTransfer目标镜像文件\n请注意: TWLCFG会被重置'))
-        name = askopenfilename(filetypes=[(_('镜像文件'), '*.bin')])
-        self.image_file.set(name)
-        if self.image_file.get() == '':
-            return
+        showinfo(_('提示'), _('接下来将自动下载目标区域的TWLTransfer镜像文件\n请注意: TWLCFG会被重置'))
         self.log_window()
-        self.TThread = Thread(target=self.check_image)
+        self.TThread = Thread(target=self.get_transfer_image)
         self.TThread.start()
 
     def hiya(self):
@@ -915,15 +919,19 @@ class Application(Frame):
             self.log.write(_('错误: 无法打开文件 ') +
                            path.basename(self.nand_file.get()))
 
-    def check_image(self):
+    def get_transfer_image(self):
+        global downloadfile
+        if downloadfile is False:
+            downloadfile = True
+
         REGION_CODES_IMAGE = {
-            '053A1C2ADB047AC28C4FB218244C4FA3BB315525': 'CHN',
-            '627AEC8FDF778401958E96DB267CC628A72772F2': 'USA',
-            '939190F0E6AC93B7F5833756BE2A251DA71125F9': 'JPN',
-            '6B7BBC961C686C4382811D48BEF8A100CACE25E4': 'KOR',
-            '12546984F820B681AC0B2E7485531F0818FC1DF3': 'EUR',
-            '600F7E36E9F6966540B7F79F057942D3C2336F9E': 'AUS',
-            '0FE96AAF374BA777FFEC30A2525409D0DE0E7EA1': 'JPN-kst'
+            '5E1186D17265F03A526AF127B61080AC501A5372': 'CHN',
+            '61AEBB53F63DED24E8FBC0861D7A51ED85F095E7': 'USA',
+            'B5F42ACF2C1C4F7C4DE785F545FB4E40A2EEF8DF': 'JPN',
+            '886A40EB67C2F9E240449CF6A15C9A15D7381981': 'KOR',
+            '8833DCA9E5236D54AAA9EB61D0FDF8A6E7C247FC': 'EUR',
+            '751F7F79FB4360A5A409D70288ECB7611484AC56': 'AUS',
+            '417E985E5A2E8110F20FAF6106AB8A4C2ED25693': 'JPN-kst'
         }
         REGION_HWINFO = {
             '00': 'JPN',
@@ -933,6 +941,24 @@ class Application(Frame):
             '04': 'CHN',
             '05': 'KOR'
         }
+
+        filename = self.selected_option.get() + '.bin'
+        try:
+            if not path.isfile(filename):
+                self.log.write(_('正在下载 TWLTransfer 镜像文件: ') + filename)
+                with urlopen('https://gitee.com/ryatian/mirrors/releases/download/TWLTransfer/' +
+                                filename) as src, open(filename, 'wb') as dst:
+                    copyfileobj(src, dst)
+
+        except SystemExit:
+            return
+
+        except (URLError, IOError) as e:
+            printl(str(e))
+            self.log.write(_('错误: 无法下载 TWLTransfer 镜像文件'))
+            return
+
+        self.image_file.set(filename)
         try:
             sha1_hash = sha1()
 
@@ -949,6 +975,7 @@ class Application(Frame):
                 return
             except:
                 self.log.write(_('错误: 无效的镜像文件'))
+                remove(self.image_file.get())
                 return
 
             self.log.write('- ' + image_filename + ' SHA1:\n' + image_sha1)
@@ -960,8 +987,6 @@ class Application(Frame):
             return
 
         hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
-        hwinfo_o = path.join(self.sd_path1, 'sys', 'HWINFO_O.dat')
-
         if path.exists(hwinfo):
             with open(hwinfo, 'rb') as infotmp:
                 infotmp.seek(0x90, 0)
@@ -973,16 +998,8 @@ class Application(Frame):
             self.log.write(_('错误: 无法检测系统区域'))
             return
 
-        if path.exists(hwinfo_o):
-            with open(hwinfo_o, 'rb') as infotmp:
-                infotmp.seek(0x90, 0)
-                self.origin_region = REGION_HWINFO[hexlify(
-                    infotmp.read(0x01)).decode('ascii')]
-                infotmp.close()
-        else:
-            self.origin_region = self.cur_region
+        self.origin_region = self.check_serial(self.sd_path1)
         self.log.write(_('原始区域: ') + self.origin_region)
-        self.check_serial(self.sd_path1)
 
         self.TThread = Thread(target=self.get_common_data)
         self.TThread.start()
@@ -1630,6 +1647,16 @@ class Application(Frame):
         self.TThread.start()
 
     def check_serial(self, infopath):
+        REGION_SERIAL = {
+            'J': 'JPN',
+            'W': 'USA',
+            'B': 'USA',
+            'S': 'USA',
+            'E': 'EUR',
+            'A': 'AUS',
+            'C': 'CHN',
+            'K': 'KOR'
+        }
         hwinfo = path.join(infopath, 'sys', 'HWINFO_S.dat')
         if path.exists(hwinfo):
             with open(hwinfo, 'rb') as infotmp:
@@ -1637,6 +1664,7 @@ class Application(Frame):
                 strtmp = infotmp.read(0xB).decode('ascii')
                 infotmp.close()
                 self.log.write(_('机器序列号: ') + strtmp)
+                return REGION_SERIAL[strtmp[1:2]]
 
     ################################################################################################
     def get_latest_twilight(self):
@@ -1661,7 +1689,7 @@ class Application(Frame):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
                     try:
-                        with urlopen('https://gyker.top/storage/somefiles/' +
+                        with urlopen('https://spin.gyker.top/somefiles/' +
                                      filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                     except SystemExit:
@@ -1680,7 +1708,7 @@ class Application(Frame):
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             try:
-                                with urlopen('https://gyker.top/storage/somefiles/' +
+                                with urlopen('https://spin.gyker.top/somefiles/' +
                                              filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
                             except SystemExit:
@@ -2328,7 +2356,6 @@ class Application(Frame):
 
     ################################################################################################
     def decrypt_image(self):
-        self.files.append(self.dest_region + '.app')
         self.folders.append('shared1')
         self.folders.append('sys')
         self.folders.append('title')
@@ -2337,7 +2364,7 @@ class Application(Frame):
 
         try:
             self.proc = Popen([_7za, 'x', '-bso0', '-y', '-pR-YaTian', self.image_file.get(),
-                               self.dest_region + '.app', 'shared1', 'sys', 'title', 'ticket'])
+                               'shared1', 'sys', 'title', 'ticket'])
 
             ret_val = self.proc.wait()
 
@@ -2356,13 +2383,14 @@ class Application(Frame):
 
     ################################################################################################
     def transfer_main(self):
-        TITLE_ID = {
-            'CHN': '484e4143',
-            'USA': '484e4145',
-            'JPN': '484e414a',
-            'KOR': '484e414b',
-            'EUR': '484e4150',
-            'AUS': '484e4155'
+        TITLE_ID_BYTE = {
+            'CHN': '43',
+            'USA': '45',
+            'JPN': '4a',
+            'JPN-kst': '4a',
+            'KOR': '4b',
+            'EUR': '50',
+            'AUS': '55'
         }
         REGION_BYTES = {
             'JPN': '00',
@@ -2373,29 +2401,25 @@ class Application(Frame):
             'CHN': '04',
             'KOR': '05'
         }
-        if self.origin_region in ('CHN', 'KOR'):
-            launcher_name = '00000000.app'
-        else:
-            launcher_name = '00000002.app'
-        launcher_id = TITLE_ID[self.origin_region]
 
         self.log.write(_('正在执行TWLTransfer...'))
 
         oldfolders = [path.join(self.sd_path1, 'title', '0003000f'), path.join(self.sd_path1, 'title', '00030004'),
                       path.join(self.sd_path1, 'title', '00030005'), path.join(self.sd_path1, 'title', '00030015'),
+                      path.join(self.sd_path1, 'title', '00030017'), path.join(self.sd_path1, 'ticket', '00030017'),
                       path.join(self.sd_path1, 'ticket', '0003000f'), path.join(self.sd_path1, 'ticket', '00030004'),
                       path.join(self.sd_path1, 'ticket', '00030005'), path.join(self.sd_path1, 'ticket', '00030015')]
         while len(oldfolders) > 0:
             rmtree(oldfolders.pop(), ignore_errors=True)
 
         hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
-        hwinfo_o = path.join(self.sd_path1, 'sys', 'HWINFO_O.dat')
-        if not path.exists(hwinfo_o):
-            copyfile(hwinfo, hwinfo_o)
-
         with open(hwinfo, 'rb+') as f:
             f.seek(0x90, 0)
-            f.write(unhexlify(REGION_BYTES[self.dest_region]))
+            f.write(unhexlify(REGION_BYTES[self.dest_region])) # Console Region
+            f.seek(0x88, 0)
+            f.write(unhexlify('ff')) # Bitmask for Supported Languages (0xFF for all languages)
+            f.seek(0xA0, 0)
+            f.write(unhexlify(TITLE_ID_BYTE[self.dest_region])) # Title ID First Byte for Launcher
             f.flush()
             f.close()
 
@@ -2404,9 +2428,7 @@ class Application(Frame):
         copytree('ticket', path.join(self.sd_path1, 'ticket'), dirs_exist_ok=True)
         copytree('sys', path.join(self.sd_path1, 'sys'), dirs_exist_ok=True)
         copytree('shared1', path.join(self.sd_path1, 'shared1'), dirs_exist_ok=True)
-        launcherdir = path.join(
-            self.sd_path1, 'title', '00030017', launcher_id, 'content', launcher_name)
-        copyfile(self.dest_region + '.app', launcherdir)
+
         if self.ntm.get() == 1:
             self.log.write(_('正在安装NTM...'))
             copytree('NTM/title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
