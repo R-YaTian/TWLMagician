@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.3.5
+# Version 1.3.6
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 135
+version_number = 136
 
 
 # Check Update
@@ -718,7 +718,7 @@ class Application(Frame):
             self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, program_icon)
         else:
             self.dialog = Toplevel()
-            self.dialog.iconbitmap("icon.ico")
+            self.dialog.iconbitmap(path.join(selfPath, 'icon.ico'))
         # Open as dialog (parent disabled)
         self.dialog.grab_set()
         self.dialog.title(_('状态'))
@@ -2490,7 +2490,6 @@ if sysname == 'Linux' and ug is not None and su is True:
 
 check_update()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
-root.iconbitmap("icon.ico")
 printl(_('TWLMagician启动中...'))
 
 selfPath = path.dirname(path.abspath(argv[0]))
@@ -2499,6 +2498,8 @@ if sysname == 'Darwin':
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
         bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
         selfPath = bundle_dir
+root.iconbitmap(path.join(selfPath, 'icon.ico'))
+
 fatcat = path.join(selfPath, sysname, 'fatcat')
 _7za = path.join(selfPath, sysname, '7za')
 twltool = path.join(selfPath, sysname, 'twltool')

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-# Run_TWLMagician
+# TWLMagician_Container
 # Author: R-YaTian
 
 import ctypes
@@ -12,7 +12,7 @@ import tkinter
 import tkinter.filedialog
 import tkinter.messagebox
 import appgen
-import tooltip
+import tk_tooltip.tooltip
 import py_langs.langs
 import py_langs.po2buf
 import urllib.request
