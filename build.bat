@@ -1,27 +1,31 @@
 @echo off
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap\py_langs py_langs\langs.py
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap\py_langs py_langs\po2buf.py
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap appgen.py
-call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap tooltip.py
+call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap\tk_tooltip tk_tooltip\tooltip.py
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap TWLMagician.py
 call nuitka.bat --msvc=14.3 --module --no-pyi-file --remove-output --output-dir=bootstrap pyutils.py
 
 cd bootstrap
-call nuitka.bat --standalone --msvc=14.3 --remove-output --enable-plugin=tk-inter --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --windows-icon-from-ico=..\icon.ico Run_TWLMagician.py
-rmdir /S /Q Run_TWLMagician.dist\tk\images
+call nuitka.bat --standalone --onefile --onefile-no-compression --msvc=14.3 --remove-output --enable-plugin=tk-inter --nofollow-import-to=dbm --nofollow-import-to=distutils --nofollow-import-to=py_compile --nofollow-import-to=argparse --windows-icon-from-ico=..\icon.ico TWLMagician_Container.py
 
-xcopy /Y /S /Q Run_TWLMagician.dist C:\Users\Public\Run_TWLMagician.dist\
-mkdir dist
-copy /Y Run_TWLMagician.dist\vcruntime140.dll .\dist\vcruntime140.dll
-rmdir /S /Q Run_TWLMagician.dist py_langs
+rename .\TWLMagician_Container.exe TWLMagician.exe
+rmdir /S /Q py_langs
+rmdir /S /Q tk_tooltip
 del *.pyd
 
-..\pack\enigmavbconsole.exe ..\pack\main.evb ..\pack\lib.evb.template  .\dist\lib.dat
-..\pack\enigmavbconsole.exe ..\pack\main.evb ..\pack\tkinter.evb.template .\dist\tkinter.dat
-..\pack\enigmavbconsole.exe ..\pack\main.evb ..\pack\pyd.evb.template .\dist\pyd.dat
-..\pack\enigmavbconsole.exe ..\pack\main.evb -output ..\bootstrap\dist\TWLMagician.exe
+cd .. && mkdir dist
+move bootstrap\TWLMagician.exe dist
+xcopy /Y /S /Q i18n dist\i18n\
+xcopy /Y /S /Q Windows dist\Windows\
+copy lib\x64\TaskbarLib.dll dist
+copy lib\x64\api-ms-win-core-path-l1-1-0.dll dist
+copy icon.ico dist
+copy LICENSE dist
+copy README.md dist
 
-rmdir /S /Q C:\Users\Public\Run_TWLMagician.dist
-copy /Y ..\pack\x64\TaskbarLib.dll .\dist\TaskbarLib.dll
-copy /Y ..\pack\x64\api-ms-win-core-path-l1-1-0.dll .\dist\api-ms-win-core-path-l1-1-0.dll
+cd dist
+python -m zipfile -c TWLMagician_Win_x64.zip Windows i18n TWLMagician.exe icon.ico LICENSE README.md TaskbarLib.dll api-ms-win-core-path-l1-1-0.dll
+
 pause
