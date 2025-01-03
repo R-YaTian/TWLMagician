@@ -713,7 +713,6 @@ class Application(Frame):
     def log_window(self):
         if sysname == 'Linux':
             self.dialog = Toplevel(class_='Magician')
-            self.dialog.tk.call('wm', 'iconphoto', self.dialog._w, program_icon)
         else:
             self.dialog = Toplevel()
             self.dialog.iconbitmap("icon.ico")
@@ -2492,7 +2491,8 @@ if sysname == 'Linux' and ug is not None and su is True:
 
 check_update()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
-root.iconbitmap("icon.ico")
+if sysname != 'Linux':
+    root.iconbitmap("icon.ico")
 printl(_('TWLMagician启动中...'))
 
 selfPath = path.dirname(path.abspath(argv[0]))
@@ -2573,9 +2573,7 @@ nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAA
                              'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAMAAAYALAAAAAAQAB'
                              'AAAARG0MhJaxU4Y2sECAEgikE1CAFRhGMwSMJwBsU6frIgnR/bv'
                              'hTPrWUSDnGw3JGU2xmHrsvyU5xGO8ql6+S0AifPW8kCKpcpEQA7'))
-if sysname == 'Linux':
-    program_icon = PhotoImage(file="icon.png")
-    root.tk.call('wm', 'iconphoto', root._w, program_icon)
+
 app = Application(master=root)
 if taskbar is not None:
     hwnd = int(root.wm_frame(), 16)
