@@ -18,10 +18,10 @@
 Clicking on the integrated circuit button will give you a NAND mode, where you can remove the No$GBA footer or add it. You can also install or uninstall unlaunch for your NAND.
 
 ### _Advance mode:_
-* TBD
+Clicking on the `Advanced` button will give you an Advance mode, where you can only installs the latest release of TWiLightMenu++ on the chosen output destination.
 
 ### _Transfer mode:_
-* TBD
+Clicking on the integrated circuit button from Advance mode will give you a Transfer mode, where you can do TWLTransfer for your SDNand. This means the complete region changing will be done.
 
 ## Requirements:
 ### _Windows:_
@@ -40,7 +40,7 @@ Clicking on the integrated circuit button will give you a NAND mode, where you c
 * fatcat binaries for Windows, Linux and mxacOS. Compiled from the [Gregwar's GitHub repo](https://github.com/Gregwar/fatcat).
 
 ## How to use it:
-* TBD
+* Please follow the instructions on the [DS-Homebrew wiki](https://wiki.ds-homebrew.com/hiyacfw/installing).
 
 ## Thanks to:
 * jerbear64, LmN and mondul for the original version.
