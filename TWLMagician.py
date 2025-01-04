@@ -711,10 +711,8 @@ class Application(Frame):
             self.TThread.start()
 
     def log_window(self):
-        if sysname == 'Linux':
-            self.dialog = Toplevel(class_='Magician')
-        else:
-            self.dialog = Toplevel()
+        self.dialog = Toplevel(class_='Magician') if sysname == 'Linux' else Toplevel()
+        if sysname == 'Windows':
             self.dialog.iconbitmap("icon.ico")
         # Open as dialog (parent disabled)
         self.dialog.grab_set()
@@ -2491,7 +2489,7 @@ if sysname == 'Linux' and ug is not None and su is True:
 
 check_update()
 root = Tk(className="Magician") if sysname == 'Linux' else Tk()
-if sysname != 'Linux':
+if sysname == 'Windows':
     root.iconbitmap("icon.ico")
 printl(_('TWLMagician启动中...'))
 

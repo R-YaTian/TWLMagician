@@ -24,7 +24,7 @@ jobs:
           pip3 install certifi pyinstaller
       - name: Make binary
         run: |
-          pyinstaller --onefile --add-data "Darwin/*:Darwin" --add-data "icon.ico:icon.ico" --add-data "i18n/*:i18n" --target-architecture universal2 TWLMagician.py
+          pyinstaller --onefile --add-data "Darwin/*:Darwin" --add-data "i18n/*:i18n" --target-architecture universal2 TWLMagician.py
           cd dist
           zip -r ../TWLMagician-macOS.zip TWLMagician
       - name: Publish artifact
