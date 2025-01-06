@@ -1688,7 +1688,7 @@ class Application(Frame):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
                     try:
-                        with urlopen('https://spin.gyker.top/somefiles/' +
+                        with urlopen('https://spin.noidea.top/somefiles/' +
                                      filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                     except SystemExit:
@@ -1707,7 +1707,7 @@ class Application(Frame):
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             try:
-                                with urlopen('https://spin.gyker.top/somefiles/' +
+                                with urlopen('https://spin.noidea.top/somefiles/' +
                                              filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
                             except SystemExit:
