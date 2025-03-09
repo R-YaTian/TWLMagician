@@ -1562,9 +1562,14 @@ class Application(Frame):
             elif self.launcher_region == 'USA-dev':
                 launcher_app = '7412e50d.app'
                 self.files.append('title.tmd')
+            elif self.launcher_region == 'JPN-dev':
+                launcher_app = '3ed2df76.app'
+                self.files.append('title.tmd')
+            elif self.launcher_region == 'EUR-dev':
+                launcher_app = '0ac9cea3.app'
+                self.files.append('title.tmd')
             else:
                 launcher_app = '00000002.app'
-
             self.files.append(launcher_app)
 
             # Prepare decryption params
@@ -1934,6 +1939,8 @@ class Application(Frame):
         }
         REGION_CODES_DEV = {
             '484e4145': 'USA-dev',
+            '484e414a': 'JPN-dev',
+            '484e4150': 'EUR-dev'
         }
         base = self.mounted if self.nand_mode else self.sd_path
         # Autodetect console region
