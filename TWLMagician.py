@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.3.7
+# Version 1.3.9
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 137
+version_number = 139
 
 
 # Check Update
@@ -1561,13 +1561,10 @@ class Application(Frame):
                 launcher_app = '00000000.app'
             elif self.launcher_region == 'USA-dev':
                 launcher_app = '7412e50d.app'
-                self.files.append('title.tmd')
             elif self.launcher_region == 'JPN-dev':
                 launcher_app = '3ed2df76.app'
-                self.files.append('title.tmd')
             elif self.launcher_region == 'EUR-dev':
                 launcher_app = '0ac9cea3.app'
-                self.files.append('title.tmd')
             else:
                 launcher_app = '00000002.app'
             self.files.append(launcher_app)
@@ -1576,8 +1573,9 @@ class Application(Frame):
             params = [_7za, 'x', '-bso0', '-y', '-p' + app.lower(), self.launcher_region,
                       launcher_app]
 
-            if launcher_app == '7412e50d.app':
+            if self.launcher_region in ('USA-dev', 'JPN-dev', 'EUR-dev'):
                 params.append('title.tmd')
+                self.files.append('title.tmd')
 
             self.proc = Popen(params)
 
