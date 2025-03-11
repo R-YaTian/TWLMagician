@@ -35,7 +35,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 140
+version_number = 141
 
 
 # Check Update
@@ -60,19 +60,6 @@ def get_version():
         return -1
 
 
-def WriteRestartCmd():
-    from os import startfile
-    fbat = open('upgrade.cmd', 'w')
-    TempList = '@echo off\n'
-    TempList += 'if not exist ' + 'OTA.exe' + ' exit\n'
-    TempList += 'sleep 3\n'
-    TempList += 'start OTA.exe\n'
-    TempList += 'del %0\n'
-    fbat.write(TempList)
-    fbat.close()
-    startfile('upgrade.cmd')
-
-
 def check_update():
     printl(_('检查更新中...'))
     if path.isfile('OTA.exe'):
@@ -87,11 +74,13 @@ def check_update():
                 release_url = 'https://gitee.com/ryatian/mirrors/releases/tag/TWLMagician'
             else:
                 release_url = 'https://github.com/R-YaTian/TWLMagician/releases/latest'
-            showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
+            printl(_('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
             webbrowser.open(release_url, 2, autoraise=True)
             exit(1)
         else:
-            showinfo(_('提示'), _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载并更新'))
+            ctypes.windll.user32.MessageBoxW(0,
+                                             _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载并更新'),
+                                             _('提示'), 0x40)
             pybits = platform.architecture()[0]
             ota_fname = 'OTA.exe' if pybits == '64bit' else 'OTA_x86.exe'
             if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
@@ -101,7 +90,12 @@ def check_update():
             try:
                 with urlopen(ota_url + ota_fname) as src0, open('OTA.exe', 'wb') as dst0:
                     copyfileobj(src0, dst0)
-                WriteRestartCmd()
+                from subprocess import CREATE_NEW_PROCESS_GROUP
+                Popen(
+                    ['OTA.exe'],
+                    creationflags=0x00000008|CREATE_NEW_PROCESS_GROUP,
+                    close_fds=True
+                )
             except:
                 showerror(_('错误'), _('下载或执行更新失败, 程序即将退出'))
             exit(1)

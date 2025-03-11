@@ -40,5 +40,7 @@ copy ..\README.md .\dist
 ::Zipped it
 cd dist
 zip -r ../TWLMagician_Win_x64.zip .
+cd ..
+cd ..
 
 pause
