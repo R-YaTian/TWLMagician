@@ -31,7 +31,7 @@ Clicking on the integrated circuit button from Advance mode will give you a Tran
 * Python 3.5 or greater with the Tk library (Run `sudo apt-get install python3-tk -y` in Ubuntu, `sudo dnf install python3-tkinter` in Fedora, `sudo pacman -S tk` in Arch Linux). You might need to install the Python 3 distutils package also.
 
 ### _macOS:_
-* None, everything needed in included in the release archive.
+* None, everything needed is included in the release archive.
 
 ## What it includes:
 * 7za binaries for Windows, Linux and macOS. It's used to decompress the hiyaCFW latest release as [@RocketRobz](https://github.com/RocketRobz) uploaded it as a 7z archive. Compiled from the [kornelski's GitHub repo](https://github.com/kornelski/7z).
