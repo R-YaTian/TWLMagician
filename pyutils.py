@@ -65,7 +65,7 @@ def print_progress(filename, size, res, download_speed):
     done_block = '▊' * int(10 * sp)
     print('\r{0}: [{1:10}] '.format(filename, done_block), format(sp * 100, '.2f'),
           '% ', format_bytes_num(download_speed), '/s ', format_bytes_num(res),
-          '/', format_bytes_num(size) + '        ', sep='', end='')
+          '/', format_bytes_num(size) + '  ', sep='', end='')
 
 
 def copyfileobj(fsrc, fdst, length=0, show_progress=True):

@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.4.0
+# Version 1.4.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -35,28 +35,28 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 141
+version_number = 142
 
 
 # Check Update
 def get_version():
-    if path.isfile('version.bin'):
-        remove('version.bin')
+    if path.isfile('version.dat'):
+        remove('version.dat')
     if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
         version_url = 'https://gitee.com/ryatian/mirrors/raw/master/'
     else:
         version_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/Res/'
     try:
-        with urlopen(version_url + 'version.bin') as src0, open('version.bin', 'wb') as dst0:
+        with urlopen(version_url + 'version.dat') as src0, open('version.dat', 'wb') as dst0:
             copyfileobj(src0, dst0, show_progress=False)
-        with open('version.bin', 'rb') as ftmp:
+        with open('version.dat', 'rb') as ftmp:
             data = ftmp.read()
             number = unpack_from('<I', data, offset=0)[0]
-        remove('version.bin')
+        remove('version.dat')
         return number
     except:
-        if path.isfile('version.bin'):
-            remove('version.bin')
+        if path.isfile('version.dat'):
+            remove('version.dat')
         return -1
 
 
@@ -2561,7 +2561,7 @@ if not path.exists(fatcat):
 
 printl(_('GUI初始化中...'))
 
-root.title('TWLMagician V1.4 BY R-YaTian')
+root.title('TWLMagician V1.4.2 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
