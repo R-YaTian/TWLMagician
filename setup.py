@@ -1,4 +1,10 @@
+import sys
 from cx_Freeze import setup, Executable
+
+if sys.maxsize > 2**32:  # 64-bit Python
+    upgrade_code = "{ea5bd479-d197-4593-9a93-68fe2fda1afc}"
+else:  # 32-bit Python
+    upgrade_code = "{4afdac91-38fe-4006-af19-e513982bdc68}"
 
 build_options = {
     "packages": [],
@@ -21,8 +27,16 @@ executables = [
 
 setup(
     name='TWLMagician',
-    version='1.4.1',
+    author="R-YaTian",
+    version='1.4.2',
     description='TWLMagician is a multipurpose tool for TWL Console (aka Nintendo DSi)',
-    options={"build_exe": build_options},
+    options={"build_exe": build_options,
+             "bdist_msi": {
+                "upgrade_code": upgrade_code,
+                "add_to_path": False,
+                "all_users": True,
+                "install_icon": "icon.ico",
+                "initial_target_dir": r"[ProgramFilesFolder]\\TWLMagician"
+            }},
     executables=executables
 )
