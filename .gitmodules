@@ -1,12 +1,6 @@
 [submodule "py_langs"]
 	path = py_langs
 	url = https://github.com/R-YaTian/py_langs.git
-[submodule "tk_tooltip"]
-	path = tk_tooltip
-	url = https://github.com/R-YaTian/tk_tooltip.git
-[submodule "tkinter_tooltips"]
-	path = tkinter_tooltips
-	url = https://github.com/R-YaTian/tkinter_tooltips.git
 [submodule "rmdot_files"]
 	path = rmdot_files
 	url = https://github.com/R-YaTian/rmdot_files.git

@@ -2,13 +2,15 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.4.2
+# Version 1.5.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
-from tkinter import (Tk, Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton, OptionMenu,
+import ttkbootstrap as ttk
+from ttkbootstrap import (Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton, OptionMenu,
                      Label, Toplevel, Scrollbar, Text, StringVar, IntVar, RIGHT, W, X, Y, DISABLED, NORMAL, SUNKEN,
                      END)
+from ttkbootstrap.tooltip import ToolTip
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
 from os import path, remove, chmod, listdir, environ, mkdir
@@ -35,7 +37,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 142
+version_number = 150
 
 
 # Check Update
@@ -210,16 +212,25 @@ class Application(Frame):
         self.have_menu = False
         self.finish = False
 
+        adl_chk = None
+        adl1_chk = None
+        adl2_chk = None
+
         self.image_file = StringVar()
+
+        self.nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAAA'
+                                     'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAMAAAYALAAAAAAQAB'
+                                     'AAAARG0MhJaxU4Y2sECAEgikE1CAFRhGMwSMJwBsU6frIgnR/bv'
+                                     'hTPrWUSDnGw3JGU2xmHrsvyU5xGO8ql6+S0AifPW8kCKpcpEQA7'))
 
         # First row
         f1 = Frame(self)
 
         self.bak_frame = LabelFrame(f1, text=_(
-            '含有No$GBA footer的NAND备份文件'), padx=10, pady=10)
+            '含有No$GBA footer的NAND备份文件'), padding=(10, 10))
 
         self.nand_button = Button(
-            self.bak_frame, image=nand_icon, command=self.change_mode, state=DISABLED)
+            self.bak_frame, image=self.nand_icon, command=self.change_mode, state=DISABLED)
 
         self.nand_button.pack(side='left')
 
@@ -233,10 +244,10 @@ class Application(Frame):
 
         self.bak_frame.pack(fill=X)
 
-        self.adv_frame = LabelFrame(f1, text=_('存储卡根目录'), padx=10, pady=10)
+        self.adv_frame = LabelFrame(f1, text=_('存储卡根目录'), padding=(10, 10))
 
         self.transfer_button = Button(
-            self.adv_frame, image=nand_icon, command=self.change_mode2, state=DISABLED)
+            self.adv_frame, image=self.nand_icon, command=self.change_mode2, state=DISABLED)
 
         self.transfer_button.pack(side='left')
 
@@ -253,7 +264,7 @@ class Application(Frame):
         # Second row
         f2 = Frame(self)
 
-        self.setup_frame = LabelFrame(f2, text=_('NAND解压选项'), padx=10, pady=10)
+        self.setup_frame = LabelFrame(f2, text=_('NAND解压选项'), padding=(10, 10))
 
         self.setup_operation = IntVar()
 
@@ -384,7 +395,7 @@ class Application(Frame):
             adl2_chk.grid(row=4, column=0, padx=10, sticky="w")
 
         # NAND operation frame
-        self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padx=10, pady=10)
+        self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padding=(10, 10))
 
         self.nand_operation = IntVar()
         self.nand_operation.set(0)
@@ -434,11 +445,11 @@ class Application(Frame):
         self.start_button.pack(side='left', padx=(0, 5))
 
         self.adv_button = Button(f3, text=_(
-            '高级'), command=self.change_mode1, width=13)
+            '高级'), command=self.change_mode_adv, width=13)
         self.back_button = Button(f3, text=_(
             '返回'), command=self.change_mode, width=13)
         self.back1_button = Button(f3, text=_(
-            '返回'), command=self.change_mode1, width=13)
+            '返回'), command=self.change_mode_adv, width=13)
         self.back2_button = Button(f3, text=_(
             '返回'), command=self.change_mode2, width=13)
         self.adv_button.pack(side='left', padx=(0, 0))
@@ -453,45 +464,22 @@ class Application(Frame):
         self.files = []
 
         # General ToolTip
-        if sysname == 'Darwin':
-            from tkinter_tooltips.ToolTips import ToolTips
-            import tkinter.font as tk_font
-            widgets = [ag_chk, dkp_chk, photo_chk, self.ag1_chk,
-                       self.dkp1_chk, self.dkp2_chk, self.adv_button]
-            tooltip_text = [_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'),
-                            _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
-                            _('提取Nand备份中的相册分区文件到存储卡中，此操作会占用\n一定的存储卡空间(取决于相片数量，最多可达32MB左右)'),
-                            _('提取SDNand中的DSiWare软件并复制到\nroms/dsiware'),
-                            _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
-                            _('勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果\n已经在NAND中开启了此功能，则不需要勾选此选项'),
-                            _('高级模式提供了单独安装TWiLightMenu++\n等功能')]
-            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                widgets.append(adl_chk)
-                widgets.append(adl1_chk)
-                widgets.append(adl2_chk)
-                tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
-                tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
-                tooltip_text.append('使用备用载点可能可以提高下载必要文件的速度')
-            font_obj = tk_font.Font(family="Microsoft YaHei UI", size=13)
-            ToolTips(widgets, tooltip_text, font=font_obj)
-        else:
-            from tk_tooltip.tooltip import ToolTip
-            ToolTip(ag_chk, msg=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
-            ToolTip(dkp_chk, msg=_(
-                '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
-            ToolTip(photo_chk, msg=_(
-                '提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
-            ToolTip(self.ag1_chk, msg=_(
-                '提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
-            ToolTip(self.dkp1_chk, msg=_(
-                '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
-            ToolTip(self.dkp2_chk, msg=_(
-                '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
-            ToolTip(self.adv_button, msg=_('高级模式提供了单独安装TWiLightMenu++等功能'))
-            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                ToolTip(adl_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
-                ToolTip(adl1_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
-                ToolTip(adl2_chk, msg='使用备用载点可能可以提高下载必要文件的速度')
+        ToolTip(ag_chk, text=_('提取Nand备份中的DSiWare软件并复制到\nroms/dsiware'))
+        ToolTip(dkp_chk, text=_(
+            '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+        ToolTip(photo_chk, text=_(
+            '提取Nand备份中的相册分区文件到存储卡中，此操作会占用一定的存储卡空间(取决于相片数量，最多可达32MB左右)'))
+        ToolTip(self.ag1_chk, text=_(
+            '提取SDNand中的DSiWare软件并复制到\nroms/dsiware'))
+        ToolTip(self.dkp1_chk, text=_(
+            '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+        ToolTip(self.dkp2_chk, text=_(
+            '勾选此选项将会在CFW中开启系统设置中的数据管理功能，如果已经在NAND中开启了此功能，则不需要勾选此选项'))
+        ToolTip(self.adv_button, text=_('高级模式提供了单独安装TWiLightMenu++等功能'))
+        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
+            ToolTip(adl_chk, text='使用备用载点可能可以提高下载必要文件的速度')
+            ToolTip(adl1_chk, text='使用备用载点可能可以提高下载必要文件的速度')
+            ToolTip(adl2_chk, text='使用备用载点可能可以提高下载必要文件的速度')
 
     ################################################################################################
     def common_pack(self, init):
@@ -540,7 +528,7 @@ class Application(Frame):
                 self.exit_button.pack(side='left', padx=(5, 0))
                 self.nand_mode = True
 
-    def change_mode1(self):
+    def change_mode_adv(self):
         if self.adv_mode:
             self.transfer_button['state'] = DISABLED
             self.have_menu = False
@@ -715,7 +703,7 @@ class Application(Frame):
         self.dialog.resizable(False, False)
         self.dialog.protocol("WM_DELETE_WINDOW", self.closethread)
 
-        frame = Frame(self.dialog, bd=2, relief=SUNKEN)
+        frame = Frame(self.dialog, borderwidth=2, relief=SUNKEN)
 
         scrollbar = Scrollbar(frame)
         scrollbar.pack(side=RIGHT, fill=Y)
@@ -756,6 +744,8 @@ class Application(Frame):
                     showerror(_('错误'), _('此功能需要以管理员权限运行本工具'))
                     return
 
+        cid = ""
+        console_id = ""
         if not self.nand_mode:
             self.have_hiya = False
             self.is_tds = False
@@ -864,7 +854,7 @@ class Application(Frame):
         printl(_('操作过程发生错误或用户终止操作'))
         if self.setup_operation.get() == 2 or self.nand_operation.get() == 2:
             if not self.adv_mode:
-                self.unmount_nand1()
+                self.unmount_nand_alt()
         else:
             self.clean(True, )
 
@@ -952,6 +942,7 @@ class Application(Frame):
             return
 
         self.image_file.set(filename)
+        image_filename = path.basename(filename)
         try:
             sha1_hash = sha1()
 
@@ -960,7 +951,6 @@ class Application(Frame):
                 f.close()
 
             image_sha1 = hexlify(sha1_hash.digest()).upper().decode('ascii')
-            image_filename = path.basename(self.image_file.get())
 
             try:
                 self.dest_region = REGION_CODES_IMAGE[image_sha1]
@@ -1241,7 +1231,7 @@ class Application(Frame):
                     self.TThread = Thread(target=self.mount_nand)
                     self.TThread.start()
                 else:
-                    self.TThread = Thread(target=self.extract_nand1 if (
+                    self.TThread = Thread(target=self.extract_nand_alt if (
                             sysname == 'Windows' and self.setup_operation.get() == 1) else self.extract_nand)
                     self.TThread.start()
             else:
@@ -1254,7 +1244,7 @@ class Application(Frame):
             Thread(target=self.clean, args=(True,)).start()
 
     ################################################################################################
-    def extract_nand1(self):
+    def extract_nand_alt(self):
         self.files.append('0.fat')
         self.files.append('1.fat')
         self.log.write(_('正在从NAND中解压文件...'))
@@ -1328,6 +1318,7 @@ class Application(Frame):
     ################################################################################################
     def mount_nand(self):
         self.log.write(_('挂载解密的NAND镜像中...'))
+        exe = ""
 
         try:
             if sysname == 'Windows':
@@ -1494,7 +1485,7 @@ class Application(Frame):
             return
         except:
             self.log.write(_('错误: 复制失败'))
-            self.TThread = Thread(target=self.unmount_nand1)
+            self.TThread = Thread(target=self.unmount_nand_alt)
             self.TThread.start()
 
     ################################################################################################
@@ -1544,7 +1535,9 @@ class Application(Frame):
                                          self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
                                 copyfileobj(src, dst)
                         else:
-                            raise IOError
+                            with urlopen('https://gitlab.com/R-YaTian/twlmagician/-/raw/main/launchers/' +
+                                         self.launcher_region) as src, open(self.launcher_region, 'wb') as dst:
+                                copyfileobj(src, dst)
 
             if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
                 Popen(['chown', '-R', ug + ':' + ug, self.launcher_region]).wait()
@@ -1977,7 +1970,7 @@ class Application(Frame):
         app = self.detect_region()
 
         if not app:
-            self.TThread = Thread(target=self.unmount_nand1)
+            self.TThread = Thread(target=self.unmount_nand_alt)
             self.TThread.start()
             return
 
@@ -2048,21 +2041,21 @@ class Application(Frame):
 
                 else:
                     self.log.write(_('错误: 解压失败'))
-                    self.TThread = Thread(target=self.unmount_nand1)
+                    self.TThread = Thread(target=self.unmount_nand_alt)
                     self.TThread.start()
                     return
 
             except IOError as e:
                 printl(str(e))
                 self.log.write(_('错误: 无法下载 unlaunch'))
-                self.TThread = Thread(target=self.unmount_nand1)
+                self.TThread = Thread(target=self.unmount_nand_alt)
                 self.TThread.start()
                 return
 
             except OSError as e:
                 printl(str(e))
                 self.log.write(_('错误: 无法运行 ') + _7za)
-                self.TThread = Thread(target=self.unmount_nand1)
+                self.TThread = Thread(target=self.unmount_nand_alt)
                 self.TThread.start()
                 return
 
@@ -2095,6 +2088,7 @@ class Application(Frame):
     ################################################################################################
     def unmount_nand(self):
         self.log.write(_('正在卸载NAND...'))
+        exe = ""
 
         try:
             if sysname == 'Windows':
@@ -2146,8 +2140,9 @@ class Application(Frame):
             self.log.write(_('错误: 无法运行 ') + exe)
             Thread(target=self.clean, args=(True,)).start()
 
-    def unmount_nand1(self):
+    def unmount_nand_alt(self):
         self.log.write(_('正在强制卸载NAND...'))
+        exe = ""
 
         try:
             if sysname == 'Windows':
@@ -2457,40 +2452,33 @@ loc = langs[0]
 loca = langs[1]
 region = langs[2]
 
+if path.isfile('Console.log'):
+    clog = open('Console.log', 'a', encoding="UTF-8")
+    clog.write('\n')
+    clog.close()
+
 if sysname == 'Linux':
     from os import getuid, getlogin
     try:
         ug = getlogin()
     except OSError:
         ug = None
-    if getuid() != 0:
-        su = False
-    else:
-        su = True
+    su = False if getuid() != 0 else True
 
-if path.isfile('Console.log'):
-    clog = open('Console.log', 'a', encoding="UTF-8")
-    clog.write('\n')
-    clog.close()
-
-if sysname == 'Linux' and ug is not None and su is True:
-    if not path.isfile('Console.log'):
-        open('Console.log', 'a', encoding="UTF-8")
-        Popen(['chown', '-R', ug + ':' + ug, 'Console.log']).wait()
-    if not path.isfile('Window.log'):
-        open('Window.log', 'a', encoding="UTF-8")
-        Popen(['chown', '-R', ug + ':' + ug, 'Window.log']).wait()
-    try:
-        Popen(['chown', '-R', ug + ':' + ug, '__pycache__']).wait()
-        Popen(['chown', '-R', ug + ':' + ug, 'py_langs']).wait()
-    except:
-        pass
+    if ug is not None and su is True:
+        if not path.isfile('Console.log'):
+            open('Console.log', 'a', encoding="UTF-8")
+            Popen(['chown', '-R', ug + ':' + ug, 'Console.log']).wait()
+        if not path.isfile('Window.log'):
+            open('Window.log', 'a', encoding="UTF-8")
+            Popen(['chown', '-R', ug + ':' + ug, 'Window.log']).wait()
+        try:
+            Popen(['chown', '-R', ug + ':' + ug, '__pycache__']).wait()
+            Popen(['chown', '-R', ug + ':' + ug, 'py_langs']).wait()
+        except:
+            pass
 
 check_update()
-root = Tk(className="Magician") if sysname == 'Linux' else Tk()
-if sysname == 'Windows':
-    root.iconbitmap("icon.ico")
-printl(_('TWLMagician启动中...'))
 
 selfPath = path.dirname(path.abspath(argv[0]))
 if sysname == 'Darwin':
@@ -2554,25 +2542,23 @@ if not path.exists(fatcat):
     if osfmount or _7z is not None:
         fatcat = None
     else:
-        root.withdraw()
-        showerror(_('错误'), _('找不到Fatcat, 请确认此程序位于本工具目录的"{}"文件夹中').format(sysname))
-        root.destroy()
+        printl(_('错误') + ': ' + _('找不到Fatcat, 请确认此程序位于本工具目录的"{}"文件夹中').format(sysname))
         exit(1)
 
-printl(_('GUI初始化中...'))
-
-root.title('TWLMagician V1.4.2 BY R-YaTian')
+printl(_('TWLMagician启动中...'))
+# Create window
+root = ttk.Window(themename="cosmo", iconphoto=None)
+root.title('TWLMagician V1.5 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
 root.eval('tk::PlaceWindow %s center' % root.winfo_toplevel())
-nand_icon = PhotoImage(data=('R0lGODlhEAAQAIMAAAAAADMzM2ZmZpmZmczMzP///wAAAAAAAAA'
-                             'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAMAAAYALAAAAAAQAB'
-                             'AAAARG0MhJaxU4Y2sECAEgikE1CAFRhGMwSMJwBsU6frIgnR/bv'
-                             'hTPrWUSDnGw3JGU2xmHrsvyU5xGO8ql6+S0AifPW8kCKpcpEQA7'))
+if sysname == 'Windows':
+    root.iconbitmap("icon.ico")
+    if taskbar is not None:
+        hwnd = int(root.wm_frame(), 16)
+        taskbar.init_with_hwnd(hwnd)
 
+printl(_('GUI初始化中...'))
 app = Application(master=root)
-if taskbar is not None:
-    hwnd = int(root.wm_frame(), 16)
-    taskbar.init_with_hwnd(hwnd)
 app.mainloop()

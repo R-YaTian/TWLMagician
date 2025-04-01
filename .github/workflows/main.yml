@@ -21,7 +21,7 @@ jobs:
           python-version: '3.x'
       - name: Install pyinstaller
         run: |
-          pip3 install certifi pyinstaller
+          pip3 install certifi pyinstaller ttkbootstrap
       - name: Make binary
         run: |
           pyinstaller --onefile --add-data "Darwin/*:Darwin" --add-data "i18n/*:i18n" --target-architecture universal2 TWLMagician.py
@@ -43,8 +43,8 @@ jobs:
           submodules: recursive
       - name: Make binary
         run: |
-          zip TWLMagician-Python3-Linux.zip TWLMagician.py appgen.py pyutils.py
-          zip -ur TWLMagician-Python3-Linux.zip Linux py_langs tk_tooltip i18n
+          zip TWLMagician-Python3-Linux.zip TWLMagician.py appgen.py pyutils.py requirements.txt
+          zip -ur TWLMagician-Python3-Linux.zip Linux py_langs i18n
       - name: Publish artifact
         uses: actions/upload-artifact@main
         with:
