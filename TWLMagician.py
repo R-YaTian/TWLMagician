@@ -2,14 +2,16 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.0
+# Version 1.5.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
 import ttkbootstrap as ttk
 from ttkbootstrap import (Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton, OptionMenu,
                      Label, Toplevel, Scrollbar, Text, StringVar, IntVar, RIGHT, W, X, Y, DISABLED, NORMAL, SUNKEN,
-                     END)
+                     END,
+                     toast, tableview, scrolled)
+import ttkbootstrap.utility
 from ttkbootstrap.tooltip import ToolTip
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
@@ -37,7 +39,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 150
+version_number = 151
 
 
 # Check Update
@@ -2452,6 +2454,12 @@ loc = langs[0]
 loca = langs[1]
 region = langs[2]
 
+selfPath = path.dirname(path.abspath(argv[0]))
+if sysname == 'Windows':
+    from os import getcwd, chdir
+    if getcwd() != selfPath:
+        chdir(path.dirname(path.abspath(argv[0])))
+
 if path.isfile('Console.log'):
     clog = open('Console.log', 'a', encoding="UTF-8")
     clog.write('\n')
@@ -2480,12 +2488,12 @@ if sysname == 'Linux':
 
 check_update()
 
-selfPath = path.dirname(path.abspath(argv[0]))
 if sysname == 'Darwin':
     import sys
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
         bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
         selfPath = bundle_dir
+
 fatcat = path.join(selfPath, sysname, 'fatcat')
 _7za = path.join(selfPath, sysname, '7za')
 twltool = path.join(selfPath, sysname, 'twltool')
@@ -2548,7 +2556,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5 BY R-YaTian')
+root.title('TWLMagician V1.5.1 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
