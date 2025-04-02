@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.1
+# Version 1.5.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -39,7 +39,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 151
+version_number = 152
 
 
 # Check Update
@@ -1511,9 +1511,9 @@ class Application(Frame):
         for file in listdir(launcher_folder):
             file = path.join(launcher_folder, file)
 
-            if _7z is not None:
-                if self.setup_operation.get() == 1:
-                    chmod(file, 438)
+            if ((_7z is not None and self.setup_operation.get() == 1) or
+                    (osfmount is not None and self.setup_operation.get() == 2)):
+                chmod(file, 438)
             remove(file)
 
         # noinspection PyExceptClausesOrder
@@ -2556,7 +2556,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.1 BY R-YaTian')
+root.title('TWLMagician V1.5.2 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
