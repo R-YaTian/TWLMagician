@@ -22,7 +22,8 @@ jobs:
           python-version: '3.x'
       - name: Install pyinstaller
         run: |
-          pip3 install certifi pyinstaller ttkbootstrap
+          pip3 install --only-binary=:all: pillow
+          pip3 install pyinstaller ttkbootstrap
       - name: Make binary
         run: |
           pyinstaller --onefile --add-data "Darwin/*:Darwin" --add-data "i18n/*:i18n" --target-architecture universal2 TWLMagician.py
