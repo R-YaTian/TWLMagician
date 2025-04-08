@@ -5,7 +5,16 @@ if sys.maxsize > 2**32:  # 64-bit Python
     upgrade_code = "{ea5bd479-d197-4593-9a93-68fe2fda1afc}"
     build_options = {
         "packages": [],
-        "excludes": ["rmdot_files"],
+        "excludes": ["rmdot_files",
+                     "zipfile",
+                     "xml",
+                     "packaging",
+                     "_bz2",
+                     "elementtree",
+                     "pyexpat",
+                     "lzma",
+                     "_wmi",
+                     "decimal"],
         "include_files": [
             ("i18n", "i18n"),
             ("Windows", "Windows"),
@@ -19,7 +28,21 @@ else:  # 32-bit Python
     upgrade_code = "{4afdac91-38fe-4006-af19-e513982bdc68}"
     build_options = {
         "packages": [],
-        "excludes": ["rmdot_files"],
+        "excludes": ["rmdot_files",
+                     "xmlrpc",
+                     "xml",
+                     "packaging",
+                     "_bz2",
+                     "elementtree",
+                     "pyexpat",
+                     "lzma",
+                     "decimal",
+                     "_overlapped",
+                     "_multiprocessing",
+                     "_asyncio",
+                     "concurrent",
+                     "asyncio",
+                     "multiprocessing"],
         "include_files": [
             ("i18n", "i18n"),
             ("Windows", "Windows"),
