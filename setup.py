@@ -21,7 +21,7 @@ if sys.maxsize > 2**32:  # 64-bit Python
             ("icon.ico", "icon.ico"),
             ("LICENSE", "LICENSE"),
             ("README.md", "README.md"),
-            ("pack/x64/TaskbarLib.dll", "TaskbarLib.dll")
+            ("Res/TaskbarLib/x64/TaskbarLib.dll", "TaskbarLib.dll")
         ]
     }
 else:  # 32-bit Python
@@ -49,7 +49,7 @@ else:  # 32-bit Python
             ("icon.ico", "icon.ico"),
             ("LICENSE", "LICENSE"),
             ("README.md", "README.md"),
-            ("pack/x86/TaskbarLib.dll", "TaskbarLib.dll")
+            ("Res/TaskbarLib/x86/TaskbarLib.dll", "TaskbarLib.dll")
         ]
     }
 
