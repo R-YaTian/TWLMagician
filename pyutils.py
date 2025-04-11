@@ -98,7 +98,7 @@ def copyfileobj(fsrc, fdst, length=0, show_progress=True):
             print_progress(filename, size, res, download_speed)
     if show_progress is True:
         rt_time = time()
-        if rt_time - start_time < 1:
+        if rt_time - last_time < 1:
             download_time = rt_time - start_time
             download_speed = size / download_time
             print_progress(filename, size, size, download_speed)
