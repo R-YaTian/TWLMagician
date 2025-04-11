@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.2
+# Version 1.5.3
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -39,7 +39,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 152
+version_number = 153
 
 
 # Check Update
@@ -679,8 +679,14 @@ class Application(Frame):
             self.transfer_button['state'] = DISABLED
 
     def choose_nand(self):
-        name = askopenfilename(filetypes=(
-            ('nand.bin', '*.bin'), ('DSi-1.mmc', '*.mmc')))
+        typefilters = [
+            ('nand.bin', '*.bin'),
+            ('DSi-1.mmc', '*.mmc')
+        ]
+        if sysname == 'Linux':
+            typefilters.append(('*.*', '*.*'))
+        name = askopenfilename(filetypes=typefilters)
+
         self.nand_file.set(name)
         self.nand_button['state'] = (NORMAL if name != '' else DISABLED)
         self.start_button['state'] = (NORMAL if name != '' else DISABLED)
@@ -695,7 +701,7 @@ class Application(Frame):
             self.TThread.start()
 
     def log_window(self):
-        self.dialog = Toplevel(class_='Magician') if sysname == 'Linux' else Toplevel()
+        self.dialog = Toplevel()
         if sysname == 'Windows':
             self.dialog.iconbitmap("icon.ico")
         # Open as dialog (parent disabled)
@@ -735,7 +741,9 @@ class Application(Frame):
         showinfo(_('提示'), _('接下来将自动下载目标区域的TWLTransfer镜像文件\n请注意: TWLCFG会被重置'))
         if taskbar is not None:
             taskbar.set_mode(0x1)
-        self.log_window()
+        root.after(0, self.log_window)
+        while self.dialog is None or self.log is None:
+            root.update()
         self.TThread = Thread(target=self.get_transfer_image)
         self.TThread.start()
 
@@ -756,7 +764,7 @@ class Application(Frame):
                 showinfo(_('提示'), _('接下来请选择你用来安装自制系统的存储卡路径(或输出路径)\n为了避免 启动错误 请确保目录下无任何文件'))
                 self.sd_path = askdirectory(title='')
                 # Exit if no path was selected
-                if self.sd_path == '':
+                if not self.sd_path or self.sd_path == '':
                     return
                 self.check_console(self.sd_path)
                 if self.is_tds or self.have_hiya:
@@ -767,7 +775,7 @@ class Application(Frame):
         else:
             showinfo(_('提示'), _('接下来请选择一个输出路径'))
             self.out_path = askdirectory(title='')
-            if self.out_path == '':
+            if not self.out_path or self.out_path == '':
                 return
 
             # If adding a No$GBA footer, check if CID and ConsoleID values are OK
@@ -801,7 +809,10 @@ class Application(Frame):
 
         if taskbar is not None:
             taskbar.set_mode(0x1)
-        self.log_window()
+
+        root.after(0, self.log_window)
+        while self.dialog is None or self.log is None:
+            root.update()
 
         # Check if we'll be adding a No$GBA footer
         if self.nand_mode and self.nand_operation.get() == 1:
@@ -2556,7 +2567,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.2 BY R-YaTian')
+root.title('TWLMagician V1.5.3 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
