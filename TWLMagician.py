@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.3
+# Version 1.5.4
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1525,7 +1525,11 @@ class Application(Frame):
             if ((_7z is not None and self.setup_operation.get() == 1) or
                     (osfmount is not None and self.setup_operation.get() == 2)):
                 chmod(file, 438)
-            remove(file)
+            # Workaround for issue #10
+            try:
+                remove(file)
+            except FileNotFoundError:
+                pass
 
         # noinspection PyExceptClausesOrder
         try:
@@ -2567,7 +2571,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.3 BY R-YaTian')
+root.title('TWLMagician V1.5.4 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
