@@ -70,7 +70,7 @@ setup(
                 "add_to_path": False,
                 "all_users": True,
                 "install_icon": "icon.ico",
-                "initial_target_dir": r"[ProgramFilesFolder]\\TWLMagician"
+                "initial_target_dir": r"[LocalAppDataFolder]\\Programs\\TWLMagician"
             }},
     executables=executables
 )
