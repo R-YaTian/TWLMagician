@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.4
+# Version 1.5.5
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -39,70 +39,45 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 153
+version_number = 155
 
 
 # Check Update
 def get_version():
-    if path.isfile('version.dat'):
-        remove('version.dat')
+    if path.isfile('version.meta'):
+        remove('version.meta')
     if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
         version_url = 'https://gitee.com/ryatian/mirrors/raw/master/'
     else:
         version_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/Res/'
     try:
-        with urlopen(version_url + 'version.dat') as src0, open('version.dat', 'wb') as dst0:
+        with urlopen(version_url + 'version.meta') as src0, open('version.meta', 'wb') as dst0:
             copyfileobj(src0, dst0, show_progress=False)
-        with open('version.dat', 'rb') as ftmp:
+        with open('version.meta', 'rb') as ftmp:
             data = ftmp.read()
             number = unpack_from('<I', data, offset=0)[0]
-        remove('version.dat')
+        remove('version.meta')
         return number
     except:
-        if path.isfile('version.dat'):
-            remove('version.dat')
+        if path.isfile('version.meta'):
+            remove('version.meta')
         return -1
 
 
 def check_update():
     printl(_('检查更新中...'))
-    if path.isfile('OTA.exe'):
-        remove('OTA.exe')
     new_version = get_version()
     if new_version == -1:
         printl(_('检查更新失败'))
     elif new_version > version_number:
-        if sysname == 'Darwin' or sysname == 'Linux':
-            import webbrowser
-            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                release_url = 'https://gitee.com/ryatian/mirrors/releases/tag/TWLMagician'
-            else:
-                release_url = 'https://github.com/R-YaTian/TWLMagician/releases/latest'
-            printl(_('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
-            webbrowser.open(release_url, 2, autoraise=True)
-            exit(1)
+        import webbrowser
+        if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
+            release_url = 'https://gitee.com/ryatian/mirrors/releases/tag/TWLMagician'
         else:
-            ctypes.windll.user32.MessageBoxW(0,
-                                             _('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将下载并更新'),
-                                             _('提示'), 0x40)
-            pybits = platform.architecture()[0]
-            ota_fname = 'OTA.exe' if pybits == '64bit' else 'OTA_x86.exe'
-            if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
-                ota_url = 'https://gitee.com/ryatian/mirrors/releases/download/Res/'
-            else:
-                ota_url = 'https://raw.githubusercontent.com/R-YaTian/TWLMagician/main/Res/'
-            try:
-                with urlopen(ota_url + ota_fname) as src0, open('OTA.exe', 'wb') as dst0:
-                    copyfileobj(src0, dst0)
-                from subprocess import CREATE_NEW_PROCESS_GROUP
-                Popen(
-                    ['OTA.exe'],
-                    creationflags=0x00000008|CREATE_NEW_PROCESS_GROUP,
-                    close_fds=True
-                )
-            except:
-                showerror(_('错误'), _('下载或执行更新失败, 程序即将退出'))
-            exit(1)
+            release_url = 'https://github.com/R-YaTian/TWLMagician/releases/latest'
+        printl(_('检测到新版本, 由于本程序新版本包含重要更新\n暂不支持跳过更新, 即将前往发布页'))
+        webbrowser.open(release_url, 2, autoraise=True)
+        exit(1)
     else:
         printl(_('当前为最新版本!'))
 
@@ -2571,7 +2546,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.4 BY R-YaTian')
+root.title('TWLMagician V1.5.5 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
