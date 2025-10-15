@@ -37,7 +37,7 @@ jobs:
           pip3 install ttkbootstrap
       - name: Install universal2 Pillow wheel
         run: |
-          python3 -m pip install Pillow-11.3.0-cp313-cp313-macosx_11_0_universal2.whl
+          python3 -m pip install Pillow-11.3.0-cp313-cp313-macosx_11_0_universal2.whl --force-reinstall
       - name: Make binary
         run: |
           pyinstaller --onefile --add-data "Darwin/*:Darwin" --add-data "i18n/*:i18n" --target-architecture universal2 TWLMagician.py
