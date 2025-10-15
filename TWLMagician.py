@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.6
+# Version 1.5.7
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -1491,10 +1491,13 @@ class Application(Frame):
 
         # Delete contents of the launcher folder as it will be replaced by the one from hiyaCFW
         launcher_folder = path.join(
-            self.sd_path, 'title', '00030017', app, 'content')
+            self.sd_path1 if self.adv_mode else self.sd_path, 'title', '00030017', app, 'content')
 
         # Walk through all files in the launcher content folder
         for file in listdir(launcher_folder):
+            if self.adv_mode and self.updatehiya.get() == 1 and file == 'title.tmd':
+                continue
+
             file = path.join(launcher_folder, file)
 
             if ((_7z is not None and self.setup_operation.get() == 1) or
@@ -1572,6 +1575,7 @@ class Application(Frame):
                                hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
                 if self.adv_mode and self.updatehiya.get() == 1:
+                    copyfile(launcher_app, path.join(launcher_folder, launcher_app))
                     self.TThread = Thread(target=self.update_hiyacfw)
                     self.TThread.start()
                 else:
@@ -1920,6 +1924,8 @@ class Application(Frame):
             '484e4150': 'EUR-dev'
         }
         base = self.mounted if self.nand_mode else self.sd_path
+        if self.adv_mode:
+            base = self.sd_path1
         # Autodetect console region
         try:
             for app in listdir(path.join(base, 'title', '00030017')):
@@ -2546,7 +2552,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.6 BY R-YaTian')
+root.title('TWLMagician V1.5.7 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
