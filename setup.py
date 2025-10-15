@@ -62,13 +62,14 @@ executables = [
 setup(
     name='TWLMagician',
     author="R-YaTian",
-    version='1.5.5',
+    version='1.5.6',
     description='TWLMagician is a multipurpose tool for TWL Console (aka Nintendo DSi)',
     options={"build_exe": build_options,
              "bdist_msi": {
                 "upgrade_code": upgrade_code,
                 "add_to_path": False,
                 "all_users": True,
+                "launch_on_finish": True,
                 "install_icon": "icon.ico",
                 "initial_target_dir": r"[LocalAppDataFolder]\\Programs\\TWLMagician"
             }},
