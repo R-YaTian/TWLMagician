@@ -1674,15 +1674,13 @@ class Application(Frame):
                 self.log.write(_('正在下载最新版本的TWiLightMenu++...'))
                 if self.altdl.get() == 1:
                     try:
-                        with urlopen('https://spin.noidea.top/somefiles/' +
+                        with urlopen('https://gitee.com/ryatian/mirrors/releases/download/latest/' +
                                      filename) as src, open(filename, 'wb') as dst:
                             copyfileobj(src, dst)
                     except SystemExit:
                         return
                     except:
-                        with urlopen('https://gitee.com/ryatian/mirrors/releases/download/latest/' +
-                                     filename) as src, open(filename, 'wb') as dst:
-                            copyfileobj(src, dst)
+                        raise IOError
                 else:
                     try:
                         with urlopen('https://github.com/DS-Homebrew/TWiLightMenu/releases/latest/download/' +
@@ -1693,15 +1691,13 @@ class Application(Frame):
                     except:
                         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
                             try:
-                                with urlopen('https://spin.noidea.top/somefiles/' +
+                                with urlopen('https://gitee.com/ryatian/mirrors/releases/download/latest/' +
                                              filename) as src, open(filename, 'wb') as dst:
                                     copyfileobj(src, dst)
                             except SystemExit:
                                 return
                             except:
-                                with urlopen('https://gitee.com/ryatian/mirrors/releases/download/latest/'
-                                             + filename) as src, open(filename, 'wb') as dst:
-                                    copyfileobj(src, dst)
+                                raise IOError
                         else:
                             raise IOError
 
