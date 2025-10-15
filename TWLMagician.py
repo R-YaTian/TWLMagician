@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.5
+# Version 1.5.6
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -896,13 +896,13 @@ class Application(Frame):
             downloadfile = True
 
         REGION_CODES_IMAGE = {
-            '5E1186D17265F03A526AF127B61080AC501A5372': 'CHN',
-            '61AEBB53F63DED24E8FBC0861D7A51ED85F095E7': 'USA',
-            'B5F42ACF2C1C4F7C4DE785F545FB4E40A2EEF8DF': 'JPN',
-            '886A40EB67C2F9E240449CF6A15C9A15D7381981': 'KOR',
-            '8833DCA9E5236D54AAA9EB61D0FDF8A6E7C247FC': 'EUR',
-            '751F7F79FB4360A5A409D70288ECB7611484AC56': 'AUS',
-            '417E985E5A2E8110F20FAF6106AB8A4C2ED25693': 'JPN-kst'
+            '0F586C0E66BE003A6AB07DB5049B0DD7394FD865': 'CHN',
+            'EB2CEEB17490D008B311447AFB1387C70B6A109F': 'USA',
+            '7BEC0FAC573FBB1C3A2409ECE1BAEDFF0B0360FF': 'JPN',
+            'EB5DE62ECA3A61555752A6D4BB7840AF7E669F30': 'KOR',
+            'F30A1E5C8868A027B94553227F86E7F0A36FC2E4': 'EUR',
+            'BA21D4BB03ECAEE236EFD6C741E57E1202671B72': 'AUS',
+            'BE881A6FC3829424849DD53550086BF012AA1667': 'JPN-kst'
         }
         REGION_HWINFO = {
             '00': 'JPN',
@@ -1020,7 +1020,7 @@ class Application(Frame):
 
             if ret_val == 0:
                 if self.adv_mode and self.updatehiya.get() == 1:
-                    self.TThread = Thread(target=self.update_hiyacfw)
+                    self.TThread = Thread(target=self.get_launcher)
                     self.TThread.start()
                 else:
                     self.TThread = Thread(target=self.decrypt_nand if path.isfile('bootloader.nds')
@@ -1571,9 +1571,13 @@ class Application(Frame):
                 self.log.write('- Patched Launcher SHA1:\n  ' +
                                hexlify(sha1_hash.digest()).upper().decode('ascii'))
 
-                self.TThread = Thread(target=self.install_hiyacfw, args=(
-                    launcher_app, launcher_folder, app))
-                self.TThread.start()
+                if self.adv_mode and self.updatehiya.get() == 1:
+                    self.TThread = Thread(target=self.update_hiyacfw)
+                    self.TThread.start()
+                else:
+                    self.TThread = Thread(target=self.install_hiyacfw, args=(
+                        launcher_app, launcher_folder, app))
+                    self.TThread.start()
 
             else:
                 self.log.write(_('错误: 解压失败'))
@@ -2546,7 +2550,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.5 BY R-YaTian')
+root.title('TWLMagician V1.5.6 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
