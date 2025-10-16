@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.7
+# Version 1.5.8
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -39,7 +39,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 155
+version_number = 158
 
 
 # Check Update
@@ -91,7 +91,7 @@ def printl(*objects, sep=' ', end='\n', file=stdout, flush=False, fixn=False):
         fixn = True
         downloadfile = False
     if ntime_tmp != ntime or ntime_tmp is None:
-        if fixn is False:
+        if not fixn:
             print('[' + ntime + ']')
         else:
             print('\n[' + ntime + ']')
@@ -178,15 +178,15 @@ class Application(Frame):
         self.proc = None
         self.TThread = None
         self.sd_path = None
-        self.sd_path1 = None
+        self.sd_path_alt = None
         self.pack()
         self.adv_mode = False
         self.nand_mode = False
         self.transfer_mode = False
         self.setup_select = False
-        self.have_hiya = False
-        self.is_tds = False
-        self.have_menu = False
+        self.hiya_installed = False
+        self.is_ctr = False
+        self.twlm_installed = False
         self.finish = False
 
         adl_chk = None
@@ -489,9 +489,9 @@ class Application(Frame):
             self.nand_mode = False
         else:
             if askokcancel(_('警告'), (_('你正要进入NAND操作模式, 请确认你知道自己在做什么, 继续吗?')), icon=WARNING):
-                self.have_hiya = False
-                self.is_tds = False
-                self.have_menu = False
+                self.hiya_installed = False
+                self.is_ctr = False
+                self.twlm_installed = False
                 if self.setup_select:
                     self.setup_frame.pack_forget()
                 self.setup_operation.set(0)
@@ -508,9 +508,9 @@ class Application(Frame):
     def change_mode_adv(self):
         if self.adv_mode:
             self.transfer_button['state'] = DISABLED
-            self.have_menu = False
-            self.is_tds = False
-            self.have_hiya = False
+            self.twlm_installed = False
+            self.is_ctr = False
+            self.hiya_installed = False
             self.common_set()
             if self.sdp.get() != '':
                 self.sdp.set('')
@@ -528,9 +528,9 @@ class Application(Frame):
             self.exit_button.pack(side='left', padx=(5, 0))
             self.adv_mode = False
         else:
-            self.have_menu = False
-            self.is_tds = False
-            self.have_hiya = False
+            self.twlm_installed = False
+            self.is_ctr = False
+            self.hiya_installed = False
             self.common_set()
             if self.nand_file.get() != '':
                 self.nand_file.set('')
@@ -592,17 +592,17 @@ class Application(Frame):
     def check_console(self, spath):
         tmenu = path.join(spath, '_nds', 'TWiLightMenu', 'main.srldr')
         if path.exists(tmenu):
-            self.have_menu = True
+            self.twlm_installed = True
         tds = path.join(spath, 'Nintendo 3DS')
         tds1 = path.join(spath, 'boot.firm')
         if path.exists(tds) or path.exists(tds1):
-            self.is_tds = True
+            self.is_ctr = True
         else:
             hiyad = path.join(spath, 'hiya.dsi')
             hiyab = path.join(spath, 'hiya', 'bootloader.nds')
             hiyas = path.join(spath, 'sys', 'HWINFO_S.dat')
             if path.exists(hiyad) or path.exists(hiyab) or path.exists(hiyas):
-                self.have_hiya = True
+                self.hiya_installed = True
 
     def make_dekp(self, dpath):
         dekp = path.join(dpath, 'sys', 'dev.kp')
@@ -615,34 +615,34 @@ class Application(Frame):
 
     ################################################################################################
     def choose_sdp(self):
-        self.have_hiya = False
-        self.is_tds = False
-        self.have_menu = False
+        self.hiya_installed = False
+        self.is_ctr = False
+        self.twlm_installed = False
         showinfo(_('提示'), _('请选择机器的存储卡根目录'))
-        self.sd_path1 = askdirectory(title='')
-        self.sdp.set(self.sd_path1)
+        self.sd_path_alt = askdirectory(title='')
+        self.sdp.set(self.sd_path_alt)
         self.common_set()
         self.start_button['state'] = (
-            NORMAL if self.sd_path1 != '' else DISABLED)
-        if self.sd_path1 == '':
+            NORMAL if self.sd_path_alt != '' else DISABLED)
+        if self.sd_path_alt == '':
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
             return
-        self.check_console(self.sd_path1)
-        if self.is_tds:
+        self.check_console(self.sd_path_alt)
+        if self.is_ctr:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
-        elif self.have_hiya:
+        elif self.hiya_installed:
             self.uh_chk['state'] = NORMAL
             self.dkp1_chk['state'] = NORMAL
             self.ag1_chk['state'] = (
-                DISABLED if self.have_menu is True else NORMAL)
+                DISABLED if self.twlm_installed is True else NORMAL)
             self.transfer_button['state'] = NORMAL
-        elif self.have_menu:
+        elif self.twlm_installed:
             self.uh_chk['state'] = DISABLED
             self.dkp1_chk['state'] = DISABLED
             self.ag1_chk['state'] = DISABLED
@@ -732,9 +732,9 @@ class Application(Frame):
         cid = ""
         console_id = ""
         if not self.nand_mode:
-            self.have_hiya = False
-            self.is_tds = False
-            self.have_menu = False
+            self.hiya_installed = False
+            self.is_ctr = False
+            self.twlm_installed = False
             if not self.adv_mode:
                 showinfo(_('提示'), _('接下来请选择你用来安装自制系统的存储卡路径(或输出路径)\n为了避免 启动错误 请确保目录下无任何文件'))
                 self.sd_path = askdirectory(title='')
@@ -742,11 +742,11 @@ class Application(Frame):
                 if not self.sd_path or self.sd_path == '':
                     return
                 self.check_console(self.sd_path)
-                if self.is_tds or self.have_hiya:
+                if self.is_ctr or self.hiya_installed:
                     showerror(_('错误'), _('目录检测未通过，若CFW已安装，请转到高级模式，或选择一个空目录以继续'))
                     return
             else:
-                self.check_console(self.sd_path1)
+                self.check_console(self.sd_path_alt)
         else:
             showinfo(_('提示'), _('接下来请选择一个输出路径'))
             self.out_path = askdirectory(title='')
@@ -816,8 +816,8 @@ class Application(Frame):
 
     def closethread(self):
         if self.adv_mode:
-            self.sd_path1 = ''
-            self.sdp.set(self.sd_path1)
+            self.sd_path_alt = ''
+            self.sdp.set(self.sd_path_alt)
             self.common_set()
             self.start_button['state'] = DISABLED
             self.transfer_button['state'] = DISABLED
@@ -892,7 +892,7 @@ class Application(Frame):
 
     def get_transfer_image(self):
         global downloadfile
-        if downloadfile is False:
+        if not downloadfile:
             downloadfile = True
 
         REGION_CODES_IMAGE = {
@@ -957,7 +957,7 @@ class Application(Frame):
             self.log.write(_('错误: 无法打开文件 ') + image_filename)
             return
 
-        hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
+        hwinfo = path.join(self.sd_path_alt, 'sys', 'HWINFO_S.dat')
         if path.exists(hwinfo):
             with open(hwinfo, 'rb') as infotmp:
                 infotmp.seek(0x90, 0)
@@ -969,8 +969,9 @@ class Application(Frame):
             self.log.write(_('错误: 无法检测系统区域'))
             return
 
-        self.origin_region = self.check_serial(self.sd_path1)
-        self.log.write(_('原始区域: ') + self.origin_region)
+        self.origin_region = self.check_serial(self.sd_path_alt)
+        if self.origin_region is not None:
+            self.log.write(_('原始区域: ') + self.origin_region)
 
         self.TThread = Thread(target=self.get_common_data)
         self.TThread.start()
@@ -978,7 +979,7 @@ class Application(Frame):
     ################################################################################################
     def get_latest_hiyacfw(self):
         global downloadfile
-        if downloadfile is False:
+        if not downloadfile:
             downloadfile = True
         filename = 'hiyaCFW.7z'
         self.files.append(filename)
@@ -1478,6 +1479,17 @@ class Application(Frame):
 
     ################################################################################################
     def get_launcher(self):
+        LAUNCHER_ARC_SHA = {
+            'AUS': '21F294BDCC87F910AC7E8C6B03DB1D25CBD45DCE',
+            'CHN': '74AF4C8AC93C371B57B6C8C45C29A1340ACBBB5D',
+            'EUR': '5FAEE71091976EEC5E9E519D0AD399EFA6D98F4B',
+            'JPN': '5B1D54E5A2324D47BE21FFD80FC8F8565CFC4D53',
+            'KOR': '043F20C5A247606F4435E237FC23D9D8B54FC2C1',
+            'USA': '418AFCE8DF613898BAA1366EC2EF42715879F35F',
+            'EUR-dev': '067BDD9E178EB67A1DA237F0428D2D609041E4D5',
+            'JPN-dev': '5FFC264D483FF2BE94C4A4944F222F4B83B7DF23',
+            'USA-dev': '297499920D3C55C9D30A8EAB2FAB0B7D0E24877F'
+        }
         app = self.detect_region()
 
         # Stop if no supported region was found
@@ -1486,12 +1498,12 @@ class Application(Frame):
             return
 
         global downloadfile
-        if downloadfile is False:
+        if not downloadfile:
             downloadfile = True
 
         # Delete contents of the launcher folder as it will be replaced by the one from hiyaCFW
         launcher_folder = path.join(
-            self.sd_path1 if self.adv_mode else self.sd_path, 'title', '00030017', app, 'content')
+            self.sd_path_alt if self.adv_mode else self.sd_path, 'title', '00030017', app, 'content')
 
         # Walk through all files in the launcher content folder
         for file in listdir(launcher_folder):
@@ -1511,6 +1523,17 @@ class Application(Frame):
 
         # noinspection PyExceptClausesOrder
         try:
+            if path.isfile(self.launcher_region):
+                sha1_hash = sha1()
+
+                with open(self.launcher_region, 'rb') as f:
+                    sha1_hash.update(f.read())
+                    f.close()
+
+                launcher_sha1 = hexlify(sha1_hash.digest()).upper().decode('ascii')
+                if LAUNCHER_ARC_SHA[self.launcher_region] != launcher_sha1:
+                    remove(self.launcher_region)
+
             if not path.isfile(self.launcher_region):
                 self.log.write(_('正在下载 ') + self.launcher_region + ' Launcher...')
                 if self.altdl.get() == 1:
@@ -1630,7 +1653,7 @@ class Application(Frame):
         self.log.write(_('正在更新hiyaCFW...'))
 
         copyfile(path.join('for SDNAND SD card', 'hiya.dsi'),
-                 path.join(self.sd_path1, 'hiya.dsi'))
+                 path.join(self.sd_path_alt, 'hiya.dsi'))
 
         self.TThread = Thread(target=self.get_latest_twilight)
         self.TThread.start()
@@ -1654,13 +1677,14 @@ class Application(Frame):
                 infotmp.close()
                 self.log.write(_('机器序列号: ') + strtmp)
                 return REGION_SERIAL[strtmp[1:2]]
+        return None
 
     ################################################################################################
     def get_latest_twilight(self):
         global downloadfile
-        if downloadfile is False:
+        if not downloadfile:
             downloadfile = True
-        filename = 'TWiLightMenu-DSi.7z' if self.is_tds is False else 'TWiLightMenu-3DS.7z'
+        filename = 'TWiLightMenu-DSi.7z' if self.is_ctr is False else 'TWiLightMenu-3DS.7z'
         self.files.append(filename)
         self.files.append('BOOT.NDS')
         self.files.append('snemul.cfg')
@@ -1707,7 +1731,7 @@ class Application(Frame):
 
             self.log.write(_('- 正在解压 ') + filename[:-3] + _(' 压缩包...'))
 
-            if self.is_tds is False:
+            if not self.is_ctr:
                 self.proc = Popen([_7za, 'x', '-bso0', '-y', filename, '_nds', 'title',
                                    'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg', 'version.txt'])
             else:
@@ -1755,19 +1779,19 @@ class Application(Frame):
             copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
             if self.updatehiya.get() == 1:
-                copytree('title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
-            copytree('_nds', path.join(self.sd_path1, '_nds'), dirs_exist_ok=True)
-            copytree('roms', path.join(self.sd_path1, 'roms'), dirs_exist_ok=True)
-            copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
-            copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
-            if self.is_tds is True:
-                cias = path.join(self.sd_path1, 'cias')
+                copytree('title', path.join(self.sd_path_alt, 'title'), dirs_exist_ok=True)
+            copytree('_nds', path.join(self.sd_path_alt, '_nds'), dirs_exist_ok=True)
+            copytree('roms', path.join(self.sd_path_alt, 'roms'), dirs_exist_ok=True)
+            copyfile('BOOT.NDS', path.join(self.sd_path_alt, 'BOOT.NDS'))
+            copyfile('snemul.cfg', path.join(self.sd_path_alt, 'snemul.cfg'))
+            if self.is_ctr:
+                cias = path.join(self.sd_path_alt, 'cias')
                 if not path.exists(cias):
                     mkdir(cias)
                 copyfile('TWiLight Menu.cia', path.join(
-                    self.sd_path1, 'cias', 'TWiLight Menu.cia'))
+                    self.sd_path_alt, 'cias', 'TWiLight Menu.cia'))
                 copyfile('TWiLight Menu - Game booter.cia',
-                         path.join(self.sd_path1, 'cias', 'TWiLight Menu - Game booter.cia'))
+                         path.join(self.sd_path_alt, 'cias', 'TWiLight Menu - Game booter.cia'))
 
         self.read_ver()
 
@@ -1777,12 +1801,12 @@ class Application(Frame):
                 agen(path.join(self.sd_path, 'title', '00030004'),
                      path.join(self.sd_path, 'roms'))
             else:
-                agen(path.join(self.sd_path1, 'title', '00030004'),
-                     path.join(self.sd_path1, 'roms'))
+                agen(path.join(self.sd_path_alt, 'title', '00030004'),
+                     path.join(self.sd_path_alt, 'roms'))
         if self.adv_mode and self.devkp.get() == 1:
-            self.make_dekp(self.sd_path1)
-        if self.adv_mode and self.have_hiya is True:
-            self.check_serial(self.sd_path1)
+            self.make_dekp(self.sd_path_alt)
+        if self.adv_mode and self.hiya_installed is True:
+            self.check_serial(self.sd_path_alt)
 
         Thread(target=self.clean).start()
 
@@ -1836,20 +1860,20 @@ class Application(Frame):
 
         if sysname == 'Linux' and ug is not None and su is True:  # chown on Linux if with sudo
             if self.adv_mode or self.transfer_mode:
-                Popen(['chown', '-R', ug + ':' + ug, self.sd_path1]).wait()
+                Popen(['chown', '-R', ug + ':' + ug, self.sd_path_alt]).wait()
             else:
                 Popen(['chown', '-R', ug + ':' + ug, self.sd_path]).wait()
 
         if sysname == 'Darwin':
             from rmdot_files.rmdot_files import rmdot_
             if self.adv_mode or self.transfer_mode:
-                out = rmdot_(self.sd_path1)
+                out = rmdot_(self.sd_path_alt)
             else:
                 out = rmdot_(self.sd_path)
             if out == 1:
                 self.log.write(_("'._' 文件清理完毕"))
 
-        if self.adv_mode and self.is_tds:
+        if self.adv_mode and self.is_ctr:
             self.log.write(
                 _('完成!\n弹出你的存储卡并插回到机器中\n对于3DS设备, 你还需要在机器上使用FBI完成Title的安装\n'))
         else:
@@ -1925,7 +1949,7 @@ class Application(Frame):
         }
         base = self.mounted if self.nand_mode else self.sd_path
         if self.adv_mode:
-            base = self.sd_path1
+            base = self.sd_path_alt
         # Autodetect console region
         try:
             for app in listdir(path.join(base, 'title', '00030017')):
@@ -1973,7 +1997,7 @@ class Application(Frame):
             return
 
         global downloadfile
-        if downloadfile is False:
+        if not downloadfile:
             downloadfile = True
 
         tmd = path.join(self.mounted, 'title', '00030017',
@@ -2292,7 +2316,7 @@ class Application(Frame):
     ################################################################################################
     def get_common_data(self):
         global downloadfile
-        if downloadfile is False:
+        if not downloadfile:
             downloadfile = True
         self.folders.append('hiya')
         self.folders.append('title')
@@ -2395,15 +2419,15 @@ class Application(Frame):
 
         self.log.write(_('正在执行TWLTransfer...'))
 
-        oldfolders = [path.join(self.sd_path1, 'title', '0003000f'), path.join(self.sd_path1, 'title', '00030004'),
-                      path.join(self.sd_path1, 'title', '00030005'), path.join(self.sd_path1, 'title', '00030015'),
-                      path.join(self.sd_path1, 'title', '00030017'), path.join(self.sd_path1, 'ticket', '00030017'),
-                      path.join(self.sd_path1, 'ticket', '0003000f'), path.join(self.sd_path1, 'ticket', '00030004'),
-                      path.join(self.sd_path1, 'ticket', '00030005'), path.join(self.sd_path1, 'ticket', '00030015')]
+        oldfolders = [path.join(self.sd_path_alt, 'title', '0003000f'), path.join(self.sd_path_alt, 'title', '00030004'),
+                      path.join(self.sd_path_alt, 'title', '00030005'), path.join(self.sd_path_alt, 'title', '00030015'),
+                      path.join(self.sd_path_alt, 'title', '00030017'), path.join(self.sd_path_alt, 'ticket', '00030017'),
+                      path.join(self.sd_path_alt, 'ticket', '0003000f'), path.join(self.sd_path_alt, 'ticket', '00030004'),
+                      path.join(self.sd_path_alt, 'ticket', '00030005'), path.join(self.sd_path_alt, 'ticket', '00030015')]
         while len(oldfolders) > 0:
             rmtree(oldfolders.pop(), ignore_errors=True)
 
-        hwinfo = path.join(self.sd_path1, 'sys', 'HWINFO_S.dat')
+        hwinfo = path.join(self.sd_path_alt, 'sys', 'HWINFO_S.dat')
         with open(hwinfo, 'rb+') as f:
             f.seek(0x90, 0)
             f.write(unhexlify(REGION_BYTES[self.dest_region])) # Console Region
@@ -2414,28 +2438,28 @@ class Application(Frame):
             f.flush()
             f.close()
 
-        copytree('title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
-        copytree('hiya', path.join(self.sd_path1, 'hiya'), dirs_exist_ok=True)
-        copytree('ticket', path.join(self.sd_path1, 'ticket'), dirs_exist_ok=True)
-        copytree('sys', path.join(self.sd_path1, 'sys'), dirs_exist_ok=True)
-        copytree('shared1', path.join(self.sd_path1, 'shared1'), dirs_exist_ok=True)
+        copytree('title', path.join(self.sd_path_alt, 'title'), dirs_exist_ok=True)
+        copytree('hiya', path.join(self.sd_path_alt, 'hiya'), dirs_exist_ok=True)
+        copytree('ticket', path.join(self.sd_path_alt, 'ticket'), dirs_exist_ok=True)
+        copytree('sys', path.join(self.sd_path_alt, 'sys'), dirs_exist_ok=True)
+        copytree('shared1', path.join(self.sd_path_alt, 'shared1'), dirs_exist_ok=True)
 
         if self.ntm.get() == 1:
             self.log.write(_('正在安装NTM...'))
-            copytree('NTM/title', path.join(self.sd_path1, 'title'), dirs_exist_ok=True)
+            copytree('NTM/title', path.join(self.sd_path_alt, 'title'), dirs_exist_ok=True)
         if self.updatemenu.get() == 1:
-            if self.have_menu is True:
+            if self.twlm_installed:
                 self.log.write(_('正在更新TWiLightMenu++...'))
             else:
                 self.log.write(_('正在安装TWiLightMenu++...'))
-            copytree('_nds', path.join(self.sd_path1, '_nds'), dirs_exist_ok=True)
-            copytree('roms', path.join(self.sd_path1, 'roms'), dirs_exist_ok=True)
-            copyfile('BOOT.NDS', path.join(self.sd_path1, 'BOOT.NDS'))
-            copyfile('snemul.cfg', path.join(self.sd_path1, 'snemul.cfg'))
+            copytree('_nds', path.join(self.sd_path_alt, '_nds'), dirs_exist_ok=True)
+            copytree('roms', path.join(self.sd_path_alt, 'roms'), dirs_exist_ok=True)
+            copyfile('BOOT.NDS', path.join(self.sd_path_alt, 'BOOT.NDS'))
+            copyfile('snemul.cfg', path.join(self.sd_path_alt, 'snemul.cfg'))
             self.read_ver()
 
         if self.devkp.get() == 1:
-            self.make_dekp(self.sd_path1)
+            self.make_dekp(self.sd_path_alt)
 
         Thread(target=self.clean).start()
 
@@ -2552,7 +2576,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.7 BY R-YaTian')
+root.title('TWLMagician V1.5.8 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
