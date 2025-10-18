@@ -2469,16 +2469,25 @@ class Application(Frame):
 
 sysname = platform.system()
 
-langs = lang_init('zh_hans', 'i18n')
-loc = langs[0]
-loca = langs[1]
-region = langs[2]
-
 selfPath = path.dirname(path.abspath(argv[0]))
 if sysname == 'Windows':
     from os import getcwd, chdir
     if getcwd() != selfPath:
-        chdir(path.dirname(path.abspath(argv[0])))
+        chdir(selfPath)
+elif sysname == 'Darwin':
+    import sys
+    from os import getcwd, chdir
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
+        selfPath = bundle_dir
+        exePath = path.dirname(path.realpath(sys.executable))
+        if getcwd() != exePath:
+            chdir(exePath)
+
+langs = lang_init('zh_hans', path.join(selfPath, 'i18n'))
+loc = langs[0]
+loca = langs[1]
+region = langs[2]
 
 if path.isfile('Console.log'):
     clog = open('Console.log', 'a', encoding="UTF-8")
@@ -2507,12 +2516,6 @@ if sysname == 'Linux':
             pass
 
 check_update()
-
-if sysname == 'Darwin':
-    import sys
-    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-        bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
-        selfPath = bundle_dir
 
 fatcat = path.join(selfPath, sysname, 'fatcat')
 _7za = path.join(selfPath, sysname, '7za')

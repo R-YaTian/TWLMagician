@@ -1,1 +1,1 @@
-ttkbootstrap~=1.12.0
+ttkbootstrap~=1.14.7
