@@ -2,17 +2,18 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.5.8
+# Version 1.6.0
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
 import ttkbootstrap as ttk
-from ttkbootstrap import (Frame, LabelFrame, PhotoImage, Button, Entry, Checkbutton, Radiobutton, OptionMenu,
-                     Label, Toplevel, Scrollbar, Text, StringVar, IntVar, RIGHT, W, X, Y, DISABLED, NORMAL, SUNKEN,
-                     END,
-                     toast, tableview, scrolled)
+from ttkbootstrap import (Frame, Labelframe, PhotoImage, Button, Entry, Checkbutton, Radiobutton, OptionMenu,
+                     Label, Toplevel, Scrollbar, Text, StringVar, IntVar)
 import ttkbootstrap.utility
-from ttkbootstrap.tooltip import ToolTip
+try:
+    from ttkbootstrap.widgets import ToolTip
+except ImportError:
+    from ttkbootstrap.tooltip import ToolTip
 from tkinter.messagebox import askokcancel, showerror, showinfo, WARNING
 from tkinter.filedialog import askopenfilename, askdirectory
 from os import path, remove, chmod, listdir, environ, mkdir
@@ -39,7 +40,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 158
+version_number = 160
 
 
 # Check Update
@@ -146,8 +147,8 @@ class ThreadSafeText(Text):
     def update_me(self):
         try:
             while 1:
-                self.insert(END, str(self.queue.get_nowait()) + '\n')
-                self.see(END)
+                self.insert("end", str(self.queue.get_nowait()) + '\n')
+                self.see("end")
                 self.update_idletasks()
 
         except Empty:
@@ -203,11 +204,11 @@ class Application(Frame):
         # First row
         f1 = Frame(self)
 
-        self.bak_frame = LabelFrame(f1, text=_(
+        self.bak_frame = Labelframe(f1, text=_(
             '含有No$GBA footer的NAND备份文件'), padding=(10, 10))
 
         self.nand_button = Button(
-            self.bak_frame, image=self.nand_icon, command=self.change_mode, state=DISABLED)
+            self.bak_frame, image=self.nand_icon, command=self.change_mode, state="disabled")
 
         self.nand_button.pack(side='left')
 
@@ -219,12 +220,12 @@ class Application(Frame):
         self.chb = Button(self.bak_frame, text='...', command=self.choose_nand)
         self.chb.pack(side='left')
 
-        self.bak_frame.pack(fill=X)
+        self.bak_frame.pack(fill="x")
 
-        self.adv_frame = LabelFrame(f1, text=_('存储卡根目录'), padding=(10, 10))
+        self.adv_frame = Labelframe(f1, text=_('存储卡根目录'), padding=(10, 10))
 
         self.transfer_button = Button(
-            self.adv_frame, image=self.nand_icon, command=self.change_mode2, state=DISABLED)
+            self.adv_frame, image=self.nand_icon, command=self.change_mode2, state="disabled")
 
         self.transfer_button.pack(side='left')
 
@@ -236,12 +237,12 @@ class Application(Frame):
         self.chb1 = Button(self.adv_frame, text='...', command=self.choose_sdp)
         self.chb1.pack(side='left')
 
-        f1.pack(padx=10, pady=10, fill=X)
+        f1.pack(padx=10, pady=10, fill="x")
 
         # Second row
         f2 = Frame(self)
 
-        self.setup_frame = LabelFrame(f2, text=_('NAND解压选项'), padding=(10, 10))
+        self.setup_frame = Labelframe(f2, text=_('NAND解压选项'), padding=(10, 10))
 
         self.setup_operation = IntVar()
 
@@ -272,7 +273,7 @@ class Application(Frame):
         twl_chk = Checkbutton(self.checks_frame,
                               text=_('同时安装TWiLightMenu++'), variable=self.twilight)
 
-        twl_chk.pack(padx=10, anchor=W)
+        twl_chk.pack(padx=10, anchor="w")
 
         self.appgen = IntVar()
         self.appgen.set(0)
@@ -280,7 +281,7 @@ class Application(Frame):
         ag_chk = Checkbutton(self.checks_frame, text=_(
             '使用AppGen'), variable=self.appgen)
 
-        ag_chk.pack(padx=10, anchor=W)
+        ag_chk.pack(padx=10, anchor="w")
 
         self.devkp = IntVar()
         self.devkp.set(0)
@@ -288,7 +289,7 @@ class Application(Frame):
         dkp_chk = Checkbutton(self.checks_frame, text=_(
             '启用系统设置-数据管理功能'), variable=self.devkp)
 
-        dkp_chk.pack(padx=10, anchor=W)
+        dkp_chk.pack(padx=10, anchor="w")
 
         self.photo = IntVar()
         self.photo.set(0)
@@ -296,7 +297,7 @@ class Application(Frame):
         photo_chk = Checkbutton(self.checks_frame, text=_(
             '提取相册分区'), variable=self.photo)
 
-        photo_chk.pack(padx=10, anchor=W)
+        photo_chk.pack(padx=10, anchor="w")
 
         self.altdl = IntVar()
         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
@@ -307,34 +308,34 @@ class Application(Frame):
         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             adl_chk = Checkbutton(
                 self.checks_frame, text='优先使用备用载点', variable=self.altdl)
-            adl_chk.pack(padx=10, anchor=W)
+            adl_chk.pack(padx=10, anchor="w")
 
-        self.checks_frame.pack(fill=X)
+        self.checks_frame.pack(fill="x")
 
         self.checks_frame1 = Frame(f2)
 
         self.ag1_chk = Checkbutton(self.checks_frame1, text=_(
-            '使用AppGen'), variable=self.appgen, state=DISABLED)
+            '使用AppGen'), variable=self.appgen, state="disabled")
 
-        self.ag1_chk.pack(padx=10, anchor=W)
+        self.ag1_chk.pack(padx=10, anchor="w")
 
         self.updatehiya = IntVar()
         self.updatehiya.set(0)
 
         self.uh_chk = Checkbutton(self.checks_frame1, text=_(
-            '更新hiyaCFW'), variable=self.updatehiya, state=DISABLED)
+            '更新hiyaCFW'), variable=self.updatehiya, state="disabled")
 
-        self.uh_chk.pack(padx=10, anchor=W)
+        self.uh_chk.pack(padx=10, anchor="w")
 
         self.dkp1_chk = Checkbutton(self.checks_frame1, text=_(
-            '启用系统设置-数据管理功能'), variable=self.devkp, state=DISABLED)
+            '启用系统设置-数据管理功能'), variable=self.devkp, state="disabled")
 
-        self.dkp1_chk.pack(padx=10, anchor=W)
+        self.dkp1_chk.pack(padx=10, anchor="w")
 
         if loc == 'zh_cn' or (loca == 'zh_hans' and region == 'cn'):
             adl1_chk = Checkbutton(
                 self.checks_frame1, text='优先使用备用载点', variable=self.altdl)
-            adl1_chk.pack(padx=10, anchor=W)
+            adl1_chk.pack(padx=10, anchor="w")
 
         self.checks_frame2 = Frame(f2)
 
@@ -372,7 +373,7 @@ class Application(Frame):
             adl2_chk.grid(row=4, column=0, padx=10, sticky="w")
 
         # NAND operation frame
-        self.nand_frame = LabelFrame(f2, text=_('NAND操作选项'), padding=(10, 10))
+        self.nand_frame = Labelframe(f2, text=_('NAND操作选项'), padding=(10, 10))
 
         self.nand_operation = IntVar()
         self.nand_operation.set(0)
@@ -381,44 +382,44 @@ class Application(Frame):
                           variable=self.nand_operation, value=2,
                           command=lambda: self.enable_entries(False))
         if osfmount is not None or (sysname == 'Linux' and su is True) or sysname == 'Darwin':
-            rb0.pack(anchor=W)
+            rb0.pack(anchor="w")
         Radiobutton(self.nand_frame, text=_('移除 No$GBA footer'), variable=self.nand_operation,
-                    value=0, command=lambda: self.enable_entries(False)).pack(anchor=W)
+                    value=0, command=lambda: self.enable_entries(False)).pack(anchor="w")
 
         Radiobutton(self.nand_frame, text=_('添加 No$GBA footer'), variable=self.nand_operation,
-                    value=1, command=lambda: self.enable_entries(True)).pack(anchor=W)
+                    value=1, command=lambda: self.enable_entries(True)).pack(anchor="w")
 
         fl = Frame(self.nand_frame)
 
-        self.cid_label = Label(fl, text='eMMC CID', state=DISABLED)
-        self.cid_label.pack(anchor=W, padx=(24, 0))
+        self.cid_label = Label(fl, text='eMMC CID', state="disabled")
+        self.cid_label.pack(anchor="w", padx=(24, 0))
 
         self.cid = StringVar()
         self.cid_entry = Entry(fl, textvariable=self.cid,
-                               width=35, state=DISABLED)
-        self.cid_entry.pack(anchor=W, padx=(24, 0))
+                               width=35, state="disabled")
+        self.cid_entry.pack(anchor="w", padx=(24, 0))
 
-        fl.pack(anchor=W)
+        fl.pack(anchor="w")
 
         fr = Frame(self.nand_frame)
 
-        self.console_id_label = Label(fr, text='Console ID', state=DISABLED)
-        self.console_id_label.pack(anchor=W, padx=(24, 0))
+        self.console_id_label = Label(fr, text='Console ID', state="disabled")
+        self.console_id_label.pack(anchor="w", padx=(24, 0))
 
         self.console_id = StringVar()
         self.console_id_entry = Entry(
-            fr, textvariable=self.console_id, width=35, state=DISABLED)
-        self.console_id_entry.pack(anchor=W, padx=(24, 0))
+            fr, textvariable=self.console_id, width=35, state="disabled")
+        self.console_id_entry.pack(anchor="w", padx=(24, 0))
 
-        fr.pack(anchor=W)
+        fr.pack(anchor="w")
 
-        f2.pack(fill=X)
+        f2.pack(fill="x")
 
         # Third row
         f3 = Frame(self)
 
         self.start_button = Button(f3, text=_(
-            '开始'), width=13, command=self.start_point, state=DISABLED)
+            '开始'), width=13, command=self.start_point, state="disabled")
         self.start_button.pack(side='left', padx=(0, 5))
 
         self.adv_button = Button(f3, text=_(
@@ -462,17 +463,17 @@ class Application(Frame):
     def common_pack(self, init):
         if osfmount or _7z is not None:
             if fatcat is not None:
-                self.rb1.pack(anchor=W)
+                self.rb1.pack(anchor="w")
             if _7z is not None:
-                self.rb2.pack(anchor=W)
+                self.rb2.pack(anchor="w")
             if osfmount is not None:
-                self.rb3.pack(anchor=W)
+                self.rb3.pack(anchor="w")
             if (fatcat is not None) or (osfmount and _7z is not None):
-                self.setup_frame.pack(padx=10, pady=(0, 10), fill=X)
+                self.setup_frame.pack(padx=10, pady=(0, 10), fill="x")
                 if init is True:
                     self.setup_select = True
         if init is not True:
-            self.checks_frame.pack(anchor=W)
+            self.checks_frame.pack(anchor="w")
 
     def change_mode(self):
         if self.nand_mode:
@@ -499,7 +500,7 @@ class Application(Frame):
                 self.start_button.pack_forget()
                 self.adv_button.pack_forget()
                 self.exit_button.pack_forget()
-                self.nand_frame.pack(padx=10, pady=(0, 10), fill=X)
+                self.nand_frame.pack(padx=10, pady=(0, 10), fill="x")
                 self.start_button.pack(side='left', padx=(0, 5))
                 self.back_button.pack(side='left', padx=(0, 0))
                 self.exit_button.pack(side='left', padx=(5, 0))
@@ -507,7 +508,7 @@ class Application(Frame):
 
     def change_mode_adv(self):
         if self.adv_mode:
-            self.transfer_button['state'] = DISABLED
+            self.transfer_button['state'] = "disabled"
             self.twlm_installed = False
             self.is_ctr = False
             self.hiya_installed = False
@@ -519,10 +520,10 @@ class Application(Frame):
             self.start_button.pack_forget()
             self.back1_button.pack_forget()
             self.exit_button.pack_forget()
-            self.bak_frame.pack(fill=X)
+            self.bak_frame.pack(fill="x")
             self.common_pack(False)
-            self.start_button['state'] = DISABLED
-            self.nand_button['state'] = DISABLED
+            self.start_button['state'] = "disabled"
+            self.nand_button['state'] = "disabled"
             self.start_button.pack(side='left', padx=(0, 5))
             self.adv_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
@@ -541,12 +542,12 @@ class Application(Frame):
             self.start_button.pack_forget()
             self.adv_button.pack_forget()
             self.exit_button.pack_forget()
-            self.adv_frame.pack(fill=X)
-            self.checks_frame1.pack(anchor=W)
-            self.uh_chk['state'] = DISABLED
-            self.dkp1_chk['state'] = DISABLED
-            self.ag1_chk['state'] = DISABLED
-            self.start_button['state'] = DISABLED
+            self.adv_frame.pack(fill="x")
+            self.checks_frame1.pack(anchor="w")
+            self.uh_chk['state'] = "disabled"
+            self.dkp1_chk['state'] = "disabled"
+            self.ag1_chk['state'] = "disabled"
+            self.start_button['state'] = "disabled"
             self.start_button.pack(side='left', padx=(0, 5))
             self.back1_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
@@ -564,18 +565,18 @@ class Application(Frame):
         if self.transfer_mode:
             self.back2_button.pack_forget()
             self.checks_frame2.pack_forget()
-            self.checks_frame1.pack(anchor=W)
+            self.checks_frame1.pack(anchor="w")
             self.start_button.pack(side='left', padx=(0, 5))
             self.back1_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
-            self.chb1['state'] = NORMAL
+            self.chb1['state'] = "normal"
             self.transfer_mode = False
             self.adv_mode = True
         else:
-            self.chb1['state'] = DISABLED
+            self.chb1['state'] = "disabled"
             self.back1_button.pack_forget()
             self.checks_frame1.pack_forget()
-            self.checks_frame2.pack(anchor=W)
+            self.checks_frame2.pack(anchor="w")
             self.start_button.pack(side='left', padx=(0, 5))
             self.back2_button.pack(side='left', padx=(0, 0))
             self.exit_button.pack(side='left', padx=(5, 0))
@@ -584,10 +585,10 @@ class Application(Frame):
 
     ################################################################################################
     def enable_entries(self, status):
-        self.cid_label['state'] = (NORMAL if status else DISABLED)
-        self.cid_entry['state'] = (NORMAL if status else DISABLED)
-        self.console_id_label['state'] = (NORMAL if status else DISABLED)
-        self.console_id_entry['state'] = (NORMAL if status else DISABLED)
+        self.cid_label['state'] = ("normal" if status else "disabled")
+        self.cid_entry['state'] = ("normal" if status else "disabled")
+        self.console_id_label['state'] = ("normal" if status else "disabled")
+        self.console_id_entry['state'] = ("normal" if status else "disabled")
 
     def check_console(self, spath):
         tmenu = path.join(spath, '_nds', 'TWiLightMenu', 'main.srldr')
@@ -623,35 +624,35 @@ class Application(Frame):
         self.sdp.set(self.sd_path_alt)
         self.common_set()
         self.start_button['state'] = (
-            NORMAL if self.sd_path_alt != '' else DISABLED)
+            "normal" if self.sd_path_alt != '' else "disabled")
         if self.sd_path_alt == '':
-            self.uh_chk['state'] = DISABLED
-            self.dkp1_chk['state'] = DISABLED
-            self.ag1_chk['state'] = DISABLED
-            self.transfer_button['state'] = DISABLED
+            self.uh_chk['state'] = "disabled"
+            self.dkp1_chk['state'] = "disabled"
+            self.ag1_chk['state'] = "disabled"
+            self.transfer_button['state'] = "disabled"
             return
         self.check_console(self.sd_path_alt)
         if self.is_ctr:
-            self.uh_chk['state'] = DISABLED
-            self.dkp1_chk['state'] = DISABLED
-            self.ag1_chk['state'] = DISABLED
-            self.transfer_button['state'] = DISABLED
+            self.uh_chk['state'] = "disabled"
+            self.dkp1_chk['state'] = "disabled"
+            self.ag1_chk['state'] = "disabled"
+            self.transfer_button['state'] = "disabled"
         elif self.hiya_installed:
-            self.uh_chk['state'] = NORMAL
-            self.dkp1_chk['state'] = NORMAL
+            self.uh_chk['state'] = "normal"
+            self.dkp1_chk['state'] = "normal"
             self.ag1_chk['state'] = (
-                DISABLED if self.twlm_installed is True else NORMAL)
-            self.transfer_button['state'] = NORMAL
+                "disabled" if self.twlm_installed is True else "normal")
+            self.transfer_button['state'] = "normal"
         elif self.twlm_installed:
-            self.uh_chk['state'] = DISABLED
-            self.dkp1_chk['state'] = DISABLED
-            self.ag1_chk['state'] = DISABLED
-            self.transfer_button['state'] = DISABLED
+            self.uh_chk['state'] = "disabled"
+            self.dkp1_chk['state'] = "disabled"
+            self.ag1_chk['state'] = "disabled"
+            self.transfer_button['state'] = "disabled"
         else:
-            self.uh_chk['state'] = DISABLED
-            self.dkp1_chk['state'] = DISABLED
-            self.ag1_chk['state'] = DISABLED
-            self.transfer_button['state'] = DISABLED
+            self.uh_chk['state'] = "disabled"
+            self.dkp1_chk['state'] = "disabled"
+            self.ag1_chk['state'] = "disabled"
+            self.transfer_button['state'] = "disabled"
 
     def choose_nand(self):
         typefilters = [
@@ -663,8 +664,8 @@ class Application(Frame):
         name = askopenfilename(filetypes=typefilters)
 
         self.nand_file.set(name)
-        self.nand_button['state'] = (NORMAL if name != '' else DISABLED)
-        self.start_button['state'] = (NORMAL if name != '' else DISABLED)
+        self.nand_button['state'] = ("normal" if name != '' else "disabled")
+        self.start_button['state'] = ("normal" if name != '' else "disabled")
 
     ################################################################################################
     def start_point(self):
@@ -686,10 +687,10 @@ class Application(Frame):
         self.dialog.resizable(False, False)
         self.dialog.protocol("WM_DELETE_WINDOW", self.closethread)
 
-        frame = Frame(self.dialog, borderwidth=2, relief=SUNKEN)
+        frame = Frame(self.dialog, borderwidth=2, relief="sunken")
 
         scrollbar = Scrollbar(frame)
-        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar.pack(side="right", fill="y")
 
         self.log = ThreadSafeText(frame, bd=0, width=52, height=20,
                                   yscrollcommand=scrollbar.set)
@@ -819,11 +820,11 @@ class Application(Frame):
             self.sd_path_alt = ''
             self.sdp.set(self.sd_path_alt)
             self.common_set()
-            self.start_button['state'] = DISABLED
-            self.transfer_button['state'] = DISABLED
-            self.uh_chk['state'] = DISABLED
-            self.dkp1_chk['state'] = DISABLED
-            self.ag1_chk['state'] = DISABLED
+            self.start_button['state'] = "disabled"
+            self.transfer_button['state'] = "disabled"
+            self.uh_chk['state'] = "disabled"
+            self.dkp1_chk['state'] = "disabled"
+            self.ag1_chk['state'] = "disabled"
         if self.dialog is not None:
             self.dialog.destroy()
             self.dialog = None
@@ -2579,7 +2580,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.5.8 BY R-YaTian')
+root.title('TWLMagician V1.6.0 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window

@@ -21,7 +21,8 @@ if sys.maxsize > 2**32:  # 64-bit Python
             ("icon.ico", "icon.ico"),
             ("LICENSE", "LICENSE"),
             ("README.md", "README.md"),
-            ("Res/TaskbarLib/x64/TaskbarLib.dll", "TaskbarLib.dll")
+            ("Res/TaskbarLib/x64/TaskbarLib.dll", "TaskbarLib.dll"),
+            ("Res/seguisym.ttf", "seguisym.ttf")
         ]
     }
 else:  # 32-bit Python
@@ -49,20 +50,24 @@ else:  # 32-bit Python
             ("icon.ico", "icon.ico"),
             ("LICENSE", "LICENSE"),
             ("README.md", "README.md"),
-            ("Res/TaskbarLib/x86/TaskbarLib.dll", "TaskbarLib.dll")
+            ("Res/TaskbarLib/x86/TaskbarLib.dll", "TaskbarLib.dll"),
+            ("Res/seguisym.ttf", "seguisym.ttf")
         ]
     }
 
 executables = [
     Executable('TWLMagician.py',
                target_name='TWLMagician',
-               icon='icon.ico')
+               icon='icon.ico',
+               copyright="Copyright (C) 2020-2026 R-YaTian",
+               shortcut_name="TWLMagician",
+               shortcut_dir= "ProgramMenuFolder")
 ]
 
 setup(
     name='TWLMagician',
     author="R-YaTian",
-    version='1.5.8',
+    version='1.6.0',
     description='TWLMagician is a multipurpose tool for TWL Console (aka Nintendo DSi)',
     options={"build_exe": build_options,
              "bdist_msi": {
