@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.6.0
+# Version 1.6.1
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -2573,7 +2573,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.6.0 BY R-YaTian')
+root.title('TWLMagician V1.6.1 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
