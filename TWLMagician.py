@@ -1688,8 +1688,6 @@ class Application(Frame):
         filename = 'TWiLightMenu-DSi.7z' if self.is_ctr is False else 'TWiLightMenu-3DS.7z'
         self.files.append(filename)
         self.files.append('BOOT.NDS')
-        self.files.append('snemul.cfg')
-        self.files.append('TWiLight Menu - Game booter.cia')
         self.files.append('TWiLight Menu.cia')
         self.files.append('version.txt')
         self.files.append('Temp.fid')
@@ -1734,10 +1732,10 @@ class Application(Frame):
 
             if not self.is_ctr:
                 self.proc = Popen([_7za, 'x', '-bso0', '-y', filename, '_nds', 'title',
-                                   'hiya', 'roms', 'BOOT.NDS', 'snemul.cfg', 'version.txt'])
+                                   'hiya', 'roms', 'BOOT.NDS', 'version.txt'])
             else:
-                self.proc = Popen([_7za, 'x', '-bso0', '-y', filename, '_nds', 'TWiLight Menu - Game booter.cia',
-                                   'TWiLight Menu.cia', 'roms', 'BOOT.NDS', 'snemul.cfg', 'version.txt'])
+                self.proc = Popen([_7za, 'x', '-bso0', '-y', filename, '_nds',
+                                   'TWiLight Menu.cia', 'roms', 'BOOT.NDS', 'version.txt'])
 
             ret_val = self.proc.wait()
 
@@ -1777,22 +1775,18 @@ class Application(Frame):
                 pass
             copytree('roms', path.join(self.sd_path, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path, 'BOOT.NDS'))
-            copyfile('snemul.cfg', path.join(self.sd_path, 'snemul.cfg'))
         else:
             if self.updatehiya.get() == 1:
                 copytree('title', path.join(self.sd_path_alt, 'title'), dirs_exist_ok=True)
             copytree('_nds', path.join(self.sd_path_alt, '_nds'), dirs_exist_ok=True)
             copytree('roms', path.join(self.sd_path_alt, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path_alt, 'BOOT.NDS'))
-            copyfile('snemul.cfg', path.join(self.sd_path_alt, 'snemul.cfg'))
             if self.is_ctr:
                 cias = path.join(self.sd_path_alt, 'cias')
                 if not path.exists(cias):
                     mkdir(cias)
                 copyfile('TWiLight Menu.cia', path.join(
                     self.sd_path_alt, 'cias', 'TWiLight Menu.cia'))
-                copyfile('TWiLight Menu - Game booter.cia',
-                         path.join(self.sd_path_alt, 'cias', 'TWiLight Menu - Game booter.cia'))
 
         self.read_ver()
 
@@ -2456,7 +2450,6 @@ class Application(Frame):
             copytree('_nds', path.join(self.sd_path_alt, '_nds'), dirs_exist_ok=True)
             copytree('roms', path.join(self.sd_path_alt, 'roms'), dirs_exist_ok=True)
             copyfile('BOOT.NDS', path.join(self.sd_path_alt, 'BOOT.NDS'))
-            copyfile('snemul.cfg', path.join(self.sd_path_alt, 'snemul.cfg'))
             self.read_ver()
 
         if self.devkp.get() == 1:
