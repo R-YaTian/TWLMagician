@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.6.1
+# Version 1.6.2
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -40,7 +40,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 160
+version_number = 162
 
 
 # Check Update
@@ -1025,8 +1025,7 @@ class Application(Frame):
                     self.TThread = Thread(target=self.get_launcher)
                     self.TThread.start()
                 else:
-                    self.TThread = Thread(target=self.decrypt_nand if path.isfile('bootloader.nds')
-                                          else self.extract_bios)
+                    self.TThread = Thread(target=self.extract_bios)
                     self.TThread.start()
 
             else:
@@ -1045,6 +1044,7 @@ class Application(Frame):
     def extract_bios(self):
         self.files.append('arm7.bin')
         self.files.append('arm9.bin')
+        self.files.append('bootloader.nds')
         self.log.write(_('正在从NAND中解压 ARM7/ARM9 BIOS...'))
 
         try:
@@ -1690,7 +1690,6 @@ class Application(Frame):
         self.files.append('BOOT.NDS')
         self.files.append('TWiLight Menu.cia')
         self.files.append('version.txt')
-        self.files.append('Temp.fid')
         self.folders.append('_nds')
         self.folders.append('roms')
         self.folders.append('title')
@@ -2573,7 +2572,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.6.1 BY R-YaTian')
+root.title('TWLMagician V1.6.2 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
