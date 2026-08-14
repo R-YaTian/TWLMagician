@@ -2,7 +2,7 @@
 # coding=utf-8
 
 # TWLMagician
-# Version 1.6.2
+# Version 1.6.3
 # Author: R-YaTian
 # Original "HiyaCFW-Helper" Author: mondul <mondul@huyzona.com>
 
@@ -40,7 +40,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 ntime_tmp = None
 downloadfile = False
-version_number = 162
+version_number = 163
 
 
 # Check Update
@@ -1864,7 +1864,7 @@ class Application(Frame):
                 out = rmdot_(self.sd_path_alt)
             else:
                 out = rmdot_(self.sd_path)
-            if out == 1:
+            if out is True:
                 self.log.write(_("'._' 文件清理完毕"))
 
         if self.adv_mode and self.is_ctr:
@@ -2572,7 +2572,7 @@ if not path.exists(fatcat):
 printl(_('TWLMagician启动中...'))
 # Create window
 root = ttk.Window(themename="cosmo", iconphoto=None)
-root.title('TWLMagician V1.6.2 BY R-YaTian')
+root.title('TWLMagician V1.6.3 BY R-YaTian')
 # Disable maximizing
 root.resizable(False, False)
 # Center in window
