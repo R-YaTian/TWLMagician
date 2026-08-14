@@ -9,7 +9,6 @@
 import ttkbootstrap as ttk
 from ttkbootstrap import (Frame, Labelframe, PhotoImage, Button, Entry, Checkbutton, Radiobutton, OptionMenu,
                      Label, Toplevel, Scrollbar, Text, StringVar, IntVar)
-import ttkbootstrap.utility
 try:
     from ttkbootstrap.widgets import ToolTip
 except ImportError:

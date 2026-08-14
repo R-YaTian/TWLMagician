@@ -6,7 +6,6 @@ if sys.maxsize > 2**32:  # 64-bit Python
     build_options = {
         "packages": [],
         "excludes": ["rmdot_files",
-                     "zipfile",
                      "xml",
                      "packaging",
                      "_bz2",
