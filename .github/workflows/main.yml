@@ -34,7 +34,7 @@ jobs:
       - name: Install pyinstaller and ttkbootstrap
         run: |
           pip3 install pyinstaller
-          pip3 install ttkbootstrap
+          pip3 install ttkbootstrap==1.17.0
       - name: Install universal2 Pillow wheel
         run: |
           python3 -m pip install pillow-313-cp313-cp313-macosx_11_0_universal2.whl --force-reinstall
