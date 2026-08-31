@@ -1946,7 +1946,11 @@ class Application(Frame):
         # Autodetect console region
         try:
             for app in listdir(path.join(base, 'title', '00030017')):
-                for file in listdir(path.join(base, 'title', '00030017', app, 'content')):
+                content_dir = path.join(base, 'title', '00030017', app, 'content')
+                # Skip apps without a content folder to avoid FileNotFoundError
+                if not path.isdir(content_dir):
+                    continue
+                for file in listdir(content_dir):
                     if file.lower().endswith('.app'):
                         try:
                             if file.startswith("0000000"):
